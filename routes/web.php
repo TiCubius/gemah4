@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'GemahController@index');
+
+Route::get('/administrations', 'Administrations\AdministrationsController@index')->name('web.administrations.index');

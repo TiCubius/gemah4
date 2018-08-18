@@ -10,6 +10,7 @@ class GemahController extends Controller
 
 	/**
 	 * Affiche l'Index de l'application
+	 *
 	 * @return View
 	 */
 	public function index(): View

@@ -9,8 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class IndexTest extends TestCase
 {
     /**
-     * L'index permet l'accès aux différents composants de l'application.
-     * Il est composé de liens vers les diverses sections
+     * Test l'index de l'application
+     * Il est composé de liens vers les diverses sections de l'application
      *
      * @return void
      */

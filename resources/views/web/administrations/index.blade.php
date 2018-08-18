@@ -5,7 +5,7 @@
         <div class="col-12">
             <a href="#">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
-                    Gestion des Elèves
+                    Gestion des Utilisateurs
                 </button>
             </a>
         </div>
@@ -13,7 +13,7 @@
         <div class="col-12">
             <a href="#">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
-                    Gestion des Responsables
+                    Gestion des Services
                 </button>
             </a>
         </div>
@@ -21,7 +21,7 @@
         <div class="col-12">
             <a href="#">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
-                    Gestion du Matériel
+                    Liste des Permissions
                 </button>
             </a>
         </div>
@@ -29,15 +29,15 @@
         <div class="col-12">
             <a href="#">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
-                    Statistiques
+                    Gestion des Tickets
                 </button>
             </a>
         </div>
 
         <div class="col-12">
-            <a href="{{ route('web.administrations.index') }}">
+            <a href="#">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
-                    Administrations
+                    Historique des Actions
                 </button>
             </a>
         </div>

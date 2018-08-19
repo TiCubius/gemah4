@@ -32,6 +32,8 @@ Route::put("/administrations/regions/{id}", "Administrations\RegionsController@u
 Route::get("/administrations/utilisateurs", "Administrations\UtilisateursController@index")->name("web.administrations.utilisateurs.index");
 Route::get("/administrations/utilisateurs/new", "Administrations\UtilisateursController@create")->name("web.administrations.utilisateurs.create");
 Route::post("/administrations/utilisateurs", "Administrations\UtilisateursController@store");
+Route::get("/administrations/utilisateurs/{id}/edit", "Administrations\UtilisateursController@edit")->name("web.administrations.utilisateurs.edit");
+Route::put("/administrations/utilisateurs/{id}", "Administrations\UtilisateursController@update")->name("web.administrations.utilisateurs.update");
 
 Route::get("/administrations/services", "Administrations\ServicesController@index")->name("web.administrations.services.index");
 Route::get("/administrations/services/new", "Administrations\ServicesController@create")->name("web.administrations.services.create");

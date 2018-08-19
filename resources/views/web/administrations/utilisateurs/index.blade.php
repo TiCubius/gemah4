@@ -36,7 +36,9 @@
                             <td>{{ $Utilisateur->service->nom }}</td>
                             <td>{{ $Utilisateur->email }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                <a href="{{ route("web.administrations.utilisateurs.edit", [$Utilisateur->id]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

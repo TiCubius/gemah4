@@ -80,26 +80,42 @@ class UtilisateursController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * GET - Affiche le formulaire d'édition d'un utilisateur
 	 *
-	 * @param  \App\Utilisateur $utilisateur
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return View
 	 */
-	public function edit(Utilisateur $utilisateur)
+	public function edit(int $id): View
 	{
-		//
+		$Utilisateur = Utilisateur::findOrFail($id);
+		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$Services = Service::orderBy("nom", "ASC")->get();
+
+		return view("web.administrations.utilisateurs.edit", compact("Utilisateur", "Academies", "Services"));
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * PUT - Enregistre les modifications apportés au utilisateur
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param  \App\Utilisateur         $utilisateur
-	 * @return \Illuminate\Http\Response
+	 * @param int                       $id
+	 * @return RedirectResponse
 	 */
-	public function update(Request $request, Utilisateur $utilisateur)
+	public function update(Request $request, int $id): RedirectResponse
 	{
-		//
+		$request->validate([
+			"nom"      => "required|max:191",
+			"prenom"   => "required|max:191",
+			"email"    => "required|max:191|email|unique:utilisateurs,email,{$id}",
+			"password" => "required|min:8|confirmed",
+			"academie" => "required",
+			"service"  => "required",
+		]);
+
+		$Utilisateur = Utilisateur::findOrFail($id);
+		$Utilisateur->update($request->all());
+
+		return redirect(route("web.administrations.utilisateurs.index"));
 	}
 
 	/**

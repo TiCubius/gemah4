@@ -34,7 +34,9 @@
                             <td>{{ $Academie->nom }}</td>
                             <td>{{ $Academie->region->nom }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                <a href="{{ route("web.administrations.academies.edit", [$Academie->id]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

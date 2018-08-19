@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
-use App\Region;
+use App\Models\Region;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -16,7 +17,7 @@ class RegionsController extends Controller
 	 */
 	public function index(): View
 	{
-		$Regions = \App\Models\Region::all();
+		$Regions = Region::all();
 
 		return view("web.administrations.regions.index", compact("Regions"));
 	}
@@ -32,18 +33,18 @@ class RegionsController extends Controller
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * POST - Enregistre la région
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @return \Illuminate\Http\Response
+	 * @return RedirectResponse
 	 */
-	public function store(Request $request)
+	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
 			"nom" => "required|max:191|unique:regions",
 		]);
 
-		\App\Models\Region::create([
+		Region::create([
 			"nom" => $request->input("nom"),
 		]);
 
@@ -62,26 +63,35 @@ class RegionsController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * GET - Affiche le formulaire d'édition d'une région
 	 *
-	 * @param  \App\Region $region
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return View
 	 */
-	public function edit(Region $region)
+	public function edit(int $id): View
 	{
-		//
+		$Region = Region::findOrFail($id);
+
+		return view("web.administrations.regions.edit", compact("Region"));
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * PUT - Enregistre les modifications apportés à la région
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param  \App\Region              $region
-	 * @return \Illuminate\Http\Response
+	 * @param int                       $id
+	 * @return RedirectResponse
 	 */
-	public function update(Request $request, Region $region)
+	public function update(Request $request, int $id): RedirectResponse
 	{
-		//
+		$request->validate([
+			"nom" => "required|max:191|unique:regions,nom,{$id}",
+		]);
+
+		$Region = Region::findOrFail($id);
+		$Region->update($request->all());
+
+		return redirect(route("web.administrations.regions.index"));
 	}
 
 	/**

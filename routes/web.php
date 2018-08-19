@@ -18,10 +18,15 @@ Route::get("/administrations", "Administrations\AdministrationsController@index"
 Route::get("/administrations/academies", "Administrations\AcademiesController@index")->name("web.administrations.academies.index");
 Route::get("/administrations/academies/new", "Administrations\AcademiesController@create")->name("web.administrations.academies.create");
 Route::post("/administrations/academies", "Administrations\AcademiesController@store");
+Route::get("/administrations/academies/{id}/edit", "Administrations\AcademiesController@edit")->name("web.administrations.academies.edit");
+Route::put("/administrations/academies/{id}", "Administrations\AcademiesController@update")->name("web.administrations.academies.update");
 
 Route::get("/administrations/regions", "Administrations\RegionsController@index")->name("web.administrations.regions.index");
 Route::get("/administrations/regions/new", "Administrations\RegionsController@create")->name("web.administrations.regions.create");
 Route::post("/administrations/regions", "Administrations\RegionsController@store");
+Route::get("/administrations/regions/{id}/edit", "Administrations\RegionsController@edit")->name("web.administrations.regions.edit");
+Route::put("/administrations/regions/{id}", "Administrations\RegionsController@update")->name("web.administrations.regions.update");
+
 
 
 Route::get("/administrations/utilisateurs", "Administrations\UtilisateursController@index")->name("web.administrations.utilisateurs.index");

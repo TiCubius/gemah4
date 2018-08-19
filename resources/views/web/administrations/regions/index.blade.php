@@ -32,7 +32,9 @@
                         <tr>
                             <td>{{ $Region->nom }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                <a href="{{ route("web.administrations.regions.edit", [$Region->id]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

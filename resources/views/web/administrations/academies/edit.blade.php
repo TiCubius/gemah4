@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4>Création d'une Académie</h4>
+                    <h4>Édition de {{ $Academie->nom }}</h4>
                     <a href="{{ route("web.administrations.academies.index") }}">
                         <button class="btn btn-outline-primary">Retour</button>
                     </a>
@@ -16,15 +16,17 @@
 
         <div class="col-12">
 
-            <form class="mb-3" action="{{ route("web.administrations.academies.index") }}" method="POST">
+            <form class="mb-3" action="{{ route("web.administrations.academies.update", [$Academie->id]) }}" method="POST">
                 {{ csrf_field() }}
+                {{ method_field("put") }}
 
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label for="nom">Nom de l'académie</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}">
+                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Academie->nom }}">
                     </div>
                 </div>
+
 
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
@@ -32,8 +34,8 @@
                         <select id="region" class="form-control" name="region">
                             <option hidden>Sélectionner une Région</option>
                             @foreach($Regions as $Region)
-                                @if (old("region") == $Region->id)
-                                    <option selected value="{{ $Region->id }}">{{ $Region->nom }}</option>
+                                @if ($Academie->region_id == $Region->id))
+                                <option selected value="{{ $Region->id }}">{{ $Region->nom }}</option>
                                 @else
                                     <option value="{{ $Region->id }}">{{ $Region->nom }}</option>
                                 @endif
@@ -43,7 +45,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-sm btn-outline-success">Créer l'académie</button>
+                    <button class="btn btn-sm btn-outline-success">Éditer l'académie</button>
                 </div>
             </form>
 

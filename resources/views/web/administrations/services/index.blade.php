@@ -32,7 +32,9 @@
                         <tr>
                             <td>{{ $Service->nom }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                <a href="{{ route("web.administrations.services.edit", [$Service->id]) }}">
+                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

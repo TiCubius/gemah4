@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
-use App\Service;
+use App\Models\Service;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -64,26 +65,35 @@ class ServicesController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * GET - Affiche le formulaire d'édition d'un service
 	 *
-	 * @param  \App\Service $service
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return View
 	 */
-	public function edit(Service $service)
+	public function edit(int $id): View
 	{
-		//
+		$Service = Service::findOrFail($id);
+
+		return view("web.administrations.services.edit", compact("Service"));
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * PUT - Enregistre les modifications apportés au service
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param  \App\Service             $service
-	 * @return \Illuminate\Http\Response
+	 * @param int                       $id
+	 * @return RedirectResponse
 	 */
-	public function update(Request $request, Service $service)
+	public function update(Request $request, int $id): RedirectResponse
 	{
-		//
+		$request->validate([
+			"nom" => "required|max:191|unique:services,nom,{$id}",
+		]);
+
+		$Service = Service::findOrFail($id);
+		$Service->update($request->all());
+
+		return redirect(route("web.administrations.services.index"));
 	}
 
 	/**

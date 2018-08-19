@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Utilisateur extends Model
+class Academie extends Model
 {
 
 	protected $fillable = [
 		"nom",
-		"prenom",
-		"email",
-		"password",
-		"academie_id",
-		"service_id",
+		"region_id",
 	];
 
+
 	/**
+	 * Une Académie est présente dans au plus une Région
+	 *
 	 * @return BelongsTo
 	 */
-	public function service()
+	public function region(): BelongsTo
 	{
-		return $this->belongsTo(Service::class);
+		return $this->belongsTo(Region::class);
 	}
 
 }

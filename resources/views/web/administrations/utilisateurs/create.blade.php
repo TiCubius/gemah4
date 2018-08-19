@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4>Création d'un nouvel utilisateur</h4>
+                    <h4>Création d'un Utilisateur</h4>
                     <a href="{{ route("web.administrations.utilisateurs.index") }}">
                         <button class="btn btn-outline-primary">Retour</button>
                     </a>
@@ -56,6 +56,9 @@
                         <label for="academie">Académie de l'utilisateur</label>
                         <select id="academie" class="form-control" name="academie">
                             <option hidden>Sélectionner une Académie</option>
+                            @foreach($Academies as $Academie)
+                                <option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -63,6 +66,9 @@
                         <label for="service">Service de l'utilisateur</label>
                         <select id="service" class="form-control" name="service">
                             <option hidden>Sélectionner un Service</option>
+                            @foreach($Services as $Service)
+                                <option value="{{ $Service->id }}">{{ $Service->nom }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academie;
+use App\Models\Service;
 use App\Models\Utilisateur;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +20,9 @@ class UtilisateursController extends Controller
 	 */
 	public function index(): View
 	{
-		return view("web.administrations.utilisateurs.index");
+		$Utilisateurs = Utilisateur::with("service")->orderBy("nom", "ASC")->get();
+
+		return view("web.administrations.utilisateurs.index", compact("Utilisateurs"));
 	}
 
 	/**
@@ -28,7 +32,10 @@ class UtilisateursController extends Controller
 	 */
 	public function create(): View
 	{
-		return view("web.administrations.utilisateurs.create");
+		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$Services = Service::orderBy("nom", "ASC")->get();
+
+		return view("web.administrations.utilisateurs.create", compact("Academies", "Services"));
 	}
 
 	/**
@@ -40,19 +47,19 @@ class UtilisateursController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"      => "required|max:255",
-			"prenom"   => "required|max:255",
-			"email"    => "required|max:255|email|unique:utilisateurs",
+			"nom"      => "required|max:191",
+			"prenom"   => "required|max:191",
+			"email"    => "required|max:191|email|unique:utilisateurs",
 			"password" => "required|min:8|confirmed",
 			"academie" => "required",
 			"service"  => "required",
 		]);
 
 		Utilisateur::create([
-			"nom"         => $request->input("nom"),
-			"prenom"      => $request->input("prenom"),
-			"email"       => $request->input("email"),
-			"password"    => Hash::make($request->input("password")),
+			"nom"      => $request->input("nom"),
+			"prenom"   => $request->input("prenom"),
+			"email"    => $request->input("email"),
+			"password" => Hash::make($request->input("password")),
 
 			"academie_id" => $request->input("academie"),
 			"service_id"  => $request->input("service"),

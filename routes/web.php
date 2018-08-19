@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', 'GemahController@index');
+Route::get('/', 'GemahController@index')->name('web.index');
 
-Route::get('/administrations', 'Administrations\AdministrationsController@index')->name('web.administrations.index');
+Route::get("/administrations", "Administrations\AdministrationsController@index")->name("web.administrations.index");
+
+Route::get("/administrations/utilisateurs", "Administrations\UtilisateursController@index")->name("web.administrations.utilisateurs.index");
+Route::get("/administrations/utilisateurs/new", "Administrations\UtilisateursController@create")->name("web.administrations.utilisateurs.create");
+Route::post("/administrations/utilisateurs", "Administrations\UtilisateursController@store");

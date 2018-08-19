@@ -14,9 +14,10 @@
         <title>{{ $title ?? 'GEMAH' }}</title>
     </head>
     <body>
-        @include('web._includes.navbar')
+        @include("web._includes.navbar")
         <div class="container-fluid">
-            @yield('content')
+            @include("web._includes.flash")
+            @yield("content")
         </div>
 
         <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>

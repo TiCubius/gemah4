@@ -3,7 +3,7 @@
     <div class="row">
 
         <div class="col-12">
-            <a href="#">
+            <a href="{{ route("web.administrations.utilisateurs.index") }}">
                 <button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-color">
                     Gestion des Utilisateurs
                 </button>

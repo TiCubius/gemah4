@@ -6,10 +6,10 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdministrationTest extends TestCase
+class AdministrationsTest extends TestCase
 {
     /**
-     * Test l'index du menu de l'Administration
+     * Test l'index du menu de l'Administrations
      * Il est composé de liens vers les différentes sections utile aux administrateurs
      *
      * @return void

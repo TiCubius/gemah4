@@ -23,7 +23,7 @@
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label for="nom">Nom de l'académie</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Academie->nom }}">
+                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Academie->nom }}" required>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label for="region">Région de l'académie</label>
-                        <select id="region" class="form-control" name="region">
+                        <select id="region" class="form-control" name="region" required>
                             <option hidden>Sélectionner une Région</option>
                             @foreach($Regions as $Region)
                                 @if ($Academie->region_id == $Region->id))

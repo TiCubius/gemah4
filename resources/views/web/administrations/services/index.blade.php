@@ -20,26 +20,32 @@
         </div>
 
         <div class="col-12">
-            <table class="table table-sm table-hover text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($Services as $Service)
+            @if($Services->isEmpty())
+                <div class="alert alert-warning">
+                    Aucun service n'est enregistré sur l'application
+                </div>
+            @else
+                <table class="table table-sm table-hover text-center">
+                    <thead class="gemah-bg-color">
                         <tr>
-                            <td>{{ $Service->nom }}</td>
-                            <td>
-                                <a href="{{ route("web.administrations.services.edit", [$Service->id]) }}">
-                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
-                                </a>
-                            </td>
+                            <th>Nom</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($Services as $Service)
+                            <tr>
+                                <td>{{ $Service->nom }}</td>
+                                <td>
+                                    <a href="{{ route("web.administrations.services.edit", [$Service->id]) }}">
+                                        <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
 @endsection

@@ -23,14 +23,14 @@
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label for="nom">Nom du service</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Service->nom }}">
+                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Service->nom }}" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-12 col-md-6 mb-3 mb-md-0">
                         <label for="description">Description du service</label>
-                        <input id="description" class="form-control" name="description" type="text" placeholder="Description" value="{{ $Service->description }}">
+                        <input id="description" class="form-control" name="description" type="text" placeholder="Description" value="{{ $Service->description }}" required>
                     </div>
                 </div>
 

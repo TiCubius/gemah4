@@ -20,30 +20,36 @@
         </div>
 
         <div class="col-12">
-            <table class="table table-sm table-hover text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nom</th>
-                        <th>Rôle</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($Utilisateurs as $Utilisateur)
+            @if($Utilisateurs->isEmpty())
+                <div class="alert alert-warning">
+                    Aucun utilisateur n'est enregistré sur l'application
+                </div>
+            @else
+                <table class="table table-sm table-hover text-center">
+                    <thead class="gemah-bg-color">
                         <tr>
-                            <th>{{ "{$Utilisateur->nom} {$Utilisateur->prenom}" }}</th>
-                            <td>{{ $Utilisateur->service->nom }}</td>
-                            <td>{{ $Utilisateur->email }}</td>
-                            <td>
-                                <a href="{{ route("web.administrations.utilisateurs.edit", [$Utilisateur->id]) }}">
-                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
-                                </a>
-                            </td>
+                            <th>Nom</th>
+                            <th>Rôle</th>
+                            <th>Email</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($Utilisateurs as $Utilisateur)
+                            <tr>
+                                <th>{{ "{$Utilisateur->nom} {$Utilisateur->prenom}" }}</th>
+                                <td>{{ $Utilisateur->service->nom }}</td>
+                                <td>{{ $Utilisateur->email }}</td>
+                                <td>
+                                    <a href="{{ route("web.administrations.utilisateurs.edit", [$Utilisateur->id]) }}">
+                                        <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
 @endsection

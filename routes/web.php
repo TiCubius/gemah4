@@ -27,8 +27,6 @@ Route::post("/administrations/regions", "Administrations\RegionsController@store
 Route::get("/administrations/regions/{id}/edit", "Administrations\RegionsController@edit")->name("web.administrations.regions.edit");
 Route::put("/administrations/regions/{id}", "Administrations\RegionsController@update")->name("web.administrations.regions.update");
 
-
-
 Route::get("/administrations/utilisateurs", "Administrations\UtilisateursController@index")->name("web.administrations.utilisateurs.index");
 Route::get("/administrations/utilisateurs/new", "Administrations\UtilisateursController@create")->name("web.administrations.utilisateurs.create");
 Route::post("/administrations/utilisateurs", "Administrations\UtilisateursController@store");
@@ -40,3 +38,11 @@ Route::get("/administrations/services/new", "Administrations\ServicesController@
 Route::post("/administrations/services", "Administrations\ServicesController@store");
 Route::get("/administrations/services/{id}/edit", "Administrations\ServicesController@edit")->name("web.administrations.services.edit");
 Route::put("/administrations/services/{id}", "Administrations\ServicesController@update")->name("web.administrations.services.update");
+
+
+
+Route::get("/responsables", "Responsables\ResponsablesController@index")->name("web.responsables.index");
+Route::get("/responsables/new", "Responsables\ResponsablesController@create")->name("web.responsables.create");
+Route::post("/responsables", "Responsables\ResponsablesController@store");
+Route::get("/responsables/{id}/edit", "Responsables\ResponsablesController@edit")->name("web.responsables.edit");
+Route::put("/responsables/{id}", "Responsables\ResponsablesController@update")->name("web.responsables.update");

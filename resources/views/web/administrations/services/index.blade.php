@@ -26,7 +26,7 @@
                 </div>
             @else
                 <table class="table table-sm table-hover text-center">
-                    <thead class="gemah-bg-color">
+                    <thead class="gemah-bg-primary">
                         <tr>
                             <th>Nom</th>
                             <th>Actions</th>
@@ -47,5 +47,6 @@
                 </table>
             @endif
         </div>
+
     </div>
 @endsection

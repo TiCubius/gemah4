@@ -1,7 +1,6 @@
 @extends('web._includes._master')
 @section('content')
     <div class="row">
-
         <div class="col-12">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
@@ -26,7 +25,7 @@
                 </div>
             @else
                 <table class="table table-sm table-hover text-center">
-                    <thead class="gemah-bg-color">
+                    <thead class="gemah-bg-primary">
                         <tr>
                             <th>Nom</th>
                             <th>Actions</th>

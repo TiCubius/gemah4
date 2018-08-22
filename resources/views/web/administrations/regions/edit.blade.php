@@ -1,7 +1,6 @@
 @extends('web._includes._master')
 @section('content')
     <div class="row">
-
         <div class="col-12">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
@@ -15,7 +14,6 @@
         </div>
 
         <div class="col-12">
-
             <form class="mb-3" action="{{ route("web.administrations.regions.update", [$Region->id]) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field("put") }}
@@ -31,7 +29,6 @@
                     <button class="btn btn-sm btn-outline-success">Éditer la région</button>
                 </div>
             </form>
-
         </div>
     </div>
 @endsection

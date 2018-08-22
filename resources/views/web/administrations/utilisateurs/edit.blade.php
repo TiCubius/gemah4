@@ -15,7 +15,6 @@
         </div>
 
         <div class="col-12">
-
             <form class="mb-3" action="{{ route("web.administrations.utilisateurs.update", [$Utilisateur->id]) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field("put") }}
@@ -74,7 +73,7 @@
                     <button class="btn btn-sm btn-outline-success">Éditer l'utilisateur</button>
                 </div>
             </form>
-
         </div>
+
     </div>
 @endsection

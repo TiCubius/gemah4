@@ -9,24 +9,29 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegionsTest extends TestCase
 {
+
 	/**
-	 * Vérifie que les données présentes sur l'index du menu Administration > Gestion des Regions
-	 * sont bien celles attendues
+	 * Vérifie que les données présentes sur l'index sont bien celles attendues.
 	 */
 	public function testAffichageIndexRegions()
 	{
+		$Regions = factory(Region::class, 5)->create();
+
 		$request = $this->get("/administrations/regions");
 
 		$request->assertStatus(200);
 		$request->assertSee("Liste des Régions");
+
+		foreach ($Regions as $Region) {
+			$request->assertSee($Region->nom);
+		}
 	}
 
 
-
 	/**
-	 * Vérifie que le Formulaire de création d'une Region contient bien les champs nécessaire
+	 * Vérifie que le formulaire de création contient bien les champs nécessaires
 	 */
-	public function testAffichageFormulaireAjoutRegion()
+	public function testAffichageFormulaireCreationRegion()
 	{
 		$request = $this->get("/administrations/regions/new");
 
@@ -37,10 +42,10 @@ class RegionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'ajout d'une Region incomplet
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire
+	 * de création incomplet
 	 */
-	public function testTraitementFormulaireAjoutRegionIncomplet()
+	public function testTraitementFormulaireCreationRegionIncomplet()
 	{
 		$request = $this->post("/administrations/regions", [
 			"_token" => csrf_token(),
@@ -50,51 +55,47 @@ class RegionsTest extends TestCase
 		$request->assertSessionHasErrors();
 	}
 
+	/**
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
+	 * d'une Région déjà existante
+	 */
+	public function testTraitementFormulaireCreationRegionExistante()
+	{
+		$Regions = factory(Region::class, 5)->create();
+
+		$request = $this->post("/administrations/regions", [
+			"_token" => csrf_token(),
+			"nom"    => $Regions->random()->nom,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+	}
 
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et qu'aucune erreur n'est présente lors de la soumission d'un
-	 * formulaire d'ajout d'une Region complet
+	 * Vérifie qu'aucune erreur n'est présente et qu'une Région à bien été créée lors de la soumissions d'un
+	 * formulaire de création complet
 	 */
-	public function testTraitementFormulaireAjoutRegionComplet()
+	public function testTraitementFormulaireCreationRegionComplet()
 	{
 		$request = $this->post("/administrations/regions", [
 			"_token" => csrf_token(),
-			"nom"    => "Unit",
+			"nom"    => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-	}
-
-	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'ajout d'une Région déjà présente dans la base de donnée
-	 */
-	public function testTraitementFormulaireAjoutRegionExistante()
-	{
-
-		$this->post("/administrations/regions", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-		]);
-
-		$request = $this->post("/administrations/regions", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("regions", ["nom" => "unit.testing"]);
 	}
 
 
-
 	/**
-	 * Vérifie que le Formulaire d'édition d'une Région contient bien les champs nécessaire
+	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires
 	 */
 	public function testAffichageFormulaireEditionRegion()
 	{
 		$Region = factory(Region::class)->create();
+
 		$request = $this->get("/administrations/regions/{$Region->id}/edit");
 
 		$request->assertStatus(200);
@@ -104,12 +105,12 @@ class RegionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'édition d'une Région incomplet
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition incomplet
 	 */
 	public function testTraitementFormulaireEditionRegionIncomplet()
 	{
 		$Region = factory(Region::class)->create();
+
 		$request = $this->put("/administrations/regions/{$Region->id}", [
 			"_token" => csrf_token(),
 		]);
@@ -118,30 +119,14 @@ class RegionsTest extends TestCase
 		$request->assertSessionHasErrors();
 	}
 
-
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et qu'aucune erreur n'est présente lors de la soumission d'un
-	 * formulaire d'édition d'une Région complet
-	 */
-	public function testTraitementFormulaireEditionRegionComplet()
-	{
-		$Region = factory(Region::class)->create();
-		$request = $this->put("/administrations/regions/{$Region->id}", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasNoErrors();
-	}
-
-	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'édition d'une Région déjà présente dans la base de donnée
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
+	 * d'une Région déjà existante
 	 */
 	public function testTraitementFormulaireEditionRegionExistante()
 	{
 		$Regions = factory(Region::class, 2)->create();
+
 		$request = $this->put("/administrations/regions/{$Regions[0]->id}", [
 			"_token" => csrf_token(),
 			"nom"    => $Regions[1]->nom,
@@ -149,5 +134,43 @@ class RegionsTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("regions", ["nom" => $Regions[0]->nom]);
 	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que la Région à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet
+	 */
+	public function testTraitementFormulaireEditionRegionCompletSansModification()
+	{
+		$Region = factory(Region::class)->create();
+
+		$request = $this->put("/administrations/regions/{$Region->id}", [
+			"_token" => csrf_token(),
+			"nom"    => $Region->nom,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("regions", ["nom" => $Region->nom]);
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que la Région à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet
+	 */
+	public function testTraitementFormulaireEditionRegionCompletAvecModification()
+	{
+		$Region = factory(Region::class)->create();
+
+		$request = $this->put("/administrations/regions/{$Region->id}", [
+			"_token" => csrf_token(),
+			"nom"    => "unit.testing",
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("regions", ["nom" => "unit.testing"]);
+	}
+
 }

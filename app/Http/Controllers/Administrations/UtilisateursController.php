@@ -107,7 +107,6 @@ class UtilisateursController extends Controller
 			"nom"      => "required|max:191",
 			"prenom"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs,email,{$id}",
-			"password" => "required|min:8|confirmed",
 			"academie" => "required",
 			"service"  => "required",
 		]);

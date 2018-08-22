@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark gemah-bg-color mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark gemah-bg-primary mb-3">
     <a class="navbar-brand" href="{{ route('web.index') }}">GEMAH</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>

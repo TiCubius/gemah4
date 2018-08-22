@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Academie extends Model
 {
 
-	protected $fillable = [
-		"nom",
-		"region_id",
-	];
+	protected $fillable = ["nom", "region_id"];
 
 
 	/**

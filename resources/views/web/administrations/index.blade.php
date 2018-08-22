@@ -17,7 +17,7 @@
 
         <div class="col-12 col-md-4">
             <div class="list-group mb-3">
-                <div class="list-group-item flex-column align-items-start gemah-bg-color">
+                <div class="list-group-item flex-column align-items-start gemah-bg-primary">
                     Académies et Régions
                 </div>
 
@@ -31,7 +31,7 @@
         </div>
         <div class="col-12 col-md-4">
             <div class="list-group mb-3">
-                <div class="list-group-item flex-column align-items-start gemah-bg-color">
+                <div class="list-group-item flex-column align-items-start gemah-bg-primary">
                     Services et Utilisateurs
                 </div>
 
@@ -45,7 +45,7 @@
         </div>
         <div class="col-12 col-md-4">
             <div class="list-group mb-3">
-                <div class="list-group-item flex-column align-items-start gemah-bg-color">
+                <div class="list-group-item flex-column align-items-start gemah-bg-primary">
                     Outils
                 </div>
 

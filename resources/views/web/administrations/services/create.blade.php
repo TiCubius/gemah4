@@ -15,7 +15,6 @@
         </div>
 
         <div class="col-12">
-
             <form class="mb-3" action="{{ route("web.administrations.services.index") }}" method="POST">
                 {{ csrf_field() }}
 
@@ -37,7 +36,7 @@
                     <button class="btn btn-sm btn-outline-success">Créer le service</button>
                 </div>
             </form>
-
         </div>
+
     </div>
 @endsection

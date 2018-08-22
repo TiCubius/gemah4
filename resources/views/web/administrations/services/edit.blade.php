@@ -15,7 +15,6 @@
         </div>
 
         <div class="col-12">
-
             <form class="mb-3" action="{{ route("web.administrations.services.update", [$Service->id]) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field("put") }}
@@ -38,7 +37,7 @@
                     <button class="btn btn-sm btn-outline-success">Éditer le service</button>
                 </div>
             </form>
-
         </div>
+
     </div>
 @endsection

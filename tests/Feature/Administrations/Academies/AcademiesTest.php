@@ -3,29 +3,38 @@
 namespace Tests\Feature;
 
 use App\Models\Academie;
+use App\Models\Region;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcademiesTest extends TestCase
 {
+
 	/**
-	 * Vérifie que les données présentes sur l'index du menu Administration > Gestion des Académies
-	 * sont bien celles attendues
+	 * Vérifie que les données présentes sur l'index sont bien celles attendues.
 	 */
 	public function testAffichageIndexAcademies()
 	{
+		$Region = factory(Region::class, 1)->create();
+		$Academies = factory(Academie::class, 5)->create();
+
 		$request = $this->get("/administrations/academies");
 
 		$request->assertStatus(200);
 		$request->assertSee("Liste des Académies");
+
+		foreach ($Academies as $Academie) {
+			$request->assertSee($Academie->nom);
+			$request->assertSee($Academie->region->nom);
+		}
 	}
 
 
 	/**
-	 * Vérifie que le Formulaire de création d'une Académie contient bien les champs nécessaire
+	 * Vérifie que le formulaire de création contient bien les champs nécessaires
 	 */
-	public function testAffichageFormulaireAjoutAcademie()
+	public function testAffichageFormulaireCreationAcademie()
 	{
 		$request = $this->get("/administrations/academies/new");
 
@@ -37,10 +46,10 @@ class AcademiesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'ajout d'une Académie incomplet
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire
+	 * de création incomplet
 	 */
-	public function testTraitementFormulaireAjoutAcademieIncomplet()
+	public function testTraitementFormulaireCreationAcademieIncomplet()
 	{
 		$request = $this->post("/administrations/academies", [
 			"_token" => csrf_token(),
@@ -50,53 +59,53 @@ class AcademiesTest extends TestCase
 		$request->assertSessionHasErrors();
 	}
 
-
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et qu'aucune erreur n'est présente lors de la soumission d'un
-	 * formulaire d'ajout d'une Académie complet
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
+	 * d'une Académie déjà existante
 	 */
-	public function testTraitementFormulaireAjoutAcademieComplet()
+	public function testTraitementFormulaireCreationAcademieExistante()
 	{
+		$Region = factory(Region::class)->create();
+		$Academies = factory(Academie::class, 5)->create();
+
 		$request = $this->post("/administrations/academies", [
 			"_token" => csrf_token(),
-			"nom"    => "Unit",
+			"nom"    => $Academies->random()->nom,
+			"region" => $Region->id,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et qu'une Académie à bien été créée lors de la soumissions d'un
+	 * formulaire de création complet
+	 */
+	public function testTraitementFormulaireCreationAcademieComplet()
+	{
+		$Region = factory(Region::class)->create();
+
+		$request = $this->post("/administrations/academies", [
+			"_token" => csrf_token(),
+			"nom"    => "unit.testing",
 			"region" => 1,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-	}
-
-	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'ajout d'une Académie déjà présente dans la base de donnée
-	 */
-	public function testTraitementFormulaireAjoutAcademieExistante()
-	{
-
-		$this->post("/administrations/academies", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-			"region" => 1,
-		]);
-
-		$request = $this->post("/administrations/academies", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-			"region" => 1,
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("academies", ["nom" => "unit.testing"]);
 	}
 
 
 	/**
-	 * Vérifie que le Formulaire d'édition d'une Académie contient bien les champs nécessaire
+	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires
 	 */
 	public function testAffichageFormulaireEditionAcademie()
 	{
+		$Region = factory(Region::class)->create();
 		$Academie = factory(Academie::class)->create();
+
 		$request = $this->get("/administrations/academies/{$Academie->id}/edit");
 
 		$request->assertStatus(200);
@@ -106,12 +115,13 @@ class AcademiesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'édition d'une Académie incomplet
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition incomplet
 	 */
 	public function testTraitementFormulaireEditionAcademieIncomplet()
 	{
+		$Region = factory(Region::class)->create();
 		$Academie = factory(Academie::class)->create();
+
 		$request = $this->put("/administrations/academies/{$Academie->id}", [
 			"_token" => csrf_token(),
 		]);
@@ -120,31 +130,15 @@ class AcademiesTest extends TestCase
 		$request->assertSessionHasErrors();
 	}
 
-
 	/**
-	 * Vérifie que l'utilisateur est bien redirigé et qu'aucune erreur n'est présente lors de la soumission d'un
-	 * formulaire d'édition d'une Académie complet
-	 */
-	public function testTraitementFormulaireEditionAcademieComplet()
-	{
-		$Academie = factory(Academie::class)->create();
-		$request = $this->put("/administrations/academies/{$Academie->id}", [
-			"_token" => csrf_token(),
-			"nom"    => "Unit",
-			"region" => 1,
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasNoErrors();
-	}
-
-	/**
-	 * Vérifie que l'utilisateur est bien redirigé et que les erreurs sont bien présentes lors de la tentative
-	 * de soumission d'un formulaire d'édition d'une Académie déjà présente dans la base de donnée
+	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
+	 * d'une Académie déjà existante
 	 */
 	public function testTraitementFormulaireEditionAcademieExistante()
 	{
+		$Region = factory(Region::class)->create();
 		$Academies = factory(Academie::class, 2)->create();
+
 		$request = $this->put("/administrations/academies/{$Academies[0]->id}", [
 			"_token" => csrf_token(),
 			"nom"    => $Academies[1]->nom,
@@ -153,5 +147,45 @@ class AcademiesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("academies", ["nom" => $Academies[0]->nom]);
 	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que l'Académie à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet
+	 */
+	public function testTraitementFormulaireEditionAcademieCompletSansModification()
+	{
+		$Academie = factory(Academie::class)->create();
+
+		$request = $this->put("/administrations/academies/{$Academie->id}", [
+			"_token" => csrf_token(),
+			"nom"    => $Academie->nom,
+			"region" => $Academie->region_id,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("academies", ["nom" => $Academie->nom]);
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que l'Académie à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet
+	 */
+	public function testTraitementFormulaireEditionAcademieCompletAvecModification()
+	{
+		$Academie = factory(Academie::class)->create();
+
+		$request = $this->put("/administrations/academies/{$Academie->id}", [
+			"_token" => csrf_token(),
+			"nom"    => "unit.testing",
+			"region" => 1,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("academies", ["nom" => "unit.testing"]);
+	}
+
 }

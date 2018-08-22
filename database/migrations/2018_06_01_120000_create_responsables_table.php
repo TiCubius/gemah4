@@ -19,11 +19,11 @@ class CreateResponsablesTable extends Migration
 			$table->enum('civilite', ['M', 'Mme', 'M/Mme']);
 			$table->string('nom');
 			$table->string('prenom');
-			$table->integer('code_postal');
-			$table->string('adresse');
-			$table->string('ville');
-			$table->string('telephone');
-			$table->string('email');
+			$table->string('email')->nullable();
+			$table->string('telephone')->nullable();
+			$table->integer('code_postal')->nullable();
+			$table->string('ville')->nullable();
+			$table->string('adresse')->nullable();
 
 			$table->timestamps();
 		});

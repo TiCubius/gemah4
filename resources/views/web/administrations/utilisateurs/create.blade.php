@@ -15,7 +15,6 @@
         </div>
 
         <div class="col-12">
-
             <form class="mb-3" action="{{ route("web.administrations.utilisateurs.index") }}" method="POST">
                 {{ csrf_field() }}
 
@@ -78,7 +77,7 @@
                     <button class="btn btn-sm btn-outline-success">Créer l'utilisateur</button>
                 </div>
             </form>
-
         </div>
+
     </div>
 @endsection

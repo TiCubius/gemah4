@@ -141,11 +141,12 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("responsables", ["nom" => $Responsables[0]->nom, "prenom" => $Responsables[0]->prenom]);
+		$this->assertDatabaseHas("responsables",
+			["nom" => $Responsables[0]->nom, "prenom" => $Responsables[0]->prenom]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été éditée lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
 	public function testTraitementFormulaireEditionResponsableCompletSansModification()
@@ -165,7 +166,7 @@ class ResponsablesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été éditée lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
 	public function testTraitementFormulaireEditionResponsableCompletAvecModification()
@@ -200,6 +201,9 @@ class ResponsablesTest extends TestCase
 	}
 
 
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été supprimé
+	 */
 	public function testTraitementSuppressionResponsable()
 	{
 		$Responsable = factory(Responsable::class)->create();

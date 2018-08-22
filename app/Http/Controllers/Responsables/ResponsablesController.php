@@ -117,7 +117,7 @@ class ResponsablesController extends Controller
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * DELETE - Supprime le responsable
 	 *
 	 * @param int $id
 	 * @return RedirectResponse

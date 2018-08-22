@@ -67,15 +67,14 @@
                 </div>
 
 
-                <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-between">
                     <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le responsable</button>
                     <button class="btn btn-sm btn-outline-success">Éditer le responsable</button>
                 </div>
             </form>
         </div>
-
     </div>
-    <!-- Modal -->
+
     <form id="modal" class="modal fade" action="{{ route("web.responsables.destroy", [$Responsable->id]) }}" method="POST" tabindex="-1">
         {{ csrf_field() }}
         {{ method_field("DELETE") }}

@@ -18,11 +18,9 @@
                 {{ csrf_field() }}
                 {{ method_field("put") }}
 
-                <div class="form-group row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <label for="nom">Nom de la région</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Region->nom }}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nom">Nom de la région</label>
+                    <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Region->nom }}" required>
                 </div>
 
                 <div class="d-flex justify-content-center">

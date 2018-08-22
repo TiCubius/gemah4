@@ -97,13 +97,21 @@ class ServicesController extends Controller
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * DELETE - Supprime le service
 	 *
-	 * @param  \App\Service $service
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return RedirectResponse
 	 */
-	public function destroy(Service $service)
+	public function destroy(int $id): RedirectResponse
 	{
-		//
+		$Service = Service::findOrFail($id);
+
+		if ($Service->utilisateurs->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un service associé à des utilisateurs");
+		}
+
+		$Service->delete();
+
+		return redirect(route("web.administrations.services.index"));
 	}
 }

@@ -6,7 +6,7 @@
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Création d'une Région</h4>
-                    <a href="{{ route("web.administrations.academies.index") }}">
+                    <a href="{{ route("web.administrations.regions.index") }}">
                         <button class="btn btn-outline-primary">Retour</button>
                     </a>
                 </div>
@@ -19,11 +19,9 @@
             <form class="mb-3" action="{{ route("web.administrations.regions.index") }}" method="POST">
                 {{ csrf_field() }}
 
-                <div class="form-group row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <label for="nom">Nom de la région</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nom">Nom de la région</label>
+                    <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
                 </div>
 
                 <div class="d-flex justify-content-center">

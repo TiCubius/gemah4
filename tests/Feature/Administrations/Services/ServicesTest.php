@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Service;
+use App\Models\Utilisateur;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -175,6 +176,53 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("services", ["nom" => "unit.testing"]);
+	}
+
+
+	/**
+	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+	 */
+	public function testAffichageAlerteSuppressionService()
+	{
+		$Service = factory(Service::class)->create();
+
+		$request = $this->get("/administrations/services/{$Service->id}/edit");
+
+		$request->assertStatus(200);
+		$request->assertSee("Supprimer le service");
+		$request->assertSee("Vous êtes sur le point de supprimer le service <b>" . strtoupper($Service->nom) . "</b>.");
+	}
+
+	/**
+	 * Vérifie que des erreurs sont présentes et que le Service n'est pas supprimé s'il est associé à des utilisateurs
+	 */
+	public function testTraitementSuppressionServiceAssocie()
+	{
+		$Service = factory(Service::class)->create();
+		$Utilisateur = factory(Utilisateur::class)->create([
+			"service_id" => $Service->id
+		]);
+
+		$request = $this->delete("/administrations/services/{$Service->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("services", ["nom" => $Service->nom]);
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été supprimé s'il n'est associé à aucun
+	 * utilisateur
+	 */
+	public function testTraitementSuppressionServiceNonAssocie()
+	{
+		$Service = factory(Service::class)->create();
+
+		$request = $this->delete("/administrations/services/{$Service->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("services", ["nom" => $Service->nom]);
 	}
 
 }

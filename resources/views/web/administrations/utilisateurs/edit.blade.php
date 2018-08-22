@@ -19,16 +19,14 @@
                 {{ csrf_field() }}
                 {{ method_field("put") }}
 
-                <div class="form-group row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <label for="nom">Nom de l'utilisateur</label>
-                        <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Utilisateur->nom }}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nom">Nom de l'utilisateur</label>
+                    <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Utilisateur->nom }}" required>
+                </div>
 
-                    <div class="col-12 col-md-6">
-                        <label for="prenom">Prénom de l'utilisateur</label>
-                        <input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ $Utilisateur->prenom }}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom de l'utilisateur</label>
+                    <input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ $Utilisateur->prenom }}" required>
                 </div>
 
 
@@ -38,34 +36,32 @@
                 </div>
 
 
-                <div class="form-group row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <label for="academie">Académie de l'utilisateur</label>
-                        <select id="academie" class="form-control" name="academie" required>
-                            <option hidden>Sélectionner une Académie</option>
-                            @foreach($Academies as $Academie)
-                                @if($Utilisateur->academie_id === $Academie->id)
-                                    <option selected value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
-                                @else
-                                    <option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="academie">Académie de l'utilisateur</label>
+                    <select id="academie" class="form-control" name="academie" required>
+                        <option hidden>Sélectionner une Académie</option>
+                        @foreach($Academies as $Academie)
+                            @if($Utilisateur->academie_id === $Academie->id)
+                                <option selected value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+                            @else
+                                <option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
 
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <label for="service">Service de l'utilisateur</label>
-                        <select id="service" class="form-control" name="service" required>
-                            <option hidden>Sélectionner un Service</option>
-                            @foreach($Services as $Service)
-                                @if($Utilisateur->service_id === $Service->id)
-                                    <option selected value="{{ $Service->id }}">{{ $Service->nom }}</option>
-                                @else
-                                    <option value="{{ $Service->id }}">{{ $Service->nom }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="service">Service de l'utilisateur</label>
+                    <select id="service" class="form-control" name="service" required>
+                        <option hidden>Sélectionner un Service</option>
+                        @foreach($Services as $Service)
+                            @if($Utilisateur->service_id === $Service->id)
+                                <option selected value="{{ $Service->id }}">{{ $Service->nom }}</option>
+                            @else
+                                <option value="{{ $Service->id }}">{{ $Service->nom }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
 
 

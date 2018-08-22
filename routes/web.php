@@ -38,6 +38,7 @@ Route::get("/administrations/services/new", "Administrations\ServicesController@
 Route::post("/administrations/services", "Administrations\ServicesController@store");
 Route::get("/administrations/services/{id}/edit", "Administrations\ServicesController@edit")->name("web.administrations.services.edit");
 Route::put("/administrations/services/{id}", "Administrations\ServicesController@update")->name("web.administrations.services.update");
+Route::delete("/administrations/services/{id}", "Administrations\ServicesController@destroy")->name("web.administrations.services.destroy");
 
 
 

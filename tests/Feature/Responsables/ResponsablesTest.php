@@ -184,4 +184,31 @@ class ResponsablesTest extends TestCase
 		$this->assertDatabaseHas("responsables", ["nom" => "unit.testing", "prenom" => "unit.testing"]);
 	}
 
+
+	/**
+	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+	 */
+	public function testAffichageAlerteSuppressionResponsable()
+	{
+		$Responsable = factory(Responsable::class)->create();
+
+		$request = $this->get("/responsables/{$Responsable->id}/edit");
+
+		$request->assertStatus(200);
+		$request->assertSee("Supprimer le responsable");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Responsable->nom} {$Responsable->prenom}") . "</b>.");
+	}
+
+
+	public function testTraitementSuppressionResponsable()
+	{
+		$Responsable = factory(Responsable::class)->create();
+
+		$request = $this->delete("/responsables/{$Responsable->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("responsables", ["nom" => $Responsable->nom, "prenom" => $Responsable->prenom]);
+	}
+
 }

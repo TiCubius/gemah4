@@ -119,11 +119,14 @@ class ResponsablesController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Responsable $responsable
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return RedirectResponse
 	 */
-	public function destroy(Responsable $responsable)
+	public function destroy(int $id): RedirectResponse
 	{
-		//
+		$Responsable = Responsable::findOrFail($id);
+		$Responsable->delete();
+
+		return redirect(route("web.responsables.index"));
 	}
 }

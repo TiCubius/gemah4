@@ -8,7 +8,7 @@
                     <h4>Liste des Académies</h4>
                     <div>
                         <a href="{{ route("web.administrations.academies.create") }}">
-                            <button class="btn btn-outline-primary">Nouvelle Académie</button>
+                            <button class="btn btn-outline-primary">Ajouter</button>
                         </a>
                         <a href="{{ route("web.administrations.index") }}">
                             <button class="btn btn-outline-primary">Retour</button>

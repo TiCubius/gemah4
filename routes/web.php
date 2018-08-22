@@ -46,3 +46,4 @@ Route::get("/responsables/new", "Responsables\ResponsablesController@create")->n
 Route::post("/responsables", "Responsables\ResponsablesController@store");
 Route::get("/responsables/{id}/edit", "Responsables\ResponsablesController@edit")->name("web.responsables.edit");
 Route::put("/responsables/{id}", "Responsables\ResponsablesController@update")->name("web.responsables.update");
+Route::delete("/responsables/{id}", "Responsables\ResponsablesController@destroy")->name("web.responsables.destroy");

@@ -8,7 +8,7 @@
                     <h4>Gestion des Responsables</h4>
                     <div>
                         <a href="{{ route("web.responsables.create") }}">
-                            <button class="btn btn-outline-primary">Nouveau Responsable</button>
+                            <button class="btn btn-outline-primary">Ajouter</button>
                         </a>
                         <a href="{{ route("web.index") }}">
                             <button class="btn btn-outline-primary">Retour</button>
@@ -54,12 +54,6 @@
                             <button class="btn btn-outline-dark">Rechercher</button>
                         </div>
                     </div>
-
-                    {{--<div class="card-footer d-flex justify-content-center">--}}
-                    {{--<a href="{{ route("web.responsables.create") }}">--}}
-                    {{--<button type="button" class="btn btn-success">Ajouter un nouveau responsable</button>--}}
-                    {{--</a>--}}
-                    {{--</div>--}}
                 </form>
             </div>
 
@@ -86,7 +80,7 @@
                                         <td>{{ $Responsable->email }}</td>
                                         <td>{{ $Responsable->telephone }}</td>
                                         <td>
-                                            <a href="#">
+                                            <a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
                                                 <button class="btn btn-sm btn-outline-primary">Editer</button>
                                             </a>
                                         </td>
@@ -103,7 +97,12 @@
                             <div class="card-header bg-dark text-white">Derniers ajoutés</div>
                             <ul class="list-group list-group-flush">
                                 @foreach($latestCreatedResponsables as $Responsable)
-                                    <li class="list-group-item">{{ "{$Responsable->nom} {$Responsable->prenom}" }}</li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>{{ "{$Responsable->nom} {$Responsable->prenom}" }}</span>
+                                        <a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
+                                            <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -116,7 +115,12 @@
                             <div class="card-header bg-dark text-white">Derniers modifiés</div>
                             <ul class="list-group list-group-flush">
                                 @foreach($latestUpdatedResponsables as $Responsable)
-                                    <li class="list-group-item">{{ "{$Responsable->nom} {$Responsable->prenom}" }}</li>
+                                    <li class="list-group-item d-flex justify-content-between ">
+                                        <span>{{ "{$Responsable->nom} {$Responsable->prenom}" }}</span>
+                                        <a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
+                                            <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

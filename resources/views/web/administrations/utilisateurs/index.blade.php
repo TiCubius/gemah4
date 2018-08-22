@@ -8,7 +8,7 @@
                     <h4>Liste des Utilisateurs</h4>
                     <div>
                         <a href="{{ route("web.administrations.utilisateurs.create") }}">
-                            <button class="btn btn-outline-primary">Nouvel Utilisateur</button>
+                            <button class="btn btn-outline-primary">Ajouter</button>
                         </a>
                         <a href="{{ route("web.administrations.index") }}">
                             <button class="btn btn-outline-primary">Retour</button>

@@ -51,8 +51,8 @@ class UtilisateursController extends Controller
 			"prenom"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs",
 			"password" => "required|min:8|confirmed",
-			"academie" => "required",
-			"service"  => "required",
+			"academie" => "required|exists:academies,id",
+			"service"  => "required|exists:services,id",
 		]);
 
 		Utilisateur::create([
@@ -107,8 +107,8 @@ class UtilisateursController extends Controller
 			"nom"      => "required|max:191",
 			"prenom"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs,email,{$id}",
-			"academie" => "required",
-			"service"  => "required",
+			"academie" => "required|exists:academies,id",
+			"service"  => "required|exists:services,id",
 		]);
 
 		$Utilisateur = Utilisateur::findOrFail($id);

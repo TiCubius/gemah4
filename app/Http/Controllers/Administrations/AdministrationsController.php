@@ -10,7 +10,7 @@ class AdministrationsController extends Controller
 {
 
 	/**
-	 * Affiche l'index du menu Admunistration de l'application
+	 * GET - Affiche l'index du menu Admunistration de l'application
 	 *
 	 * @return View
 	 */

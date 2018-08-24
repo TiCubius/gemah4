@@ -17,7 +17,7 @@ class ServicesController extends Controller
 	 */
 	public function index(): View
 	{
-		$Services = \App\Models\Service::orderBy("nom", "ASC")->get();
+		$Services = Service::orderBy("nom", "ASC")->get();
 
 		return view("web.administrations.services.index", compact("Services"));
 	}
@@ -33,7 +33,7 @@ class ServicesController extends Controller
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * POST - Ajoute un nouveau service
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @return \Illuminate\Http\Response
@@ -45,10 +45,7 @@ class ServicesController extends Controller
 			"description" => "required|max:191",
 		]);
 
-		\App\Models\Service::create([
-			"nom"         => $request->input("nom"),
-			"description" => $request->input("description"),
-		]);
+		Service::create($request->only(["nom", "description"]));
 
 		return redirect(route("web.administrations.services.index"));
 	}
@@ -91,7 +88,7 @@ class ServicesController extends Controller
 		]);
 
 		$Service = Service::findOrFail($id);
-		$Service->update($request->all());
+		$Service->update($request->only(["nom", "description"]));
 
 		return redirect(route("web.administrations.services.index"));
 	}

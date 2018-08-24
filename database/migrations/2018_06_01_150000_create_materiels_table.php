@@ -36,9 +36,9 @@ class CreateMaterielsTable extends Migration
 			$table->date('date_fin_garantie')->nullable();
 			$table->date('date_pret')->nullable();
 
-			$table->foreign('etat_id')->references('id')->on('etats_materiels');
+			$table->foreign('etat_id')->references('id')->on('etats_materiel');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
-			$table->foreign('type_id')->references('id')->on('types_materiels');
+			$table->foreign('type_id')->references('id')->on('types_materiel');
 
 			$table->timestamps();
 		});

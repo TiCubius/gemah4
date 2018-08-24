@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="region">Région de l'académie</label>
                     <select id="region" class="form-control" name="region" required>
-                        <option hidden value="">Sélectionner une Région</option>
+                        <option value="" hidden>Sélectionner une Région</option>
                         @foreach($Regions as $Region)
                             @if (old("region") == $Region->id)
                                 <option selected value="{{ $Region->id }}">{{ $Region->nom }}</option>

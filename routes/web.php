@@ -49,3 +49,11 @@ Route::post("/responsables", "Responsables\ResponsablesController@store");
 Route::get("/responsables/{id}/edit", "Responsables\ResponsablesController@edit")->name("web.responsables.edit");
 Route::put("/responsables/{id}", "Responsables\ResponsablesController@update")->name("web.responsables.update");
 Route::delete("/responsables/{id}", "Responsables\ResponsablesController@destroy")->name("web.responsables.destroy");
+
+
+Route::get("/materiels/domaines/", "Materiels\DomainesMaterielController@index")->name("web.materiels.domaines.index");
+Route::get("/materiels/domaines/new", "Materiels\DomainesMaterielController@create")->name("web.materiels.domaines.create");
+Route::post("/materiels/domaines", "Materiels\DomainesMaterielController@store");
+Route::get("/materiels/domaines/{id}/edit", "Materiels\DomainesMaterielController@edit")->name("web.materiels.domaines.edit");
+Route::put("/materiels/domaines/{id}", "Materiels\DomainesMaterielController@update")->name("web.materiels.domaines.update");
+Route::delete("/materiels/domaines/{id}", "Materiels\DomainesMaterielController@destroy")->name("web.materiels.domaines.destroy");

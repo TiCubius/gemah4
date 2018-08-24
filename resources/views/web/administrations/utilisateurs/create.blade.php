@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label for="academie">Académie de l'utilisateur</label>
                     <select id="academie" class="form-control" name="academie" required>
-                        <option hidden>Sélectionner une Académie</option>
+                        <option value="" hidden>Sélectionner une Académie</option>
                         @foreach($Academies as $Academie)
                             <option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
                         @endforeach
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label for="service">Service de l'utilisateur</label>
                     <select id="service" class="form-control" name="service" required>
-                        <option hidden>Sélectionner un Service</option>
+                        <option value="" hidden>Sélectionner un Service</option>
                         @foreach($Services as $Service)
                             <option value="{{ $Service->id }}">{{ $Service->nom }}</option>
                         @endforeach

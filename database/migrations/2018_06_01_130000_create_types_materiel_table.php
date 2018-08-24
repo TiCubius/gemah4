@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypesMaterielsTable extends Migration
+class CreateTypesMaterielTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,13 +13,13 @@ class CreateTypesMaterielsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('types_materiels', function(Blueprint $table) {
+		Schema::create('types_materiel', function(Blueprint $table) {
 			$table->increments('id');
 
 			$table->unsignedInteger('domaine_id');
 			$table->string('nom');
 
-			$table->foreign('domaine_id')->references('id')->on('domaines');
+			$table->foreign('domaine_id')->references('id')->on('domaines_materiel');
 			$table->timestamps();
 		});
 	}
@@ -31,6 +31,6 @@ class CreateTypesMaterielsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('types_materiels');
+		Schema::dropIfExists('types_materiel');
 	}
 }

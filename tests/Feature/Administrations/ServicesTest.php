@@ -58,7 +58,7 @@ class ServicesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Service déjà existante
+	 * d'un Service déjà existant
 	 */
 	public function testTraitementFormulaireCreationServiceExistant()
 	{
@@ -104,6 +104,7 @@ class ServicesTest extends TestCase
 		$request->assertSee("Édition de {$Service->nom}");
 		$request->assertSee("Nom du service");
 		$request->assertSee("Éditer le service");
+		$request->assertSee("Supprimer le service");
 	}
 
 	/**
@@ -123,7 +124,7 @@ class ServicesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Service déjà existante
+	 * d'un Service déjà existant
 	 */
 	public function testTraitementFormulaireEditionServiceExistant()
 	{

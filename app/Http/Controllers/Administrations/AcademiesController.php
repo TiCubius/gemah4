@@ -18,7 +18,7 @@ class AcademiesController extends Controller
 	 */
 	public function index(): View
 	{
-		$Academies = \App\Models\Academie::with("region")->orderBy("nom", "ASC")->get();
+		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
 
 		return view("web.administrations.academies.index", compact("Academies"));
 	}
@@ -30,7 +30,7 @@ class AcademiesController extends Controller
 	 */
 	public function create(): View
 	{
-		$Regions = \App\Models\Region::orderBy("nom", "ASC")->get();
+		$Regions = Region::orderBy("nom", "ASC")->get();
 
 		return view("web.administrations.academies.create", compact("Regions"));
 	}
@@ -45,7 +45,7 @@ class AcademiesController extends Controller
 	{
 		$request->validate([
 			"nom"    => "required|max:191|unique:academies",
-			"region" => "required",
+			"region" => "required|exists:regions,id",
 		]);
 
 		Academie::create([
@@ -92,7 +92,7 @@ class AcademiesController extends Controller
 	{
 		$request->validate([
 			"nom"    => "required|max:191|unique:academies,nom,{$id}",
-			"region" => "required",
+			"region" => "required|exists:regions,id",
 		]);
 
 		$Academie = Academie::findOrFail($id);

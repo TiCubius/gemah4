@@ -142,7 +142,7 @@ class AcademiesTest extends TestCase
 		$request = $this->put("/administrations/academies/{$Academies[0]->id}", [
 			"_token" => csrf_token(),
 			"nom"    => $Academies[1]->nom,
-			"region" => 1,
+			"region" => $Region->id,
 		]);
 
 		$request->assertStatus(302);
@@ -156,7 +156,10 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletSansModification()
 	{
-		$Academie = factory(Academie::class)->create();
+		$Region = factory(Region::class)->create();
+		$Academie = factory(Academie::class)->create([
+			"region_id" => $Region->id
+		]);
 
 		$request = $this->put("/administrations/academies/{$Academie->id}", [
 			"_token" => csrf_token(),
@@ -175,12 +178,13 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletAvecModification()
 	{
+		$Region = factory(Region::class)->create();
 		$Academie = factory(Academie::class)->create();
 
 		$request = $this->put("/administrations/academies/{$Academie->id}", [
 			"_token" => csrf_token(),
 			"nom"    => "unit.testing",
-			"region" => 1,
+			"region" => $Region->id,
 		]);
 
 		$request->assertStatus(302);

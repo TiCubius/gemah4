@@ -107,6 +107,7 @@ class ResponsablesTest extends TestCase
 		$request->assertSee("Édition de {$Responsable->nom}");
 		$request->assertSee("Nom du responsable");
 		$request->assertSee("Éditer le responsable");
+		$request->assertSee("Supprimer le responsable");
 	}
 
 	/**

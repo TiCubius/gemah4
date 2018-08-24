@@ -58,13 +58,22 @@ class ResponsablesController extends Controller
 			"telephone"   => "nullable|max:191",
 			"code_postal" => "nullable|max:191",
 			"ville"       => "nullable|max:191",
-			"adresse"     => "nullable|max:191"
+			"adresse"     => "nullable|max:191",
 		]);
 
-		Responsable::create($request->only(["civilite", "nom", "prenom", "email", "telephone", "code_postal", "ville", "adresse"]));
+		Responsable::create($request->only([
+			"civilite",
+			"nom",
+			"prenom",
+			"email",
+			"telephone",
+			"code_postal",
+			"ville",
+			"adresse",
+		]));
 
 		return redirect(route("web.responsables.index"));
-    }
+	}
 
 	/**
 	 * Display the specified resource.
@@ -107,11 +116,20 @@ class ResponsablesController extends Controller
 			"telephone"   => "nullable|max:191",
 			"code_postal" => "nullable|max:191",
 			"ville"       => "nullable|max:191",
-			"adresse"     => "nullable|max:191"
+			"adresse"     => "nullable|max:191",
 		]);
 
 		$Responsable = Responsable::findOrFail($id);
-		$Responsable->update($request->only(["civilite", "nom", "prenom", "email", "telephone", "code_postal", "ville", "adresse"]));
+		$Responsable->update($request->only([
+			"civilite",
+			"nom",
+			"prenom",
+			"email",
+			"telephone",
+			"code_postal",
+			"ville",
+			"adresse",
+		]));
 
 		return redirect(route("web.responsables.index"));
 	}

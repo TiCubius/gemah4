@@ -44,9 +44,7 @@ class RegionsController extends Controller
 			"nom" => "required|max:191|unique:regions",
 		]);
 
-		Region::create([
-			"nom" => $request->input("nom"),
-		]);
+		Region::create($request->only(["nom"]));
 
 		return redirect(route("web.administrations.regions.index"));
 	}
@@ -89,7 +87,7 @@ class RegionsController extends Controller
 		]);
 
 		$Region = Region::findOrFail($id);
-		$Region->update($request->all());
+		$Region->update($request->only(["nom"]));
 
 		return redirect(route("web.administrations.regions.index"));
 	}

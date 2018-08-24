@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDomainesTable extends Migration
+class CreateDomainesMaterielTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDomainesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('domaines', function(Blueprint $table) {
+		Schema::create('domaines_materiel', function(Blueprint $table) {
 			$table->increments('id');
 
 			$table->string('nom');
@@ -29,6 +29,6 @@ class CreateDomainesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('domaines');
+		Schema::dropIfExists('domaines_materiel');
 	}
 }

@@ -132,6 +132,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Académie de l'utilisateur");
 		$request->assertSee("Service de l'utilisateur");
 		$request->assertSee("Éditer l'utilisateur");
+		$request->assertSee("Supprimer l'utilisateur");
 	}
 
 	/**

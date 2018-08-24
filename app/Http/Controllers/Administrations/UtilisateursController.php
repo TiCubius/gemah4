@@ -120,11 +120,14 @@ class UtilisateursController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Utilisateur $utilisateur
-	 * @return \Illuminate\Http\Response
+	 * @param int $id
+	 * @return RedirectResponse
 	 */
-	public function destroy(Utilisateur $utilisateur)
+	public function destroy(int $id): RedirectResponse
 	{
-		//
+		$Utilisateur = Utilisateur::findOrFail($id);
+		$Utilisateur->delete();
+
+		return redirect(route("web.administrations.utilisateurs.index"));
 	}
 }

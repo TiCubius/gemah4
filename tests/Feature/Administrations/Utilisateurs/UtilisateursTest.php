@@ -223,4 +223,35 @@ class UtilisateursTest extends TestCase
 		$this->assertDatabaseHas("utilisateurs", ["email" => "unit@testing.fr"]);
 	}
 
+
+	/**
+	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+	 */
+	public function testAffichageAlerteSuppressionUtilisateur()
+	{
+		$Utilisateur = factory(Utilisateur::class)->create();
+
+		$request = $this->get("/administrations/utilisateurs/{$Utilisateur->id}/edit");
+
+		$request->assertStatus(200);
+		$request->assertSee("Supprimer l'utilisateur");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Utilisateur->nom} {$Utilisateur->prenom}") . "</b>.");
+	}
+
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le Utilisateur à bien été supprimé
+	 */
+	public function testTraitementSuppressionUtilisateur()
+	{
+		$Utilisateur = factory(Utilisateur::class)->create();
+
+		$request = $this->delete("/administrations/utilisateurs/{$Utilisateur->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("utilisateurs", ["nom" => $Utilisateur->nom, "prenom" => $Utilisateur->prenom]);
+	}
+
+
 }

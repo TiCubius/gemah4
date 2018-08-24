@@ -65,11 +65,38 @@
                 </div>
 
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer l'utilisateur</button>
                     <button class="btn btn-sm btn-outline-success">Éditer l'utilisateur</button>
                 </div>
             </form>
         </div>
-
     </div>
+
+    <form id="modal" class="modal fade" action="{{ route("web.administrations.utilisateurs.destroy", [$Utilisateur->id]) }}" method="POST" tabindex="-1">
+        {{ csrf_field() }}
+        {{ method_field("DELETE") }}
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attention</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>
+                        Vous êtes sur le point de supprimer <b>{{ strtoupper("{$Utilisateur->nom} {$Utilisateur->prenom}") }}</b>.
+                        <br>
+                        Cette action est irreversible
+                    </p>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-danger">Supprimer l'utilisateur</button>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection

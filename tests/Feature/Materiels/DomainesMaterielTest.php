@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\DomaineMateriel;
+use App\Models\TypeMateriel;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -190,10 +191,27 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Domaine à bien été supprimé s'il n'est associé à aucun
-	 * utilisateur
+	 * Vérifie que des erreurs sont présentes et que le Domaine n'à pas été supprimé s'il est associé à un type
 	 */
-	public function testTraitementSuppressionDomaine()
+	public function testTraitementSuppressionDomaineAssocie()
+	{
+		$Domaine = factory(DomaineMateriel::class)->create();
+		$Type = factory(TypeMateriel::class)->create([
+			"domaine_id" => $Domaine->id
+		]);
+
+		$request = $this->delete("/materiels/domaines/{$Domaine->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("domaines_materiel", ["nom" => $Domaine->nom]);
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le Domaine à bien été supprimé s'il n'est associé à aucun
+	 * type
+	 */
+	public function testTraitementSuppressionDomaineNonAssocie()
 	{
 		$Domaine = factory(DomaineMateriel::class)->create();
 

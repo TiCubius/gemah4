@@ -101,6 +101,11 @@ class DomainesMaterielController extends Controller
 	public function destroy(int $id): RedirectResponse
 	{
 		$DomaineMateriel = DomaineMateriel::findOrFail($id);
+
+		if ($DomaineMateriel->types->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un domaine associé à des types de matériel");
+		}
+
 		$DomaineMateriel->delete();
 
 		return redirect(route("web.materiels.domaines.index"));

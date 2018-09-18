@@ -23,18 +23,18 @@ class CreateMaterielsTable extends Migration
 			$table->string('cle_produit')->nullable();
 			$table->string('marque');
 			$table->string('modele');
-			$table->float('prix_TTC')->nullable();
+			$table->float('prix_ttc')->nullable();
 			$table->string('nom_fournisseur')->nullable();
 			$table->string('num_devis')->nullable();
 			$table->string('num_formulaire_chorus')->nullable();
 			$table->string('num_facture_chorus')->nullable();
-			$table->string('num_EJ')->nullable();
-			$table->string('acheter_pour')->nullable();
-			$table->date('date_EJ')->nullable();
+			$table->string('num_ej')->nullable();
+			$table->date('date_ej')->nullable();
 			$table->date('date_facture')->nullable();
 			$table->date('date_service_fait')->nullable();
 			$table->date('date_fin_garantie')->nullable();
 			$table->date('date_pret')->nullable();
+			$table->string('acheter_pour')->nullable();
 
 			$table->foreign('etat_id')->references('id')->on('etats_materiel');
 			$table->foreign('eleve_id')->references('id')->on('eleves');

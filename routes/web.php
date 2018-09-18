@@ -66,3 +66,10 @@ Route::post("/materiels/types", "Materiels\TypesMaterielController@store");
 Route::get("/materiels/types/{id}/edit", "Materiels\TypesMaterielController@edit")->name("web.materiels.types.edit");
 Route::put("/materiels/types/{id}", "Materiels\TypesMaterielController@update")->name("web.materiels.types.update");
 Route::delete("/materiels/types/{id}", "Materiels\TypesMaterielController@destroy")->name("web.materiels.types.destroy");
+
+Route::get("/materiels/stocks/", "Materiels\StocksMaterielController@index")->name("web.materiels.stocks.index");
+Route::get("/materiels/stocks/new", "Materiels\StocksMaterielController@create")->name("web.materiels.stocks.create");
+Route::post("/materiels/stocks", "Materiels\StocksMaterielController@store");
+Route::get("/materiels/stocks/{id}/edit", "Materiels\StocksMaterielController@edit")->name("web.materiels.stocks.edit");
+Route::put("/materiels/stocks/{id}", "Materiels\StocksMaterielController@update")->name("web.materiels.stocks.update");
+Route::delete("/materiels/stocks/{id}", "Materiels\StocksMaterielController@destroy")->name("web.materiels.stocks.destroy");

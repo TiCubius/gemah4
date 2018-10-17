@@ -23,5 +23,6 @@
         <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/poppers.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        @yield("scripts")
     </body>
 </html>

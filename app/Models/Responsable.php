@@ -32,6 +32,8 @@ class Responsable extends Model
 	}
 
 	/**
+	 * Effectue une recherce sur le nom, prénom, email ou téléphone sur Responsable
+	 *
 	 * @param        $query
 	 * @param string $nom
 	 * @param string $prenom

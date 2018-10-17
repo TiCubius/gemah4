@@ -41,7 +41,7 @@ class DomainesMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"         => "required|max:191|unique:domaines_materiel",
+			"nom" => "required|max:191|unique:domaines_materiel",
 		]);
 
 		DomaineMateriel::create($request->only(["nom"]));

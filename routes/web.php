@@ -42,6 +42,13 @@ Route::put("/administrations/services/{id}", "Administrations\ServicesController
 Route::delete("/administrations/services/{id}", "Administrations\ServicesController@destroy")->name("web.administrations.services.destroy");
 
 
+Route::get("/administrations/materiels/etats", "Administrations\Materiels\EtatsController@index")->name("web.administrations.materiels.etats.index");
+Route::get("/administrations/materiels/etats/new", "Administrations\Materiels\EtatsController@create")->name("web.administrations.materiels.etats.create");
+Route::post("/administrations/materiels/etats", "Administrations\Materiels\EtatsController@store");
+Route::get("/administrations/materiels/etats/{etat}/edit", "Administrations\Materiels\EtatsController@edit")->name("web.administrations.materiels.etats.edit");
+Route::put("/administrations/materiels/etats/{etat}", "Administrations\Materiels\EtatsController@update")->name("web.administrations.materiels.etats.update");
+Route::delete("/administrations/materiels/etats/{etat}", "Administrations\Materiels\EtatsController@destroy")->name("web.administrations.materiels.etats.destroy");
+
 
 Route::get("/responsables", "Responsables\ResponsablesController@index")->name("web.responsables.index");
 Route::get("/responsables/new", "Responsables\ResponsablesController@create")->name("web.responsables.create");

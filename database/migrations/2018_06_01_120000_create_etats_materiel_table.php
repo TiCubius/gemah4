@@ -17,6 +17,7 @@ class CreateEtatsMaterielTable extends Migration
 			$table->increments('id');
 
 			$table->string('nom');
+			$table->string('couleur', 7);
 
 			$table->timestamps();
 		});

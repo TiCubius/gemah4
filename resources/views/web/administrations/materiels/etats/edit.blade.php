@@ -53,8 +53,7 @@
 					<p>
 						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$Etat->nom}") }}</b>.
 						<br>
-						Cette action est irreversible
-					</p>
+						Cette action est irreversible </p>
 				</div>
 				<div class="modal-footer d-flex justify-content-between">
 					<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>

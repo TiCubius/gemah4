@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class EtatsController extends Controller
+class EtatController extends Controller
 {
 
 	/**

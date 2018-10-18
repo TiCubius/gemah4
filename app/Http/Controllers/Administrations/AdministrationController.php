@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AdministrationsController extends Controller
+class AdministrationController extends Controller
 {
 
 	/**

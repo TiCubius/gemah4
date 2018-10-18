@@ -33,7 +33,7 @@ class RegionsTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationRegion()
 	{
-		$request = $this->get("/administrations/regions/new");
+		$request = $this->get("/administrations/regions/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'une Région");

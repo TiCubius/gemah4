@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class RegionsController extends Controller
+class RegionController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des régions

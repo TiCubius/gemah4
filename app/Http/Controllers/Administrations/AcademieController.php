@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AcademiesController extends Controller
+class AcademieController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des académies

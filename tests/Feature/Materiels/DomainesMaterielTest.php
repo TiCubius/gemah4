@@ -34,7 +34,7 @@ class DomainesMaterielTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationDomaine()
 	{
-		$request = $this->get("/materiels/domaines/new");
+		$request = $this->get("/materiels/domaines/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un Domaine");

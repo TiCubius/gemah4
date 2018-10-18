@@ -36,7 +36,7 @@ class AcademiesTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationAcademie()
 	{
-		$request = $this->get("/administrations/academies/new");
+		$request = $this->get("/administrations/academies/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'une Académie");

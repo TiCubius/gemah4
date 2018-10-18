@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class TypesMaterielController extends Controller
+class TypeMaterielController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des types matériel

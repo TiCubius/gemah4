@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ServicesController extends Controller
+class ServiceController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des services

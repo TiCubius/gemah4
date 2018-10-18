@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Materiels;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class MaterielsController extends Controller
+class MaterielController extends Controller
 {
 
 	/**

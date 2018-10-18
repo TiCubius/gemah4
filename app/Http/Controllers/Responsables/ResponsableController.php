@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Responsable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
-class ResponsablesController extends Controller
+class ResponsableController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des responsables
@@ -24,12 +23,10 @@ class ResponsablesController extends Controller
 		$latestUpdatedResponsables = Responsable::latestUpdated()->take(10)->get();
 
 		if ($request->exists(["nom", "prenom", "email", "telephone"])) {
-			$searchedResponsables = Responsable::search($request->input("nom"), $request->input("prenom"),
-				$request->input("email"), $request->input("telephone"))->get();
+			$searchedResponsables = Responsable::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"))->get();
 		}
 
-		return view("web.responsables.index",
-			compact('latestCreatedResponsables', 'latestUpdatedResponsables', 'searchedResponsables'));
+		return view("web.responsables.index", compact('latestCreatedResponsables', 'latestUpdatedResponsables', 'searchedResponsables'));
 	}
 
 	/**

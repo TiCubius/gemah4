@@ -32,7 +32,7 @@ class EtatsTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationEtatMateriel()
 	{
-		$request = $this->get("/administrations/materiels/etats/new");
+		$request = $this->get("/administrations/materiels/etats/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un État Matériel");

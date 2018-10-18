@@ -39,7 +39,7 @@ class TypesMaterielTest extends TestCase
 	public function testAffichageFormulaireCreationType()
 	{
 		$Domaine = factory(DomaineMateriel::class)->create();
-		$request = $this->get("/materiels/types/new");
+		$request = $this->get("/materiels/types/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un Type");

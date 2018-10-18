@@ -34,7 +34,7 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationResponsable()
 	{
-		$request = $this->get("/responsables/new");
+		$request = $this->get("/responsables/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un Responsable");

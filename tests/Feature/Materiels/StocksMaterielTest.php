@@ -33,7 +33,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationStock()
 	{
-		$request = $this->get("/materiels/stocks/new");
+		$request = $this->get("/materiels/stocks/create");
 
 		$request->assertStatus(200);
 

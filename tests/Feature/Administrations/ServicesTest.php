@@ -34,7 +34,7 @@ class ServicesTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationService()
 	{
-		$request = $this->get("/administrations/services/new");
+		$request = $this->get("/administrations/services/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un Service");

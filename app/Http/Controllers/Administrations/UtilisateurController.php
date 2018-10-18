@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
-class UtilisateursController extends Controller
+class UtilisateurController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des utilisateurs

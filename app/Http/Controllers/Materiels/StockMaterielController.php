@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class StocksMaterielController extends Controller
+class StockMaterielController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des stocks matériel
@@ -114,8 +114,7 @@ class StocksMaterielController extends Controller
 		$TypesMateriel = TypeMateriel::orderBy("nom", "ASC")->get();
 		$Materiel = Materiel::findOrFail($id);
 
-		return view("web.materiels.stocks.edit",
-			compact("Materiel", "DomainesMateriel", "EtatsMateriel", "TypesMateriel"));
+		return view("web.materiels.stocks.edit", compact("Materiel", "DomainesMateriel", "EtatsMateriel", "TypesMateriel"));
 	}
 
 	/**

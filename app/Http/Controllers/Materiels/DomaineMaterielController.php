@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class DomainesMaterielController extends Controller
+class DomaineMaterielController extends Controller
 {
 	/**
 	 * GET - Affiche la liste des domaines matériel

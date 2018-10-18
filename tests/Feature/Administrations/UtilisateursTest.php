@@ -40,7 +40,7 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationUtilisateur()
 	{
-		$request = $this->get("/administrations/utilisateurs/new");
+		$request = $this->get("/administrations/utilisateurs/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un Utilisateur");

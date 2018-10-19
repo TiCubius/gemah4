@@ -54,10 +54,7 @@ class Responsable extends Model
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
 		return $query->where(function($query) use ($nom, $prenom, $email, $telephone) {
-			$query->where("nom", "LIKE", "%{$nom}%")
-				->orWhere("prenom", "LIKE", "%{$prenom}%")
-				->orWhere("email", "LIKE", "%{$email}%")
-				->orWhere("telephone", "LIKE", "%{$telephone}%");
+			$query->where("nom", "LIKE", "%{$nom}%")->orWhere("prenom", "LIKE", "%{$prenom}%")->orWhere("email", "LIKE", "%{$email}%")->orWhere("telephone", "LIKE", "%{$telephone}%");
 		});
 	}
 }

@@ -9,6 +9,7 @@ use App\Models\Materiel;
 use App\Models\TypeMateriel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class StockMaterielController extends Controller
@@ -16,13 +17,21 @@ class StockMaterielController extends Controller
 	/**
 	 * GET - Affiche la liste des stocks matériel
 	 *
+	 * @param Request $request
 	 * @return View
 	 */
-	public function index(): View
+	public function index(Request $request): View
 	{
-		$stocks = Materiel::orderBy("modele", "ASC")->get();
+		$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
+		$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
 
-		return view("web.materiels.stocks.index", compact("stocks"));
+		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
+
+		if ($request->exists(["type_id", "marque", "modele", "num_serie"])) {
+			$searchedMateriels = Materiel::search($request->input("type_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->get();
+		}
+
+		return view("web.materiels.stocks.index", compact("domaines", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
 	}
 
 	/**

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Materiel extends Model
 {
@@ -47,31 +46,52 @@ class Materiel extends Model
 		return $this->belongsTo(EtatMateriel::class);
 	}
 
-
 	/**
-	 * Effectue une recherce sur le
+	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *
-	 * @param        $query
-	 * @param        $type_id
-	 * @param        $marque
-	 * @param        $num_serie
+	 * @param $query
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $type_id, $marque, $num_serie): Builder
+	public function scopelatestCreated($query): Builder
+	{
+		return $query->orderBy("created_at", "DESC");
+	}
+
+	/**
+	 * Retourne un Query Builder triant les résultats par date de mise à jours décroissante
+	 *
+	 * @param $query
+	 * @return Builder
+	 */
+	public function scopelatestUpdated($query): Builder
+	{
+		return $query->orderBy("updated_at", "DESC");
+	}
+
+	/**
+	 * Effectue une recherce sur le matériel
+	 *
+	 * @param        $query
+	 * @param        $typeId
+	 * @param        $marque
+	 * @param        $modele
+	 * @param        $numSerie
+	 * @return Builder
+	 */
+	public function scopeSearch($query, $typeId, $marque, $modele, $numSerie): Builder
 	{
 		// Dans le cas où la variable "type", "marque", "num_serie" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
-		$type_id = $type_id ?? "--";
-		$marque = $marque?? "--";
-		$num_serie = $num_serie ?? "--";
+		$typeId = $typeId ?? "--";
+		$marque = $marque ?? "--";
+		$modele = $modele ?? "--";
+		$numSerie = $numSerie ?? "--";
 
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function($query) use ($type_id, $marque, $num_serie) {
-			$query->where("type_id", "=", $type_id)
-				->orWhere("marque", "LIKE", "%{$marque}%")
-				->orWhere("num_serie", "LIKE", "%{$num_serie}%");
+		return $query->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+			$query->where("type_id", "=", $typeId)->orWhere("marque", "LIKE", "%{$marque}%")->orWhere("modele", "LIKE", "%{$modele}%")->orWhere("num_serie", "LIKE", "%{$numSerie}%");
 		});
 	}
 

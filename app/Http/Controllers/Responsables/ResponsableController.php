@@ -18,7 +18,6 @@ class ResponsableController extends Controller
 	 */
 	public function index(Request $request): View
 	{
-
 		$latestCreatedResponsables = Responsable::latestCreated()->take(10)->get();
 		$latestUpdatedResponsables = Responsable::latestUpdated()->take(10)->get();
 
@@ -75,8 +74,8 @@ class ResponsableController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Responsable $responsable
-	 * @return \Illuminate\Http\Response
+	 * @param Responsable $responsable
+	 * @return void
 	 */
 	public function show(Responsable $responsable)
 	{
@@ -86,28 +85,26 @@ class ResponsableController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un responsable
 	 *
-	 * @param int $id
+	 * @param Responsable $responsable
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Responsable $responsable): View
 	{
-		$Responsable = Responsable::findOrFail($id);
-
-		return view("web.responsables.edit", compact("Responsable"));
+		return view("web.responsables.edit", compact("responsable"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au responsable
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Responsable               $responsable
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Responsable $responsable): RedirectResponse
 	{
 		$request->validate([
 			"civilite"    => "required",
-			"nom"         => "required|max:191|unique_with:responsables,prenom,{$id}",
+			"nom"         => "required|max:191|unique_with:responsables,prenom,{$responsable->id}",
 			"prenom"      => "required|max:191",
 			"email"       => "nullable|email|max:191",
 			"telephone"   => "nullable|max:191",
@@ -116,8 +113,7 @@ class ResponsableController extends Controller
 			"adresse"     => "nullable|max:191",
 		]);
 
-		$Responsable = Responsable::findOrFail($id);
-		$Responsable->update($request->only([
+		$responsable->update($request->only([
 			"civilite",
 			"nom",
 			"prenom",
@@ -134,13 +130,13 @@ class ResponsableController extends Controller
 	/**
 	 * DELETE - Supprime le responsable
 	 *
-	 * @param int $id
+	 * @param Responsable $responsable
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(Responsable $responsable): RedirectResponse
 	{
-		$Responsable = Responsable::findOrFail($id);
-		$Responsable->delete();
+		$responsable->delete();
 
 		return redirect(route("web.responsables.index"));
 	}

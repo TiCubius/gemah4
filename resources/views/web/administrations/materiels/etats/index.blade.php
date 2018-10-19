@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Etats->isEmpty())
+			@if($etats->isEmpty())
 				<div class="alert alert-warning">
 					Aucun état matériel n'est enregistré sur l'application
 				</div>
@@ -32,11 +32,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Etats as $Etat)
+						@foreach($etats as $etat)
 							<tr>
-								<th style="background: {{ "#{$Etat->couleur}" }};">{{ $Etat->nom }}</th>
+								<th style="background: {{ "#{$etat->couleur}" }};">{{ $etat->nom }}</th>
 								<td>
-									<a href="{{ route("web.administrations.materiels.etats.edit", [$Etat->id]) }}">
+									<a href="{{ route("web.administrations.materiels.etats.edit", [$etat->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

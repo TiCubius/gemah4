@@ -20,9 +20,9 @@ class UtilisateurController extends Controller
 	 */
 	public function index(): View
 	{
-		$Utilisateurs = Utilisateur::with("service")->orderBy("nom", "ASC")->get();
+		$utilisateurs = Utilisateur::with("service")->orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.utilisateurs.index", compact("Utilisateurs"));
+		return view("web.administrations.utilisateurs.index", compact("utilisateurs"));
 	}
 
 	/**
@@ -32,10 +32,10 @@ class UtilisateurController extends Controller
 	 */
 	public function create(): View
 	{
-		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
-		$Services = Service::orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$services = Service::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.utilisateurs.create", compact("Academies", "Services"));
+		return view("web.administrations.utilisateurs.create", compact("academies", "services"));
 	}
 
 	/**
@@ -71,8 +71,8 @@ class UtilisateurController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Utilisateur $utilisateur
-	 * @return \Illuminate\Http\Response
+	 * @param Utilisateur $utilisateur
+	 * @return void
 	 */
 	public function show(Utilisateur $utilisateur)
 	{
@@ -82,37 +82,35 @@ class UtilisateurController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un utilisateur
 	 *
-	 * @param int $id
+	 * @param Utilisateur $utilisateur
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Utilisateur $utilisateur): View
 	{
-		$Utilisateur = Utilisateur::findOrFail($id);
-		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
-		$Services = Service::orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$services = Service::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.utilisateurs.edit", compact("Utilisateur", "Academies", "Services"));
+		return view("web.administrations.utilisateurs.edit", compact("utilisateur", "academies", "services"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au utilisateur
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Utilisateur               $utilisateur
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Utilisateur $utilisateur): RedirectResponse
 	{
 		$request->validate([
 			"nom"      => "required|max:191",
 			"prenom"   => "required|max:191",
-			"email"    => "required|max:191|email|unique:utilisateurs,email,{$id}",
+			"email"    => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
 			"academie" => "required|exists:academies,id",
 			"service"  => "required|exists:services,id",
 		]);
 
-		$Utilisateur = Utilisateur::findOrFail($id);
-		$Utilisateur->update($request->all());
+		$utilisateur->update($request->all());
 
 		return redirect(route("web.administrations.utilisateurs.index"));
 	}
@@ -120,13 +118,13 @@ class UtilisateurController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param int $id
+	 * @param Utilisateur $utilisateur
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(Utilisateur $utilisateur): RedirectResponse
 	{
-		$Utilisateur = Utilisateur::findOrFail($id);
-		$Utilisateur->delete();
+		$utilisateur->delete();
 
 		return redirect(route("web.administrations.utilisateurs.index"));
 	}

@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Academies->isEmpty())
+			@if($academies->isEmpty())
 				<div class="alert alert-warning">
 					Aucune académie n'est enregistré sur l'application
 				</div>
@@ -34,12 +34,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Academies as $Academie)
+						@foreach($academies as $academy)
 							<tr>
-								<td>{{ $Academie->nom }}</td>
-								<td>{{ $Academie->region->nom }}</td>
+								<td>{{ $academy->nom }}</td>
+								<td>{{ $academy->region->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.academies.edit", [$Academie->id]) }}">
+									<a href="{{ route("web.administrations.academies.edit", [$academy->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

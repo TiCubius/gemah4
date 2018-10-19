@@ -27,8 +27,8 @@
 					<label for="domaine">Domaine Matériel</label>
 					<select id="domaine" class="form-control" name="domaine" required>
 						<option value="" hidden>Sélectionner un Domaine</option>
-						@foreach($DomainesMateriel as $DomaineMateriel)
-							<option value="{{ $DomaineMateriel->id }}">{{ $DomaineMateriel->nom }}</option>
+						@foreach($domaines as $domaine)
+							<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
 						@endforeach
 					</select>
 				</div>

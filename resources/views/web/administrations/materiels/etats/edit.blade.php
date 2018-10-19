@@ -5,7 +5,7 @@
 		<div class="col-12">
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $Etat->nom }}</h4>
+					<h4>Édition de {{ $etat->nom }}</h4>
 					<a href="{{ route("web.administrations.materiels.etats.index") }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
@@ -16,17 +16,17 @@
 
 		<div class="col-12">
 
-			<form class="mb-3" action="{{ route("web.administrations.materiels.etats.update", [$Etat->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.materiels.etats.update", [$etat->id]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
 				<div class="form-group">
 					<label for="nom">Nom de l'état matériel</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="E.g : Volé, Cassé" value="{{ $Etat->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="E.g : Volé, Cassé" value="{{ $etat->nom }}" required>
 				</div>
 				<div class="form-group">
 					<label for="nom">Couleur de l'état matériel</label>
-					<input id="nom" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ $Etat->couleur }}" required>
+					<input id="nom" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ $etat->couleur }}" required>
 				</div>
 
 				<div class="d-flex justify-content-between">
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<form id="modal" class="modal fade" action="{{ route("web.administrations.materiels.etats.destroy", [$Etat->id]) }}" method="POST" tabindex="-1">
+	<form id="modal" class="modal fade" action="{{ route("web.administrations.materiels.etats.destroy", [$etat->id]) }}" method="POST" tabindex="-1">
 		{{ csrf_field() }}
 		{{ method_field("DELETE") }}
 
@@ -51,7 +51,7 @@
 				</div>
 				<div class="modal-body text-center">
 					<p>
-						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$Etat->nom}") }}</b>.
+						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$etat->nom}") }}</b>.
 						<br>
 						Cette action est irreversible </p>
 				</div>

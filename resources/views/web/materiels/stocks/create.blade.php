@@ -25,8 +25,8 @@
 						<label for="domaine_id">Domaine du matériel</label>
 						<select id="domaine_id" class="form-control" name="domaine_id" required>
 							<option value="">Veuillez sélectionner un domaine</option>
-							@foreach($DomainesMateriel as $Domaine)
-								<option value="{{ $Domaine->id }}">{{ $Domaine->nom }}</option>
+							@foreach($domaines as $domaine)
+								<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
 							@endforeach
 						</select>
 					</div>
@@ -35,8 +35,8 @@
 						<label for="type_id">Type du matériel</label>
 						<select id="type_id" class="form-control" name="type_id" required>
 							<option value="">Veuillez sélectionner un type</option>
-							@foreach($TypesMateriel as $Type)
-								<option value="{{ $Type->id }}">{{ $Type->nom }}</option>
+							@foreach($types as $type)
+								<option value="{{ $type->id }}">{{ $type->nom }}</option>
 							@endforeach
 						</select>
 					</div>
@@ -73,8 +73,8 @@
 						<label for="etat_id">Etat du matériel</label>
 						<select id="etat_id" class="form-control" name="etat_id" required>
 							<option value="">Veuillez sélectionner l'état du matériel</option>
-							@foreach ($EtatsMateriel as $Etat)
-								<option value="{{ $Etat->id }}">{{ $Etat->nom }}</option>
+							@foreach ($etats as $etat)
+								<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
 							@endforeach
 						</select>
 					</div>

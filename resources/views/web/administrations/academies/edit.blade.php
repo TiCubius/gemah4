@@ -5,7 +5,7 @@
 		<div class="col-12">
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $Academie->nom }}</h4>
+					<h4>Édition de {{ $academy->nom }}</h4>
 					<a href="{{ route("web.administrations.academies.index") }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
@@ -16,13 +16,13 @@
 
 		<div class="col-12">
 
-			<form class="mb-3" action="{{ route("web.administrations.academies.update", [$Academie->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.academies.update", [$academy->id]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
 				<div class="form-group">
 					<label for="nom">Nom de l'académie</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Academie->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $academy->nom }}" required>
 				</div>
 
 
@@ -30,11 +30,11 @@
 					<label for="region">Région de l'académie</label>
 					<select id="region" class="form-control" name="region" required>
 						<option value="" hidden>Sélectionner une Région</option>
-						@foreach($Regions as $Region)
-							@if ($Academie->region_id == $Region->id))
-							<option selected value="{{ $Region->id }}">{{ $Region->nom }}</option>
+						@foreach($regions as $region)
+							@if ($academy->region_id == $region->id))
+							<option selected value="{{ $region->id }}">{{ $region->nom }}</option>
 							@else
-								<option value="{{ $Region->id }}">{{ $Region->nom }}</option>
+								<option value="{{ $region->id }}">{{ $region->nom }}</option>
 							@endif
 						@endforeach
 					</select>

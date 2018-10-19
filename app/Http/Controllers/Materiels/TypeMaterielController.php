@@ -18,9 +18,9 @@ class TypeMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$TypesMateriel = TypeMateriel::with('domaine')->orderBy("nom", "ASC")->get();
+		$types = TypeMateriel::with('domaine')->orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.types.index", compact("TypesMateriel"));
+		return view("web.materiels.types.index", compact("types"));
 	}
 
 	/**
@@ -30,9 +30,9 @@ class TypeMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$DomainesMateriel = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.types.create", compact("DomainesMateriel"));
+		return view("web.materiels.types.create", compact("domaines"));
 	}
 
 	/**
@@ -59,10 +59,10 @@ class TypeMaterielController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param TypeMateriel $typeMateriel
+	 * @param TypeMateriel $type
 	 * @return void
 	 */
-	public function show(TypeMateriel $typeMateriel)
+	public function show(TypeMateriel $type)
 	{
 		//
 	}
@@ -70,33 +70,31 @@ class TypeMaterielController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un type matériel
 	 *
-	 * @param int $id
+	 * @param TypeMateriel $type
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(TypeMateriel $type): View
 	{
-		$TypeMateriel = TypeMateriel::findOrFail($id);
-		$DomainesMateriel = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.types.edit", compact("TypeMateriel", "DomainesMateriel"));
+		return view("web.materiels.types.edit", compact("type", "domaines"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au type matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param TypeMateriel              $type
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, TypeMateriel $type): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:types_materiel,nom,{$id}",
+			"nom"     => "required|max:191|unique:types_materiel,nom,{$type->id}",
 			"domaine" => "required|exists:domaines_materiel,id",
 		]);
 
-		$TypeMateriel = TypeMateriel::findOrFail($id);
-		$TypeMateriel->update([
+		$type->update([
 			"nom"        => $request->input("nom"),
 			"domaine_id" => $request->input("domaine"),
 		]);
@@ -107,13 +105,13 @@ class TypeMaterielController extends Controller
 	/**
 	 * DELETE - Supprime le type matériel
 	 *
-	 * @param int $id
+	 * @param TypeMateriel $type
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(TypeMateriel $type): RedirectResponse
 	{
-		$TypeMateriel = TypeMateriel::findOrFail($id);
-		$TypeMateriel->delete();
+		$type->delete();
 
 		return redirect(route("web.materiels.types.index"));
 	}

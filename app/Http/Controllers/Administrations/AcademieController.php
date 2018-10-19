@@ -18,9 +18,9 @@ class AcademieController extends Controller
 	 */
 	public function index(): View
 	{
-		$Academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.academies.index", compact("Academies"));
+		return view("web.administrations.academies.index", compact("academies"));
 	}
 
 	/**
@@ -30,9 +30,9 @@ class AcademieController extends Controller
 	 */
 	public function create(): View
 	{
-		$Regions = Region::orderBy("nom", "ASC")->get();
+		$regions = Region::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.academies.create", compact("Regions"));
+		return view("web.administrations.academies.create", compact("regions"));
 	}
 
 	/**
@@ -59,10 +59,10 @@ class AcademieController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Academie $academie
-	 * @return \Illuminate\Http\Response
+	 * @param Academie $academy
+	 * @return void
 	 */
-	public function show(Academie $academie)
+	public function show(Academie $academy)
 	{
 		//
 	}
@@ -70,33 +70,31 @@ class AcademieController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'une académie
 	 *
-	 * @param int $id
+	 * @param Academie $academy
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Academie $academy): View
 	{
-		$Academie = Academie::findOrFail($id);
-		$Regions = Region::orderBy("nom", "ASC")->get();
+		$regions = Region::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.academies.edit", compact("Academie", "Regions"));
+		return view("web.administrations.academies.edit", compact("academy", "regions"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés à l'académie
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Academie                  $academy
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Academie $academy): RedirectResponse
 	{
 		$request->validate([
-			"nom"    => "required|max:191|unique:academies,nom,{$id}",
+			"nom"    => "required|max:191|unique:academies,nom,{$academy->id}",
 			"region" => "required|exists:regions,id",
 		]);
 
-		$Academie = Academie::findOrFail($id);
-		$Academie->update([
+		$academy->update([
 			"nom"       => $request->input("nom"),
 			"region_id" => $request->input("region"),
 		]);
@@ -107,10 +105,10 @@ class AcademieController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Academie $academie
-	 * @return \Illuminate\Http\Response
+	 * @param Academie $academy
+	 * @return void
 	 */
-	public function destroy(Academie $academie)
+	public function destroy(Academie $academy)
 	{
 		//
 	}

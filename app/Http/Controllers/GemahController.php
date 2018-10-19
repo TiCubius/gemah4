@@ -8,7 +8,7 @@ class GemahController extends Controller
 {
 
 	/**
-	 * Affiche l'Index de l'application
+	 * GET - Affiche l'Index de l'application
 	 *
 	 * @return View
 	 */

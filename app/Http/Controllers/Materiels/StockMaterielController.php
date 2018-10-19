@@ -20,9 +20,9 @@ class StockMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$Materiels = Materiel::orderBy("modele", "ASC")->get();
+		$stocks = Materiel::orderBy("modele", "ASC")->get();
 
-		return view("web.materiels.stocks.index", compact("Materiels"));
+		return view("web.materiels.stocks.index", compact("stocks"));
 	}
 
 	/**
@@ -32,11 +32,11 @@ class StockMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$DomainesMateriel = DomaineMateriel::orderBy("nom", "ASC")->get();
-		$EtatsMateriel = EtatMateriel::orderBy("nom", "ASC")->get();
-		$TypesMateriel = TypeMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$types = TypeMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.stocks.create", compact("DomainesMateriel", "EtatsMateriel", "TypesMateriel"));
+		return view("web.materiels.stocks.create", compact("domaines", "etats", "types"));
 	}
 
 	/**
@@ -93,10 +93,10 @@ class StockMaterielController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param Materiel $materiel
+	 * @param Materiel $stock
 	 * @return void
 	 */
-	public function show(Materiel $materiel)
+	public function show(Materiel $stock)
 	{
 		//
 	}
@@ -104,27 +104,26 @@ class StockMaterielController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un stock matériel
 	 *
-	 * @param int $id
+	 * @param Materiel $stock
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Materiel $stock): View
 	{
-		$DomainesMateriel = DomaineMateriel::orderBy("nom", "ASC")->get();
-		$EtatsMateriel = EtatMateriel::orderBy("nom", "ASC")->get();
-		$TypesMateriel = TypeMateriel::orderBy("nom", "ASC")->get();
-		$Materiel = Materiel::findOrFail($id);
+		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$types = TypeMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.stocks.edit", compact("Materiel", "DomainesMateriel", "EtatsMateriel", "TypesMateriel"));
+		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etats", "types"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au stock matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Materiel                  $stock
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Materiel $stock): RedirectResponse
 	{
 		$request->validate([
 			"domaine_id"      => "required",
@@ -147,8 +146,7 @@ class StockMaterielController extends Controller
 			"acheter_pour"          => "nullable",
 		]);
 
-		$Materiel = Materiel::findOrFail($id);
-		$Materiel->update($request->only([
+		$stock->update($request->only([
 			"type_id",
 			"marque",
 			"modele",
@@ -173,13 +171,13 @@ class StockMaterielController extends Controller
 	/**
 	 * DELETE - Supprime le stock matériel
 	 *
-	 * @param int $id
+	 * @param Materiel $stock
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(Materiel $stock): RedirectResponse
 	{
-		$Materiel = Materiel::findOrFail($id);
-		$Materiel->delete();
+		$stock->delete();
 
 		return redirect(route("web.materiels.stocks.index"));
 	}

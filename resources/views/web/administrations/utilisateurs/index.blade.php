@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Utilisateurs->isEmpty())
+			@if($utilisateurs->isEmpty())
 				<div class="alert alert-warning">
 					Aucun utilisateur n'est enregistré sur l'application
 				</div>
@@ -35,13 +35,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Utilisateurs as $Utilisateur)
+						@foreach($utilisateurs as $utilisateur)
 							<tr>
-								<th>{{ "{$Utilisateur->nom} {$Utilisateur->prenom}" }}</th>
-								<td>{{ $Utilisateur->service->nom }}</td>
-								<td>{{ $Utilisateur->email }}</td>
+								<th>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</th>
+								<td>{{ $utilisateur->service->nom }}</td>
+								<td>{{ $utilisateur->email }}</td>
 								<td>
-									<a href="{{ route("web.administrations.utilisateurs.edit", [$Utilisateur->id]) }}">
+									<a href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

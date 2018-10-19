@@ -74,13 +74,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($searchedResponsables as $Responsable)
+								@foreach($searchedResponsables as $responsable)
 									<tr>
-										<th>{{ "{$Responsable->nom} {$Responsable->prenom}" }}</th>
-										<td>{{ $Responsable->email }}</td>
-										<td>{{ $Responsable->telephone }}</td>
+										<th>{{ "{$responsable->nom} {$responsable->prenom}" }}</th>
+										<td>{{ $responsable->email }}</td>
+										<td>{{ $responsable->telephone }}</td>
 										<td>
-											<a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
+											<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -96,10 +96,10 @@
 						<div class="card">
 							<div class="card-header bg-dark text-white">Derniers ajoutés</div>
 							<ul class="list-group list-group-flush">
-								@foreach($latestCreatedResponsables as $Responsable)
+								@foreach($latestCreatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between">
-										<span>{{ "{$Responsable->nom} {$Responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
+										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -114,10 +114,10 @@
 						<div class="card">
 							<div class="card-header bg-dark text-white">Derniers modifiés</div>
 							<ul class="list-group list-group-flush">
-								@foreach($latestUpdatedResponsables as $Responsable)
+								@foreach($latestUpdatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between ">
-										<span>{{ "{$Responsable->nom} {$Responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$Responsable->id]) }}">
+										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

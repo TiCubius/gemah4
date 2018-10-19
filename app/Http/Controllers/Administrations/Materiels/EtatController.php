@@ -18,9 +18,9 @@ class EtatController extends Controller
 	 */
 	public function index(): View
 	{
-		$Etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.materiels.etats.index", compact("Etats"));
+		return view("web.administrations.materiels.etats.index", compact("etats"));
 	}
 
 	/**
@@ -54,29 +54,29 @@ class EtatController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un état matériel
 	 *
-	 * @param EtatMateriel $Etat
+	 * @param EtatMateriel $etat
 	 * @return View
 	 */
-	public function edit(EtatMateriel $Etat): View
+	public function edit(EtatMateriel $etat): View
 	{
-		return view("web.administrations.materiels.etats.edit", compact("Etat"));
+		return view("web.administrations.materiels.etats.edit", compact("etat"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés à l'état matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param EtatMateriel              $Etat
+	 * @param EtatMateriel              $etat
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, EtatMateriel $Etat): RedirectResponse
+	public function update(Request $request, EtatMateriel $etat): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:etats_materiel,nom,{$Etat->id}",
-			"couleur" => "required|max:191|unique:etats_materiel,couleur,{$Etat->id}",
+			"nom"     => "required|max:191|unique:etats_materiel,nom,{$etat->id}",
+			"couleur" => "required|max:191|unique:etats_materiel,couleur,{$etat->id}",
 		]);
 
-		$Etat->update($request->only(["nom", "couleur"]));
+		$etat->update($request->only(["nom", "couleur"]));
 
 		return redirect(route("web.administrations.materiels.etats.index"));
 	}
@@ -84,16 +84,17 @@ class EtatController extends Controller
 	/**
 	 * DELETE - Supprime l'état matériel
 	 *
-	 * @param EtatMateriel $Etat
+	 * @param EtatMateriel $etat
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(EtatMateriel $Etat): RedirectResponse
+	public function destroy(EtatMateriel $etat): RedirectResponse
 	{
-		if ($Etat->materiels->isNotEmpty()) {
+		if ($etat->materiels->isNotEmpty()) {
 			return back()->withErrors("Impossible de supprimer un état associé à des matériels");
 		}
 
-		$Etat->delete();
+		$etat->delete();
 
 		return redirect(route("web.materiels.domaines.index"));
 	}

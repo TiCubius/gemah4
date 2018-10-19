@@ -17,9 +17,9 @@ class ServiceController extends Controller
 	 */
 	public function index(): View
 	{
-		$Services = Service::orderBy("nom", "ASC")->get();
+		$services = Service::orderBy("nom", "ASC")->get();
 
-		return view("web.administrations.services.index", compact("Services"));
+		return view("web.administrations.services.index", compact("services"));
 	}
 
 	/**
@@ -53,8 +53,8 @@ class ServiceController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Service $service
-	 * @return \Illuminate\Http\Response
+	 * @param Service $service
+	 * @return void
 	 */
 	public function show(Service $service)
 	{
@@ -64,31 +64,28 @@ class ServiceController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un service
 	 *
-	 * @param int $id
+	 * @param Service $service
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Service $service): View
 	{
-		$Service = Service::findOrFail($id);
-
-		return view("web.administrations.services.edit", compact("Service"));
+		return view("web.administrations.services.edit", compact("service"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au service
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Service                   $service
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Service $service): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:services,nom,{$id}",
+			"nom" => "required|max:191|unique:services,nom,{$service->id}",
 		]);
 
-		$Service = Service::findOrFail($id);
-		$Service->update($request->only(["nom", "description"]));
+		$service->update($request->only(["nom", "description"]));
 
 		return redirect(route("web.administrations.services.index"));
 	}
@@ -96,18 +93,17 @@ class ServiceController extends Controller
 	/**
 	 * DELETE - Supprime le service
 	 *
-	 * @param int $id
+	 * @param Service $service
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(Service $service): RedirectResponse
 	{
-		$Service = Service::findOrFail($id);
-
-		if ($Service->utilisateurs->isNotEmpty()) {
+		if ($service->utilisateurs->isNotEmpty()) {
 			return back()->withErrors("Impossible de supprimer un service associé à des utilisateurs");
 		}
 
-		$Service->delete();
+		$service->delete();
 
 		return redirect(route("web.administrations.services.index"));
 	}

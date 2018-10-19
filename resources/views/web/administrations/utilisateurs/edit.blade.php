@@ -5,7 +5,7 @@
 		<div class="col-12">
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $Utilisateur->nom }}</h4>
+					<h4>Édition de {{ $utilisateur->nom }}</h4>
 					<a href="{{ route("web.administrations.utilisateurs.index") }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
@@ -15,24 +15,24 @@
 		</div>
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.utilisateurs.update", [$Utilisateur->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.utilisateurs.update", [$utilisateur->id]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
 				<div class="form-group">
 					<label for="nom">Nom de l'utilisateur</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Utilisateur->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $utilisateur->nom }}" required>
 				</div>
 
 				<div class="form-group">
 					<label for="prenom">Prénom de l'utilisateur</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ $Utilisateur->prenom }}" required>
+					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ $utilisateur->prenom }}" required>
 				</div>
 
 
 				<div class="form-group">
 					<label for="email">Adresse E-Mail de l'utilisateur</label>
-					<input id="email" class="form-control" name="email" type="email" placeholder="Adresse E-Mail" value="{{ $Utilisateur->email }}" required>
+					<input id="email" class="form-control" name="email" type="email" placeholder="Adresse E-Mail" value="{{ $utilisateur->email }}" required>
 				</div>
 
 
@@ -40,11 +40,11 @@
 					<label for="academie">Académie de l'utilisateur</label>
 					<select id="academie" class="form-control" name="academie" required>
 						<option hidden>Sélectionner une Académie</option>
-						@foreach($Academies as $Academie)
-							@if($Utilisateur->academie_id === $Academie->id)
-								<option selected value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+						@foreach($academies as $academy)
+							@if($utilisateur->academie_id === $academy->id)
+								<option selected value="{{ $academy->id }}">{{ $academy->nom }}</option>
 							@else
-								<option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+								<option value="{{ $academy->id }}">{{ $academy->nom }}</option>
 							@endif
 						@endforeach
 					</select>
@@ -54,11 +54,11 @@
 					<label for="service">Service de l'utilisateur</label>
 					<select id="service" class="form-control" name="service" required>
 						<option hidden>Sélectionner un Service</option>
-						@foreach($Services as $Service)
-							@if($Utilisateur->service_id === $Service->id)
-								<option selected value="{{ $Service->id }}">{{ $Service->nom }}</option>
+						@foreach($services as $service)
+							@if($utilisateur->service_id === $service->id)
+								<option selected value="{{ $service->id }}">{{ $service->nom }}</option>
 							@else
-								<option value="{{ $Service->id }}">{{ $Service->nom }}</option>
+								<option value="{{ $service->id }}">{{ $service->nom }}</option>
 							@endif
 						@endforeach
 					</select>
@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	<form id="modal" class="modal fade" action="{{ route("web.administrations.utilisateurs.destroy", [$Utilisateur->id]) }}" method="POST" tabindex="-1">
+	<form id="modal" class="modal fade" action="{{ route("web.administrations.utilisateurs.destroy", [$utilisateur->id]) }}" method="POST" tabindex="-1">
 		{{ csrf_field() }}
 		{{ method_field("DELETE") }}
 
@@ -87,7 +87,7 @@
 				</div>
 				<div class="modal-body text-center">
 					<p>
-						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$Utilisateur->nom} {$Utilisateur->prenom}") }}</b>.
+						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$utilisateur->nom} {$utilisateur->prenom}") }}</b>.
 						<br>
 						Cette action est irreversible </p>
 				</div>

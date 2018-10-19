@@ -4,7 +4,7 @@
 		<div class="col-12">
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $Region->nom }}</h4>
+					<h4>Édition de {{ $region->nom }}</h4>
 					<a href="{{ route("web.administrations.regions.index") }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
@@ -14,13 +14,13 @@
 		</div>
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.regions.update", [$Region->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.regions.update", [$region->id]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
 				<div class="form-group">
 					<label for="nom">Nom de la région</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $Region->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $region->nom }}" required>
 				</div>
 
 				<div class="d-flex justify-content-center">

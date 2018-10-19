@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Services->isEmpty())
+			@if($services->isEmpty())
 				<div class="alert alert-warning">
 					Aucun service n'est enregistré sur l'application
 				</div>
@@ -33,11 +33,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Services as $Service)
+						@foreach($services as $service)
 							<tr>
-								<td>{{ $Service->nom }}</td>
+								<td>{{ $service->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.services.edit", [$Service->id]) }}">
+									<a href="{{ route("web.administrations.services.edit", [$service->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

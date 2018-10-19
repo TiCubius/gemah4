@@ -17,9 +17,9 @@ class DomaineMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$DomainesMateriel = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
 
-		return view("web.materiels.domaines.index", compact("DomainesMateriel"));
+		return view("web.materiels.domaines.index", compact("domaines"));
 	}
 
 	/**
@@ -63,31 +63,28 @@ class DomaineMaterielController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'un domaine matériel
 	 *
-	 * @param int $id
+	 * @param DomaineMateriel $domaine
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(DomaineMateriel $domaine): View
 	{
-		$DomaineMateriel = DomaineMateriel::findOrFail($id);
-
-		return view("web.materiels.domaines.edit", compact("DomaineMateriel"));
+		return view("web.materiels.domaines.edit", compact("domaine"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés au domaine matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param DomaineMateriel           $domaine
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, DomaineMateriel $domaine): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:domaines_materiel,nom,{$id}",
+			"nom" => "required|max:191|unique:domaines_materiel,nom,{$domaine->id}",
 		]);
 
-		$DomaineMateriel = DomaineMateriel::findOrFail($id);
-		$DomaineMateriel->update($request->only(["nom"]));
+		$domaine->update($request->only(["nom"]));
 
 		return redirect(route("web.materiels.domaines.index"));
 	}
@@ -95,18 +92,17 @@ class DomaineMaterielController extends Controller
 	/**
 	 * DELETE - Supprime le domaine matériel
 	 *
-	 * @param int $id
+	 * @param DomaineMateriel $domaine
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
-	public function destroy(int $id): RedirectResponse
+	public function destroy(DomaineMateriel $domaine): RedirectResponse
 	{
-		$DomaineMateriel = DomaineMateriel::findOrFail($id);
-
-		if ($DomaineMateriel->types->isNotEmpty()) {
+		if ($domaine->types->isNotEmpty()) {
 			return back()->withErrors("Impossible de supprimer un domaine associé à des types de matériel");
 		}
 
-		$DomaineMateriel->delete();
+		$domaine->delete();
 
 		return redirect(route("web.materiels.domaines.index"));
 	}

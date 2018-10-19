@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Regions->isEmpty())
+			@if($regions->isEmpty())
 				<div class="alert alert-warning">
 					Aucune région n'est enregistré sur l'application
 				</div>
@@ -32,11 +32,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Regions as $Region)
+						@foreach($regions as $region)
 							<tr>
-								<td>{{ $Region->nom }}</td>
+								<td>{{ $region->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.regions.edit", [$Region->id]) }}">
+									<a href="{{ route("web.administrations.regions.edit", [$region->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

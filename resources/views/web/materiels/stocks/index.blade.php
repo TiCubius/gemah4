@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($Materiels->isEmpty())
+			@if($stocks->isEmpty())
 				<div class="alert alert-warning">
 					Aucun matériel n'est enregistré sur l'application
 				</div>
@@ -33,11 +33,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($Materiels as $Materiel)
+						@foreach($stocks as $stock)
 							<tr>
-								<th>{{ "{$Materiel->marque} {$Materiel->modele}" }}</th>
+								<th>{{ "{$stock->marque} {$stock->modele}" }}</th>
 								<td>
-									<a href="{{ route("web.materiels.stocks.edit", [$Materiel->id]) }}">
+									<a href="{{ route("web.materiels.stocks.edit", [$stock->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

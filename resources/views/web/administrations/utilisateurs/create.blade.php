@@ -49,8 +49,8 @@
 					<label for="academie">Académie de l'utilisateur</label>
 					<select id="academie" class="form-control" name="academie" required>
 						<option value="" hidden>Sélectionner une Académie</option>
-						@foreach($Academies as $Academie)
-							<option value="{{ $Academie->id }}">{{ $Academie->nom }}</option>
+						@foreach($academies as $academy)
+							<option value="{{ $academy->id }}">{{ $academy->nom }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -59,8 +59,8 @@
 					<label for="service">Service de l'utilisateur</label>
 					<select id="service" class="form-control" name="service" required>
 						<option value="" hidden>Sélectionner un Service</option>
-						@foreach($Services as $Service)
-							<option value="{{ $Service->id }}">{{ $Service->nom }}</option>
+						@foreach($services as $service)
+							<option value="{{ $service->id }}">{{ $service->nom }}</option>
 						@endforeach
 					</select>
 				</div>

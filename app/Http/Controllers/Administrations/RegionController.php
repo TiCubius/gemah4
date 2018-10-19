@@ -17,9 +17,9 @@ class RegionController extends Controller
 	 */
 	public function index(): View
 	{
-		$Regions = Region::all();
+		$regions = Region::all();
 
-		return view("web.administrations.regions.index", compact("Regions"));
+		return view("web.administrations.regions.index", compact("regions"));
 	}
 
 	/**
@@ -52,8 +52,8 @@ class RegionController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Region $region
-	 * @return \Illuminate\Http\Response
+	 * @param Region $region
+	 * @return void
 	 */
 	public function show(Region $region)
 	{
@@ -63,31 +63,28 @@ class RegionController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'une région
 	 *
-	 * @param int $id
+	 * @param Region $region
 	 * @return View
 	 */
-	public function edit(int $id): View
+	public function edit(Region $region): View
 	{
-		$Region = Region::findOrFail($id);
-
-		return view("web.administrations.regions.edit", compact("Region"));
+		return view("web.administrations.regions.edit", compact("region"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés à la région
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param int                       $id
+	 * @param Region                    $region
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, int $id): RedirectResponse
+	public function update(Request $request, Region $region): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:regions,nom,{$id}",
+			"nom" => "required|max:191|unique:regions,nom,{$region->id}",
 		]);
 
-		$Region = Region::findOrFail($id);
-		$Region->update($request->only(["nom"]));
+		$region->update($request->only(["nom"]));
 
 		return redirect(route("web.administrations.regions.index"));
 	}
@@ -95,8 +92,8 @@ class RegionController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Region $region
-	 * @return \Illuminate\Http\Response
+	 * @param Region $region
+	 * @return void
 	 */
 	public function destroy(Region $region)
 	{

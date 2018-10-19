@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="col-12">
-			@if($TypesMateriel->isEmpty())
+			@if($types->isEmpty())
 				<div class="alert alert-warning">
 					Aucun type n'est enregistré sur l'application
 				</div>
@@ -34,12 +34,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($TypesMateriel as $Type)
+						@foreach($types as $type)
 							<tr>
-								<th>{{ $Type->nom }}</th>
-								<th>{{ $Type->domaine->nom }}</th>
+								<th>{{ $type->nom }}</th>
+								<th>{{ $type->domaine->nom }}</th>
 								<td>
-									<a href="{{ route("web.materiels.types.edit", [$Type->id]) }}">
+									<a href="{{ route("web.materiels.types.edit", [$type->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

@@ -5,7 +5,7 @@
 		<div class="col-12">
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $DomaineMateriel->nom }}</h4>
+					<h4>Édition de {{ $domaine->nom }}</h4>
 					<a href="{{ route("web.materiels.domaines.index") }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
@@ -15,13 +15,13 @@
 		</div>
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.materiels.domaines.update", [$DomaineMateriel->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.materiels.domaines.update", [$domaine->id]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("PUT") }}
 
 				<div class="form-group">
 					<label for="nom">Nom du domaine</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $DomaineMateriel->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $domaine->nom }}" required>
 				</div>
 
 				<div class="d-flex justify-content-between">
@@ -32,7 +32,7 @@
 		</div>
 	</div>
 
-	<form id="modal" class="modal fade" action="{{ route("web.materiels.domaines.destroy", [$DomaineMateriel->id]) }}" method="POST" tabindex="-1">
+	<form id="modal" class="modal fade" action="{{ route("web.materiels.domaines.destroy", [$domaine->id]) }}" method="POST" tabindex="-1">
 		{{ csrf_field() }}
 		{{ method_field("DELETE") }}
 
@@ -46,7 +46,7 @@
 				</div>
 				<div class="modal-body text-center">
 					<p>
-						Vous êtes sur le point de supprimer le domaine <b>{{ strtoupper($DomaineMateriel->nom) }}</b>.
+						Vous êtes sur le point de supprimer le domaine <b>{{ strtoupper($domaine->nom) }}</b>.
 						<br>
 						Cette action est irreversible </p>
 				</div>

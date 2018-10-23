@@ -2,17 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ "{$responsable->nom} {$responsable->prenom}" }}</h4>
-					<a href="{{ route("web.responsables.index") }}">
-						<button class="btn btn-outline-primary">Retour</button>
-					</a>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["back" => "web.responsables.index"])
+			Édition de {{ "{$responsable->nom} {$responsable->prenom}" }}
+		@endcomponent
 
 		<div class="col-12">
 			<form class="mb-3" action="{{ route("web.responsables.update", [$responsable->id]) }}" method="POST">
@@ -75,29 +67,10 @@
 		</div>
 	</div>
 
-	<form id="modal" class="modal fade" action="{{ route("web.responsables.destroy", [$responsable->id]) }}" method="POST" tabindex="-1">
-		{{ csrf_field() }}
-		{{ method_field("DELETE") }}
+	@component("web._includes.components.modals.destroy", ["route" => "web.responsables.destroy", "id" => $responsable->id])
+		@slot("name")
+			{{ "{$responsable->nom} {$responsable->prenom}" }}
+		@endslot
+	@endcomponent
 
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Attention</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body text-center">
-					<p>
-						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$responsable->nom} {$responsable->prenom}") }}</b>.
-						<br>
-						Cette action est irreversible </p>
-				</div>
-				<div class="modal-footer d-flex justify-content-between">
-					<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-					<button type="submit" class="btn btn-danger">Supprimer le responsable</button>
-				</div>
-			</div>
-		</div>
-	</form>
 @endsection

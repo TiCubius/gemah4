@@ -25,7 +25,7 @@ class UtilisateursTest extends TestCase
 		$request = $this->get("/administrations/utilisateurs");
 
 		$request->assertStatus(200);
-		$request->assertSee("Liste des Utilisateurs");
+		$request->assertSee("Gestion des Utilisateurs");
 
 		foreach ($Utilisateurs as $Utilisateur) {
 			$request->assertSee($Utilisateur->nom);

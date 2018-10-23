@@ -2,17 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Édition de {{ $stock->modele }}</h4>
-					<a href="{{ route("web.materiels.stocks.index") }}">
-						<button class="btn btn-outline-primary">Retour</button>
-					</a>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["back" => "web.materiels.stocks.index"])
+			Édition de {{ $stock->modele }}
+		@endcomponent
 
 		<div class="col-12">
 			<form class="mb-3" action="{{ route("web.materiels.stocks.index") }}" method="POST">
@@ -22,29 +14,19 @@
 					<h5 class="card-title text-center">Informations du Matériel</h5>
 
 					<div class="form-group">
-						<label for="domaine_id">Domaine du matériel</label>
-						<select id="domaine_id" class="form-control" name="domaine_id" required>
-							<option value="">Veuillez sélectionner un domaine</option>
-							@foreach($domaines as $domaine)
-								@if ($stock->type->domaine_id === $domaine->id)
-									<option value="{{ $domaine->id }}" selected>{{ $domaine->nom }}</option>
-								@else
-									<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
-								@endif
-							@endforeach
-						</select>
-					</div>
-
-					<div class="form-group">
 						<label for="type_id">Type du matériel</label>
-						<select id="type_id" class="form-control" name="type_id" required>
-							<option value="">Veuillez sélectionner un type</option>
-							@foreach($types as $type)
-								@if($stock->type_id === $type->id)
-									<option value="{{ $type->id }}" selected>{{ $type->nom }}</option>
-								@else
-									<option value="{{ $type->id }}">{{ $type->nom }}</option>
-								@endif
+						<select id="type_id" class="form-control" name="type_id">
+							<option value="">Sélectionnez un type</option>
+							@foreach ($domaines as $domaine)
+								<optgroup label="{{ $domaine->nom }}">
+									@foreach($domaine->types as $type)
+										@if($stock->type_id === $type->id)
+											<option selected value="{{ $type->id }}">{{ $type->nom }}</option>
+										@else
+											<option value="{{ $type->id }}">{{ $type->nom }}</option>
+										@endif
+									@endforeach
+								</optgroup>
 							@endforeach
 						</select>
 					</div>
@@ -151,29 +133,10 @@
 
 	</div>
 
+	@component("web._includes.components.modals.destroy", ["route" => "web.materiels.stocks.destroy", "id" => $stock->id])
+		@slot("name")
+			{{ "{$stock->marque} {$stock->modele}" }}
+		@endslot
+	@endcomponent
 
-	<form id="modal" class="modal fade" action="{{ route("web.materiels.stocks.destroy", [$stock->id]) }}" method="POST" tabindex="-1">
-		{{ csrf_field() }}
-		{{ method_field("DELETE") }}
-
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Attention</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body text-center">
-					<p>
-						Vous êtes sur le point de supprimer le matériel <b>{{ strtoupper("{$stock->marque} {$stock->modele}") }}</b>. <br>
-						Cette action est irreversible </p>
-				</div>
-				<div class="modal-footer d-flex justify-content-between">
-					<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-					<button type="submit" class="btn btn-danger">Supprimer le matériel</button>
-				</div>
-			</div>
-		</div>
-	</form>
 @endsection

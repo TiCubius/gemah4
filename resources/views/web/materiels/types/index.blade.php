@@ -2,22 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Gestion des Types Matériel</h4>
-					<div>
-						<a href="{{ route("web.materiels.types.create") }}">
-							<button class="btn btn-outline-primary">Ajouter</button>
-						</a>
-						<a href="{{ route("web.materiels.index") }}">
-							<button class="btn btn-outline-primary">Retour</button>
-						</a>
-					</div>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["add" => "web.materiels.types.create", "back" => "web.materiels.index"])
+			Gestion des Types Matériel
+		@endcomponent
 
 		<div class="col-12">
 			@if($types->isEmpty())

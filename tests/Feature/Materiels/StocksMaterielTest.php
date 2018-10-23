@@ -38,7 +38,6 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(200);
 
 		$request->assertSee("Création d'un Matériel");
-		$request->assertSee("Domaine du matériel");
 		$request->assertSee("Type du matériel");
 		$request->assertSee("Marque du matériel");
 		$request->assertSee("Modèle du matériel");
@@ -115,7 +114,6 @@ class StocksMaterielTest extends TestCase
 
 		$request = $this->post("/materiels/stocks", [
 			"_token"     => csrf_token(),
-			"domaine_id" => $DomaineMateriel->id,
 			"type_id"    => $TypeMateriel->id,
 			"marque"     => "unit.testing",
 			"modele"     => "unit.testing",
@@ -140,7 +138,6 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Stock->modele}");
-		$request->assertSee("Domaine du matériel");
 		$request->assertSee("Type du matériel");
 		$request->assertSee("Marque du matériel");
 		$request->assertSee("Modèle du matériel");
@@ -215,7 +212,6 @@ class StocksMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
 			"_token"     => csrf_token(),
-			"domaine_id" => $DomaineMateriel->id,
 			"type_id"    => $TypeMateriel->id,
 			"marque"     => $Stock->marque,
 			"modele"     => $Stock->modele,
@@ -267,7 +263,7 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le matériel");
-		$request->assertSee("Vous êtes sur le point de supprimer le matériel <b>" . strtoupper("{$Stock->marque} {$Stock->modele}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Stock->marque} {$Stock->modele}") . "</b>.");
 	}
 
 	/**

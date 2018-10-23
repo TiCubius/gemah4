@@ -1,22 +1,10 @@
 @extends("web._includes._master")
 @section("content")
 	<div class="row">
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Gestion des États Matériel</h4>
-					<div>
-						<a href="{{ route("web.administrations.materiels.etats.create") }}">
-							<button class="btn btn-outline-primary">Ajouter</button>
-						</a>
-						<a href="{{ route("web.administrations.index") }}">
-							<button class="btn btn-outline-primary">Retour</button>
-						</a>
-					</div>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+
+		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.create", "back" => "web.administrations.index"])
+			Gestion des États Matériel
+		@endcomponent
 
 		<div class="col-12">
 			@if($etats->isEmpty())

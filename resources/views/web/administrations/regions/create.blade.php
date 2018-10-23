@@ -2,17 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Création d'une Région</h4>
-					<a href="{{ route("web.administrations.regions.index") }}">
-						<button class="btn btn-outline-primary">Retour</button>
-					</a>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
+			Création d'une Région
+		@endcomponent
 
 		<div class="col-12">
 

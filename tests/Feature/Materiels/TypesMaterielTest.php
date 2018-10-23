@@ -209,7 +209,7 @@ class TypesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le type");
-		$request->assertSee("Vous êtes sur le point de supprimer le type <b>" . strtoupper($Type->nom) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper($Type->nom) . "</b>.");
 	}
 
 	/**

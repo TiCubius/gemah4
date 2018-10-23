@@ -2,22 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Liste des Académies</h4>
-					<div>
-						<a href="{{ route("web.administrations.academies.create") }}">
-							<button class="btn btn-outline-primary">Ajouter</button>
-						</a>
-						<a href="{{ route("web.administrations.index") }}">
-							<button class="btn btn-outline-primary">Retour</button>
-						</a>
-					</div>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["add" => "web.administrations.academies.create", "back" => "web.administrations.index"])
+			Gestion des Académies
+		@endcomponent
 
 		<div class="col-12">
 			@if($academies->isEmpty())

@@ -22,7 +22,7 @@ class AcademiesTest extends TestCase
 		$request = $this->get("/administrations/academies");
 
 		$request->assertStatus(200);
-		$request->assertSee("Liste des Académies");
+		$request->assertSee("Gestion des Académies");
 
 		foreach ($Academies as $Academie) {
 			$request->assertSee($Academie->nom);

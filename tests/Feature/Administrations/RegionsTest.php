@@ -20,7 +20,7 @@ class RegionsTest extends TestCase
 		$request = $this->get("/administrations/regions");
 
 		$request->assertStatus(200);
-		$request->assertSee("Liste des Régions");
+		$request->assertSee("Gestion des Régions");
 
 		foreach ($Regions as $Region) {
 			$request->assertSee($Region->nom);

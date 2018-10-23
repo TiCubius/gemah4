@@ -41,9 +41,8 @@ class StockMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::with("types")->orderBy("nom", "ASC")->get();
 		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
-		$types = TypeMateriel::orderBy("nom", "ASC")->get();
 
 		return view("web.materiels.stocks.create", compact("domaines", "etats", "types"));
 	}
@@ -57,7 +56,6 @@ class StockMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"domaine_id"      => "required",
 			"type_id"         => "required",
 			"marque"          => "required",
 			"modele"          => "required",
@@ -118,9 +116,8 @@ class StockMaterielController extends Controller
 	 */
 	public function edit(Materiel $stock): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::with("types")->orderBy("nom", "ASC")->get();
 		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
-		$types = TypeMateriel::orderBy("nom", "ASC")->get();
 
 		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etats", "types"));
 	}
@@ -135,7 +132,6 @@ class StockMaterielController extends Controller
 	public function update(Request $request, Materiel $stock): RedirectResponse
 	{
 		$request->validate([
-			"domaine_id"      => "required",
 			"type_id"         => "required",
 			"marque"          => "required",
 			"modele"          => "required",

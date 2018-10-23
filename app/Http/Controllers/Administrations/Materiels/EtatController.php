@@ -96,6 +96,6 @@ class EtatController extends Controller
 
 		$etat->delete();
 
-		return redirect(route("web.materiels.domaines.index"));
+		return redirect(route("web.administrations.materiels.etats.index"));
 	}
 }

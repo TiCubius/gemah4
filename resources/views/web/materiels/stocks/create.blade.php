@@ -2,17 +2,9 @@
 @section('content')
 	<div class="row">
 
-		<div class="col-12">
-			<div class="d-flex flex-column">
-				<div class="d-flex justify-content-between align-items-center">
-					<h4>Création d'un Matériel</h4>
-					<a href="{{ route("web.materiels.stocks.index") }}">
-						<button class="btn btn-outline-primary">Retour</button>
-					</a>
-				</div>
-				<hr class="w-100">
-			</div>
-		</div>
+		@component("web._includes.components.title", ["back" => "web.materiels.stocks.index"])
+			Création d'un Matériel
+		@endcomponent
 
 		<div class="col-12">
 			<form class="mb-3" action="{{ route("web.materiels.stocks.index") }}" method="POST">
@@ -22,21 +14,19 @@
 					<h5 class="card-title text-center">Informations du Matériel</h5>
 
 					<div class="form-group">
-						<label for="domaine_id">Domaine du matériel</label>
-						<select id="domaine_id" class="form-control" name="domaine_id" required>
-							<option value="">Veuillez sélectionner un domaine</option>
-							@foreach($domaines as $domaine)
-								<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
-							@endforeach
-						</select>
-					</div>
-
-					<div class="form-group">
 						<label for="type_id">Type du matériel</label>
-						<select id="type_id" class="form-control" name="type_id" required>
-							<option value="">Veuillez sélectionner un type</option>
-							@foreach($types as $type)
-								<option value="{{ $type->id }}">{{ $type->nom }}</option>
+						<select id="type_id" class="form-control" name="type_id">
+							<option value="">Sélectionnez un type</option>
+							@foreach ($domaines as $domaine)
+								<optgroup label="{{ $domaine->nom }}">
+									@foreach($domaine->types as $type)
+										@if (old("type_id") == $type->id)
+											<option selected value="{{ $type->id }}">{{ $type->nom }}</option>
+										@else
+											<option value="{{ $type->id }}">{{ $type->nom }}</option>
+										@endif
+									@endforeach
+								</optgroup>
 							@endforeach
 						</select>
 					</div>
@@ -74,7 +64,11 @@
 						<select id="etat_id" class="form-control" name="etat_id" required>
 							<option value="">Veuillez sélectionner l'état du matériel</option>
 							@foreach ($etats as $etat)
-								<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
+								@if (old("etat_id") == $etat->id)
+									<option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
+								@else
+									<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
+								@endif
 							@endforeach
 						</select>
 					</div>

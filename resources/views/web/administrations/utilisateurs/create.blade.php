@@ -29,11 +29,11 @@
 
 				<div class="form-group">
 					<label for="password">Mot de passe de l'utilisateur</label>
-					<input id="password" class="form-control" name="password" type="password" placeholder="Mot de passe" required>
+					<input id="password" class="form-control" name="password" type="password" placeholder="Mot de passe" minlength="8" required>
 				</div>
 				<div class="form-group">
 					<label for="password_confirmation">Confirmation du mot de passe de l'utilisateur</label>
-					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" placeholder="Confirmation du mot de passe" required>
+					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Confirmation du mot de passe" required>
 				</div>
 
 
@@ -42,7 +42,11 @@
 					<select id="academie" class="form-control" name="academie" required>
 						<option value="" hidden>Sélectionner une Académie</option>
 						@foreach($academies as $academy)
-							<option value="{{ $academy->id }}">{{ $academy->nom }}</option>
+							@if(old("academie") == $academy->id)
+								<option selected value="{{ $academy->id }}">{{ $academy->nom }}</option>
+							@else
+								<option value="{{ $academy->id }}">{{ $academy->nom }}</option>
+							@endif
 						@endforeach
 					</select>
 				</div>
@@ -52,7 +56,11 @@
 					<select id="service" class="form-control" name="service" required>
 						<option value="" hidden>Sélectionner un Service</option>
 						@foreach($services as $service)
-							<option value="{{ $service->id }}">{{ $service->nom }}</option>
+							@if(old("service") == $service->id)
+								<option selected value="{{ $service->id }}">{{ $service->nom }}</option>
+							@else
+								<option value="{{ $service->id }}">{{ $service->nom }}</option>
+							@endif
 						@endforeach
 					</select>
 				</div>

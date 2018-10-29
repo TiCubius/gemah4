@@ -16,13 +16,21 @@
 	<body>
 		@include("web._includes.navbar")
 		<div class="container-fluid">
-			@include("web._includes.flash")
-			@yield("content")
+			<div class="row">
+				<div class="col-xl-2 d-none d-xl-block text-center">
+					@include("web._includes.sidebar")
+					@yield("sidebar")
+				</div>
+				<div class="col-12 col-xl-10">
+					@include("web._includes.flash")
+					@yield("content")
+				</div>
+			</div>
 		</div>
 
 		<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-		<script src="{{ asset('assets/js/poppers.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('assets/js/poppers.min.js') }}"></script>
 		@yield("scripts")
 	</body>
 </html>

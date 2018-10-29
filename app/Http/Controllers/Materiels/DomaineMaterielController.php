@@ -17,7 +17,7 @@ class DomaineMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom")->get();
 
 		return view("web.materiels.domaines.index", compact("domaines"));
 	}

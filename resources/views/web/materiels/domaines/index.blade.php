@@ -22,7 +22,7 @@
 					<tbody>
 						@foreach($domaines as $domaine)
 							<tr>
-								<th>{{ $domaine->nom }}</th>
+								<td>{{ $domaine->nom }}</td>
 								<td>
 									<a href="{{ route("web.materiels.domaines.edit", [$domaine->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

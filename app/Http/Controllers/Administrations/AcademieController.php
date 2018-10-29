@@ -18,7 +18,7 @@ class AcademieController extends Controller
 	 */
 	public function index(): View
 	{
-		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom")->get();
 
 		return view("web.administrations.academies.index", compact("academies"));
 	}
@@ -30,7 +30,7 @@ class AcademieController extends Controller
 	 */
 	public function create(): View
 	{
-		$regions = Region::orderBy("nom", "ASC")->get();
+		$regions = Region::orderBy("nom")->get();
 
 		return view("web.administrations.academies.create", compact("regions"));
 	}
@@ -75,7 +75,7 @@ class AcademieController extends Controller
 	 */
 	public function edit(Academie $academy): View
 	{
-		$regions = Region::orderBy("nom", "ASC")->get();
+		$regions = Region::orderBy("nom")->get();
 
 		return view("web.administrations.academies.edit", compact("academy", "regions"));
 	}

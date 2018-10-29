@@ -15,8 +15,8 @@
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
 						<tr>
+							<th>Service</th>
 							<th>Nom</th>
-							<th>Rôle</th>
 							<th>Email</th>
 							<th>Actions</th>
 						</tr>
@@ -24,8 +24,8 @@
 					<tbody>
 						@foreach($utilisateurs as $utilisateur)
 							<tr>
-								<th>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</th>
 								<td>{{ $utilisateur->service->nom }}</td>
+								<td>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</td>
 								<td>{{ $utilisateur->email }}</td>
 								<td>
 									<a href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur->id]) }}">

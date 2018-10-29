@@ -41,8 +41,8 @@ class StockMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$domaines = DomaineMateriel::with("types")->orderBy("nom", "ASC")->get();
-		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
+		$etats = EtatMateriel::orderBy("nom")->get();
 
 		return view("web.materiels.stocks.create", compact("domaines", "etats", "types"));
 	}
@@ -116,8 +116,8 @@ class StockMaterielController extends Controller
 	 */
 	public function edit(Materiel $stock): View
 	{
-		$domaines = DomaineMateriel::with("types")->orderBy("nom", "ASC")->get();
-		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
+		$etats = EtatMateriel::orderBy("nom")->get();
 
 		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etats", "types"));
 	}

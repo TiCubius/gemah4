@@ -18,7 +18,7 @@ class EtatController extends Controller
 	 */
 	public function index(): View
 	{
-		$etats = EtatMateriel::orderBy("nom", "ASC")->get();
+		$etats = EtatMateriel::orderBy("nom")->get();
 
 		return view("web.administrations.materiels.etats.index", compact("etats"));
 	}

@@ -20,7 +20,7 @@ class UtilisateurController extends Controller
 	 */
 	public function index(): View
 	{
-		$utilisateurs = Utilisateur::with("service")->orderBy("nom", "ASC")->get();
+		$utilisateurs = Utilisateur::with("service")->orderBy("nom")->get();
 
 		return view("web.administrations.utilisateurs.index", compact("utilisateurs"));
 	}
@@ -32,8 +32,8 @@ class UtilisateurController extends Controller
 	 */
 	public function create(): View
 	{
-		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
-		$services = Service::orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom")->get();
+		$services = Service::orderBy("nom")->get();
 
 		return view("web.administrations.utilisateurs.create", compact("academies", "services"));
 	}
@@ -87,8 +87,8 @@ class UtilisateurController extends Controller
 	 */
 	public function edit(Utilisateur $utilisateur): View
 	{
-		$academies = Academie::with("region")->orderBy("nom", "ASC")->get();
-		$services = Service::orderBy("nom", "ASC")->get();
+		$academies = Academie::with("region")->orderBy("nom")->get();
+		$services = Service::orderBy("nom")->get();
 
 		return view("web.administrations.utilisateurs.edit", compact("utilisateur", "academies", "services"));
 	}

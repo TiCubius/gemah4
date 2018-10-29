@@ -18,7 +18,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$types = TypeMateriel::with('domaine')->orderBy("nom", "ASC")->get();
+		$types = TypeMateriel::with('domaine')->orderBy("nom")->get();
 
 		return view("web.materiels.types.index", compact("types"));
 	}
@@ -30,7 +30,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom")->get();
 
 		return view("web.materiels.types.create", compact("domaines"));
 	}
@@ -75,7 +75,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function edit(TypeMateriel $type): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom", "ASC")->get();
+		$domaines = DomaineMateriel::orderBy("nom")->get();
 
 		return view("web.materiels.types.edit", compact("type", "domaines"));
 	}

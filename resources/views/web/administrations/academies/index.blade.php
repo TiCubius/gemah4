@@ -15,16 +15,16 @@
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
 						<tr>
-							<th>Nom</th>
 							<th>Région</th>
+							<th>Nom</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($academies as $academy)
 							<tr>
-								<td>{{ $academy->nom }}</td>
 								<td>{{ $academy->region->nom }}</td>
+								<td>{{ $academy->nom }}</td>
 								<td>
 									<a href="{{ route("web.administrations.academies.edit", [$academy->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

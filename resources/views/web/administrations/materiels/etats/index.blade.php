@@ -15,6 +15,7 @@
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
 						<tr>
+							<th>Couleur</th>
 							<th>Nom</th>
 							<th>Actions</th>
 						</tr>
@@ -22,7 +23,8 @@
 					<tbody>
 						@foreach($etats as $etat)
 							<tr>
-								<th style="background: {{ "#{$etat->couleur}" }};">{{ $etat->nom }}</th>
+								<td style="background: {{ $etat->couleur }};"></td>
+								<td>{{ $etat->nom }}</td>
 								<td>
 									<a href="{{ route("web.administrations.materiels.etats.edit", [$etat->id]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

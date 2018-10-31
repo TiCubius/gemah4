@@ -2,28 +2,28 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
-			Gestion des Responsables
+		@component("web._includes.components.title", ["add" => "web.scolarites.enseignants.create", "back" => "web.scolarites.index"])
+			Gestion des Enseignants
 		@endcomponent
 
-		@if ($latestCreatedResponsables->isEmpty())
+		@if ($latestCreatedEnseignants->isEmpty())
 			<div class="col-12 mb-3">
 				<div class="alert alert-warning">
-					Aucun responsable n'est enregistré sur l'application
+					Aucun enseignant n'est enregistré sur l'application
 				</div>
 			</div>
 		@else
 			<div class="col-12 mb-3">
 				<form class="card" method="GET">
-					<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
+					<div class="card-header gemah-bg-primary">Rechercher un enseignant</div>
 					<div class="card-body">
 						<div class="form-group">
-							<label class="optional" for="nom">Nom du responsable</label>
+							<label class="optional" for="nom">Nom du enseignant</label>
 							<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
 						</div>
 
 						<div class="form-group">
-							<label class="optional" for="prenom">Prénom du responsable</label>
+							<label class="optional" for="prenom">Prénom du enseignant</label>
 							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ app("request")->input("prenom") }}">
 						</div>
 
@@ -38,7 +38,7 @@
 						</div>
 
 						<div class="d-flex justify-content-between">
-							<a href="{{ route("web.responsables.index") }}">
+							<a href="{{ route("web.scolarites.enseignants.index") }}">
 								<button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
 							</a>
 							<button class="btn btn-outline-dark">Rechercher</button>
@@ -47,11 +47,11 @@
 				</form>
 			</div>
 
-			@isset($searchedResponsables)
+			@isset($searchedEnseignants)
 				<div class="col-12 mb-3">
-					@if($searchedResponsables->isEmpty())
+					@if($searchedEnseignants->isEmpty())
 						<div class="alert alert-warning">
-							Aucun responsable n'a été trouvé avec ces critères
+							Aucun enseignant n'a été trouvé avec ces critères
 						</div>
 					@else
 						<table class="table table-sm table-hover text-center">
@@ -64,13 +64,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($searchedResponsables as $responsable)
+								@foreach($searchedEnseignants as $enseignant)
 									<tr>
-										<th>{{ "{$responsable->nom} {$responsable->prenom}" }}</th>
-										<td>{{ $responsable->email }}</td>
-										<td>{{ $responsable->telephone }}</td>
+										<th>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</th>
+										<td>{{ $enseignant->email }}</td>
+										<td>{{ $enseignant->telephone }}</td>
 										<td>
-											<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+											<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -81,15 +81,15 @@
 					@endif
 				</div>
 			@else
-				@if($latestCreatedResponsables->isNotEmpty())
-					<div class="col-12 mb-3">
+				@if($latestCreatedEnseignants->isNotEmpty())
+					<div class="col-12 col-lg-6 mb-3">
 						<div class="card">
-							<div class="card-header bg-dark text-white">Derniers ajoutés</div>
+							<div class="card-header gemah-bg-primary text-white">Derniers ajoutés</div>
 							<ul class="list-group list-group-flush">
-								@foreach($latestCreatedResponsables as $responsable)
+								@foreach($latestCreatedEnseignants as $enseignant)
 									<li class="list-group-item d-flex justify-content-between">
-										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
+										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -99,15 +99,15 @@
 					</div>
 				@endif
 
-				@if($latestUpdatedResponsables->isNotEmpty())
-					<div class="col-12 mb-3">
+				@if($latestUpdatedEnseignants->isNotEmpty())
+					<div class="col-12 col-lg-6 mb-3">
 						<div class="card">
-							<div class="card-header bg-dark text-white">Derniers modifiés</div>
+							<div class="card-header gemah-bg-primary text-white">Derniers modifiés</div>
 							<ul class="list-group list-group-flush">
-								@foreach($latestUpdatedResponsables as $responsable)
+								@foreach($latestUpdatedEnseignants as $enseignant)
 									<li class="list-group-item d-flex justify-content-between ">
-										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
+										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

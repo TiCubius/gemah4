@@ -89,7 +89,7 @@
 				@if($latestCreatedMateriels->isNotEmpty())
 					<div class="col-12 col-lg-6">
 						<div class="card mb-3">
-							<div class="card-header gemah-bg-primary">Derniers créés</div>
+							<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
 							<ul class="list-group list-group-flush">
 								@foreach($latestCreatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">

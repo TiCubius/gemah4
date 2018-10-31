@@ -13,6 +13,10 @@
 
 Route::get('/', 'GemahController@index')->name('web.index');
 
+Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() {
+	Route::resource("/", "Scolarite\ScolariteController")->only("index");
+});
+
 Route::group(["prefix" => "/", "as" => "web."], function() {
 	Route::resource("responsables", "Responsables\ResponsableController");
 });

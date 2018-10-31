@@ -1,1 +1,21 @@
-strong{font-weight:700}.gemah-txt-primary,strong{color:#3a539b!important}.gemah-bg-primary{color:#fff;background:#3a539b!important}label.optional:after{content:" (optionnel) ";color:green;font-size:12px;font-style:italic}
+strong {
+  color: #3A539B !important;
+  font-weight: bold;
+}
+
+.gemah-txt-primary {
+  color: #3A539B !important;
+}
+
+.gemah-bg-primary {
+  color: #FFF;
+  background: #3A539B !important;
+}
+
+label.optional::after {
+  content: ' (optionnel) ';
+  color: green;
+  font-size: 12px;
+  font-style: italic;
+}
+

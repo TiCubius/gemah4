@@ -7,7 +7,8 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.materiels.stocks.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.materiels.stocks.update", [$stock->id]) }}" method="POST">
+				{{ method_field("PATCH") }}
 				{{ csrf_field() }}
 
 				<div class="card card-body mb-3">

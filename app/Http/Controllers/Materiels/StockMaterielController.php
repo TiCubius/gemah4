@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DomaineMateriel;
 use App\Models\EtatMateriel;
 use App\Models\Materiel;
-use App\Models\TypeMateriel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class StockMaterielController extends Controller
@@ -22,16 +20,17 @@ class StockMaterielController extends Controller
 	 */
 	public function index(Request $request): View
 	{
-		$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
-		$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
-
 		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
+		$etats = EtatMateriel::orderBy("nom")->get();
 
-		if ($request->exists(["type_id", "marque", "modele", "num_serie"])) {
-			$searchedMateriels = Materiel::search($request->input("type_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->get();
+		if ($request->exists(["type_id", "etat_id", "marque", "modele", "num_serie"])) {
+			$searchedMateriels = Materiel::search($request->input("type_id"), $request->input("etat_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->get();
+		}  else {
+			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
+			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
 		}
 
-		return view("web.materiels.stocks.index", compact("domaines", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
+		return view("web.materiels.stocks.index", compact("domaines", "etats", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
 	}
 
 	/**

@@ -6,7 +6,7 @@
 			Gestion des Stocks Matériel
 		@endcomponent
 
-		@if($latestCreatedMateriels->isEmpty())
+		@if(isset($latestCreatedMateriels) && $latestCreatedMateriels->isEmpty())
 			<div class="col-12">
 				@component("web._includes.components.alert", ["type" => "warning"])
 					Aucun matériel n'est enregistré sur l'application
@@ -20,13 +20,30 @@
 						<div class="form-group">
 							<label class="optional" for="type_id">Type</label>
 							<select id="type_id" class="form-control" name="type_id">
-								<option value="">Sélectionnez un type</option>
+								<option value>Sélectionnez un type</option>
 								@foreach ($domaines as $domaine)
 									<optgroup label="{{ $domaine->nom }}">
 										@foreach($domaine->types as $type)
-											<option value="{{ $type->id }}">{{ $type->nom }}</option>
+											@if(Request::get("type_id") == $type->id)
+												<option selected value="{{ $type->id }}">{{ $type->nom }}</option>
+											@else
+												<option value="{{ $type->id }}">{{ $type->nom }}</option>
+											@endif
 										@endforeach
 									</optgroup>
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="optional" for="etat_id">État</label>
+							<select id="etat_id" class="form-control" name="etat_id">
+								<option value>Sélectionnez un état</option>
+								@foreach($etats as $etat)
+									@if(Request::get("etat_id") == $etat->id)
+										<option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
+									@else
+										<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
+									@endif
 								@endforeach
 							</select>
 						</div>
@@ -64,6 +81,7 @@
 						<table class="table table-hover text-center">
 							<thead class="gemah-bg-primary">
 								<tr>
+									<td>État</td>
 									<th>Marque</th>
 									<th>Modèle</th>
 									<th>Actions</th>
@@ -72,6 +90,7 @@
 							<tbody>
 								@foreach($searchedMateriels as $materiel)
 									<tr>
+										<td class="couleur" style="width: 57px; background:{{ $materiel->etat->couleur }}"></td>
 										<td>{{ $materiel->marque }}</td>
 										<td>{{ $materiel->modele }}</td>
 										<td>
@@ -93,6 +112,7 @@
 							<ul class="list-group list-group-flush">
 								@foreach($latestCreatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
+										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<a href="{{ route("web.materiels.stocks.edit", [$materiel->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
@@ -110,6 +130,7 @@
 							<ul class="list-group list-group-flush">
 								@foreach($latestUpdatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
+										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<a href="{{ route("web.materiels.stocks.edit", [$materiel->id]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>

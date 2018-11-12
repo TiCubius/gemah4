@@ -33,7 +33,7 @@ class Materiel extends Model
 	 *
 	 * @return BelongsTo
 	 */
-	public function Type(): BelongsTo
+	public function type(): BelongsTo
 	{
 		return $this->belongsTo(TypeMateriel::class);
 	}
@@ -41,7 +41,7 @@ class Materiel extends Model
 	/**
 	 * @return BelongsTo
 	 */
-	public function Etat(): BelongsTo
+	public function etat(): BelongsTo
 	{
 		return $this->belongsTo(EtatMateriel::class);
 	}
@@ -54,7 +54,7 @@ class Materiel extends Model
 	 */
 	public function scopelatestCreated($query): Builder
 	{
-		return $query->orderBy("created_at", "DESC");
+		return $query->orderBy("created_at", "DESC")->with("etat");
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Materiel extends Model
 	 */
 	public function scopelatestUpdated($query): Builder
 	{
-		return $query->orderBy("updated_at", "DESC");
+		return $query->orderBy("updated_at", "DESC")->with("etat");
 	}
 
 	/**
@@ -78,11 +78,12 @@ class Materiel extends Model
 	 * @param        $numSerie
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $typeId, $marque, $modele, $numSerie): Builder
+	public function scopeSearch($query, $typeId, $etatId, $marque, $modele, $numSerie): Builder
 	{
 		// Dans le cas où la variable "type", "marque", "num_serie" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
 		$typeId = $typeId ?? "--";
+		$etatId = $etatId ?? "--";
 		$marque = $marque ?? "--";
 		$modele = $modele ?? "--";
 		$numSerie = $numSerie ?? "--";
@@ -90,9 +91,12 @@ class Materiel extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
-			$query->where("type_id", "=", $typeId)->orWhere("marque", "LIKE", "%{$marque}%")->orWhere("modele", "LIKE", "%{$modele}%")->orWhere("num_serie", "LIKE", "%{$numSerie}%");
-		});
+		return $query->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+			$query->where("type_id", $typeId)
+				->orWhere("marque", "LIKE", "%{$marque}%")
+				->orWhere("modele", "LIKE", "%{$modele}%")
+				->orWhere("num_serie", "LIKE", "%{$numSerie}%");
+		})->orWhere("etat_id", $etatId);
 	}
 
 }

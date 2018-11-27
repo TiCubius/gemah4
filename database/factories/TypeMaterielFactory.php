@@ -3,8 +3,10 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\TypeMateriel::class, function(Faker $faker) {
+	$domaine = factory(\App\Models\DomaineMateriel::class)->create();
+
 	return [
 		"nom"        => $faker->word,
-		"domaine_id" => 1,
+		"domaine_id" => $domaine->id,
 	];
 });

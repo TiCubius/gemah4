@@ -39,7 +39,7 @@ class AcademiesTest extends TestCase
 		$request = $this->get("/administrations/academies/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'une Académie");
+		$request->assertSee("Création d'une académie");
 		$request->assertSee("Nom de l'académie");
 		$request->assertSee("Région de l'académie");
 		$request->assertSee("Créer l'académie");

@@ -37,7 +37,7 @@ class ServicesTest extends TestCase
 		$request = $this->get("/administrations/services/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Service");
+		$request->assertSee("Création d'un service");
 		$request->assertSee("Nom du service");
 		$request->assertSee("Créer le service");
 	}

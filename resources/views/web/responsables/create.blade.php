@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.responsables.index"])
-			Création d'un Responsable
+			Création d'un responsable
 		@endcomponent
 
 		<div class="col-12">

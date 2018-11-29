@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.materiels.etats.index"])
-			Création d'un État Matériel
+			Création d'un état matériel
 		@endcomponent
 
 		<div class="col-12">

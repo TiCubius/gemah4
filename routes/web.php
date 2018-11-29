@@ -17,6 +17,7 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() 
 	Route::resource("/", "Scolarite\ScolariteController")->only("index");
 
 	Route::resource("enseignants", "Scolarite\EnseignantController");
+	Route::resource("etablissements", "Scolarite\EtablissementController");
 });
 
 Route::group(["prefix" => "/", "as" => "web."], function() {

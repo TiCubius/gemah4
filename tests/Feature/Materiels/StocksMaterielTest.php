@@ -37,7 +37,7 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 
-		$request->assertSee("Création d'un Matériel");
+		$request->assertSee("Création d'un matériel");
 		$request->assertSee("Type du matériel");
 		$request->assertSee("Marque du matériel");
 		$request->assertSee("Modèle du matériel");

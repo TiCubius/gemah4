@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.scolarites.enseignants.index"])
-			Création d'un Enseignant
+			Création d'un enseignant
 		@endcomponent
 
 		<div class="col-12">

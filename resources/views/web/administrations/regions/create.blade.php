@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
-			Création d'une Région
+			Création d'une région
 		@endcomponent
 
 		<div class="col-12">

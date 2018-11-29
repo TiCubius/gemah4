@@ -37,7 +37,7 @@ class DomainesMaterielTest extends TestCase
 		$request = $this->get("/materiels/domaines/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Domaine");
+		$request->assertSee("Création d'un domaine matériel");
 		$request->assertSee("Nom du domaine");
 		$request->assertSee("Créer le domaine");
 	}

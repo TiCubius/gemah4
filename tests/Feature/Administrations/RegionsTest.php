@@ -36,7 +36,7 @@ class RegionsTest extends TestCase
 		$request = $this->get("/administrations/regions/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'une Région");
+		$request->assertSee("Création d'une région");
 		$request->assertSee("Nom de la région");
 		$request->assertSee("Créer la région");
 	}

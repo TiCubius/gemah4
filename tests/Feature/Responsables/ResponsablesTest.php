@@ -37,7 +37,7 @@ class ResponsablesTest extends TestCase
 		$request = $this->get("/responsables/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Responsable");
+		$request->assertSee("Création d'un responsable");
 		$request->assertSee("Nom du responsable");
 		$request->assertSee("Créer le responsable");
 	}

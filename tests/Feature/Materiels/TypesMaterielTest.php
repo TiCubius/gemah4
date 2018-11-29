@@ -42,7 +42,7 @@ class TypesMaterielTest extends TestCase
 		$request = $this->get("/materiels/types/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Type");
+		$request->assertSee("Création d'un type matériel");
 		$request->assertSee("Nom du type");
 		$request->assertSee("Domaine Matériel");
 		$request->assertSee("Créer le type");

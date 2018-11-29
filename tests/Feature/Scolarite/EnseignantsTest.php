@@ -35,7 +35,7 @@ class EnseignantsTest extends TestCase
 		$request = $this->get("/scolarites/enseignants/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Enseignant");
+		$request->assertSee("Création d'un enseignant");
 		$request->assertSee("Nom de l'enseignant");
 		$request->assertSee("Prénom de l'enseignant");
 		$request->assertSee("Adresse E-Mail de l'enseignant");

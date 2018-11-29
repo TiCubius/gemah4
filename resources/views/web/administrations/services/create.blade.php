@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.services.index"])
-			Création d'un Service
+			Création d'un service
 		@endcomponent
 
 		<div class="col-12">

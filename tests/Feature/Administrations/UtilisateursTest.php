@@ -43,7 +43,7 @@ class UtilisateursTest extends TestCase
 		$request = $this->get("/administrations/utilisateurs/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un Utilisateur");
+		$request->assertSee("Création d'un utilisateur");
 		$request->assertSee("Nom de l'utilisateur");
 		$request->assertSee("Prénom de l'utilisateur");
 		$request->assertSee("Adresse E-Mail de l'utilisateur");

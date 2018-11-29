@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.materiels.domaines.index"])
-			Création d'un Domaine Matériel
+			Création d'un domaine matériel
 		@endcomponent
 
 		<div class="col-12">
@@ -16,7 +16,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer le domaine</button>
+					<button class="btn btn-sm btn-outline-success">Créer le domaine matériel</button>
 				</div>
 			</form>
 		</div>

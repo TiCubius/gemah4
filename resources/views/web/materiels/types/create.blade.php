@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.materiels.types.index"])
-			Création d'un Type Matériel
+			Création d'un type matériel
 		@endcomponent
 
 		<div class="col-12">
@@ -26,7 +26,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer le type</button>
+					<button class="btn btn-sm btn-outline-success">Créer le type matériel</button>
 				</div>
 			</form>
 		</div>

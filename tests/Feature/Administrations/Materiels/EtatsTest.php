@@ -35,7 +35,7 @@ class EtatsTest extends TestCase
 		$request = $this->get("/administrations/materiels/etats/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un État Matériel");
+		$request->assertSee("Création d'un état matériel");
 		$request->assertSee("Nom de l'état");
 		$request->assertSee("Couleur de l'état matériel");
 		$request->assertSee("Créer l'état matériel");

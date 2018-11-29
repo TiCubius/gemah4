@@ -13,7 +13,7 @@
 					</button>
 				</a>
 
-				<a href="{{ "" }}">
+				<a href="{{ route("web.scolarites.etablissements.index") }}">
 					<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 						Gestion des Établissements
 					</button>

@@ -13,10 +13,10 @@
 				</div>
 
 				<a href="{{ route("web.administrations.academies.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des Académies
+					Gestion des académies
 				</a>
 				<a href="{{ route("web.administrations.regions.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des Régions
+					Gestion des régions
 				</a>
 			</div>
 		</div>
@@ -27,10 +27,10 @@
 				</div>
 
 				<a href="{{ route("web.administrations.services.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des Services
+					Gestion des services
 				</a>
 				<a href="{{ route("web.administrations.utilisateurs.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des Utilisateurs
+					Gestion des utilisateurs
 				</a>
 			</div>
 		</div>
@@ -41,16 +41,16 @@
 				</div>
 
 				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des États Matériel
+					Gestion des états matériel
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des Tickets
+					Gestion des tickets
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					Historique des Actions
+					Historique des actions
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					Liste des Permissions
+					Liste des permissions
 				</a>
 			</div>
 		</div>

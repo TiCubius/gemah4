@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.materiels.domaines.create", "back" => "web.materiels.index"])
-			Gestion des Domaines Matériel
+			Gestion des domaines matériel
 		@endcomponent
 
 		<div class="col-12">

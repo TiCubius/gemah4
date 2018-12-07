@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.administrations.utilisateurs.create", "back" => "web.administrations.index"])
-			Gestion des Utilisateurs
+			Gestion des utilisateurs
 		@endcomponent
 
 		<div class="col-12">

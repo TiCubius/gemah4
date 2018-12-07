@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.materiels.types.create", "back" => "web.materiels.index"])
-			Gestion des Types Matériel
+			Gestion des types matériel
 		@endcomponent
 
 		<div class="col-12">

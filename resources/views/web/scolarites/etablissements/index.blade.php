@@ -3,19 +3,19 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.scolarites.etablissements.create", "back" => "web.scolarites.index"])
-			Gestion des Etablissements
+			Gestion des établissements
 		@endcomponent
 
 		@if ($latestCreatedEtablissements->isEmpty())
 			<div class="col-12 mb-3">
 				<div class="alert alert-warning">
-					Aucun enseignant n'est enregistré sur l'application
+					Aucun établissement n'est enregistré sur l'application
 				</div>
 			</div>
 		@else
 			<div class="col-12 mb-3">
 				<form class="card" method="GET">
-					<div class="card-header gemah-bg-primary">Rechercher un enseignant</div>
+					<div class="card-header gemah-bg-primary">Rechercher un établissement</div>
 					<div class="card-body">
 						<div class="form-group">
 							<label class="optional" for="nom">Nom de l'établissement</label>
@@ -46,7 +46,7 @@
 				<div class="col-12 mb-3">
 					@if($searchedEtablissements->isEmpty())
 						<div class="alert alert-warning">
-							Aucun enseignant n'a été trouvé avec ces critères
+							Aucun établissement n'a été trouvé avec ces critères
 						</div>
 					@else
 						<table class="table table-sm table-hover text-center">

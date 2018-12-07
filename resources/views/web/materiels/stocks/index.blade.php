@@ -3,7 +3,7 @@
 
 	<div class="row">
 		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "back" => "web.materiels.index"])
-			Gestion des Stocks Matériel
+			Gestion des stocks matériel
 		@endcomponent
 
 		@if(isset($latestCreatedMateriels) && $latestCreatedMateriels->isEmpty())

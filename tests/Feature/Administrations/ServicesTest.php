@@ -21,7 +21,7 @@ class ServicesTest extends TestCase
 		$request = $this->get("/administrations/services");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Services");
+		$request->assertSee("Gestion des services");
 
 		foreach ($Services as $Service) {
 			$request->assertSee($Service->nom);

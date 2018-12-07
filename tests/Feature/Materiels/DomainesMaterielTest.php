@@ -21,7 +21,7 @@ class DomainesMaterielTest extends TestCase
 		$request = $this->get("/materiels/domaines");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Domaines Matériel");
+		$request->assertSee("Gestion des domaines matériel");
 
 		foreach ($Domaines as $Domaine) {
 			$request->assertSee($Domaine->nom);

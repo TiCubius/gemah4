@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
-			Gestion des Responsables
+			Gestion des responsables
 		@endcomponent
 
 		@if ($latestCreatedResponsables->isEmpty())

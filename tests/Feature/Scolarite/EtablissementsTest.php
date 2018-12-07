@@ -20,7 +20,7 @@ class EtablissementsTest extends TestCase
 		$request = $this->get("/scolarites/etablissements");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Etablissements");
+		$request->assertSee("Gestion des établissements");
 
 		foreach ($etablissements as $etablissement) {
 			$request->assertSee($etablissement->nom);

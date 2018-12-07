@@ -24,7 +24,7 @@ class TypesMaterielTest extends TestCase
 		$request = $this->get("/materiels/types");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Types Matériel");
+		$request->assertSee("Gestion des types matériel");
 
 		foreach ($Types as $Type) {
 			$request->assertSee($Type->nom);

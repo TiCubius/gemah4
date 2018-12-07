@@ -20,7 +20,7 @@ class StocksMaterielTest extends TestCase
 		$request = $this->get("/materiels/stocks");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Stocks Matériel");
+		$request->assertSee("Gestion des stocks matériel");
 
 		foreach ($Stocks as $Stock) {
 			$request->assertSee($Stock->modele);

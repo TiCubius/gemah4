@@ -18,9 +18,9 @@ class MaterielsTest extends TestCase
 		$request = $this->get('/materiels');
 
 		$request->assertStatus(200);
-		$request->assertSee('Gestion du Matériel');
-		$request->assertSee('Gestion des Stocks de Matériel');
-		$request->assertSee('Gestion des Domaines Matériel');
-		$request->assertSee('Gestion des Types Matériel');
+		$request->assertSee('Gestion du matériel');
+		$request->assertSee('Gestion des stocks de matériel');
+		$request->assertSee('Gestion des domaines matériel');
+		$request->assertSee('Gestion des types matériel');
 	}
 }

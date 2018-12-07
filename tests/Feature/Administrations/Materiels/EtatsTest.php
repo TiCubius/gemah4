@@ -18,7 +18,7 @@ class EtatsTest extends TestCase
 		$request = $this->get("/administrations/materiels/etats");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des États Matériel");
+		$request->assertSee("Gestion des états matériel");
 
 		foreach ($Etats as $Etat) {
 			$request->assertSee($Etat->nom);

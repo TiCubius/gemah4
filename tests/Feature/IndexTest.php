@@ -19,9 +19,9 @@ class IndexTest extends TestCase
 		$request = $this->get('/');
 
 		$request->assertStatus(200);
-		$request->assertSee('Gestion de la Scolarité');
-		$request->assertSee('Gestion des Responsables');
-		$request->assertSee('Gestion du Matériel');
+		$request->assertSee('Gestion de la scolarité');
+		$request->assertSee('Gestion des responsables');
+		$request->assertSee('Gestion du matériel');
 		$request->assertSee('Statistiques');
 		$request->assertSee('Administrations');
 	}

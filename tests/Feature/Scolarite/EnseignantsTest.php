@@ -18,7 +18,7 @@ class EnseignantsTest extends TestCase
 		$request = $this->get("/scolarites/enseignants");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Enseignants");
+		$request->assertSee("Gestion des enseignants");
 
 		foreach ($Enseignants as $Enseignant) {
 			$request->assertSee($Enseignant->nom);

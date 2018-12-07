@@ -16,10 +16,10 @@ class ScolariteTest extends TestCase
 		$request = $this->get('/scolarites');
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion de la Scolarité");
+		$request->assertSee("Gestion de la scolarité");
 
-		$request->assertSee("Gestion des Élèves");
-		$request->assertSee("Gestion des Établissements");
-		$request->assertSee('Gestion des Enseignants');
+		$request->assertSee("Gestion des élèves");
+		$request->assertSee("Gestion des établissements");
+		$request->assertSee('Gestion des enseignants');
 	}
 }

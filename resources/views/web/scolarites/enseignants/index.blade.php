@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.scolarites.enseignants.create", "back" => "web.scolarites.index"])
-			Gestion des Enseignants
+			Gestion des enseignants
 		@endcomponent
 
 		@if ($latestCreatedEnseignants->isEmpty())

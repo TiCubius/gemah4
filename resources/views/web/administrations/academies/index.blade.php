@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.administrations.academies.create", "back" => "web.administrations.index"])
-			Gestion des Académies
+			Gestion des académies
 		@endcomponent
 
 		<div class="col-12">

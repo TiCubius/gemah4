@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.create", "back" => "web.administrations.index"])
-			Gestion des États Matériel
+			Gestion des états matériel
 		@endcomponent
 
 		<div class="col-12">

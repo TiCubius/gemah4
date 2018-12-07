@@ -20,7 +20,7 @@ class ResponsablesTest extends TestCase
 		$request = $this->get("/responsables");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des Responsables");
+		$request->assertSee("Gestion des responsables");
 
 		foreach ($Responsables as $Responsable) {
 			$request->assertSee($Responsable->nom);

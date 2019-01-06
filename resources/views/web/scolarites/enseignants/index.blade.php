@@ -70,7 +70,7 @@
 										<td>{{ $enseignant->email }}</td>
 										<td>{{ $enseignant->telephone }}</td>
 										<td>
-											<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
+											<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -89,7 +89,7 @@
 								@foreach($latestCreatedEnseignants as $enseignant)
 									<li class="list-group-item d-flex justify-content-between">
 										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
+										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -107,7 +107,7 @@
 								@foreach($latestUpdatedEnseignants as $enseignant)
 									<li class="list-group-item d-flex justify-content-between ">
 										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant->id]) }}">
+										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

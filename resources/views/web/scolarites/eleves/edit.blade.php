@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	@component("web._includes.components.modals.destroy", ["route" => "web.scolarites.eleves.destroy", "id" => $eleve->id])
+	@component("web._includes.components.modals.destroy", ["route" => "web.scolarites.eleves.destroy", "id" => $eleve])
 		@slot("name")
 			{{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endslot

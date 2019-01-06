@@ -28,7 +28,7 @@
 								<td>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</td>
 								<td>{{ $utilisateur->email }}</td>
 								<td>
-									<a href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur->id]) }}">
+									<a href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

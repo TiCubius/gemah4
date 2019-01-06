@@ -65,7 +65,7 @@
 										<td>{{ $etablissement->ville }}</td>
 										<td>{{ $etablissement->telephone }}</td>
 										<td>
-											<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement->id]) }}">
+											<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -84,7 +84,7 @@
 								@foreach($latestCreatedEtablissements as $etablissement)
 									<li class="list-group-item d-flex justify-content-between">
 										<span>{{ "{$etablissement->nom} {$etablissement->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement->id]) }}">
+										<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -102,7 +102,7 @@
 								@foreach($latestUpdatedEtablissements as $etablissement)
 									<li class="list-group-item d-flex justify-content-between ">
 										<span>{{ "{$etablissement->nom} {$etablissement->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement->id]) }}">
+										<a href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

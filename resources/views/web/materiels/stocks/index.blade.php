@@ -94,7 +94,10 @@
 										<td>{{ $materiel->marque }}</td>
 										<td>{{ $materiel->modele }}</td>
 										<td>
-											<a href="{{ route("web.materiels.stocks.edit", [$materiel->id]) }}">
+											<a href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
+												<button class="btn btn-sm btn-outline-primary">Afficher</button>
+											</a>
+											<a href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -114,9 +117,14 @@
 									<li class="list-group-item d-flex justify-content-between">
 										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
-										<a href="{{ route("web.materiels.stocks.edit", [$materiel->id]) }}">
-											<button class="btn btn-sm btn-outline-primary">Editer</button>
-										</a>
+										<div class="actions">
+											<a href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
+												<button class="btn btn-sm btn-outline-primary">Afficher</button>
+											</a>
+											<a href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
+												<button class="btn btn-sm btn-outline-primary">Editer</button>
+											</a>
+										</div>
 									</li>
 								@endforeach
 							</ul>
@@ -132,9 +140,14 @@
 									<li class="list-group-item d-flex justify-content-between">
 										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
-										<a href="{{ route("web.materiels.stocks.edit", [$materiel->id]) }}">
-											<button class="btn btn-sm btn-outline-primary">Editer</button>
-										</a>
+										<div class="actions">
+											<a href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
+												<button class="btn btn-sm btn-outline-primary">Afficher</button>
+											</a>
+											<a href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
+												<button class="btn btn-sm btn-outline-primary">Editer</button>
+											</a>
+										</div>
 									</li>
 								@endforeach
 							</ul>

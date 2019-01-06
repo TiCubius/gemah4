@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.regions.update", [$region->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.regions.update", [$region]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 

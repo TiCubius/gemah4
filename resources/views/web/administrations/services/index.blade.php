@@ -24,7 +24,7 @@
 							<tr>
 								<td>{{ $service->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.services.edit", [$service->id]) }}">
+									<a href="{{ route("web.administrations.services.edit", [$service]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

@@ -70,7 +70,7 @@
 										<td>{{ $responsable->email }}</td>
 										<td>{{ $responsable->telephone }}</td>
 										<td>
-											<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+											<a href="{{ route("web.responsables.edit", [$responsable]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -89,7 +89,7 @@
 								@foreach($latestCreatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between">
 										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+										<a href="{{ route("web.responsables.edit", [$responsable]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -107,7 +107,7 @@
 								@foreach($latestUpdatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between ">
 										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-										<a href="{{ route("web.responsables.edit", [$responsable->id]) }}">
+										<a href="{{ route("web.responsables.edit", [$responsable]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

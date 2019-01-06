@@ -26,7 +26,7 @@
 								<td style="background: {{ $etat->couleur }};"></td>
 								<td>{{ $etat->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.materiels.etats.edit", [$etat->id]) }}">
+									<a href="{{ route("web.administrations.materiels.etats.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

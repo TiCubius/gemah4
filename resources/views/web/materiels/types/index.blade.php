@@ -26,7 +26,7 @@
 								<td>{{ $type->domaine->nom }}</td>
 								<td>{{ $type->nom }}</td>
 								<td>
-									<a href="{{ route("web.materiels.types.edit", [$type->id]) }}">
+									<a href="{{ route("web.materiels.types.edit", [$type]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

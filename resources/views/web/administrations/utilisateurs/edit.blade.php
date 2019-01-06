@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.utilisateurs.update", [$utilisateur->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.utilisateurs.update", [$utilisateur]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
@@ -65,7 +65,7 @@
 		</div>
 	</div>
 
-	<form id="modal" class="modal fade" action="{{ route("web.administrations.utilisateurs.destroy", [$utilisateur->id]) }}" method="POST" tabindex="-1">
+	<form id="modal" class="modal fade" action="{{ route("web.administrations.utilisateurs.destroy", [$utilisateur]) }}" method="POST" tabindex="-1">
 		{{ csrf_field() }}
 		{{ method_field("DELETE") }}
 
@@ -92,7 +92,7 @@
 		</div>
 	</form>
 
-	@component("web._includes.components.modals.destroy", ["route" => "web.administrations.utilisateurs.destroy", "id" => $utilisateur->id])
+	@component("web._includes.components.modals.destroy", ["route" => "web.administrations.utilisateurs.destroy", "id" => $utilisateur])
 		@slot("name")
 			{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}
 		@endslot

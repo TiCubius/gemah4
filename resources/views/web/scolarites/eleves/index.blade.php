@@ -70,7 +70,7 @@
 										<td>{{ $eleve->email }}</td>
 										<td>{{ $eleve->telephone }}</td>
 										<td>
-											<a href="{{ route("web.scolarites.eleves.edit", [$eleve->id]) }}">
+											<a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
 												<button class="btn btn-sm btn-outline-primary">Editer</button>
 											</a>
 										</td>
@@ -89,7 +89,7 @@
 								@foreach($latestCreatedEleves as $eleve)
 									<li class="list-group-item d-flex justify-content-between">
 										<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.eleves.edit", [$eleve->id]) }}">
+										<a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>
@@ -107,7 +107,7 @@
 								@foreach($latestUpdatedEleves as $eleve)
 									<li class="list-group-item d-flex justify-content-between ">
 										<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.eleves.edit", [$eleve->id]) }}">
+										<a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
 									</li>

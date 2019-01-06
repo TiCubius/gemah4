@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.materiels.types.update", [$type->id]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.materiels.types.update", [$type]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("PUT") }}
 
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 
-	@component("web._includes.components.modals.destroy", ["route" => "web.materiels.types.destroy", "id" => $type->id])
+	@component("web._includes.components.modals.destroy", ["route" => "web.materiels.types.destroy", "id" => $type])
 		@slot("name")
 			{{ $type->nom }}
 		@endslot

@@ -24,7 +24,7 @@
 							<tr>
 								<td>{{ $region->nom }}</td>
 								<td>
-									<a href="{{ route("web.administrations.regions.edit", [$region->id]) }}">
+									<a href="{{ route("web.administrations.regions.edit", [$region]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

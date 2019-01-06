@@ -16,6 +16,13 @@ Route::get('/', 'GemahController@index')->name('web.index');
 Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() {
 	Route::resource("/", "Scolarite\ScolariteController")->only("index");
 
+	// En anglais, le singulier de '...ves' is 'fe'
+	// Exemple: multiples lives -> one life
+	// Par conséquent, le paramètre par défaut était elefe (Laravel 5.7)
+	Route::resource("eleves", "Scolarite\EleveController")->parameters([
+		'eleves' => 'eleve'
+	]);
+
 	Route::resource("enseignants", "Scolarite\EnseignantController");
 	Route::resource("etablissements", "Scolarite\EtablissementController");
 });

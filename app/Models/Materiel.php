@@ -29,6 +29,16 @@ class Materiel extends Model
 	];
 
 	/**
+	 * Un matériel appartient à un élève
+	 *
+	 * @return BelongsTo
+	 */
+	public function eleve(): BelongsTo
+	{
+		return $this->belongsTo(Eleve::class);
+	}
+
+	/**
 	 * Un matériel appartient à un type de matériel
 	 *
 	 * @return BelongsTo

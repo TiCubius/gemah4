@@ -34,7 +34,7 @@ class CreateMaterielsTable extends Migration
 			$table->date('date_service_fait')->nullable();
 			$table->date('date_fin_garantie')->nullable();
 			$table->date('date_pret')->nullable();
-			$table->string('acheter_pour')->nullable();
+			$table->string('achat_pour')->nullable();
 
 			$table->foreign('etat_id')->references('id')->on('etats_materiel');
 			$table->foreign('eleve_id')->references('id')->on('eleves');

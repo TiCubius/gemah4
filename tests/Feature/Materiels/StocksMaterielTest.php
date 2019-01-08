@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\DomaineMateriel;
+use App\Models\Eleve;
 use App\Models\Materiel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
@@ -84,21 +85,6 @@ class StocksMaterielTest extends TestCase
 		// n'est pas définie. Le test n'est donc pas possible.
 
 		$this->assertTrue(true);
-
-		//		$Stocks = factory(Materiel::class, 5)->create();
-		//
-		//		$request = $this->post("/materiels/stocks", [
-		//			"_token"     => csrf_token(),
-		//			"domaine_id" => $Stocks->random()->domaine_id,
-		//			"type_id"    => $Stocks->random()->type_id,
-		//			"marque"     => $Stocks->random()->marque,
-		//			"modele"     => $Stocks->random()->modele,
-		//			"prix_TTC"   => $Stocks->random()->prix_TTC,
-		//			"etat_id"    => $Stocks->random()->etat_id,
-		//		]);
-		//
-		//		$request->assertStatus(302);
-		//		$request->assertSessionHasErrors();
 	}
 
 	/**
@@ -113,17 +99,48 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->post("/materiels/stocks", [
-			"_token"     => csrf_token(),
-			"type_id"    => $TypeMateriel->id,
-			"marque"     => "unit.testing",
-			"modele"     => "unit.testing",
-			"prix_ttc"   => 5.99,
-			"etat_id"    => 1,
+			"_token"   => csrf_token(),
+			"type_id"  => $TypeMateriel->id,
+			"marque"   => "unit.testing",
+			"modele"   => "unit.testing",
+			"prix_ttc" => 5.99,
+			"etat_id"  => 1,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("materiels", ["marque" => "unit.testing"]);
+	}
+
+
+	public function testAffichageInformationsStock()
+	{
+		$stock = factory(Materiel::class)->create();
+
+		$request = $this->get("/materiels/stocks/{$stock->id}");
+
+		$request->assertStatus(200);
+
+		$request->assertSee("Descriptif matériel de {$stock->modele}");
+		$request->assertSee("Type");
+		$request->assertSee("Marque");
+		$request->assertSee("Modèle");
+		$request->assertSee("N° de série");
+		$request->assertSee("Nom du fournisseur");
+		$request->assertSee("Prix TTC");
+		$request->assertSee("Etat du matériel");
+		$request->assertSee("Informations Administrative");
+
+		$request->assertSee("N° de devis");
+		$request->assertSee("N° de formulaire CHORUS");
+		$request->assertSee("N° d'engagement juridique");
+		$request->assertSee("N° de facture CHORUS");
+		$request->assertSee("Date d'engagement juridique");
+		$request->assertSee("Date de facture");
+		$request->assertSee("Date de service fait");
+		$request->assertSee("Date de fin de garantie");
+		$request->assertSee("Acheté pour");
+		$request->assertSee("Modifier le matériel");
 	}
 
 
@@ -185,17 +202,6 @@ class StocksMaterielTest extends TestCase
 		// n'est pas définie. Le test n'est donc pas possible.
 
 		$this->assertTrue(true);
-
-		//		$Stocks = factory(Materiel::class, 2)->create();
-		//
-		//		$request = $this->put("/materiels/stocks/{$Stocks[0]->id}", [
-		//			"_token" => csrf_token(),
-		//			"nom"    => $Stocks[1]->nom,
-		//		]);
-		//
-		//		$request->assertStatus(302);
-		//		$request->assertSessionHasErrors();
-		//		$this->assertDatabaseHas("materiels", ["nom" => $Stocks[0]->nom]);
 	}
 
 	/**
@@ -211,12 +217,12 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
-			"_token"     => csrf_token(),
-			"type_id"    => $TypeMateriel->id,
-			"marque"     => $Stock->marque,
-			"modele"     => $Stock->modele,
-			"prix_ttc"   => $Stock->prix_ttc,
-			"etat_id"    => $Stock->etat_id,
+			"_token"   => csrf_token(),
+			"type_id"  => $TypeMateriel->id,
+			"marque"   => $Stock->marque,
+			"modele"   => $Stock->modele,
+			"prix_ttc" => $Stock->prix_ttc,
+			"etat_id"  => $Stock->etat_id,
 		]);
 
 		$request->assertStatus(302);
@@ -269,15 +275,18 @@ class StocksMaterielTest extends TestCase
 	/**
 	 * Vérifie que des erreurs sont présentes et que le Stock n'à pas été supprimé s'il est associé à un Eleve
 	 */
-	//	public function testTraitementSuppressionStockAssocie()
-	//	{
-	//		$Stock = factory(Materiel::class)->create();
-	//		$request = $this->delete("/materiels/stocks/{$Stock->id}");
-	//
-	//		$request->assertStatus(302);
-	//		$request->assertSessionHasErrors();
-	//		$this->assertDatabaseHas("materiels", ["nom" => $Stock->nom]);
-	//	}
+	public function testTraitementSuppressionStockAssocie()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$stock = factory(Materiel::class)->create();
+		$stock->eleve()->associate($eleve)->save();
+
+		$request = $this->delete("/materiels/stocks/{$stock->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("materiels", ["modele" => $stock->modele, "marque" => $stock->marque]);
+	}
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que le Stock à bien été supprimé s'il n'est associé à aucun
@@ -285,13 +294,13 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementSuppressionStockNonAssocie()
 	{
-		$Stock = factory(Materiel::class)->create();
+		$stock = factory(Materiel::class)->create();
 
-		$request = $this->delete("/materiels/stocks/{$Stock->id}");
+		$request = $this->delete("/materiels/stocks/{$stock->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("materiels", ["nom" => $Stock->nom]);
+		$this->assertDatabaseMissing("materiels", ["modele" => $stock->modele, "marque" => $stock->marque]);
 	}
 
 }

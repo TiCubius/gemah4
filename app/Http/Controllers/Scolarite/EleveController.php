@@ -83,7 +83,7 @@ class EleveController extends Controller
 	 */
 	public function show(Eleve $eleve)
 	{
-		//
+		return view("web.scolarites.eleves.show", compact("eleve"));
 	}
 
 	/**

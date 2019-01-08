@@ -86,6 +86,25 @@ class ElevesTest extends TestCase
 		$request->assertSessionHasErrors();
 	}
 
+    public function testTraitementFormulaireCreationEleveCompletSansINE()
+    {
+        $etablissement = factory(Etablissement::class)->create();
+
+        $request = $this->post("/scolarites/eleves", [
+            "_token"           => csrf_token(),
+            "nom"              => "unit.testing",
+            "prenom"           => "unit.testing",
+            "date_naissance"   => "01/01/01",
+            "classe"           => "unit.testing",
+            "academie_id"      => $etablissement->academie_id,
+            "etablissement_id" => $etablissement->id,
+            "code_ine"         => "",
+        ]);
+
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+    }
+
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Eleve à bien été créée lors de la soumissions d'un
 	 * formulaire de création complet

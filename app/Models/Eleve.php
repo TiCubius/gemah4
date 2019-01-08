@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Eleve extends Model
 {
@@ -19,6 +21,36 @@ class Eleve extends Model
 		"date_naissance",
 		"date_rendu_definitive",
 	];
+
+    /***
+     * Un élève appartient à un établissement
+     *
+     * @return BelongsTo
+     */
+	public function etablissement(): BelongsTo
+    {
+        return $this->belongsTo(Etablissement::class);
+    }
+
+    /***
+     * Un élève peut avoir plusieurs responsables
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function responsables()
+    {
+        return $this->belongsToMany(Responsable::class, "responsables_eleves");
+    }
+
+    /***
+     * Un élève peut avoir plusieurs matériels
+     *
+     * @return HasMany
+     */
+    public function materiels(): HasMany
+    {
+        return $this->hasMany(Materiel::class);
+    }
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante

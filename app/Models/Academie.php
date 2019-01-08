@@ -12,13 +12,13 @@ class Academie extends Model
 
 
 	/**
-	 * Une Académie est présente dans au plus une Région
+	 * Une Académie est présente dans au plus un Departement
 	 *
 	 * @return BelongsTo
 	 */
 	public function region(): BelongsTo
 	{
-		return $this->belongsTo(Region::class);
+		return $this->belongsTo(Departement::class);
 	}
 
 }

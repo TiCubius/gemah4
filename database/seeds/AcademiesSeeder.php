@@ -78,7 +78,7 @@ class AcademiesSeeder extends Seeder
 			foreach ($academies as $academy) {
 				\App\Models\Academie::create([
 					"nom"       => $academy,
-					"region_id" => \App\Models\Region::where("nom", "=", $region)->first()->id,
+					"region_id" => \App\Models\Departement::where("nom", "=", $departement)->first()->id,
 				]);
 			}
 		}

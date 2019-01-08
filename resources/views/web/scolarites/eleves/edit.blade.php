@@ -7,8 +7,9 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.scolarites.eleves.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.scolarites.eleves.update",[$eleve]) }}" method="POST">
 				{{ csrf_field() }}
+				{{ method_field("PATCH") }}
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
@@ -62,7 +63,7 @@
 
 				<div class="form-group">
 					<label class="optional" for="code_ine">Code INE</label>
-					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ $eleve->code_ine }}" placeholder="Ex : 0000000000X">
+					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ $eleve->code_INE }}" placeholder="Ex : 0000000000X">
 				</div>
 
 				<div class="d-flex justify-content-between">

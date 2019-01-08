@@ -59,7 +59,7 @@ class EleveController extends Controller
 			"classe"           => "required",
 			"academie_id"      => "required|exists:academies,id",
 			"etablissement_id" => "required|exists:etablissements,id",
-			"code_ine"         => "required|max:11|unique:eleves",
+			"code_ine"         => "nullable |max:11|unique:eleves",
 		]);
 
 		Eleve::create($request->only([
@@ -116,7 +116,7 @@ class EleveController extends Controller
 			"classe"           => "required",
 			"academie_id"      => "required|exists:academies,id",
 			"etablissement_id" => "required|exists:etablissements,id",
-			"code_ine"         => "required|max:11|unique:eleves,id,{$eleve->id}",
+			"code_ine"         => "nullable|max:11|unique:eleves,id,{$eleve->id}",
 		]);
 
 		$eleve->update($request->only([

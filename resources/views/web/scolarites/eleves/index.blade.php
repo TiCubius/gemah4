@@ -75,8 +75,8 @@
                                     <td>{{ $eleve->email }}</td>
                                     <td>{{ $eleve->telephone }}</td>
                                     <td>
-                                        <a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-                                            <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                        <a href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+                                            <button class="btn btn-sm btn-outline-primary">Voir le profil</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -96,7 +96,7 @@
                                         <span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
                                         <div>
                                             <a href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Détail</button>
+                                                <button class="btn btn-sm btn-outline-primary">Voir le profil</button>
                                             </a>
                                             <a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
                                                 <button class="btn btn-sm btn-outline-primary">Editer</button>
@@ -119,7 +119,7 @@
                                         <span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
                                         <div>
                                             <a href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Détail</button>
+                                                <button class="btn btn-sm btn-outline-primary">Voir le profil</button>
                                             </a>
                                             <a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
                                                 <button class="btn btn-sm btn-outline-primary">Editer</button>

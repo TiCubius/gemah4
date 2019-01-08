@@ -143,6 +143,13 @@
 			</div>
 		</div>
 	@endif
+
+
+	<div class="actions d-flex justify-content-center mt-3">
+		<a href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}" class="btn btn-sm btn-outline-primary">
+			Modifier l'élève
+		</a>
+	</div>
 @endsection
 
 @section("sidebar")

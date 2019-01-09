@@ -157,95 +157,63 @@ class DocumentsTest extends TestCase
     /**
      * Vérifie que le formulaire d'édition contient bien les champs nécessaires
      */
-    public function testAffichageFormulaireEditionEleve()
+    public function testAffichageFormulaireEditionDocument()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->get("/scolarites/eleves/{$eleve->id}/edit");
+        $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/edit");
 
         $request->assertStatus(200);
-        $request->assertSee("Édition de {$eleve->nom} {$eleve->prenom}");
+        $request->assertSee("Édition de {$document->nom}");
 
         $request->assertSee("Nom");
-        $request->assertSee("Prénom");
-        $request->assertSee("Date de naissance");
-        $request->assertSee("Classe");
-        $request->assertSee("Académie");
-        $request->assertSee("Établissement");
-        $request->assertSee("Code INE");
+        $request->assertSee("Description");
+        $request->assertSee("Fichier");
 
-        $request->assertSee("Éditer l'élève");
-        $request->assertSee("Supprimer l'élève");
+        $request->assertSee("Modifier le document");
+        $request->assertSee("Supprimer {$document->nom}");
     }
 
     /**
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition incomplet
      */
-    public function testTraitementFormulaireEditionEleveIncomplet()
+    public function testTraitementFormulaireEditionDocumentIncomplet()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->put("/scolarites/eleves/{$eleve->id}", [
+
+        $request = $this->patch("/scolarites/eleves/{$eleve->id}/documents/{$document->id}", [
             "_token" => csrf_token(),
         ]);
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
-    }
-
-    /**
-     * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-     * d'un Eleve déjà existante
-     */
-    public function testTraitementFormulaireEditionEleveExistant()
-    {
-        $eleves = factory(Eleve::class, 2)->create();
-
-        $request = $this->put("/scolarites/eleves/{$eleves[0]->id}", [
-            "_token" => csrf_token(),
-            "nom" => $eleves[1]->nom,
-            "prenom" => $eleves[1]->prenom,
-            "date_naissance" => $eleves[1]->date_naissance,
-            "classe" => $eleves[1]->classe,
-            "academie_id" => $eleves[1]->academie_id,
-            "etablissement_id" => $eleves[1]->etablissement,
-            "code_ine" => $eleves[1]->code_ine,
-        ]);
-
-        $request->assertStatus(302);
-        $request->assertSessionHasErrors();
-        $this->assertDatabaseHas("eleves", [
-            "nom" => $eleves[0]->nom,
-            "prenom" => $eleves[0]->prenom,
-            "code_ine" => $eleves[0]->code_ine,
-        ]);
     }
 
     /**
      * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été édité lors de la soumission
      * d'un formulaire d'édition complet
      */
-    public function testTraitementFormulaireEditionEleveCompletSansModification()
+    public function testTraitementFormulaireEditionDocumentCompletSansModification()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->put("/scolarites/eleves/{$eleve->id}", [
+
+        $request = $this->put("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/", [
             "_token" => csrf_token(),
-            "nom" => $eleve->nom,
-            "prenom" => $eleve->prenom,
-            "date_naissance" => $eleve->date_naissance,
-            "classe" => $eleve->classe,
-            "academie_id" => $eleve->academie_id,
-            "etablissement_id" => $eleve->etablissement_id,
-            "code_ine" => $eleve->code_ine,
+            "nom" => $document->nom,
+            "description" => $document->description,
         ]);
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("eleves", [
-            "nom" => $eleve->nom,
-            "prenom" => $eleve->prenom,
-            "code_ine" => $eleve->code_ine,
+        $this->assertDatabaseHas("documents", [
+            "nom" => $document->nom,
+            "description" => $document->description,
+            "path" => $document->path,
         ]);
     }
 
@@ -253,40 +221,43 @@ class DocumentsTest extends TestCase
      * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été édité lors de la soumission
      * d'un formulaire d'édition complet
      */
-    public function testTraitementFormulaireEditionEleveCompletAvecModification()
+    public function testTraitementFormulaireEditionDocumentCompletAvecModification()
     {
         $eleve = factory(Eleve::class)->create();
-        $etablissement = factory(Etablissement::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->put("/scolarites/eleves/{$eleve->id}", [
+
+        $request = $this->put("/scolarites/eleves/{$eleve->id}/documents/{$document->id}", [
             "_token" => csrf_token(),
             "nom" => "unit.testing",
-            "prenom" => "unit.testing",
-            "date_naissance" => "01/01/01",
-            "classe" => "unit.testing",
-            "academie_id" => $etablissement->academie_id,
-            "etablissement_id" => $etablissement->id,
-            "code_ine" => "unit.testin",
+            "description" => "unit.testing",
+            "file" => UploadedFile::fake()->create("avatar.jpg"),
         ]);
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("eleves", ["code_ine" => "unit.testin"]);
+        $this->assertDatabaseHas("documents", [
+            "nom" => "unit.testing",
+            "description" => "unit.testing",
+        ]);
+        $this->assertDatabaseMissing("documents",["path" => $document->path]);
     }
 
 
     /**
      * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
      */
-    public function testAffichageAlerteSuppressionEleve()
+    public function testAffichageAlerteSuppressionDocument()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->get("/scolarites/eleves/{$eleve->id}/edit");
+
+        $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/edit");
 
         $request->assertStatus(200);
-        $request->assertSee("Supprimer l'élève");
-        $request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$eleve->nom} {$eleve->prenom}") . "</b>.");
+        $request->assertSee("Supprimer {$document->nom}");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>".strtoupper("{$document->nom}") . "</b>.");
     }
 
 
@@ -296,12 +267,14 @@ class DocumentsTest extends TestCase
     public function testTraitementSuppressionEleve()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
 
-        $request = $this->delete("/scolarites/eleves/{$eleve->id}");
+
+        $request = $this->delete("/scolarites/eleves/{$eleve->id}/documents/{$document->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseMissing("eleves", ["code_ine" => $eleve->code_ine]);
+        $this->assertDatabaseMissing("documents", ["id" => $document->id]);
     }
 
 }

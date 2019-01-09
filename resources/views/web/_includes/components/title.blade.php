@@ -4,12 +4,12 @@
 			<h4>{{ $slot }}</h4>
 			<div>
 				@isset($add)
-					<a href="{{ route($add) }}">
+					<a href="{{ route($add, $id ?? null) }}">
 						<button class="btn btn-outline-primary">Ajouter</button>
 					</a>
 				@endif
 				@isset($back)
-					<a href="{{ route($back) }}">
+					<a href="{{ route($back, $id ?? null) }}">
 						<button class="btn btn-outline-primary">Retour</button>
 					</a>
 				@endif

@@ -6,10 +6,12 @@ use App\Models\Document;
 use App\Models\Enseignant;
 use App\Models\TypeDocument;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class DocumentController extends Controller
@@ -99,9 +101,9 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Eleve $eleve, Document $document): View
     {
-        //
+        return view('web.scolarites.eleves.documents.edit', compact('eleve', 'document'));
     }
 
     /**
@@ -111,10 +113,34 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Eleve $eleve, Document $document): RedirectResponse
     {
-        //
+        $request->validate([
+            'nom'         => 'required|max:191',
+            'description' => 'required|max:191',
+            'file'        => 'nullable',
+        ]);
+
+        if ($request->hasFile('file')) {
+            // On supprime l'ancien fichier
+            if ($document->path !== NULL) {
+                Storage::delete('public/documents/' . $document->path);
+            }
+
+            // On enregistre le fichier
+            $filename = $this->generateFilename($eleve, $request->file('file'));
+            $request->file('file')->storeAs('public/documents/', $filename);
+        }
+
+        $document->update([
+            'nom'         => $request->input('nom'),
+            'description' => $request->input('description'),
+            'path'        => $filename ?? $document->path,
+        ]);
+
+        return redirect(route('web.scolarites.eleves.documents.index', [$eleve->id]));
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -122,8 +148,14 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Eleve $eleve, Document $document): RedirectResponse
     {
-        //
+        // On supprime le fichier associé
+        Storage::delete('public/documents/' . $document->path);
+
+        // On supprime le Document
+        $document->delete();
+
+        return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));
     }
 }

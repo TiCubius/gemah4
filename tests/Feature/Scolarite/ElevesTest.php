@@ -279,7 +279,7 @@ class ElevesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("eleves", ["code_ine" => $eleve->code_ine]);
+		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
 	}
 
 }

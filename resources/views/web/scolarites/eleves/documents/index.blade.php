@@ -109,7 +109,7 @@
                                 <p class="mb-0">Document soumis le {{ $document->created_at }}</p>
                             </div>
                             <div class="card-footer gemah-bg-primary d-flex justify-content-between">
-                                <a class="btn btn-sm btn-outline-warning" href="">
+                                <a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.edit', [$eleve->id, $document->id]) }}">
                                     <i class="far fa-edit"></i>
                                     Modifier
                                 </a>

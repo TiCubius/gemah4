@@ -9,6 +9,7 @@ $factory->define(App\Models\Document::class, function(Faker $faker) {
 
     return [
         "nom"              => $faker->word,
+        "description"      => $faker->word,
         "eleve_id"         => $eleve->id,
         "type_document_id" => $type->id,
     ];

@@ -125,7 +125,7 @@
 						<div class="card">
 							<div class="card-header gemah-bg-primary">
 								Informations Elève
-								<a class="btn btn-outline-primary btn-sm float-right" href="{{ route('web.scolarites.eleves.show', [$stock->eleve]) }}">
+								<a class="btn btn-outline-light btn-sm float-right" href="{{ route('web.scolarites.eleves.show', [$stock->eleve]) }}">
 									Voir le profil
 								</a>
 							</div>
@@ -146,7 +146,7 @@
 			</div>
 
 			<div class="actions d-flex justify-content-center">
-				<a href="{{ route('web.materiels.stocks.edit', $stock->id) }}" class="btn btn-sm btn-outline-primary">
+				<a href="{{ route('web.materiels.stocks.edit', [$stock]) }}" class="btn btn-sm btn-outline-primary">
 					Modifier le matériel
 				</a>
 			</div>

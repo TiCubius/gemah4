@@ -129,6 +129,20 @@ class ElevesTest extends TestCase
 		$this->assertDatabaseHas("eleves", ["code_ine" => "unit.testin"]);
 	}
 
+	public function testAffichageProfilEleve()
+	{
+		$eleve = factory(Eleve::class)->create();
+
+		$request = $this->get("/scolarites/eleves/{$eleve->id}");
+
+		$request->assertStatus(200);
+		$request->assertSee("Profil élève de {$eleve->nom} {$eleve->prenom}");
+		$request->assertSee("Nom");
+		$request->assertSee("Prénom");
+		$request->assertSee("Date de naissance");
+		$request->assertSee("Joker");
+	}
+
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

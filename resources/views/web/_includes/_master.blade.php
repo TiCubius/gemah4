@@ -19,7 +19,12 @@
 			<div class="row">
 				<div class="col-xl-2 d-none d-xl-block text-center">
 					@include("web._includes.sidebar")
-					@yield("sidebar")
+					@if(View::hasSection('sidebar'))
+						<div class="col-12">
+							<hr>
+							@yield("sidebar")
+						</div>
+					@endif
 				</div>
 				<div class="col-12 col-xl-10">
 					@include("web._includes.flash")

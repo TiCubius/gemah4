@@ -39,7 +39,7 @@ class Eleve extends Model
      */
     public function responsables()
     {
-        return $this->belongsToMany(Responsable::class, "responsables_eleves");
+        return $this->belongsToMany(Responsable::class, "eleve_responsable");
     }
 
     /***

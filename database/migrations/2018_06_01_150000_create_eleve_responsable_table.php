@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResponsablesElevesTable extends Migration
+class CreateEleveResponsableTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateResponsablesElevesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('responsables_eleves', function(Blueprint $table) {
+		Schema::create('eleve_responsable', function(Blueprint $table) {
 			$table->increments('id');
 
 			$table->unsignedInteger('eleve_id');

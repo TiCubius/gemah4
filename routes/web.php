@@ -52,3 +52,9 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
 });
+
+Route::group(["prefix" => "/affectations", "as" => "web.affectations."], function(){
+    Route::get("responsables/{eleve}", "Affectations\AffectationResponsableController@index")->name("responsables.index");
+    Route::get("responsables/attach/{eleve}/{responsable}", "Affectations\AffectationResponsableController@attach")->name("responsables.attach");
+    Route::get("responsables/detach/{eleve}/{responsable}", "Affectations\AffectationResponsableController@detach")->name("responsables.detach");
+});

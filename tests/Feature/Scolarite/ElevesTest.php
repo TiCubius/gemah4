@@ -103,13 +103,15 @@ class ElevesTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
+        $this->assertDatabaseHas("eleves", ["nom" => "unit.testing", "prenom" => "unit.testing"]);
+
     }
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Eleve à bien été créée lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
-	public function testTraitementFormulaireCreationEleveComplet()
+	public function testTraitementFormulaireCreationEleveCompletAvecCodeINE()
 	{
 		$etablissement = factory(Etablissement::class)->create();
 

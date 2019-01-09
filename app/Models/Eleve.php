@@ -52,6 +52,15 @@ class Eleve extends Model
         return $this->hasMany(Materiel::class);
     }
 
+    /***
+     * Un élève peut avoir plusieurs documents
+     *
+     * @return HasMany
+     */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *

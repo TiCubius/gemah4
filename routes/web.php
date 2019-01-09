@@ -23,8 +23,13 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() 
 		'eleves' => 'eleve'
 	]);
 
+	Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function (){
+        Route::resource("documents", "Scolarite\DocumentController");
+    });
+
 	Route::resource("enseignants", "Scolarite\EnseignantController");
 	Route::resource("etablissements", "Scolarite\EtablissementController");
+
 });
 
 Route::group(["prefix" => "/", "as" => "web."], function() {

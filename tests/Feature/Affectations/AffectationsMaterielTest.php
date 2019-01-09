@@ -11,7 +11,7 @@ class AffectationsMaterielTest extends TestCase
     {
         $materiels = factory(Materiel::class, 5)->create();
 
-        $request = $this->get("/affectation/materiels");
+        $request = $this->get("/scolarites/eleves/{$eleve->id}/affectation/materiels");
 
         $request->assertStatus(200);
         $request->assertSee("Recherche de materiel");
@@ -21,12 +21,22 @@ class AffectationsMaterielTest extends TestCase
         }
     }
 
-    public function testAffectationMateriel()
+    public function testAffectationMaterielDejaAffecte()
     {
         $this->assertTrue(true);
     }
 
-    public function testDesaffectationMateriel()
+    public function testAffectationMaterielSucces()
+    {
+        $this->assertTrue(true);
+    }
+
+    public function testDesaffectationMaterielDejaAffecte()
+    {
+        $this->assertTrue(true);
+    }
+
+    public function testDesaffectationMaterielSucces()
     {
         $this->assertTrue(true);
     }

@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route("web.affectations.responsables.index", [$eleve->id]) }}">
+                            <a href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve->id]) }}">
                                 <button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
                             </a>
                             <button class="btn btn-outline-dark">Rechercher</button>
@@ -70,9 +70,10 @@
                                     <td>{{ $responsable->email }}</td>
                                     <td>{{ $responsable->telephone }}</td>
                                     <td>
-                                        <a href="{{ route("web.affectations.responsables.attach", [$eleve, $responsable]) }}">
+                                        <form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+                                            {{ csrf_field() }}
                                             <button class="btn btn-sm btn-outline-primary">Affecter</button>
-                                        </a>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -89,9 +90,10 @@
                                 @foreach($latestCreatedResponsables as $responsable)
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-                                        <a href="{{ route("web.affectations.responsables.attach", [$eleve, $responsable]) }}">
+                                        <form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+                                            {{ csrf_field() }}
                                             <button class="btn btn-sm btn-outline-primary">Affecter</button>
-                                        </a>
+                                        </form>
                                     </li>
                                 @endforeach
                             </ul>
@@ -107,9 +109,10 @@
                                 @foreach($latestUpdatedResponsables as $responsable)
                                     <li class="list-group-item d-flex justify-content-between ">
                                         <span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-                                        <a href="{{ route("web.affectations.responsables.attach", [$eleve, $responsable]) }}">
+                                        <form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+                                            {{ csrf_field() }}
                                             <button class="btn btn-sm btn-outline-primary">Affecter</button>
-                                        </a>
+                                        </form>
                                     </li>
                                 @endforeach
                             </ul>

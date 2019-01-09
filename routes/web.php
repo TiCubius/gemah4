@@ -25,6 +25,21 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() 
 
 	Route::resource("enseignants", "Scolarite\EnseignantController");
 	Route::resource("etablissements", "Scolarite\EtablissementController");
+
+    Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function(){
+        /* Affectation d'un responsable : */
+        Route::group(["prefix" => "responsables", "as" => "responsables."], function (){
+            Route::get("/", "Affectations\AffectationResponsableController@index")->name("index");
+            Route::post("{responsable}", "Affectations\AffectationResponsableController@attach")->name("attach");
+            Route::delete("{responsable}", "Affectations\AffectationResponsableController@detach")->name("detach");
+        });
+        /* Affectation d'un matériel : */
+        Route::group(["prefix" => "materiels", "as" => "materiels."], function (){
+            Route::get("/", "Affectations\AffectationMaterielController@index")->name("index");
+            Route::post("{responsable}", "Affectations\AffectationMaterielController@attach")->name("attach");
+            Route::delete("{responsable}", "Affectations\AffectationMaterielController@detach")->name("detach");
+        });
+    });
 });
 
 Route::group(["prefix" => "/", "as" => "web."], function() {
@@ -51,10 +66,4 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::group(["prefix" => "/materiels", "as" => "materiels."], function() {
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
-});
-
-Route::group(["prefix" => "/affectations", "as" => "web.affectations."], function(){
-    Route::get("responsables/{eleve}", "Affectations\AffectationResponsableController@index")->name("responsables.index");
-    Route::get("responsables/attach/{eleve}/{responsable}", "Affectations\AffectationResponsableController@attach")->name("responsables.attach");
-    Route::get("responsables/detach/{eleve}/{responsable}", "Affectations\AffectationResponsableController@detach")->name("responsables.detach");
 });

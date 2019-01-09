@@ -13,7 +13,7 @@ class AffectationsResponsableTest extends TestCase
         $eleve = factory(Eleve::class)->create();
         $responsables = factory(Responsable::class, 5)->create();
 
-        $request = $this->get("/affectations/responsables/{$eleve->id}");
+        $request = $this->get("/scolarites/eleves/{$eleve->id}/affectations/responsables");
 
         $request->assertStatus(200);
         $request->assertSee("Affectations des responsables");
@@ -32,7 +32,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->attach($eleve->id);
 
-        $request = $this->get("/affectations/responsables/attach/{$eleve->id}/{$responsable->id}");
+        $request = $this->post("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
@@ -43,7 +43,7 @@ class AffectationsResponsableTest extends TestCase
         $responsable = factory(Responsable::class)->create();
         $eleve = factory(Eleve::class)->create();
 
-        $request = $this->get("/affectations/responsables/attach/{$eleve->id}/{$responsable->id}");
+        $request = $this->post("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
@@ -62,7 +62,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->detach($eleve->id);
 
-        $request = $this->get("/affectations/responsables/detach/{$eleve->id}/{$responsable->id}");
+        $request = $this->delete("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
@@ -75,7 +75,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->attach($eleve->id);
 
-        $request = $this->get("/affectations/responsables/detach/{$eleve->id}/{$responsable->id}");
+        $request = $this->delete("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();

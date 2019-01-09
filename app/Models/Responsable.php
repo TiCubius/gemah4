@@ -12,7 +12,7 @@ class Responsable extends Model
 
 	public function eleves()
     {
-        return $this->belongsToMany(Eleve::class, "eleve_responsable");
+        return $this->belongsToMany(Eleve::class, "eleve_responsable")->withTimestamps();
     }
 
     public function scopeNotRelated(Builder $query, Eleve $eleve): Builder

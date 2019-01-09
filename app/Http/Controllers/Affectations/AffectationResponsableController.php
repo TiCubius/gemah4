@@ -41,9 +41,14 @@ class AffectationResponsableController extends Controller
      */
     public function attach(Eleve $eleve, Responsable $responsable): RedirectResponse
     {
-        $responsable->eleves()->attach($eleve->id);
+        if(!($responsable->eleves()->find($eleve->id)))
+        {
+            $responsable->eleves()->attach($eleve->id);
 
-        return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+            return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+        }
+
+        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable est déjà affecté à l'élève");
     }
 
     /***
@@ -51,12 +56,17 @@ class AffectationResponsableController extends Controller
      *
      * @param Eleve $eleve
      * @param Responsable $responsable
-     * @return Redirect
+     * @return RedirectResponse
      */
-    public function detach(Eleve $eleve, Responsable $responsable): Redirect
+    public function detach(Eleve $eleve, Responsable $responsable): RedirectResponse
     {
-        $responsable->eleves()->detach($eleve->id);
+        if($responsable->eleves()->find($eleve->id))
+        {
+            $responsable->eleves()->detach($eleve->id);
 
-        return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+            return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+        }
+
+        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable n'est déjà pas/plus affecté à l'élève");
     }
 }

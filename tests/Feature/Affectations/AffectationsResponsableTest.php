@@ -10,12 +10,13 @@ class AffectationsResponsableTest extends TestCase
 {
     public function testAffichageRechercheResponsable()
     {
+        $eleve = factory(Eleve::class)->create();
         $responsables = factory(Responsable::class, 5)->create();
 
-        $request = $this->get("/affectation/responsables");
+        $request = $this->get("/affectations/responsables/{$eleve->id}");
 
         $request->assertStatus(200);
-        $request->assertSee("Recherche de responsable");
+        $request->assertSee("Affectations des responsables");
 
         foreach ($responsables as $responsable) {
             $request->assertSee($responsable->nom);
@@ -31,9 +32,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->attach($eleve->id);
 
-        $request = $this->post("/affecitation/responsables/{$responsable->id}", [
-            "eleve_id" => $eleve->id
-        ]);
+        $request = $this->get("/affectations/responsables/attach/{$eleve->id}/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
@@ -44,9 +43,7 @@ class AffectationsResponsableTest extends TestCase
         $responsable = factory(Responsable::class)->create();
         $eleve = factory(Eleve::class)->create();
 
-        $request = $this->post("/affectation/responsables/{$responsable->id}", [
-            "eleve_id" => $eleve->id
-        ]);
+        $request = $this->get("/affectations/responsables/attach/{$eleve->id}/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
@@ -65,9 +62,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->detach($eleve->id);
 
-        $request = $this->post("/desaffectation/responsables/{$responsable->id}", [
-            "eleve_id" => $eleve->id
-        ]);
+        $request = $this->get("/affectations/responsables/detach/{$eleve->id}/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
@@ -80,9 +75,7 @@ class AffectationsResponsableTest extends TestCase
 
         $responsable->eleves()->attach($eleve->id);
 
-        $request = $this->post("/desaffectation/responsables/{$responsable->id}", [
-            "eleve_id" => $eleve->id
-        ]);
+        $request = $this->get("/affectations/responsables/detach/{$eleve->id}/{$responsable->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();

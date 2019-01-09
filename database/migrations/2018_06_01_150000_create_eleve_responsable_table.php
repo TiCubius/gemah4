@@ -14,14 +14,14 @@ class CreateEleveResponsableTable extends Migration
 	public function up()
 	{
 		Schema::create('eleve_responsable', function(Blueprint $table) {
-			$table->increments('id');
+			$table->primary(['eleve_id', 'responsable_id']);
 
 			$table->unsignedInteger('eleve_id');
 			$table->unsignedInteger('responsable_id');
 
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('responsable_id')->references('id')->on('responsables');
-			$table->unique(['id', 'eleve_id']);
+			$table->unique(['eleve_id', 'responsable_id']);
 			$table->timestamps();
 		});
 	}

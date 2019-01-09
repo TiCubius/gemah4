@@ -10,6 +10,7 @@ class Materiel extends Model
 {
 	protected $fillable = [
 		"domaine_id",
+        "eleve_id",
 		"type_id",
 		"marque",
 		"modele",
@@ -62,7 +63,7 @@ class Materiel extends Model
 	 * @param $query
 	 * @return Builder
 	 */
-	public function scopelatestCreated($query): Builder
+	public function scopeLatestCreated($query): Builder
 	{
 		return $query->orderBy("created_at", "DESC")->with("etat");
 	}
@@ -73,7 +74,7 @@ class Materiel extends Model
 	 * @param $query
 	 * @return Builder
 	 */
-	public function scopelatestUpdated($query): Builder
+	public function scopeLatestUpdated($query): Builder
 	{
 		return $query->orderBy("updated_at", "DESC")->with("etat");
 	}
@@ -83,6 +84,7 @@ class Materiel extends Model
 	 *
 	 * @param        $query
 	 * @param        $typeId
+	 * @param        $etatId
 	 * @param        $marque
 	 * @param        $modele
 	 * @param        $numSerie
@@ -101,7 +103,7 @@ class Materiel extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+		return $query->select('materiels.*')->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function ($query) use ($typeId, $marque, $modele, $numSerie) {
 			$query->where("type_id", $typeId)
 				->orWhere("marque", "LIKE", "%{$marque}%")
 				->orWhere("modele", "LIKE", "%{$modele}%")

@@ -136,8 +136,12 @@ class ResponsableController extends Controller
 	 */
 	public function destroy(Responsable $responsable): RedirectResponse
 	{
-		$responsable->delete();
+		if ($responsable->eleves->isEmpty()) {
+			$responsable->delete();
 
-		return redirect(route("web.responsables.index"));
+			return redirect(route("web.responsables.index"));
+		}
+
+		return back()->withErrors("Impossible de supprimer un responsable associé à des élèves");
 	}
 }

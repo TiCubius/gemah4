@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Eleve;
 use App\Models\Responsable;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResponsablesTest extends TestCase
 {
@@ -142,8 +141,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("responsables",
-			["nom" => $Responsables[0]->nom, "prenom" => $Responsables[0]->prenom]);
+		$this->assertDatabaseHas("responsables", ["nom"    => $Responsables[0]->nom,
+		                                          "prenom" => $Responsables[0]->prenom,
+			]);
 	}
 
 	/**
@@ -163,7 +163,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("responsables", ["nom" => $Responsable->nom, "prenom" => $Responsable->prenom]);
+		$this->assertDatabaseHas("responsables", ["nom"    => $Responsable->nom,
+		                                          "prenom" => $Responsable->prenom,
+		]);
 	}
 
 	/**
@@ -183,7 +185,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("responsables", ["nom" => "unit.testing", "prenom" => "unit.testing"]);
+		$this->assertDatabaseHas("responsables", ["nom"    => "unit.testing",
+		                                          "prenom" => "unit.testing",
+		]);
 	}
 
 
@@ -205,7 +209,7 @@ class ResponsablesTest extends TestCase
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été supprimé
 	 */
-	public function testTraitementSuppressionResponsable()
+	public function testTraitementSuppressionResponsableNonAssocie()
 	{
 		$Responsable = factory(Responsable::class)->create();
 
@@ -213,7 +217,28 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("responsables", ["nom" => $Responsable->nom, "prenom" => $Responsable->prenom]);
+		$this->assertDatabaseMissing("responsables", ["nom"    => $Responsable->nom,
+		                                              "prenom" => $Responsable->prenom,
+		]);
+	}
+
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été supprimé
+	 */
+	public function testTraitementSuppressionResponsableAssocie()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$responsable = factory(Responsable::class)->create();
+
+		$responsable->eleves()->attach($eleve);
+
+		$request = $this->delete("/responsables/{$responsable->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("responsables", ["nom"    => $responsable->nom,
+		                                          "prenom" => $responsable->prenom,
+		]);
 	}
 
 }

@@ -11,16 +11,16 @@ use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 
-class DocumentsTest extends TestCase
+class DecisionsTest extends TestCase
 {
 
     /**
      * Vérifie que les données présentes sur l'index sont bien celles attendues.
      */
-    public function testAffichageIndexDocuments()
+    public function testAffichageIndexDecision()
     {
         $eleve = factory(Eleve::class)->create();
-        $documents = factory(Document::class, 5)->create([
+        $decisions = factory(Decision::class, 5)->create([
             "eleve_id" => $eleve->id
         ]);
 
@@ -29,39 +29,42 @@ class DocumentsTest extends TestCase
         $request->assertStatus(200);
         $request->assertSee("Gestion des documents");
 
-        foreach ($documents as $document) {
-                $request->assertSee($document->nom);
+        foreach ($decisions as $decision) {
+            $request->assertSee($decision->date_convention->format('d/m/Y'));
         }
     }
 
     /**
      * Vérifie que le formulaire de création contient bien les champs nécessaires
      */
-
-    public function testAffichageFormulaireCreationDocument()
+    public function testAffichageFormulaireCreationDecision()
     {
         $eleve = factory(Eleve::class)->create();
-        $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/create");
+        $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/decisions/create");
 
         $request->assertStatus(200);
-        $request->assertSee("Nouveau document");
+        $request->assertSee("Nouvelle décision");
 
-        $request->assertSee("Nom");
-        $request->assertSee("Description");
+        $request->assertSee("Date de la CDA");
+        $request->assertSee("Date de réception de la notification");
+        $request->assertSee("Date limite de la décision");
+        $request->assertSee("Date de la convention");
+        $request->assertSee("Numéro du dossier MDPH");
+        $request->assertSee("Nom/prénom de l'enseignant référent");
+        $request->assertSee("Affaire suivie par");
         $request->assertSee("Fichier");
 
-
-        $request->assertSee("Ajouter un document");
+        $request->assertSee("Ajouter la décision");
     }
 
     /**
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire
      * de création incomplet
      */
-    public function testTraitementFormulaireCreationDocumentIncomplet()
+    public function testTraitementFormulaireCreationDecisionsIncomplete()
     {
         $eleve = factory(Eleve::class)->create();
-        $request = $this->post("/scolarites/eleves/{$eleve->id}/documents", [
+        $request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
             "_token" => csrf_token(),
         ]);
 
@@ -70,31 +73,36 @@ class DocumentsTest extends TestCase
     }
 
     /**
-     * Vérifie qu'aucune erreur n'est présente et qu'un document à bien été créé lors de la soumission d'un
+     * Vérifie qu'aucune erreur n'est présente et qu'un Eleve à bien été créée lors de la soumissions d'un
      * formulaire de création complet
      */
 
-    public function testTraitementFormulaireCreationDocumentComplet()
+    public function testTraitementFormulaireCreationDecisionComplete()
     {
         $eleve = factory(Eleve::class)->create();
-        $type = factory(TypeDocument::class)->create();
-
-        $request = $this->post("/scolarites/eleves/{$eleve->id}/documents", [
-            "_token" => csrf_token(),
-            "type_document_id" => $type->id,
-            "nom" => "unit.testing",
-            "description" => "unit.testing",
-            "file" => UploadedFile::fake()->create("avatar.jpg"),
+        factory(TypeDocument::class)->create([
+            "nom" => 'Décision'
         ]);
 
+        $request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
+            "_token" => csrf_token(),
+            "enseignant_id" => $eleve->enseignant_id,
+            "date_cda" => \Carbon\Carbon::now(),
+            "date_notif" => \Carbon\Carbon::now(),
+            "date_limite" => \Carbon\Carbon::now(),
+            "date_convention" => \Carbon\Carbon::now(),
+            "numero_dossier" => "unit.testing",
+            "nom_suivi" => "unit.testing",
+            "file" => UploadedFile::fake()->create("avatar.jpg"),
+        ]);
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
     }
 
-
     /**
      * Vérifie que le formulaire d'édition contient bien les champs nécessaires
      */
+
     public function testAffichageFormulaireEditionDocument()
     {
         $eleve = factory(Eleve::class)->create();
@@ -178,7 +186,7 @@ class DocumentsTest extends TestCase
             "nom" => "unit.testing",
             "description" => "unit.testing",
         ]);
-        $this->assertDatabaseMissing("documents",["path" => $document->path]);
+        $this->assertDatabaseMissing("documents", ["path" => $document->path]);
     }
 
 
@@ -195,7 +203,7 @@ class DocumentsTest extends TestCase
 
         $request->assertStatus(200);
         $request->assertSee("Supprimer {$document->nom}");
-        $request->assertSee("Vous êtes sur le point de supprimer <b>".strtoupper("{$document->nom}") . "</b>.");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$document->nom}") . "</b>.");
     }
 
 

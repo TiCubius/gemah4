@@ -19,7 +19,12 @@
 			<div class="row">
 				<div class="col-xl-2 d-none d-xl-block text-center">
 					@include("web._includes.sidebar")
-					@yield("sidebar")
+					@if(View::hasSection('sidebar'))
+						<div class="col-12">
+							<hr>
+							@yield("sidebar")
+						</div>
+					@endif
 				</div>
 				<div class="col-12 col-xl-10">
 					@include("web._includes.flash")
@@ -29,8 +34,8 @@
 		</div>
 
 		<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('assets/js/poppers.min.js') }}"></script>
+		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 		@yield("scripts")
 	</body>
 </html>

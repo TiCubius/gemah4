@@ -39,7 +39,9 @@ class DocumentController extends Controller
      */
     public function index(Eleve $eleve): View
     {
-        return view('web.scolarites.eleves.documents.index', compact('eleve'));
+        $typesDocument = TypeDocument::all();
+
+        return view('web.scolarites.eleves.documents.index', compact('eleve','typesDocument'));
     }
 
 

@@ -9,6 +9,19 @@ class Responsable extends Model
 {
 	protected $fillable = ["civilite", "nom", "prenom", "email", "telephone", "code_postal", "ville", "adresse"];
 
+
+	public function eleves()
+    {
+        return $this->belongsToMany(Eleve::class, "eleve_responsable");
+    }
+
+    public function scopeNotRelated(Builder $query, Eleve $eleve): Builder
+    {
+        return $query->whereDoesntHave('eleves', function($query) use ($eleve) {
+            $query->where("eleve_id", "=", $eleve->id);
+        });
+    }
+
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *

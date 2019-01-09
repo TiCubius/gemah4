@@ -13,11 +13,11 @@ class CreateMessagesTicketsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('messages_tickets', function(Blueprint $table) {
+		Schema::create('ticket_messages', function(Blueprint $table) {
 			$table->increments('id');
 
 			$table->unsignedInteger('ticket_id');
-			$table->text('message');
+			$table->text('contenu');
 
 			$table->foreign('ticket_id')->references('id')->on('tickets');
 			$table->timestamps();

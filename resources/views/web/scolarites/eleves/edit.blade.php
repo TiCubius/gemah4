@@ -81,3 +81,5 @@
 	@endcomponent
 
 @endsection
+
+@include("web._includes.sidebars.eleve")

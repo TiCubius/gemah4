@@ -1,15 +1,11 @@
 @extends('web._includes._master')
 
 @section('content')
-
     <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between">
-                <h4>Nouveau document</h4>
-            </div>
+        @component("web._includes.components.title", ["back" => "web.scolarites.eleves.documents.index", "id" => [$eleve]])
+            Nouveau document
+        @endcomponent
 
-            <hr>
-        </div>
     </div>
 
     <!-- enctype="multipart/form-data" permet l'envoie de fichiers -->
@@ -68,3 +64,5 @@
         </div>
     </form>
 @endsection
+
+@include("web._includes.sidebars.eleve")

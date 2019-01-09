@@ -19,10 +19,10 @@ class CreateDecisionsTable extends Migration
 			$table->unsignedInteger('eleve_id');
 			$table->unsignedInteger('document_id')->nullable();
 			$table->unsignedInteger('enseignant_id')->nullable();
-			$table->date('date_cda')->nullable();
-			$table->date('date_notif')->nullable();
-			$table->date('date_limite');
-			$table->date('date_convention')->nullable();
+			$table->timestamp('date_cda')->nullable();
+			$table->timestamp('date_notif')->nullable();
+			$table->timestamp('date_limite')->nullable();
+			$table->timestamp('date_convention')->nullable();
 			$table->integer('numero_dossier')->nullable();
 			$table->string('nom_suivi')->nullable();
 

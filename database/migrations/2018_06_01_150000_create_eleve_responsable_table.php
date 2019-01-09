@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResponsablesElevesTable extends Migration
+class CreateEleveResponsableTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,16 +13,14 @@ class CreateResponsablesElevesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('responsables_eleves', function(Blueprint $table) {
-			$table->increments('id');
+		Schema::create('eleve_responsable', function(Blueprint $table) {
+			$table->primary(['eleve_id', 'responsable_id']);
 
 			$table->unsignedInteger('eleve_id');
 			$table->unsignedInteger('responsable_id');
 
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('responsable_id')->references('id')->on('responsables');
-			$table->unique(['id', 'eleve_id']);
-			$table->timestamps();
 		});
 	}
 
@@ -33,6 +31,6 @@ class CreateResponsablesElevesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('responsables_eleves');
+		Schema::dropIfExists('eleve_responsable');
 	}
 }

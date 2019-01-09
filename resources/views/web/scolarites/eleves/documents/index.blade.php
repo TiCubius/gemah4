@@ -3,85 +3,114 @@
 @section('content')
 
     <div class="row">
-
-        <div class="col-12">
+        @component("web._includes.components.title", ["back" => "web.scolarites.eleves.index", "id" => [$eleve]])
             <div class="d-flex justify-content-between">
                 <h4>Gestion des documents</h4>
-                <a href="{{route("web.scolarites.eleves.documents.create",$eleve)}}">
-                    <button class="btn btn-sm btn-outline-primary">
-                        Ajouter un Document
-                    </button>
-                </a>
             </div>
+            @slot("custom")
+                <div class="btn-group">
 
-            <hr>
-        </div>
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ajouter un document
+                    </div>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Conventions</a>
+                        <a class="dropdown-item"
+                           href="{{route('web.scolarites.eleves.documents.decisions.create', [$eleve]) }}">
+                            Décision
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"
+                           href="{{ route('web.scolarites.eleves.documents.index', [$eleve]) }}">
+                            Autre document
+                        </a>
+                    </div>
+                </div>
+            @endslot
+        @endcomponent
+
     </div>
 
-    <div class="row">
-        @if ($eleve->documents->isEmpty())
+
+    @if ($eleve->documents->isEmpty() && $eleve->decisions->isEmpty())
+        <div class="col-12">
+            <div class="alert alert-warning">
+                Aucun document n'a été trouvé pour cet élève
+            </div>
+        </div>
+    @else
+        <div class="row">
             <div class="col-12">
-                <div class="alert alert-warning">
-                    Aucun document n'a été trouvé pour cet élève
+                <div class="form-group">
+                    <label for="type">Type de Document</label>
+                    <select name="type" id="type" class="form-control" required>
+                            <option selected value="" hidden>Choisissez un Type de Document</option>
+                        @foreach($typesDocument as $typeDocument)
+                            <option value="{{ $typeDocument->id }}">{{ $typeDocument->nom }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-        @else
-           {{--@foreach ($eleve->decisions as $Decision)
-                <div class="col-6 js-document-mdph">
+            @foreach ($eleve->decisions as $decision)
+                <div class="col-6 js-document js-document-{{ $decision->document->type_document_id }}" style="display: none;">
                     <div class="card mb-3">
                         <div class="card-body">
                             <p class="mb-0">
                                 <b>Réunion CDA</b>:
-                                {!! $Decision->date_cda ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_cda->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Réception de la Notification</b>:
-                                {!! $Decision->date_notif ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_notif->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Date Limite de la Décision</b>:
-                                {!! $Decision->date_limite ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_limite->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Date Convention</b>:
-                                {!! $Decision->date_convention ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_convention->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <hr>
                             <p class="mb-0">
                                 <b>Numéro MDPH</b>:
-                                {!! $Decision->numero_dossier ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->numero_dossier ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Enseignant Référent</b>:
-                                @if ($Decision->enseignant_id !== NULL)
-                                    {{ $Decision->enseignant->nom }} {{ $Decision->enseignant->prenom }}
+                                @if ($decision->enseignant_id !== NULL)
+                                    {{ $decision->enseignant->nom }} {{ $decision->enseignant->prenom }}
                                 @else
                                     <span class="text-muted">Non défini</span>
                                 @endif
                             </p>
                             <p class="mb-0">
                                 <b>Suivi par</b>:
-                                {!! $Decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
                             </p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('gemah.scolarites.eleves.decisions.edit', [$eleve->id, $Decision->id]) }}">
+                            <a class="btn btn-sm btn-outline-secondary" href="">
                                 <i class="far fa-edit"></i>
                                 Modifier
                             </a>
-                            @if($Decision->document_id)
+                            @if($decision->document_id)
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="{{ route('gemah.scolarites.eleves.documents.download', [$eleve->id, $Decision->document_id]) }}">
+                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="">
                                         <i class="fas fa-download"></i>
                                         Télécharger
                                     </a>
-                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="{{ asset('storage/' . $Decision->document_id) }}">
+                                    <a class="btn btn-sm btn-outline-success" target="_blank"
+                                       href="{{ asset('storage/' . $decision->document_id) }}">
                                         <i class="far fa-eye"></i>
                                         Visualiser
                                     </a>
                                 </div>
                             @else
-                                <div class="btn-group" data-toggle="tooltip" data-placement="top" title="Aucun fichier n'a été envoyé lors de la création de la décision">
+                                <div class="btn-group" data-toggle="tooltip" data-placement="top"
+                                     title="Aucun fichier n'a été envoyé lors de la création de la décision">
                                     <a class="btn btn-sm btn-outline-danger" href="#">
                                         <i class="far fa-question-circle"></i>
                                     </a>
@@ -90,12 +119,11 @@
                         </div>
                     </div>
                 </div>
-            @endforeach--}}
-            {{debug($eleve->documents)}}
+            @endforeach
 
-        @foreach ($eleve->documents as $document)
+            @foreach ($eleve->documents as $document)
                 @if ($document->typeDocument->nom !== "Décision")
-                    <div class="col-6 js-document-other">
+                    <div class="col-6 js-document js-document-{{ $document->type_document_id }}" style="display: none;">
                         <div class="card mb-3">
                             <div class="card-body">
                                 <p class="mb-0">
@@ -109,7 +137,8 @@
                                 <p class="mb-0">Document soumis le {{ $document->created_at }}</p>
                             </div>
                             <div class="card-footer gemah-bg-primary d-flex justify-content-between">
-                                <a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.edit', [$eleve->id, $document->id]) }}">
+                                <a class="btn btn-sm btn-outline-warning"
+                                   href="{{ route('web.scolarites.eleves.documents.edit', [$eleve->id, $document->id]) }}">
                                     <i class="far fa-edit"></i>
                                     Modifier
                                 </a>
@@ -119,13 +148,15 @@
                                             <i class="fas fa-download"></i>
                                             Télécharger
                                         </a>
-                                        <a class="btn btn-sm btn-primary" target="_blank" href="{{ asset('storage/documents/' . $document->path) }}">
+                                        <a class="btn btn-sm btn-primary" target="_blank"
+                                           href="{{ asset('storage/documents/' . $document->path) }}">
                                             <i class="far fa-eye"></i>
                                             Visualiser
                                         </a>
                                     </div>
                                 @else
-                                    <div class="btn-group" data-toggle="tooltip" data-placement="top" title="Aucun fichier n'a été envoyé lors de la création du document">
+                                    <div class="btn-group" data-toggle="tooltip" data-placement="top"
+                                         title="Aucun fichier n'a été envoyé lors de la création du document">
                                         <a class="btn btn-sm btn-outline-danger" href="#">
                                             <i class="far fa-question-circle"></i>
                                         </a>
@@ -136,15 +167,30 @@
                     </div>
                 @endif
             @endforeach
-        @endif
-    </div>
+        </div>
+    @endif
 
 @endsection
 
-@section('js')
+@include("web._includes.sidebars.eleve")
+
+@section('scripts')
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+
+        $('#type').on('change', () => {
+
+            let type = $("#type")
+
+            $(`.js-document`).hide()
+            $(`.js-document-${type.val()}`).show()
+
+
         })
     </script>
 @endsection

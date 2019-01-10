@@ -23,7 +23,7 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           href="{{ route('web.scolarites.eleves.documents.index', [$eleve]) }}">
+                           href="{{ route('web.scolarites.eleves.documents.create', [$eleve]) }}">
                             Autre document
                         </a>
                     </div>
@@ -92,7 +92,7 @@
                             </p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <a class="btn btn-sm btn-outline-secondary" href="">
+                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve, $decision]) }}">
                                 <i class="far fa-edit"></i>
                                 Modifier
                             </a>

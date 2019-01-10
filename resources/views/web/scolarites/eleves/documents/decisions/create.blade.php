@@ -3,15 +3,9 @@
 @include('web._includes.sidebars.eleve')
 @section('content')
 
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between">
-                <h4>Nouvelle décision</h4>
-            </div>
-
-            <hr>
-        </div>
-    </div>
+    @component("web._includes.components.title", ["back" => "web.scolarites.eleves.documents.index", "id" => [$eleve]])
+        Nouvelle décision
+    @endcomponent
 
     <!-- enctype="multipart/form-data" permet l'envoie de fichiers -->
         <form action="{{ route('web.scolarites.eleves.documents.decisions.store', [$eleve->id]) }}" method="POST" enctype="multipart/form-data">

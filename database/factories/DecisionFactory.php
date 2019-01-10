@@ -3,6 +3,9 @@
 use Faker\Generator as Faker;
 
 $factory->define(\App\Models\Decision::class, function (Faker $faker) {
+    factory(\App\Models\TypeDocument::class)->create([
+        "nom" => "Décision"
+        ]);
     $document = factory(\App\Models\Document::class)->create([
         "type_document_id" => 1,
     ]);

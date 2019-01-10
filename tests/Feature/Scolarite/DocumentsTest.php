@@ -98,8 +98,9 @@ class DocumentsTest extends TestCase
     public function testAffichageFormulaireEditionDocument()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
         $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/edit");
 
         $request->assertStatus(200);
@@ -119,8 +120,9 @@ class DocumentsTest extends TestCase
     public function testTraitementFormulaireEditionDocumentIncomplet()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
 
         $request = $this->patch("/scolarites/eleves/{$eleve->id}/documents/{$document->id}", [
             "_token" => csrf_token(),
@@ -137,8 +139,9 @@ class DocumentsTest extends TestCase
     public function testTraitementFormulaireEditionDocumentCompletSansModification()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
 
         $request = $this->put("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/", [
             "_token" => csrf_token(),
@@ -162,8 +165,9 @@ class DocumentsTest extends TestCase
     public function testTraitementFormulaireEditionDocumentCompletAvecModification()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
 
         $request = $this->put("/scolarites/eleves/{$eleve->id}/documents/{$document->id}", [
             "_token" => csrf_token(),
@@ -188,8 +192,9 @@ class DocumentsTest extends TestCase
     public function testAffichageAlerteSuppressionDocument()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
 
         $request = $this->get("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/edit");
 
@@ -205,14 +210,31 @@ class DocumentsTest extends TestCase
     public function testTraitementSuppressionEleve()
     {
         $eleve = factory(Eleve::class)->create();
-        $document = factory(Document::class)->create();
-
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
 
         $request = $this->delete("/scolarites/eleves/{$eleve->id}/documents/{$document->id}");
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
         $this->assertDatabaseMissing("documents", ["id" => $document->id]);
+    }
+
+    /**
+     * Vérifie qu'on ne peut éditer un document si il n'apparitent pas a l'élève courant
+     */
+    public function testEditionDocumentAutreEleve()
+    {
+
+        $eleves = factory(Eleve::class, 2)->create();
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleves[0]->id
+        ]);
+        $request = $this->get("/scolarites/eleves/{$eleves[1]->id}/documents/{$document->id}/edit");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasErrors();
     }
 
 }

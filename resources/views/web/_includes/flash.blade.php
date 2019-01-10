@@ -12,9 +12,17 @@
 	@else
 		<div class="alert alert-danger">
 			<b>Une erreur s'est produite lors de l'exécution de votre requête</b>: <br>
-			<ul>
+			<ul class="mb-0">
 				<li>{{ $errors->first() }}</li>
 			</ul>
 		</div>
 	@endif
+@endif
+
+
+
+@if (Session::has("success"))
+	<div class="alert alert-success">
+		<p class="mb-0">{{ Session::get("success") }}</p>
+	</div>
 @endif

@@ -45,7 +45,7 @@ class CreateHistoriquesTable extends Migration
 			$table->foreign('materiel_id')->references('id')->on('materiels')->onDelete('set null');
 			$table->foreign('etat_materiel_id')->references('id')->on('etats_materiel')->onDelete('set null');
 			$table->foreign('type_materiel_id')->references('id')->on('types_materiel')->onDelete('set null');
-			$table->foreign('type_ticket_id')->references('id')->on('types_tickets')->onDelete('set null');
+			$table->foreign('type_ticket_id')->references('id')->on('types_ticket')->onDelete('set null');
 			$table->foreign('domaine_id')->references('id')->on('domaines_materiel')->onDelete('set null');
 			$table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('set null');
 			$table->foreign('responsable_id')->references('id')->on('responsables')->onDelete('set null');
@@ -56,7 +56,7 @@ class CreateHistoriquesTable extends Migration
 			$table->foreign('service_id')->references('id')->on('services')->onDelete('set null');
 			$table->foreign('document_id')->references('id')->on('documents')->onDelete('set null');
 			$table->foreign('permission_id')->references('id')->on('permissions')->onDelete('set null');
-			$table->foreign('ticket_message_id')->references('id')->on('messages_tickets')->onDelete('set null');
+			$table->foreign('ticket_message_id')->references('id')->on('ticket_messages')->onDelete('set null');
 			$table->timestamps();
 		});
 	}

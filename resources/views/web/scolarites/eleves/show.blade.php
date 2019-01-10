@@ -98,21 +98,18 @@
 				</div>
 			</div>
 		@endforeach
-			<div class="col-md-6">
-				<div class="w-100 disabled">
-					<div class="alert alert-warning text-center">
-						{{-- Ajouter ici un texte si nécessaire --}}
-						<a href="{{route('web.scolarites.eleves.affectations.responsables.index', [$eleve->id ])}}">
-							<button class="btn btn-warning my-1">
-								Ajouter un responsable
-							</button>
-						</a>
-					</div>
+		<div class="col-md-6">
+			<div class="w-100 disabled">
+				<div class="alert alert-warning text-center">
+					<a href="{{route('web.scolarites.eleves.affectations.responsables.index', [$eleve])}}">
+						<button class="btn btn-warning my-1">
+							Ajouter un responsable
+						</button>
+					</a>
 				</div>
 			</div>
+		</div>
 	</div>
-
-
 
 	@if(count($eleve->materiels) >= 1)
 		<div class="row">
@@ -135,7 +132,7 @@
 									<td>{{ $materiel->type->nom }}</td>
 									<td>{{ $materiel->marque }}</td>
 									<td>
-										<a href="{{ route('web.materiels.stocks.show', $materiel) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+										<a href="{{ route('web.materiels.stocks.show', $materiel) }}" class="btn btn-sm btn-outline-primary">
 											Détail
 										</a>
 									</td>
@@ -171,11 +168,4 @@
 	</div>
 @endsection
 
-@section("sidebar")
-	<div class="row">
-		<a href="{{ route('web.scolarites.eleves.show', ['id' => $eleve]) }}" class="btn btn-outline-primary col-12 mb-1">Récapitulatif</a>
-		<a href="#" class="btn btn-outline-primary col-12 mb-1">Document</a>
-		<a href="{{ route('web.scolarites.eleves.affectations.materiels.show', ['id' => $eleve]) }}" class="btn btn-outline-primary col-12 mb-1">Matériel</a>
-		<a href="#" class="btn btn-outline-primary col-12 mb-1">Maintenance</a>
-	</div>
-@endsection
+@include("web._includes.sidebars.eleve")

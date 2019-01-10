@@ -13,7 +13,7 @@
 
 Route::get('/', 'GemahController@index')->name('web.index');
 
-Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() {
+Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {
 	Route::resource("/", "Scolarite\ScolariteController")->only("index");
 
 	// En anglais, le singulier de '...ves' is 'fe'
@@ -23,31 +23,42 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() 
 		'eleves' => 'eleve'
 	]);
 
+	Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
+		Route::resource("tickets", "Scolarite\TicketController");
+
+		// Liste du matériel de l'élève
+		Route::get("/materiels", "Scolarite\EleveController@materiels")->name("materiels");
+
+		Route::group(["prefix" => "tickets/{ticket}", "as" => "tickets."], function () {
+			Route::resource("messages", "Scolarite\TicketMessageController")->only(["store", "edit", "update", "destroy"]);
+		});
+	});
+
 	Route::resource("enseignants", "Scolarite\EnseignantController");
 	Route::resource("etablissements", "Scolarite\EtablissementController");
 
-    Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function(){
-        /* Affectation d'un responsable : */
-        Route::group(["prefix" => "responsables", "as" => "responsables."], function (){
-            Route::get("/", "Affectations\AffectationResponsableController@index")->name("index");
-            Route::post("{responsable}", "Affectations\AffectationResponsableController@attach")->name("attach");
-            Route::delete("{responsable}", "Affectations\AffectationResponsableController@detach")->name("detach");
+    Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
+        // Affectation d'un responsable
+        Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
+            Route::get("/", "Scolarite\Affectations\AffectationResponsableController@index")->name("index");
+            Route::post("{responsable}", "Scolarite\Affectations\AffectationResponsableController@attach")->name("attach");
+            Route::delete("{responsable}", "Scolarite\Affectations\AffectationResponsableController@detach")->name("detach");
         });
-        /* Affectation d'un matériel : */
-        Route::group(["prefix" => "materiels", "as" => "materiels."], function (){
-            Route::get("/", "Affectations\AffectationMaterielController@index")->name("index");
-            Route::get("/liste", "Affectations\AffectationMaterielController@show")->name("show");
-            Route::post("{materiel}", "Affectations\AffectationMaterielController@attach")->name("attach");
-            Route::delete("{materiel}", "Affectations\AffectationMaterielController@detach")->name("detach");
+
+        //Affectation d'un matériel
+        Route::group(["prefix" => "materiels", "as" => "materiels."], function () {
+            Route::get("/", "Scolarite\Affectations\AffectationMaterielController@index")->name("index");
+            Route::post("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@attach")->name("attach");
+            Route::delete("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@detach")->name("detach");
         });
     });
 });
 
-Route::group(["prefix" => "/", "as" => "web."], function() {
+Route::group(["prefix" => "/", "as" => "web."], function () {
 	Route::resource("responsables", "Responsables\ResponsableController");
 });
 
-Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function() {
+Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function () {
 	Route::resource("/", "Materiels\MaterielController")->only("index");
 
 	Route::resource("domaines", "Materiels\DomaineMaterielController");
@@ -55,7 +66,7 @@ Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function() {
 	Route::resource("stocks", "Materiels\StockMaterielController");
 });
 
-Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function() {
+Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function () {
 	Route::resource("/", "Administrations\AdministrationController")->only("index");
 
 	Route::resource("academies", "Administrations\AcademieController");
@@ -64,7 +75,7 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::resource("services", "Administrations\ServiceController");
 	Route::resource("utilisateurs", "Administrations\UtilisateurController");
 
-	Route::group(["prefix" => "/materiels", "as" => "materiels."], function() {
+	Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
 });

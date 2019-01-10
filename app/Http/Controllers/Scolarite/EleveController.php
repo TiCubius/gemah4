@@ -76,14 +76,28 @@ class EleveController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
+	 * GET - Affiche les informations sur l'élève
 	 *
 	 * @param Eleve $eleve
-	 * @return void
+	 * @return View
 	 */
-	public function show(Eleve $eleve)
+	public function show(Eleve $eleve): View
 	{
 		return view("web.scolarites.eleves.show", compact("eleve"));
+	}
+
+
+	/**
+	 * GET - Affiche la liste du matériel affecté à l'élève
+	 *
+	 * @param Eleve $eleve
+	 * @return View
+	 */
+	public function materiels(Eleve $eleve): View
+	{
+		$materiels = $eleve->materiels();
+
+		return view("web.scolarites.eleves.materiels", compact("eleve", "materiels"));
 	}
 
 	/**

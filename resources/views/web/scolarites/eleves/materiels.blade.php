@@ -1,8 +1,9 @@
 @extends('web._includes._master')
 @section('content')
-    @component("web._includes.components.title", ["back" => "web.scolarites.eleves.index"])
-    Gestion du matériel
+    @component("web._includes.components.title", ["add" => "web.scolarites.eleves.affectations.materiels.index", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
+        Gestion du matériel
     @endcomponent
+
     <div class="row">
         <div class="col-md-12 mt-3">
             @if(count($eleve->materiels) == 0)
@@ -31,7 +32,7 @@
                                 <td>{{ $materiel->modele }}</td>
                                 <td>{{ \Carbon\Carbon::parse($materiel->updated_at)->format('d/m/Y') }}</td>
                                 <td class="d-flex">
-                                    <a href="{{ route('web.materiels.stocks.show', $materiel) }}" target="_blank"
+                                    <a href="{{ route('web.materiels.stocks.show', [$materiel]) }}" target="_blank"
                                        class="btn btn-sm btn-outline-primary mr-3">
                                         Détail
                                     </a>
@@ -39,7 +40,7 @@
                                           method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field("DELETE") }}
-                                        <button type="sumbit" class="btn-sm btn-outline-danger">Désaffecter</button>
+                                        <button class="btn btn-sm btn-outline-danger">Désaffecter</button>
                                     </form>
                                 </td>
                             </tr>
@@ -50,21 +51,6 @@
             @endif
         </div>
     </div>
-    <div class="float-right mt-3">
-        <a href="{{ route("web.scolarites.eleves.affectations.materiels.index", [$eleve]) }}"
-           class="btn btn-outline-primary">
-            Affecter un matériel
-        </a>
-    </div>
 @endsection
 
-@section("sidebar")
-    <div class="row">
-        <a href="{{ route('web.scolarites.eleves.show', ['id' => $eleve]) }}"
-           class="btn btn-outline-primary col-12 mb-1">Récapitulatif</a>
-        <a href="#" class="btn btn-outline-primary col-12 mb-1">Document</a>
-        <a href="{{ route('web.scolarites.eleves.affectations.materiels.show', ['id' => $eleve]) }}"
-           class="btn btn-outline-primary col-12 mb-1">Matériel</a>
-        <a href="#" class="btn btn-outline-primary col-12 mb-1">Maintenance</a>
-    </div>
-@endsection
+@include("web._includes.sidebars.eleve")

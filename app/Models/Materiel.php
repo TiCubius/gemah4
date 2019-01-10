@@ -84,6 +84,7 @@ class Materiel extends Model
 	 *
 	 * @param        $query
 	 * @param        $typeId
+	 * @param        $etatId
 	 * @param        $marque
 	 * @param        $modele
 	 * @param        $numSerie
@@ -102,7 +103,7 @@ class Materiel extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+		return $query->select('materiels.*')->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function ($query) use ($typeId, $marque, $modele, $numSerie) {
 			$query->where("type_id", $typeId)
 				->orWhere("marque", "LIKE", "%{$marque}%")
 				->orWhere("modele", "LIKE", "%{$modele}%")

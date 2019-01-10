@@ -3,21 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Departement extends Model
 {
-    protected $fillable = ["nom"];
+    protected $fillable = [
+        "id",
+        "nom",
+        "academie_id"
+    ];
 
 
     /**
-     * Une Région possède 0, 1, ou plusieurs Academie
+     * Un département dépend d'une Academie
      *
-     * @return HasMany
+     * @return HasOne
      */
-    public function academies(): HasMany
+    public function academie(): HasOne
     {
-        return $this->hasMany(Academie::class);
+        return $this->hasOne(Academie::class);
     }
 }

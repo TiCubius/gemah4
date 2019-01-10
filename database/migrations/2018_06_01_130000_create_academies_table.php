@@ -16,10 +16,10 @@ class CreateAcademiesTable extends Migration
 		Schema::create('academies', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->unsignedInteger('departement_id');
+			$table->unsignedInteger('region_id');
 			$table->string('nom');
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('region_id')->references('id')->on('regions');
 			$table->timestamps();
 		});
 	}

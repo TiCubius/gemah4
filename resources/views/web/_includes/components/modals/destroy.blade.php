@@ -1,4 +1,4 @@
-<form id="modal" class="modal fade" action="{{ route("$route", [$id]) }}" method="POST" tabindex="-1">
+<form id="modal" class="modal fade" action="{{ route("$route", $id) }}" method="POST" tabindex="-1">
 	{{ csrf_field() }}
 	{{ method_field("DELETE") }}
 

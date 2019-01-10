@@ -152,11 +152,4 @@
 	</div>
 @endsection
 
-@section("sidebar")
-	<div class="row">
-		<a href="{{ route('web.scolarites.eleves.show', ['id' => $eleve->id]) }}" class="btn btn-outline-primary col-12 mb-1">Récapitulatif</a>
-		<a href="#" class="btn btn-outline-primary col-12 mb-1">Document</a>
-		<a href="#" class="btn btn-outline-primary col-12 mb-1">Matériel</a>
-		<a href="#" class="btn btn-outline-primary col-12 mb-1">Maintenance</a>
-	</div>
-@endsection
+@include("web._includes.sidebars.eleve")

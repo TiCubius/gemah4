@@ -16,11 +16,11 @@ class CreateTicketsTable extends Migration
 		Schema::create('tickets', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->unsignedInteger('type_id');
+			$table->unsignedInteger('type_ticket_id');
 			$table->unsignedInteger('eleve_id');
-			$table->string('description');
+			$table->string("libelle");
 
-			$table->foreign('type_id')->references('id')->on('types_tickets');
+			$table->foreign('type_ticket_id')->references('id')->on('types_ticket');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 
 			$table->timestamps();

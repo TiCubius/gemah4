@@ -21,8 +21,6 @@ class CreateEleveResponsableTable extends Migration
 
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('responsable_id')->references('id')->on('responsables');
-			$table->unique(['eleve_id', 'responsable_id']);
-			$table->timestamps();
 		});
 	}
 
@@ -33,6 +31,6 @@ class CreateEleveResponsableTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('responsables_eleves');
+		Schema::dropIfExists('eleve_responsable');
 	}
 }

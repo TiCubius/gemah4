@@ -10,6 +10,7 @@ class Materiel extends Model
 {
 	protected $fillable = [
 		"domaine_id",
+        "eleve_id",
 		"type_id",
 		"marque",
 		"modele",
@@ -62,7 +63,7 @@ class Materiel extends Model
 	 * @param $query
 	 * @return Builder
 	 */
-	public function scopelatestCreated($query): Builder
+	public function scopeLatestCreated($query): Builder
 	{
 		return $query->orderBy("created_at", "DESC")->with("etat");
 	}
@@ -73,7 +74,7 @@ class Materiel extends Model
 	 * @param $query
 	 * @return Builder
 	 */
-	public function scopelatestUpdated($query): Builder
+	public function scopeLatestUpdated($query): Builder
 	{
 		return $query->orderBy("updated_at", "DESC")->with("etat");
 	}

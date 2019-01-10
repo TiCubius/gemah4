@@ -16,7 +16,7 @@ class AffectationsResponsableTest extends TestCase
         $request = $this->get("/scolarites/eleves/{$eleve->id}/affectations/responsables");
 
         $request->assertStatus(200);
-        $request->assertSee("Affectations des responsables");
+        $request->assertSee("Affectation d'un responsable");
 
         foreach ($responsables as $responsable) {
             $request->assertSee($responsable->nom);

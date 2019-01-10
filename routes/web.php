@@ -36,8 +36,9 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function() 
         /* Affectation d'un matériel : */
         Route::group(["prefix" => "materiels", "as" => "materiels."], function (){
             Route::get("/", "Affectations\AffectationMaterielController@index")->name("index");
-            Route::post("{responsable}", "Affectations\AffectationMaterielController@attach")->name("attach");
-            Route::delete("{responsable}", "Affectations\AffectationMaterielController@detach")->name("detach");
+            Route::get("/liste", "Affectations\AffectationMaterielController@show")->name("show");
+            Route::post("{materiel}", "Affectations\AffectationMaterielController@attach")->name("attach");
+            Route::delete("{materiel}", "Affectations\AffectationMaterielController@detach")->name("detach");
         });
     });
 });

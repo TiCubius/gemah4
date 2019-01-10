@@ -2,14 +2,14 @@
 @section('content')
     <div class="row">
 
-        @component("web._includes.components.title", ["back" => "web.index"])
-            Affectations des responsables
+        @component("web._includes.components.title") {{--["back" => "web.scolarites.eleves.show", "eleve_id" => $eleve->id]--}}
+            Affectation d'un responsable
         @endcomponent
 
         @if ($latestCreatedResponsables->isEmpty())
             <div class="col-12 mb-3">
                 <div class="alert alert-warning">
-                    Aucun responsable n'est enregistré sur l'application ou pas déjà lié à l'élève
+                    Aucun responsable non lié à l'élève {{ $eleve->prenom }} {{ $eleve->nom }} n'est enregistré sur l'application
                 </div>
             </div>
         @else

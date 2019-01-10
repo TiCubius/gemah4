@@ -7,7 +7,6 @@ use App\Models\Eleve;
 use App\Models\Responsable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class AffectationResponsableController extends Controller
@@ -48,7 +47,7 @@ class AffectationResponsableController extends Controller
             return redirect()->route("web.scolarites.eleves.show", [$eleve]);
         }
 
-        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable est déjà affecté à l'élève");
+        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable est deja affecte à l'eleve");
     }
 
     /***
@@ -67,6 +66,6 @@ class AffectationResponsableController extends Controller
             return redirect()->route("web.scolarites.eleves.show", [$eleve]);
         }
 
-        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable n'est déjà pas/plus affecté à l'élève");
+        return redirect()->route("web.scolarites.eleves.show", [$eleve])->withErrors("Le responsable n'est deja pas/plus affecte a l'eleve");
     }
 }

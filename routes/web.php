@@ -60,3 +60,13 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
 });
+
+
+Route::get("/hell", function () {
+
+	$responsable = \App\Models\Responsable::first();
+
+	$pdf = PDF::loadView('pdf.cnil', compact('responsable'));
+	return $pdf->stream();
+
+});

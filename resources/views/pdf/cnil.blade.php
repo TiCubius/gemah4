@@ -1,11 +1,12 @@
 <html>
 	<head>
+		<meta charset="UTF-8">
 		@include("pdf._includes.style")
 	</head>
 	<body>
 
 
-		<div class="center" style="width: 100px;">
+		<div class="center">
 			<img src="{{ resource_path("images/liberte-egalite-fraternite.png") }}" style="height: 75px;">
 		</div>
 

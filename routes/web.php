@@ -64,9 +64,11 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 
 Route::get("/hell", function () {
 
-	$responsable = \App\Models\Responsable::first();
+	$eleve = \App\Models\Eleve::first();
+	$responsable = $eleve->responsables[0];
 
-	$pdf = PDF::loadView('pdf.cnil', compact('responsable'));
-	return $pdf->stream();
 
+//	return view("pdf.recapitulatif", compact('eleve', "responsable"));
+	$pdf = PDF::loadView('pdf.recapitulatif', compact('eleve', 'responsable'));
+	return $pdf->inline();
 });

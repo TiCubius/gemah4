@@ -59,10 +59,15 @@
 		</div>
 
 		@foreach($eleve->responsables as $responsable)
-			<div class="col-md-6">
+			<div class="col-md-6 mb-3">
 				<div class="card w-100">
-					<div class="card-header gemah-bg-primary">
-						Responsable
+					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
+						<div>Responsable</div>
+						<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+							{{ csrf_field() }}
+							{{ method_field("DELETE") }}
+							<button type="sumbit" class="btn btn-sm btn-outline-warning">Désaffecter</button>
+						</form>
 					</div>
 
 					<div class="card-body">
@@ -93,6 +98,17 @@
 				</div>
 			</div>
 		@endforeach
+		<div class="col-md-6">
+			<div class="w-100 disabled">
+				<div class="alert alert-warning text-center">
+					<a href="{{route('web.scolarites.eleves.affectations.responsables.index', [$eleve])}}">
+						<button class="btn btn-warning my-1">
+							Ajouter un responsable
+						</button>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	@if(count($eleve->materiels) >= 1)
@@ -116,7 +132,7 @@
 									<td>{{ $materiel->type->nom }}</td>
 									<td>{{ $materiel->marque }}</td>
 									<td>
-										<a href="{{ route('web.materiels.stocks.show', $materiel) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+										<a href="{{ route('web.materiels.stocks.show', $materiel) }}" class="btn btn-sm btn-outline-primary">
 											Détail
 										</a>
 									</td>

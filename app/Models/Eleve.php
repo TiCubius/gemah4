@@ -39,7 +39,7 @@ class Eleve extends Model
      */
     public function responsables()
     {
-        return $this->belongsToMany(Responsable::class, "responsables_eleves");
+        return $this->belongsToMany(Responsable::class, "eleve_responsable");
     }
 
     /***
@@ -52,6 +52,25 @@ class Eleve extends Model
         return $this->hasMany(Materiel::class);
     }
 
+    /***
+     * Un élève peut avoir plusieurs documents
+     *
+     * @return HasMany
+     */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    /***
+     * Un élève peut avoir plusieurs documents
+     *
+     * @return HasMany
+     */
+    public function decisions(): HasMany
+    {
+        return $this->hasMany(Decision::class);
+    }
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *

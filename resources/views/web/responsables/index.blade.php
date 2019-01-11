@@ -13,7 +13,11 @@
 				</div>
 			</div>
 		@else
-			<div class="col-12 mb-3">
+			@isset($searchedResponsables)
+				<div class="col-12 mb-3">
+			@else
+				<div class="col-12 col-lg-6 mb-3">
+			@endisset
 				<form class="card" method="GET">
 					<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
 					<div class="card-body">
@@ -82,13 +86,13 @@
 				</div>
 			@else
 				@if($latestCreatedResponsables->isNotEmpty())
-					<div class="col-12 mb-3">
+					<div class="col-12 col-md-6 col-lg-3 mb-3">
 						<div class="card">
-							<div class="card-header bg-dark text-white">Derniers ajoutés</div>
+							<div class="card-header gemah-bg-primary text-white">Derniers ajoutés</div>
 							<ul class="list-group list-group-flush">
 								@foreach($latestCreatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between">
-										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+										<span class="text-truncate">{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 										<a href="{{ route("web.responsables.edit", [$responsable]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>
@@ -100,13 +104,13 @@
 				@endif
 
 				@if($latestUpdatedResponsables->isNotEmpty())
-					<div class="col-12 mb-3">
+					<div class="col-12 col-md-6 col-lg-3 mb-3">
 						<div class="card">
-							<div class="card-header bg-dark text-white">Derniers modifiés</div>
+							<div class="card-header gemah-bg-primary text-white">Derniers modifiés</div>
 							<ul class="list-group list-group-flush">
 								@foreach($latestUpdatedResponsables as $responsable)
 									<li class="list-group-item d-flex justify-content-between ">
-										<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+										<span class="text-truncate">{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 										<a href="{{ route("web.responsables.edit", [$responsable]) }}">
 											<button class="btn btn-sm btn-outline-primary">Editer</button>
 										</a>

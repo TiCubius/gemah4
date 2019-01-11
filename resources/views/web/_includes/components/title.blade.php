@@ -2,17 +2,20 @@
 	<div class="d-flex flex-column">
 		<div class="d-flex justify-content-between align-items-center">
 			<h4>{{ $slot }}</h4>
-			<div>
+			<div class="btn-group">
+				@isset($custom)
+					{{ $custom }}
+				@endisset
 				@isset($add)
-					<a href="{{ route($add, [$id ?? null]) }}">
-						<button class="btn btn-outline-primary">Ajouter</button>
+					<a class="btn btn-outline-primary" href="{{ route($add, $id ?? null) }}">
+						Ajouter
 					</a>
-				@endif
+				@endisset
 				@isset($back)
-					<a href="{{ route($back, [$id ?? null]) }}">
-						<button class="btn btn-outline-primary">Retour</button>
+					<a class="btn btn-outline-primary" href="{{ route($back, $id ?? null) }}">
+						Retour
 					</a>
-				@endif
+				@endisset
 			</div>
 		</div>
 		<hr class="w-100">

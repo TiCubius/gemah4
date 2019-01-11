@@ -11,6 +11,7 @@ class Materiel extends Model
 	protected $fillable = [
 		"domaine_id",
 		"type_id",
+        "departement_id",
 		"marque",
 		"modele",
 		"num_serie",

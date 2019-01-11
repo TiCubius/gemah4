@@ -16,26 +16,28 @@ class CreateMaterielsTable extends Migration
 		Schema::create('materiels', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->unsignedInteger('etat_id');
-			$table->unsignedInteger('eleve_id')->nullable();
-			$table->unsignedInteger('type_id');
-			$table->string('num_serie')->nullable();
-			$table->string('cle_produit')->nullable();
-			$table->string('marque');
-			$table->string('modele');
-			$table->float('prix_ttc')->nullable();
-			$table->string('nom_fournisseur')->nullable();
-			$table->string('num_devis')->nullable();
-			$table->string('num_formulaire_chorus')->nullable();
-			$table->string('num_facture_chorus')->nullable();
-			$table->string('num_ej')->nullable();
-			$table->date('date_ej')->nullable();
-			$table->date('date_facture')->nullable();
-			$table->date('date_service_fait')->nullable();
-			$table->date('date_fin_garantie')->nullable();
-			$table->date('date_pret')->nullable();
-			$table->string('acheter_pour')->nullable();
+            $table->string('departement_id');
+            $table->unsignedInteger('etat_id');
+            $table->unsignedInteger('eleve_id')->nullable();
+            $table->unsignedInteger('type_id');
+            $table->string('num_serie')->nullable();
+            $table->string('cle_produit')->nullable();
+            $table->string('marque');
+            $table->string('modele');
+            $table->float('prix_ttc')->nullable();
+            $table->string('nom_fournisseur')->nullable();
+            $table->string('num_devis')->nullable();
+            $table->string('num_formulaire_chorus')->nullable();
+            $table->string('num_facture_chorus')->nullable();
+            $table->string('num_ej')->nullable();
+            $table->date('date_ej')->nullable();
+            $table->date('date_facture')->nullable();
+            $table->date('date_service_fait')->nullable();
+            $table->date('date_fin_garantie')->nullable();
+            $table->date('date_pret')->nullable();
+            $table->string('acheter_pour')->nullable();
 
+            $table->foreign('departement_id')->references('id')->on('departements');
 			$table->foreign('etat_id')->references('id')->on('etats_materiel');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('type_id')->references('id')->on('types_materiel');

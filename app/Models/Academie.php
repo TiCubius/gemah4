@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Academie extends Model
 {
@@ -23,5 +24,15 @@ class Academie extends Model
 	{
 		return $this->belongsTo(Region::class);
 	}
+
+	/**
+     * Une Académie est lié à plusieurs départements
+     *
+     * @return hasMany
+     */
+	public function departements(): HasMany
+    {
+        return $this->hasMany(Departement::class);
+    }
 
 }

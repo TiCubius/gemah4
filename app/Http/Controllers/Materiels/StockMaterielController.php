@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Materiels;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academie;
 use App\Models\DomaineMateriel;
 use App\Models\EtatMateriel;
 use App\Models\Materiel;
@@ -40,10 +41,11 @@ class StockMaterielController extends Controller
 	 */
 	public function create(): View
 	{
+        $academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
 		$etats = EtatMateriel::orderBy("nom")->get();
 
-		return view("web.materiels.stocks.create", compact("domaines", "etats", "types"));
+		return view("web.materiels.stocks.create", compact("domaines", "etats", "types", "academies"));
 	}
 
 	/**
@@ -72,6 +74,7 @@ class StockMaterielController extends Controller
 			"date_service_fait"     => "nullable",
 			"date_fin_garantie"     => "nullable",
 			"acheter_pour"          => "nullable",
+            "departement_id"        => "required"
 		]);
 
 		Materiel::create($request->only([
@@ -91,6 +94,7 @@ class StockMaterielController extends Controller
 			"date_service_fait",
 			"date_fin_garantie",
 			"acheter_pour",
+            "departement_id",
 		]));
 
 		return redirect(route("web.materiels.stocks.index"));
@@ -115,10 +119,11 @@ class StockMaterielController extends Controller
 	 */
 	public function edit(Materiel $stock): View
 	{
+        $academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
 		$etats = EtatMateriel::orderBy("nom")->get();
 
-		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etats", "types"));
+		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etats", "types", "academies"));
 	}
 
 	/**
@@ -138,16 +143,17 @@ class StockMaterielController extends Controller
 			"nom_fournisseur" => "nullable",
 			"prix_ttc"        => "required",
 			"etat_id"         => "required",
+            "departement_id"  => "required",
 
-			"num_devis"             => "nullable",
-			"num_formulaire_chorus" => "nullable",
-			"num_facture_chorus"    => "nullable",
-			"num_ej"                => "nullable",
-			"date_ej"               => "nullable",
-			"date_facture"          => "nullable",
-			"date_service_fait"     => "nullable",
-			"date_fin_garantie"     => "nullable",
-			"acheter_pour"          => "nullable",
+            "num_devis"             => "nullable",
+            "num_formulaire_chorus" => "nullable",
+            "num_facture_chorus"    => "nullable",
+            "num_ej"                => "nullable",
+            "date_ej"               => "nullable",
+            "date_facture"          => "nullable",
+            "date_service_fait"     => "nullable",
+            "date_fin_garantie"     => "nullable",
+            "acheter_pour"          => "nullable",
 		]);
 
 		$stock->update($request->only([
@@ -167,6 +173,7 @@ class StockMaterielController extends Controller
 			"date_service_fait",
 			"date_fin_garantie",
 			"acheter_pour",
+            "departement_id",
 		]));
 
 		return redirect(route("web.materiels.stocks.index"));

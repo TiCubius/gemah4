@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Departement;
 use App\Models\Responsable;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -38,8 +39,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un responsable");
-		$request->assertSee("Nom du responsable");
-		$request->assertSee("Créer le responsable");
+		$request->assertSee("Nom");
+		$request->assertSee("Département");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -54,26 +56,7 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-	}
-
-	/**
-	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Responsable déjà existante
-	 */
-	public function testTraitementFormulaireCreationResponsableExistant()
-	{
-		$Responsable = factory(Responsable::class)->create();
-
-		$request = $this->post("/responsables", [
-			"_token"   => csrf_token(),
-			"civilite" => "M",
-			"nom"      => $Responsable->nom,
-			"prenom"   => $Responsable->prenom,
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
-	}
+	}   
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Responsable à bien été créée lors de la soumissions d'un
@@ -81,11 +64,14 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationResponsableComplet()
 	{
+        $departement = factory(Departement::class)->create();
+
 		$request = $this->post("/responsables", [
 			"_token"   => csrf_token(),
 			"civilite" => "M",
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
+            "departement_id" => $departement->id
 		]);
 
 		$request->assertStatus(302);
@@ -105,9 +91,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Responsable->nom}");
-		$request->assertSee("Nom du responsable");
-		$request->assertSee("Éditer le responsable");
-		$request->assertSee("Supprimer le responsable");
+		$request->assertSee("Nom");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -126,27 +112,6 @@ class ResponsablesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Responsable déjà existante
-	 */
-	public function testTraitementFormulaireEditionResponsableExistant()
-	{
-		$Responsables = factory(Responsable::class, 2)->create();
-
-		$request = $this->put("/responsables/{$Responsables[0]->id}", [
-			"_token"   => csrf_token(),
-			"civilite" => "M",
-			"nom"      => $Responsables[1]->nom,
-			"prenom"   => $Responsables[1]->prenom,
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("responsables",
-			["nom" => $Responsables[0]->nom, "prenom" => $Responsables[0]->prenom]);
-	}
-
-	/**
 	 * Vérifie qu'aucune erreur n'est présente et que le Responsable à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
@@ -159,6 +124,7 @@ class ResponsablesTest extends TestCase
 			"civilite" => $Responsable->civilite,
 			"nom"      => $Responsable->nom,
 			"prenom"   => $Responsable->prenom,
+            "departement_id" => $Responsable->departement_id
 		]);
 
 		$request->assertStatus(302);
@@ -172,6 +138,7 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionResponsableCompletAvecModification()
 	{
+        $departement = factory(Departement::class)->create();
 		$Responsable = factory(Responsable::class)->create();
 
 		$request = $this->put("/responsables/{$Responsable->id}", [
@@ -179,6 +146,7 @@ class ResponsablesTest extends TestCase
 			"civilite" => "M",
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
+            "departement_id" => $departement->id
 		]);
 
 		$request->assertStatus(302);
@@ -197,7 +165,7 @@ class ResponsablesTest extends TestCase
 		$request = $this->get("/responsables/{$Responsable->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le responsable");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Responsable->nom} {$Responsable->prenom}") . "</b>.");
 	}
 

@@ -38,7 +38,7 @@ class EtablissementController extends Controller
 	 */
 	public function create(): View
 	{
-		$academies = Academie::all();
+		$academies = Academie::with("departements")->get();
 		$enseignants = Enseignant::all();
 
 		return view("web.scolarites.etablissements.create", compact("enseignants", "academies"));
@@ -63,7 +63,7 @@ class EtablissementController extends Controller
 			"adresse"       => "required|max:191",
 			"telephone"     => "required|numeric",
 			"enseignant_id" => "required|exists:enseignants,id",
-			"academie_id"   => "required|exists:academies,id",
+			"departement_id"=> "required",
 		]);
 
 		Etablissement::create($request->only([
@@ -77,7 +77,7 @@ class EtablissementController extends Controller
 			"adresse",
 			"telephone",
 			"enseignant_id",
-			"academie_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.scolarites.etablissements.index"));
@@ -102,7 +102,7 @@ class EtablissementController extends Controller
 	 */
 	public function edit(Etablissement $etablissement): View
 	{
-		$academies = Academie::all();
+		$academies = Academie::with("departements")->get();
 		$enseignants = Enseignant::all();
 
 		return view("web.scolarites.etablissements.edit", compact("etablissement", "academies", "enseignants"));
@@ -128,7 +128,7 @@ class EtablissementController extends Controller
 			"adresse"       => "required|max:191",
 			"telephone"     => "required|numeric",
 			"enseignant_id" => "required|exists:enseignants,id",
-			"academie_id"   => "required|exists:academies,id",
+			"departement_id"=> "required",
 		]);
 
 		$etablissement->update($request->only([
@@ -142,7 +142,7 @@ class EtablissementController extends Controller
 			"adresse",
 			"telephone",
 			"enseignant_id",
-			"academie_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.scolarites.etablissements.index"));

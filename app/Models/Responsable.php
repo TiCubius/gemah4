@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Responsable extends Model
 {
-	protected $fillable = ["civilite", "nom", "prenom", "email", "telephone", "code_postal", "ville", "adresse"];
+	protected $fillable = [
+	    "civilite",
+        "nom",
+        "prenom",
+        "email",
+        "telephone",
+        "code_postal",
+        "ville",
+        "adresse",
+        "departement_id",
+    ];
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante

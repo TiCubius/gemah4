@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Departement;
 use App\Models\Service;
 use App\Models\Utilisateur;
 use Tests\TestCase;
@@ -38,8 +39,9 @@ class ServicesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un service");
-		$request->assertSee("Nom du service");
-		$request->assertSee("Créer le service");
+		$request->assertSee("Nom");
+		$request->assertSee("Département");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -62,11 +64,13 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationServiceExistant()
 	{
+	    $departement = factory(Departement::class)->create();
 		$Services = factory(Service::class, 5)->create();
 
 		$request = $this->post("/administrations/services", [
 			"_token" => csrf_token(),
 			"nom"    => $Services->random()->nom,
+            "departement_id" => $departement->id
 		]);
 
 		$request->assertStatus(302);
@@ -79,10 +83,13 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationServiceComplet()
 	{
+	    $departement = factory(Departement::class)->create();
+
 		$request = $this->post("/administrations/services", [
 			"_token"      => csrf_token(),
 			"nom"         => "unit.testing",
 			"description" => "unit.testing",
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -102,9 +109,10 @@ class ServicesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Service->nom}");
-		$request->assertSee("Nom du service");
-		$request->assertSee("Éditer le service");
-		$request->assertSee("Supprimer le service");
+		$request->assertSee("Nom");
+		$request->assertSee("Éditer");
+		$request->assertSee("Département");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -134,6 +142,7 @@ class ServicesTest extends TestCase
 			"_token"      => csrf_token(),
 			"nom"         => $Services[1]->nom,
 			"description" => "unit.testing",
+            "departement" => $Services[0]->departement_id
 		]);
 
 		$request->assertStatus(302);
@@ -153,6 +162,7 @@ class ServicesTest extends TestCase
 			"_token"      => csrf_token(),
 			"nom"         => $Service->nom,
 			"description" => $Service->description,
+            "departement_id" => $Service->departement_id
 		]);
 
 		$request->assertStatus(302);
@@ -166,12 +176,14 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionServiceCompletAvecModification()
 	{
+        $departement = factory(Departement::class)->create();
 		$Service = factory(Service::class)->create();
 
 		$request = $this->put("/administrations/services/{$Service->id}", [
 			"_token"      => csrf_token(),
 			"nom"         => "unit.testing",
 			"description" => "unit.testing",
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -190,7 +202,7 @@ class ServicesTest extends TestCase
 		$request = $this->get("/administrations/services/{$Service->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le service");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper($Service->nom) . "</b>.");
 	}
 

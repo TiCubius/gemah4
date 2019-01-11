@@ -19,7 +19,7 @@ class Etablissement extends Model
 		"adresse",
 		"telephone",
 		"enseignant_id",
-		"academie_id",
+        "departement_id",
 	];
 
 	/**

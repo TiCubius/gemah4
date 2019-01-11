@@ -107,13 +107,28 @@ class DepartementController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE - Supprime le Département
      *
      * @param Departement $departement
-     * @return void
+     * @return RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(Departement $departement)
+    public function destroy(Departement $departement): RedirectResponse
     {
-        //
+        dd(
+            $departement->eleves()->exists(),
+            $departement->materiels()->exists(),
+            $departement->responsables()->exists(),
+            $departement->etablissements()->exists()
+        );
+        dd($departement->has("eleves","materiels", "responsables" ,"etablissements"));
+        if(!($departement->has("eleves") and $departement->has("materiels") and $departement->has("responsables") and $departement->has("etablissements")))
+        {
+            $departement->delete();
+
+            return redirect(route("web.administrations.departements.index"));
+        }
+
+        return redirect(route("web.administrations.departements.index"))->withErrors("Ce département est lié à au moins un élève");
     }
 }

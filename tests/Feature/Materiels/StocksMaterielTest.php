@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Departement;
 use App\Models\DomaineMateriel;
 use App\Models\Materiel;
 use App\Models\TypeMateriel;
@@ -38,13 +39,13 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(200);
 
 		$request->assertSee("Création d'un matériel");
-		$request->assertSee("Type du matériel");
-		$request->assertSee("Marque du matériel");
-		$request->assertSee("Modèle du matériel");
+		$request->assertSee("Type");
+		$request->assertSee("Marque");
+		$request->assertSee("Modèle");
 		$request->assertSee("Numéro de série / Clé de produit");
 		$request->assertSee("Nom du fournisseur");
 		$request->assertSee("Prix TTC (€)");
-		$request->assertSee("Etat du matériel");
+		$request->assertSee("Etat");
 		$request->assertSee("Informations Administrative");
 
 		$request->assertSee("Numéro de devis");
@@ -56,8 +57,9 @@ class StocksMaterielTest extends TestCase
 		$request->assertSee("Date de service fait");
 		$request->assertSee("Date de fin de garantie");
 		$request->assertSee("Acheté pour");
+		$request->assertSee("Département");
 
-		$request->assertSee("Créer le matériel");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -107,6 +109,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationStockComplet()
 	{
+	    $departement = factory(Departement::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
 			"domaine_id" => $DomaineMateriel->id,
@@ -119,6 +122,7 @@ class StocksMaterielTest extends TestCase
 			"modele"     => "unit.testing",
 			"prix_ttc"   => 5.99,
 			"etat_id"    => 1,
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -138,13 +142,13 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Stock->modele}");
-		$request->assertSee("Type du matériel");
-		$request->assertSee("Marque du matériel");
-		$request->assertSee("Modèle du matériel");
+		$request->assertSee("Type");
+		$request->assertSee("Marque");
+		$request->assertSee("Modèle");
 		$request->assertSee("Numéro de série / Clé de produit");
 		$request->assertSee("Nom du fournisseur");
 		$request->assertSee("Prix TTC (€)");
-		$request->assertSee("Etat du matériel");
+		$request->assertSee("Etat");
 		$request->assertSee("Informations Administrative");
 
 		$request->assertSee("Numéro de devis");
@@ -156,8 +160,10 @@ class StocksMaterielTest extends TestCase
 		$request->assertSee("Date de service fait");
 		$request->assertSee("Date de fin de garantie");
 		$request->assertSee("Acheté pour");
-		$request->assertSee("Éditer le matériel");
-		$request->assertSee("Supprimer le matériel");
+		$request->assertSee("Département");
+
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -204,6 +210,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionStockCompletSansModification()
 	{
+	    $departement = factory(Departement::class)->create();
 		$Stock = factory(Materiel::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
@@ -217,6 +224,7 @@ class StocksMaterielTest extends TestCase
 			"modele"     => $Stock->modele,
 			"prix_ttc"   => $Stock->prix_ttc,
 			"etat_id"    => $Stock->etat_id,
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -230,6 +238,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionStockCompletAvecModification()
 	{
+	    $departement = factory(Departement::class)->create();
 		$Stock = factory(Materiel::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
@@ -244,6 +253,7 @@ class StocksMaterielTest extends TestCase
 			"modele"     => "unit.testing",
 			"prix_ttc"   => 5.99,
 			"etat_id"    => 1,
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -262,7 +272,7 @@ class StocksMaterielTest extends TestCase
 		$request = $this->get("/materiels/stocks/{$Stock->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le matériel");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Stock->marque} {$Stock->modele}") . "</b>.");
 	}
 

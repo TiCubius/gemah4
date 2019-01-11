@@ -42,6 +42,7 @@ Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function() {
 Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function() {
 	Route::resource("/", "Administrations\AdministrationController")->only("index");
 
+	Route::resource("departements", "Administrations\DepartementController");
 	Route::resource("academies", "Administrations\AcademieController");
 	Route::resource("regions", "Administrations\RegionController");
 

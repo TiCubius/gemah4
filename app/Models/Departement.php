@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Departement extends Model
 {
+    public $incrementing = false;
     protected $fillable = [
         "id",
         "nom",
@@ -17,10 +19,10 @@ class Departement extends Model
     /**
      * Un département dépend d'une Academie
      *
-     * @return HasOne
+     * @return belongsTo
      */
-    public function academie(): HasOne
+    public function academie(): belongsTo
     {
-        return $this->hasOne(Academie::class);
+        return $this->belongsTo(Academie::class);
     }
 }

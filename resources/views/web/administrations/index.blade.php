@@ -9,9 +9,12 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Académies et Régions
+					Départements, Académies et Régions
 				</div>
 
+				<a href="{{ route("web.administrations.departements.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des départements
+				</a>
 				<a href="{{ route("web.administrations.academies.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des académies
 				</a>

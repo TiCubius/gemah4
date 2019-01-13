@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.index"])
+		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Édition de {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 

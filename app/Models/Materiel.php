@@ -10,7 +10,7 @@ class Materiel extends Model
 {
 	protected $fillable = [
 		"domaine_id",
-        "eleve_id",
+		"eleve_id",
 		"type_id",
 		"marque",
 		"modele",
@@ -103,12 +103,15 @@ class Materiel extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->select('materiels.*')->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")->where(function ($query) use ($typeId, $marque, $modele, $numSerie) {
-			$query->where("type_id", $typeId)
-				->orWhere("marque", "LIKE", "%{$marque}%")
-				->orWhere("modele", "LIKE", "%{$modele}%")
-				->orWhere("num_serie", "LIKE", "%{$numSerie}%");
-		})->orWhere("etat_id", $etatId);
+		return $query->select('materiels.*')
+			->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")
+			->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+				$query->where("type_id", $typeId)
+					->orWhere("marque", "LIKE", "%{$marque}%")
+					->orWhere("modele", "LIKE", "%{$modele}%")
+					->orWhere("num_serie", "LIKE", "%{$numSerie}%");
+			})
+			->orWhere("etat_id", $etatId);
 	}
 
 }

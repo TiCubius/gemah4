@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Eleve;
 use App\Models\Etablissement;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class ElevesTest extends TestCase
@@ -94,7 +95,7 @@ class ElevesTest extends TestCase
             "_token"           => csrf_token(),
             "nom"              => "unit.testing",
             "prenom"           => "unit.testing",
-            "date_naissance"   => "01/01/01",
+            "date_naissance"   => Carbon::now(),
             "classe"           => "unit.testing",
             "academie_id"      => $etablissement->academie_id,
             "etablissement_id" => $etablissement->id,
@@ -119,7 +120,7 @@ class ElevesTest extends TestCase
 			"_token"           => csrf_token(),
 			"nom"              => "unit.testing",
 			"prenom"           => "unit.testing",
-			"date_naissance"   => "01/01/01",
+			"date_naissance"   => Carbon::now(),
 			"classe"           => "unit.testing",
 			"academie_id"      => $etablissement->academie_id,
 			"etablissement_id" => $etablissement->id,
@@ -204,6 +205,7 @@ class ElevesTest extends TestCase
 			"code_ine"         => $eleves[1]->code_ine,
 		]);
 
+
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("eleves", [
@@ -254,7 +256,7 @@ class ElevesTest extends TestCase
 			"_token"           => csrf_token(),
 			"nom"              => "unit.testing",
 			"prenom"           => "unit.testing",
-			"date_naissance"   => "01/01/01",
+			"date_naissance"   => Carbon::now(),
 			"classe"           => "unit.testing",
 			"academie_id"      => $etablissement->academie_id,
 			"etablissement_id" => $etablissement->id,

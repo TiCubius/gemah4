@@ -36,7 +36,7 @@ class AffectationMaterielController extends Controller
 
 
 	/**
-	 * POST - Affecte un matériel à l'élève
+	 * POST - Affecte un matériel à cet élève
 	 *
 	 * @param Eleve    $eleve
 	 * @param Materiel $materiel
@@ -44,23 +44,22 @@ class AffectationMaterielController extends Controller
 	 */
 	public function attach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id !== $eleve->id and !($materiel->eleve_id)) {
+		if ($materiel->eleve_id === null) {
 			$materiel->update([
-				'eleve_id' => $eleve->id,
+				'eleve_id'    => $eleve->id,
 			]);
 			$eleve->update([
 				'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
 			]);
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le materiel est deja affecte a l'eleve");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel est déjà affecté.");
 	}
 
 	/**
-	 * DELETE - Désaffecte le matériel de l'élève
+	 * DELETE - Désaffecte le matériel de cet élève
 	 *
 	 * @param Eleve    $eleve
 	 * @param Materiel $materiel
@@ -71,11 +70,9 @@ class AffectationMaterielController extends Controller
 		if ($materiel->eleve_id == $eleve->id) {
 			$materiel->update(["eleve_id" => null]);
 
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le matériel est déjà affecté à l'élève");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel n'est pas affecté à cet élève");
 	}
 }

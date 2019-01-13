@@ -11,6 +11,8 @@
 |
 */
 
+use Barryvdh\DomPDF\PDF;
+
 Route::get('/', 'GemahController@index')->name('web.index');
 
 Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {
@@ -25,11 +27,19 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 
 	Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
 		Route::resource("tickets", "Scolarite\TicketController");
-        Route::resource("documents", "Scolarite\DocumentController");
+		Route::resource("documents", "Scolarite\DocumentController");
 
-        Route::group(["prefix" => "/documents", "as" => "documents."], function () {
-            Route::resource("decisions", "Scolarite\DecisionController");
-        });
+		Route::group(["prefix" => "/impressions", "as" => "impressions."], function () {
+			Route::get("autorisations", "Scolarite\ImpressionController@autorisations")->name("autorisations");
+			Route::get("consignes", "Scolarite\ImpressionController@consignes")->name("consignes");
+			Route::get("conventions", "Scolarite\ImpressionController@conventions")->name("conventions");
+			Route::get("recapitulatifs", "Scolarite\ImpressionController@recapitulatifs")->name("recapitulatifs");
+			Route::get("recuperations", "Scolarite\ImpressionController@recuperations")->name("recuperations");
+		});
+
+		Route::group(["prefix" => "/documents", "as" => "documents."], function () {
+			Route::resource("decisions", "Scolarite\DecisionController");
+		});
 		// Liste du matériel de l'élève
 		Route::get("/materiels", "Scolarite\EleveController@materiels")->name("materiels");
 
@@ -41,21 +51,21 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 	Route::resource("enseignants", "Scolarite\EnseignantController");
 	Route::resource("etablissements", "Scolarite\EtablissementController");
 
-    Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
-        // Affectation d'un responsable
-        Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
-            Route::get("/", "Scolarite\Affectations\AffectationResponsableController@index")->name("index");
-            Route::post("{responsable}", "Scolarite\Affectations\AffectationResponsableController@attach")->name("attach");
-            Route::delete("{responsable}", "Scolarite\Affectations\AffectationResponsableController@detach")->name("detach");
-        });
+	Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
+		// Affectation d'un responsable
+		Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
+			Route::get("/", "Scolarite\Affectations\AffectationResponsableController@index")->name("index");
+			Route::post("{responsable}", "Scolarite\Affectations\AffectationResponsableController@attach")->name("attach");
+			Route::delete("{responsable}", "Scolarite\Affectations\AffectationResponsableController@detach")->name("detach");
+		});
 
-        //Affectation d'un matériel
-        Route::group(["prefix" => "materiels", "as" => "materiels."], function () {
-            Route::get("/", "Scolarite\Affectations\AffectationMaterielController@index")->name("index");
-            Route::post("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@attach")->name("attach");
-            Route::delete("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@detach")->name("detach");
-        });
-    });
+		//Affectation d'un matériel
+		Route::group(["prefix" => "materiels", "as" => "materiels."], function () {
+			Route::get("/", "Scolarite\Affectations\AffectationMaterielController@index")->name("index");
+			Route::post("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@attach")->name("attach");
+			Route::delete("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@detach")->name("detach");
+		});
+	});
 });
 
 Route::group(["prefix" => "/", "as" => "web."], function () {
@@ -82,16 +92,4 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
-});
-
-
-Route::get("/hell", function () {
-
-	$eleve = \App\Models\Eleve::first();
-	$responsable = $eleve->responsables[0];
-
-
-//	return view("pdf.recapitulatif", compact('eleve', "responsable"));
-	$pdf = PDF::loadView('pdf.recapitulatif', compact('eleve', 'responsable'));
-	return $pdf->inline();
 });

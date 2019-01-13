@@ -4,24 +4,25 @@
 		@include("pdf._includes.style")
 	</head>
 	<body>
+		<header>
+			<section id="marianne" class="text-center">
+				<img src="{{ resource_path("images/marianne-logo.png") }}" style="height: 75px;">
+			</section>
 
-		<section id="images">
-			<div class="center" style="width: 100px;">
-				<img src="{{ resource_path("images/liberte-egalite-fraternite.png") }}" style="height: 75px;">
-			</div>
+			<section id="dsden" style="position: absolute; top: 0;">
+				<img src="{{ resource_path("images/dsden-logo.png") }}">
+			</section>
+		</header>
 
-			<img style="position: absolute; top: 0;" src="{{ resource_path("images/dsden-logo.png") }}">
-		</section>
-
-		<div class="content" style="margin-top: 150px; font-size: 18px;">
-			<h2 style="text-align: center;">Récépissé de récupération du matériel prêté</h2>
+		<section class="content" style="margin-top: 125px;">
+			<h2>Récépissé de récupération du matériel prêté</h2>
 
 			<section id="date" style="margin-top: 50px;">
 				A Saint-Etienne, le {{ \Carbon\Carbon::now()->format("d/m/Y") }}
 			</section>
 
 			<section style="margin-top: 50px;">
-				Le responsable légal de DUPUY Anthony nous a rendu le matériel suivant : <br><br>
+				Le responsable légal de {{ "{$eleve->nom} {$eleve->prenom}" }} nous a rendu le matériel suivant : <br><br>
 
 				<table>
 					<thead>
@@ -51,7 +52,7 @@
 				Signature
 			</section>
 
-		</div>
+		</section>
 
 
 	</body>

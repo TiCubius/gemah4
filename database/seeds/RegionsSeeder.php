@@ -23,6 +23,7 @@ class RegionsSeeder extends Seeder
 		"Pays de la Loire",
 		"Provence-Alpes-Côte d'Azur",
 		"La Réunion",
+        "Mayotte",
 	];
 
 	public function run()

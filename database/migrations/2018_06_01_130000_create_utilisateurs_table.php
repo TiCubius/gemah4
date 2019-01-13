@@ -16,15 +16,13 @@ class CreateUtilisateursTable extends Migration
 		Schema::create('utilisateurs', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->unsignedInteger('academie_id');
-			$table->unsignedInteger('service_id');
-			$table->string('nom');
-			$table->string('prenom');
-			$table->string('email');
-			$table->string('password');
-			//			$table->boolean('reception_email');
+            $table->unsignedInteger('service_id');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('email');
+            $table->string('password');
+            //			$table->boolean('reception_email');
 
-			$table->foreign('academie_id')->references('id')->on('academies');
 			$table->foreign('service_id')->references('id')->on('services');
 
 			$table->timestamps();

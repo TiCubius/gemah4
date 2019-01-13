@@ -61,6 +61,9 @@
 								<label class="optional" for="acheter_pour">Acheté pour</label>
 								<input id="acheter_pour" class="form-control" name="acheter_pour" type="text" placeholder="Ex: John Smith" value="{{ $stock->acheter_pour }}">
 							</div>
+
+							@component('web._includes.components.departement', ['academies' => $academies, 'id' => $stock->departement_id])
+							@endcomponent
 						</div>
 					</div>
 					<div class="col-md-6">

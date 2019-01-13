@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academie;
+use App\Models\Departement;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +31,9 @@ class ServiceController extends Controller
 	 */
 	public function create(): View
 	{
-		return view("web.administrations.services.create");
+	    $academies = Academie::with("departement")->get();
+
+		return view("web.administrations.services.create", compact("academies"));
 	}
 
 	/**
@@ -40,12 +44,15 @@ class ServiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
+	    $departement = Departement::find($request->input("departements_id"));
+
 		$request->validate([
-			"nom"         => "required|max:191|unique:services",
+			"nom"         => "required|max:191|unique_with:services,id",
 			"description" => "required|max:191",
+            "departement_id"=> "required|max:191"
 		]);
 
-		Service::create($request->only(["nom", "description"]));
+		Service::create($request->only(["nom", "description", "departement_id"]));
 
 		return redirect(route("web.administrations.services.index"));
 	}
@@ -69,7 +76,9 @@ class ServiceController extends Controller
 	 */
 	public function edit(Service $service): View
 	{
-		return view("web.administrations.services.edit", compact("service"));
+	    $academies = Academie::with("departements")->get();
+
+		return view("web.administrations.services.edit", compact("service", "academies"));
 	}
 
 	/**
@@ -82,10 +91,12 @@ class ServiceController extends Controller
 	public function update(Request $request, Service $service): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:services,nom,{$service->id}",
+			"nom" => "required|max:191|unique_with:services,departement_id,{$service->id}",
+            "description" => "required|max:191",
+            "departement_id" => "required|max:191"
 		]);
 
-		$service->update($request->only(["nom", "description"]));
+		$service->update($request->only(["nom", "description", "departement_id"]));
 
 		return redirect(route("web.administrations.services.index"));
 	}
@@ -99,7 +110,8 @@ class ServiceController extends Controller
 	 */
 	public function destroy(Service $service): RedirectResponse
 	{
-		if ($service->utilisateurs->isNotEmpty()) {
+		if ($service->utilisateurs->isNotEmpty())
+		{
 			return back()->withErrors("Impossible de supprimer un service associé à des utilisateurs");
 		}
 

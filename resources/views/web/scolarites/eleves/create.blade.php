@@ -32,19 +32,8 @@
 				</div>
 
 
-				<div class="form-group">
-					<label for="academie_id">Académie</label>
-					<select id="academie_id" class="form-control" name="academie_id" required>
-						<option>Sélectionnez une académie</option>
-						@foreach($academies as $academie)
-							@if($academie->id === old("academie_id"))
-								<option value="{{ $academie->id }}" selected>{{ $academie->nom }}</option>
-							@else
-								<option value="{{ $academie->id }}">{{ $academie->nom }}</option>
-							@endif
-						@endforeach
-					</select>
-				</div>
+				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
+				@endcomponent
 
 				<div class="form-group">
 					<label for="etablissement_id">Établissement</label>

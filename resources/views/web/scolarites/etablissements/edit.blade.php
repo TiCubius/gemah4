@@ -46,19 +46,8 @@
 					<span class="text-uppercase">Informations de localisation</span>
 					<hr>
 
-					<div class="form-group">
-						<label for="academie_id">Académie</label>
-						<select id="academie_id" class="form-control" name="academie_id" required>
-							<option value="">Sélectionnez une académie</option>
-							@foreach($academies as $academie)
-								@if($etablissement->academie_id === $academie->id)
-									<option value="{{ $academie->id }}" selected>{{ $academie->nom }}</option>
-								@else
-									<option value="{{ $academie->id }}">{{ $academie->nom }}</option>
-								@endif
-							@endforeach
-						</select>
-					</div>
+					@component('web._includes.components.departement', ['academies' => $academies, 'id' => $etablissement->departement_id])
+					@endcomponent
 
 					<div class="form-group">
 						<label for="ville">Ville</label>

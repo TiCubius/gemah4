@@ -17,18 +17,18 @@ class CreateElevesTable extends Migration
 			$table->increments('id');
 
 			$table->string('etablissement_id');
-			$table->unsignedInteger('academie_id');
-			$table->string('nom');
-			$table->string('prenom');
-			$table->string('code_INE', 11)->nullable();
-			$table->string('classe');
-			$table->integer('joker')->default(0);
-			$table->float('prix_global')->default(0);
-			$table->date('date_naissance');
-			$table->date('date_rendu_definitive')->nullable();
+            $table->string('departement_id');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('code_INE', 11)->nullable();
+            $table->string('classe');
+            $table->integer('joker')->default(0);
+            $table->float('prix_global')->default(0);
+            $table->date('date_naissance');
+            $table->date('date_rendu_definitive')->nullable();
 
+            $table->foreign('departement_id')->references('id')->on('departements');
 			$table->foreign('etablissement_id')->references('id')->on('etablissements');
-			$table->foreign('academie_id')->references('id')->on('academies');
 
 			$table->timestamps();
 		});

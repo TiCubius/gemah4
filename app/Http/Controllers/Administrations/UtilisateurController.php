@@ -32,7 +32,7 @@ class UtilisateurController extends Controller
 	 */
 	public function create(): View
 	{
-		$academies = Academie::with("region")->orderBy("nom")->get();
+		$academies = Academie::with("region", "departements")->orderBy("nom")->get();
 		$services = Service::orderBy("nom")->get();
 
 		return view("web.administrations.utilisateurs.create", compact("academies", "services"));
@@ -51,7 +51,6 @@ class UtilisateurController extends Controller
 			"prenom"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs",
 			"password" => "required|min:8|confirmed",
-			"academie" => "required|exists:academies,id",
 			"service"  => "required|exists:services,id",
 		]);
 
@@ -60,8 +59,6 @@ class UtilisateurController extends Controller
 			"prenom"   => $request->input("prenom"),
 			"email"    => $request->input("email"),
 			"password" => Hash::make($request->input("password")),
-
-			"academie_id" => $request->input("academie"),
 			"service_id"  => $request->input("service"),
 		]);
 
@@ -87,7 +84,7 @@ class UtilisateurController extends Controller
 	 */
 	public function edit(Utilisateur $utilisateur): View
 	{
-		$academies = Academie::with("region")->orderBy("nom")->get();
+		$academies = Academie::with("region", "departements")->orderBy("nom")->get();
 		$services = Service::orderBy("nom")->get();
 
 		return view("web.administrations.utilisateurs.edit", compact("utilisateur", "academies", "services"));
@@ -106,7 +103,6 @@ class UtilisateurController extends Controller
 			"nom"      => "required|max:191",
 			"prenom"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
-			"academie" => "required|exists:academies,id",
 			"service"  => "required|exists:services,id",
 		]);
 

@@ -7,6 +7,7 @@ use App\Models\DomaineMateriel;
 use App\Models\Eleve;
 use App\Models\EtatMateriel;
 use App\Models\Materiel;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,7 +32,7 @@ class AffectationMaterielController extends Controller
 				->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
+		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "searchedMateriels"));
 	}
 
 
@@ -46,7 +47,8 @@ class AffectationMaterielController extends Controller
 	{
 		if ($materiel->eleve_id === null) {
 			$materiel->update([
-				'eleve_id'    => $eleve->id,
+				'eleve_id'  => $eleve->id,
+				'date_pret' => Carbon::now(),
 			]);
 			$eleve->update([
 				'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
@@ -68,7 +70,10 @@ class AffectationMaterielController extends Controller
 	public function detach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
 		if ($materiel->eleve_id == $eleve->id) {
-			$materiel->update(["eleve_id" => null]);
+			$materiel->update([
+				"eleve_id"  => null,
+				'date_pret' => null,
+			]);
 
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}

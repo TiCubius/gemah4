@@ -6,6 +6,7 @@ use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Materiel;
 use App\Models\Responsable;
+use App\Models\TypeEleve;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -47,8 +48,9 @@ class ElevesTest extends TestCase
 		$request->assertSee("Classe");
 		$request->assertSee("Département");
 		$request->assertSee("Code INE");
+        $request->assertSee("Type");
 
-		$request->assertSee("Créer");
+        $request->assertSee("Créer");
 	}
 
 	/**
@@ -72,6 +74,7 @@ class ElevesTest extends TestCase
 	public function testTraitementFormulaireCreationEleveExistant()
 	{
 		$eleve = factory(Eleve::class)->create();
+        $type = factory(TypeEleve::class)->create();
 
 		$request = $this->post("/scolarites/eleves", [
 			"_token"         => csrf_token(),
@@ -81,7 +84,8 @@ class ElevesTest extends TestCase
 			"classe"         => $eleve->classe,
 			"departement_id" => $eleve->departement_id,
 			"code_ine"       => $eleve->code_ine,
-		]);
+            "types"          => [$type->id]
+        ]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
@@ -90,6 +94,7 @@ class ElevesTest extends TestCase
 	public function testTraitementFormulaireCreationEleveCompletSansINE()
 	{
 		$departement = factory(Departement::class)->create();
+        $type = factory(TypeEleve::class)->create();
 
 		$request = $this->post("/scolarites/eleves", [
 			"_token"         => csrf_token(),
@@ -99,6 +104,7 @@ class ElevesTest extends TestCase
 			"classe"         => "unit.testing",
 			"departement_id" => $departement->id,
 			"code_ine"       => "",
+            "types"          => [$type->id]
 		]);
 
 		$request->assertStatus(302);
@@ -116,6 +122,7 @@ class ElevesTest extends TestCase
 	public function testTraitementFormulaireCreationEleveCompletAvecCodeINE()
 	{
 		$departement = factory(Departement::class)->create();
+        $type = factory(TypeEleve::class)->create();
 
 		$request = $this->post("/scolarites/eleves", [
 			"_token"         => csrf_token(),
@@ -125,6 +132,7 @@ class ElevesTest extends TestCase
 			"classe"         => "unit.testing",
 			"departement_id" => $departement->id,
 			"code_ine"       => "unit.testin",
+            "types"          => [$type->id]
 		]);
 
 		$request->assertStatus(302);
@@ -192,6 +200,7 @@ class ElevesTest extends TestCase
 	public function testTraitementFormulaireEditionEleveExistant()
 	{
 		$eleves = factory(Eleve::class, 2)->create();
+        $type = factory(TypeEleve::class)->create();
 
 		$request = $this->put("/scolarites/eleves/{$eleves[0]->id}", [
 			"_token"         => csrf_token(),
@@ -201,6 +210,7 @@ class ElevesTest extends TestCase
 			"classe"         => $eleves[1]->classe,
 			"departement_id" => $eleves[1]->departement_id,
 			"code_ine"       => $eleves[1]->code_ine,
+            "types"          => [$type->id]
 		]);
 
 
@@ -219,7 +229,8 @@ class ElevesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionEleveCompletSansModification()
 	{
-		$eleve = factory(Eleve::class)->create();
+        $eleve = factory(Eleve::class)->create();
+        $type = factory(TypeEleve::class)->create();
 
 		$request = $this->put("/scolarites/eleves/{$eleve->id}", [
 			"_token"         => csrf_token(),
@@ -229,6 +240,7 @@ class ElevesTest extends TestCase
 			"classe"         => $eleve->classe,
 			"departement_id" => $eleve->departement_id,
 			"code_ine"       => $eleve->code_ine,
+            "types"          => [$type->id]
 		]);
 
 		$request->assertStatus(302);
@@ -248,8 +260,9 @@ class ElevesTest extends TestCase
 	{
 		$eleve = factory(Eleve::class)->create();
 		$departement = factory(Departement::class)->create();
+        $type = factory(TypeEleve::class)->create();
 
-		$request = $this->put("/scolarites/eleves/{$eleve->id}", [
+        $request = $this->put("/scolarites/eleves/{$eleve->id}", [
 			"_token"         => csrf_token(),
 			"nom"            => "unit.testing",
 			"prenom"         => "unit.testing",
@@ -257,6 +270,7 @@ class ElevesTest extends TestCase
 			"classe"         => "unit.testing",
 			"departement_id" => $departement->id,
 			"code_ine"       => "unit.testin",
+            "types"          => [$type->id]
 		]);
 
 		$request->assertStatus(302);

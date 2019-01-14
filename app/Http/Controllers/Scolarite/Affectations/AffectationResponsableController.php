@@ -31,7 +31,7 @@ class AffectationResponsableController extends Controller
 	}
 
 	/***
-	 * Crée la relation entre l'élève et le responsable indiqué
+	 * POST - Affecte l'élève au responsable
 	 *
 	 * @param Eleve       $eleve
 	 * @param Responsable $responsable
@@ -39,19 +39,17 @@ class AffectationResponsableController extends Controller
 	 */
 	public function attach(Eleve $eleve, Responsable $responsable): RedirectResponse
 	{
-		if (!($responsable->eleves()->find($eleve->id))) {
-			$responsable->eleves()->attach($eleve->id);
+		if (!$responsable->eleves->contains($eleve)) {
+			$responsable->eleves()->attach($eleve);
 
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le responsable est deja affecte à l'eleve");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce responsable est déjà affecté à cet élève.");
 	}
 
 	/***
-	 * Efface la relation entre l'élève et le responsable indiqué
+	 * DELETE - Désaffecte le responsable de cet élève
 	 *
 	 * @param Eleve       $eleve
 	 * @param Responsable $responsable
@@ -59,14 +57,12 @@ class AffectationResponsableController extends Controller
 	 */
 	public function detach(Eleve $eleve, Responsable $responsable): RedirectResponse
 	{
-		if ($responsable->eleves()->find($eleve->id)) {
-			$responsable->eleves()->detach($eleve->id);
+		if ($responsable->eleves->contains($eleve)) {
+			$responsable->eleves()->detach($eleve);
 
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le responsable n'est deja pas/plus affecte a l'eleve");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce responsable n'est pas affecté à cet élève");
 	}
 }

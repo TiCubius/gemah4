@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Academie;
+use App\Models\Departement;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
 use Tests\TestCase;
@@ -47,8 +48,8 @@ class EtablissementsTest extends TestCase
 		$request->assertSee("Adresse");
 		$request->assertSee("Téléphone");
 		$request->assertSee("Enseignant Référent");
-		$request->assertSee("Académie");
-		$request->assertSee("Créer l'établissement");
+		$request->assertSee("Département");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -71,7 +72,7 @@ class EtablissementsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEtablissementExistant()
 	{
-		$academy = factory(Academie::class)->create();
+		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 		$etablissement = factory(Etablissement::class)->create();
 
@@ -87,7 +88,7 @@ class EtablissementsTest extends TestCase
 			"adresse"       => "unit.testing",
 			"telephone"     => "0123456789",
 			"enseignant_id" => $enseignant->id,
-			"academie_id"   => $academy->id,
+			"departement_id"=> $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -100,7 +101,7 @@ class EtablissementsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEtablissementComplet()
 	{
-		$academy = factory(Academie::class)->create();
+		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 
 		$request = $this->post("/scolarites/etablissements", [
@@ -115,7 +116,7 @@ class EtablissementsTest extends TestCase
 			"adresse"       => "unit.testing",
 			"telephone"     => "0123456789",
 			"enseignant_id" => $enseignant->id,
-			"academie_id"   => $academy->id,
+			"departement_id"=> $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -145,9 +146,9 @@ class EtablissementsTest extends TestCase
 		$request->assertSee("Adresse");
 		$request->assertSee("Téléphone");
 		$request->assertSee("Enseignant Référent");
-		$request->assertSee("Académie");
-		$request->assertSee("Éditer l'établissement");
-		$request->assertSee("Supprimer l'établissement");
+		$request->assertSee("Département");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -171,7 +172,7 @@ class EtablissementsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionEtablissementExistant()
 	{
-		$academy = factory(Academie::class)->create();
+		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 		$etablissements = factory(Etablissement::class, 2)->create();
 
@@ -187,8 +188,7 @@ class EtablissementsTest extends TestCase
 			"adresse"       => "unit.testing",
 			"telephone"     => "0123456789",
 			"enseignant_id" => $enseignant->id,
-			"academie_id"   => $academy->id,
-
+			"departement_id"=> $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -219,7 +219,7 @@ class EtablissementsTest extends TestCase
 			"adresse"       => $etablissement->adresse,
 			"telephone"     => $etablissement->telephone,
 			"enseignant_id" => $etablissement->enseignant_id,
-			"academie_id"   => $etablissement->academie_id,
+			"departement_id"=> $etablissement->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -250,7 +250,7 @@ class EtablissementsTest extends TestCase
 			"adresse"       => $etablissement->adresse,
 			"telephone"     => $etablissement->telephone,
 			"enseignant_id" => $etablissement->enseignant_id,
-			"academie_id"   => $etablissement->academie_id,
+			"departement_id"=> $etablissement->departement_id,
 		]);
 
 		$request->assertStatus(302);

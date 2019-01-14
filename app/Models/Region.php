@@ -12,13 +12,13 @@ class Region extends Model
 
 
 	/**
-	 * Une Région possède 0, 1, ou plusieurs Académies
+	 * Une Région possède 0, 1, ou plusieurs Departement
 	 *
 	 * @return HasMany
 	 */
 	public function academies(): HasMany
 	{
-		return $this->hasMany(Academie::class);
+		return $this->hasMany(Departement::class);
 	}
 
 }

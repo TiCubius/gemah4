@@ -9,9 +9,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Eleve extends Model
 {
+
+	/**
+	 * @var array
+	 */
+	protected $dates = [
+		"date_naissance",
+	];
+
 	protected $fillable = [
 		"etablissement_id",
-		"academie_id",
+		"departement_id",
 		"nom",
 		"prenom",
 		"code_ine",

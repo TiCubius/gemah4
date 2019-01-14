@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Service extends Model
 {
 
-	protected $fillable = ["nom", "description"];
+	protected $fillable = [
+	    "nom",
+        "description",
+        "departement_id",
+    ];
 
 
 	/**

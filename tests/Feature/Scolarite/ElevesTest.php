@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Eleve;
 use App\Models\Etablissement;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class ElevesTest extends TestCase
@@ -42,11 +43,11 @@ class ElevesTest extends TestCase
 		$request->assertSee("Prénom");
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Classe");
-		$request->assertSee("Académie");
+		$request->assertSee("Département");
 		$request->assertSee("Établissement");
 		$request->assertSee("Code INE");
 
-		$request->assertSee("Créer l'élève");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -77,7 +78,7 @@ class ElevesTest extends TestCase
 			"prenom"           => $eleve->prenom,
 			"date_naissance"   => $eleve->date_naissance,
 			"classe"           => $eleve->classe,
-			"academie_id"      => $eleve->academie_id,
+			"departement_id"   => $eleve->departement_id,
 			"etablissement_id" => $eleve->etablissement,
 			"code_ine"         => $eleve->code_ine,
 		]);
@@ -94,9 +95,9 @@ class ElevesTest extends TestCase
             "_token"           => csrf_token(),
             "nom"              => "unit.testing",
             "prenom"           => "unit.testing",
-            "date_naissance"   => "01/01/01",
+            "date_naissance"   => Carbon::now(),
             "classe"           => "unit.testing",
-            "academie_id"      => $etablissement->academie_id,
+            "departement_id"   => $etablissement->departement_id,
             "etablissement_id" => $etablissement->id,
             "code_ine"         => "",
         ]);
@@ -119,9 +120,9 @@ class ElevesTest extends TestCase
 			"_token"           => csrf_token(),
 			"nom"              => "unit.testing",
 			"prenom"           => "unit.testing",
-			"date_naissance"   => "01/01/01",
+			"date_naissance"   => Carbon::now(),
 			"classe"           => "unit.testing",
-			"academie_id"      => $etablissement->academie_id,
+			"departement_id"      => $etablissement->departement_id,
 			"etablissement_id" => $etablissement->id,
 			"code_ine"         => "unit.testin",
 		]);
@@ -162,12 +163,12 @@ class ElevesTest extends TestCase
 		$request->assertSee("Prénom");
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Classe");
-		$request->assertSee("Académie");
+		$request->assertSee("Département");
 		$request->assertSee("Établissement");
 		$request->assertSee("Code INE");
 
-		$request->assertSee("Éditer l'élève");
-		$request->assertSee("Supprimer l'élève");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -199,10 +200,11 @@ class ElevesTest extends TestCase
 			"prenom"           => $eleves[1]->prenom,
 			"date_naissance"   => $eleves[1]->date_naissance,
 			"classe"           => $eleves[1]->classe,
-			"academie_id"      => $eleves[1]->academie_id,
+			"departement_id"   => $eleves[1]->departement_id,
 			"etablissement_id" => $eleves[1]->etablissement,
 			"code_ine"         => $eleves[1]->code_ine,
 		]);
+
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
@@ -227,7 +229,7 @@ class ElevesTest extends TestCase
 			"prenom"           => $eleve->prenom,
 			"date_naissance"   => $eleve->date_naissance,
 			"classe"           => $eleve->classe,
-			"academie_id"      => $eleve->academie_id,
+			"departement_id"      => $eleve->departement_id,
 			"etablissement_id" => $eleve->etablissement_id,
 			"code_ine"         => $eleve->code_ine,
 		]);
@@ -254,9 +256,9 @@ class ElevesTest extends TestCase
 			"_token"           => csrf_token(),
 			"nom"              => "unit.testing",
 			"prenom"           => "unit.testing",
-			"date_naissance"   => "01/01/01",
+			"date_naissance"   => Carbon::now(),
 			"classe"           => "unit.testing",
-			"academie_id"      => $etablissement->academie_id,
+			"departement_id"   => $etablissement->departement_id,
 			"etablissement_id" => $etablissement->id,
 			"code_ine"         => "unit.testin",
 		]);

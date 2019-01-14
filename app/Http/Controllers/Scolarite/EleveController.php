@@ -38,7 +38,7 @@ class EleveController extends Controller
 	 */
 	public function create(): View
 	{
-		$academies = Academie::all();
+		$academies = Academie::with("departements")->get();
 		$etablissements = Etablissement::all();
 
 		return view("web.scolarites.eleves.create", compact("academies", "etablissements"));
@@ -57,7 +57,7 @@ class EleveController extends Controller
 			"prenom"           => "required|max:255",
 			"date_naissance"   => "required|date",
 			"classe"           => "required",
-			"academie_id"      => "required|exists:academies,id",
+			"departement_id"   => "required",
 			"etablissement_id" => "required|exists:etablissements,id",
 			"code_ine"         => "nullable |max:11|unique:eleves",
 		]);
@@ -67,7 +67,7 @@ class EleveController extends Controller
 			"prenom",
 			"date_naissance",
 			"classe",
-			"academie_id",
+			"departement_id",
 			"etablissement_id",
 			"code_ine",
 		]));
@@ -83,6 +83,9 @@ class EleveController extends Controller
 	 */
 	public function show(Eleve $eleve): View
 	{
+		// Eager loading : charge les relations nécessaires avant l'affichage de la vue
+		$eleve->load("etablissement", "materiels.type", "responsables");
+
 		return view("web.scolarites.eleves.show", compact("eleve"));
 	}
 
@@ -108,7 +111,7 @@ class EleveController extends Controller
 	 */
 	public function edit(Eleve $eleve): View
 	{
-		$academies = Academie::all();
+		$academies = Academie::with("departements")->get();
 		$etablissements = Etablissement::all();
 
 		return view("web.scolarites.eleves.edit", compact("academies", "etablissements", "eleve"));
@@ -128,7 +131,7 @@ class EleveController extends Controller
 			"prenom"           => "required|max:255",
 			"date_naissance"   => "required|date",
 			"classe"           => "required",
-			"academie_id"      => "required|exists:academies,id",
+			"departement_id"   => "required",
 			"etablissement_id" => "required|exists:etablissements,id",
 			"code_ine"         => "nullable|max:11|unique:eleves,id,{$eleve->id}",
 		]);
@@ -138,7 +141,7 @@ class EleveController extends Controller
 			"prenom",
 			"date_naissance",
 			"classe",
-			"academie_id",
+			"departement_id",
 			"etablissement_id",
 			"code_ine",
 		]));

@@ -24,7 +24,7 @@ class AffectationsMaterielTest extends TestCase
 	/**
 	 * Vérifie qu'un matériel ne peut pas être affecté à un élève qui le possède déjà
 	 */
-	public function testAffectationMaterielDejaAffecte()
+	public function testAffectationMaterielAffecte()
 	{
 		$eleve = factory(Eleve::class)->create();
 		$materiel = factory(Materiel::class)->create();
@@ -38,9 +38,9 @@ class AffectationsMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'un matériel ne peut pas être affecté à un autr élève si il est déjà affecté
+	 * Vérifie qu'un matériel ne peut pas être affecté à un autre élève si il est déjà affecté
 	 */
-	public function testAffectationMaterielAffecteAUnAutreEleve()
+	public function testAffectationMaterielAffecteAutreEleve()
 	{
 		$eleves = factory(Eleve::class, 2)->create();
 		$materiel = factory(Materiel::class)->create();
@@ -74,7 +74,7 @@ class AffectationsMaterielTest extends TestCase
 	/**
 	 * Vérifie qu'un matériel ne peut être désaffecté s'il est déjà désaffecté
 	 */
-	public function testDesaffectationMaterielDejaAffecte()
+	public function testDesaffectationMaterielNonAffecte()
 	{
 		$eleve = factory(Eleve::class)->create();
 		$materiel = factory(Materiel::class)->create();
@@ -88,15 +88,14 @@ class AffectationsMaterielTest extends TestCase
 	/**
 	 * Vérifie qu'un matériel peut-être désaffecté
 	 */
-	public function testDesaffectationMaterielSucces()
+	public function testDesaffectationMateriel()
 	{
 		$eleve = factory(Eleve::class)->create();
-		$materiel = factory(Materiel::class)->create();
-
-		$materiel->update(["eleve_id" => $eleve->id]);
+		$materiel = factory(Materiel::class)->create([
+			'eleve_id' => $eleve->id
+		]);
 
 		$request = $this->delete("/scolarites/eleves/{$eleve->id}/affectations/materiels/{$materiel->id}");
-
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("materiels", [

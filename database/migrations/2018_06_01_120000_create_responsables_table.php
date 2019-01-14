@@ -21,9 +21,12 @@ class CreateResponsablesTable extends Migration
 			$table->string('prenom');
 			$table->string('email')->nullable();
 			$table->string('telephone')->nullable();
-			$table->integer('code_postal')->nullable();
+			$table->string('code_postal')->nullable();
 			$table->string('ville')->nullable();
-			$table->string('adresse')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('departement_id');
+
+            $table->foreign('departement_id')->references('id')->on('departements');
 
 			$table->timestamps();
 		});

@@ -89,14 +89,22 @@ class RegionController extends Controller
 		return redirect(route("web.administrations.regions.index"));
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param Region $region
-	 * @return void
-	 */
-	public function destroy(Region $region)
+    /**
+     * DELETE - Supprime la région, sauf si elle est encore lié à au moins une Académie
+     *
+     * @param Region $region
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+	public function destroy(Region $region): RedirectResponse
 	{
-		//
-	}
+	    if(!($region->has("academies")))
+        {
+            $region->delete();
+
+            return redirect(route("web.administrations.regions.index"));
+        }
+
+        return redirect(route("web.administrations.regions.index"))->withErrors("Cette région est lié à au moins une académie");
+    }
 }

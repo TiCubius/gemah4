@@ -16,6 +16,7 @@ class CreateMaterielsTable extends Migration
 		Schema::create('materiels', function(Blueprint $table) {
 			$table->increments('id');
 
+            $table->string('departement_id');
 			$table->unsignedInteger('etat_id');
 			$table->unsignedInteger('eleve_id')->nullable();
 			$table->unsignedInteger('type_id');
@@ -36,6 +37,7 @@ class CreateMaterielsTable extends Migration
 			$table->date('date_pret')->nullable();
 			$table->string('achat_pour')->nullable();
 
+            $table->foreign('departement_id')->references('id')->on('departements');
 			$table->foreign('etat_id')->references('id')->on('etats_materiel');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('type_id')->references('id')->on('types_materiel');

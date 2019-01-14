@@ -7,6 +7,7 @@ use App\Models\DomaineMateriel;
 use App\Models\Eleve;
 use App\Models\EtatMateriel;
 use App\Models\Materiel;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,12 +32,12 @@ class AffectationMaterielController extends Controller
 				->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
+		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "searchedMateriels"));
 	}
 
 
 	/**
-	 * POST - Affecte un matériel à l'élève
+	 * POST - Affecte un matériel à cet élève
 	 *
 	 * @param Eleve    $eleve
 	 * @param Materiel $materiel
@@ -44,23 +45,23 @@ class AffectationMaterielController extends Controller
 	 */
 	public function attach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id !== $eleve->id and !($materiel->eleve_id)) {
+		if ($materiel->eleve_id === null) {
 			$materiel->update([
-				'eleve_id' => $eleve->id,
+				'eleve_id'  => $eleve->id,
+				'date_pret' => Carbon::now(),
 			]);
 			$eleve->update([
 				'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
 			]);
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le materiel est deja affecte a l'eleve");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel est déjà affecté.");
 	}
 
 	/**
-	 * DELETE - Désaffecte le matériel de l'élève
+	 * DELETE - Désaffecte le matériel de cet élève
 	 *
 	 * @param Eleve    $eleve
 	 * @param Materiel $materiel
@@ -69,13 +70,14 @@ class AffectationMaterielController extends Controller
 	public function detach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
 		if ($materiel->eleve_id == $eleve->id) {
-			$materiel->update(["eleve_id" => null]);
+			$materiel->update([
+				"eleve_id"  => null,
+				'date_pret' => null,
+			]);
 
-			return redirect()->route("web.scolarites.eleves.show", [$eleve]);
+			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
-		return redirect()
-			->route("web.scolarites.eleves.show", [$eleve])
-			->withErrors("Le matériel est déjà affecté à l'élève");
+		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel n'est pas affecté à cet élève");
 	}
 }

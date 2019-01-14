@@ -7,9 +7,9 @@ $factory->define(App\Models\Eleve::class, function(Faker $faker) {
 	return [
 		"nom"              => $faker->word,
 		"prenom"           => $faker->word,
-		"date_naissance"   => $faker->dateTime,
+		"date_naissance"   => $faker->dateTimeAD,
 		"classe"           => $faker->word,
-		"academie_id"      => $etablissement->academie_id,
+		"departement_id"   => $etablissement->departement_id,
 		"etablissement_id" => $etablissement->id,
 		"code_ine"         => $faker->password(11, 11),
 	];

@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.materiels", "id" => [$eleve]])
+		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Affectation d'un matériel
 		@endcomponent
 

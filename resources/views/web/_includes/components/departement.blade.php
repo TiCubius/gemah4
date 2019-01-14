@@ -1,7 +1,9 @@
 <div class="form-group">
-    <label for="departement_id">Département</label>
+    <label class="optional" for="departement_id">Département</label>
+
     <select id="departement_id" class="form-control" name="departement_id">
         <option value="" hidden>Sélectionner un Département</option>
+
         @foreach($academies as $academy)
             <optgroup label="{{ $academy->nom }}">
                 @foreach($academy->departements as $departement)
@@ -13,5 +15,6 @@
                 @endforeach
             </optgroup>
         @endforeach
+
     </select>
 </div>

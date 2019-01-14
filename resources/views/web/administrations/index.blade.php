@@ -43,11 +43,17 @@
 					Outils
 				</div>
 
-				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des états matériel
+				<a href="{{ route("web.administrations.eleves.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des types d'élèves
+				</a>
+				<a href="{{ route("web.administrations.etablissements.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des types d'établissements
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des tickets
+					Gestion des types de tickets
+				</a>
+				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des états matériel
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
 					Historique des actions

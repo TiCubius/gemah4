@@ -33,7 +33,15 @@
 
 		<div class="col-md-6 mb-3">
 			<div class="card w-100">
-				<div class="card-header gemah-bg-primary">Elève</div>
+				<div class="card-header gemah-bg-primary d-flex justify-content-between align-items-center">
+					Elève
+
+					<div>
+						@foreach($eleve->types as $type)
+							<div class="badge badge-success m-0">{{ $type->nom }}</div>
+						@endforeach
+					</div>
+				</div>
 
 				<div class="card-body">
 					<strong>Nom</strong>: {{ $eleve->nom }} <br>
@@ -48,7 +56,8 @@
 		@isset($eleve->etablissement)
 			<div class="col-md-6 mb-3">
 				<div class="card w-100">
-					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">Etablissement
+					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
+						Etablissement
 
 						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-etablissements-{{ $eleve->etablissement->id }}">Désaffecter</button>
 					</div>

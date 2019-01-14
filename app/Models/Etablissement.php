@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Etablissement extends Model
 {
@@ -11,7 +12,6 @@ class Etablissement extends Model
 	protected $fillable = [
 		"id",
 		"nom",
-		"type",
 		"degre",
 		"regime",
 		"ville",
@@ -20,7 +20,18 @@ class Etablissement extends Model
 		"telephone",
 		"enseignant_id",
 		"departement_id",
+		"type_etablissement_id",
 	];
+
+	/**
+	 * Un établissement appartient à un type
+	 *
+	 * @return BelongsTo
+	 */
+	public function type(): BelongsTo
+	{
+		return $this->belongsTo(TypeEtablissement::class);
+	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
@@ -54,11 +65,12 @@ class Etablissement extends Model
 	 * @param string $telephone
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $departement, $nom, $ville, $telephone): Builder
+	public function scopeSearch($query, $departement, $type, $nom, $ville, $telephone): Builder
 	{
 		// Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
 		$departement = $departement ?? "--";
+		$type = $type ?? "--";
 		$nom = $nom ?? "--";
 		$ville = $ville ?? "--";
 		$telephone = $telephone ?? "--";
@@ -66,11 +78,17 @@ class Etablissement extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function ($query) use ($departement, $nom, $ville, $telephone) {
-			$query->where("departement_id", $departement)
+		$search = $query->where(function($query) use ($type, $nom, $ville, $telephone) {
+			$query->where("type_etablissement_id", "LIKE", "%{$type}%")
 				->orWhere("nom", "LIKE", "%{$nom}%")
 				->orWhere("ville", "LIKE", "%{$ville}%")
 				->orWhere("telephone", "LIKE", "%{$telephone}%");
 		});
+
+		if ($departement !== "--") {
+			$search->where("departement_id", $departement);
+		}
+
+		return $search;
 	}
 }

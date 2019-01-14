@@ -18,7 +18,9 @@ class CreateServicesTable extends Migration
 
 			$table->string('nom');
 			$table->string('description');
+            $table->string('departement_id');
 
+            $table->foreign('departement_id')->references('id')->on('departements');
 			$table->timestamps();
 		});
 	}

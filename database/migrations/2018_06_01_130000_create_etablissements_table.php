@@ -17,20 +17,20 @@ class CreateEtablissementsTable extends Migration
 			$table->string('id');
 
 			$table->unsignedInteger('enseignant_id');
-			$table->unsignedInteger('academie_id');
-			$table->string('type');
-			$table->string('nom');
-			$table->string('degre');
-			$table->string('regime');
-			$table->string('adresse');
-			$table->string('code_postal');
-			$table->string('ville');
-			$table->string('telephone');
+            $table->string('departement_id');
+            $table->string('type');
+            $table->string('nom');
+            $table->string('degre');
+            $table->string('regime');
+            $table->string('adresse');
+            $table->string('code_postal');
+            $table->string('ville');
+            $table->string('telephone');
 
-			$table->primary('id');
-			$table->foreign('enseignant_id')->references('id')->on('enseignants');
-			$table->foreign('academie_id')->references('id')->on('academies');
-			$table->timestamps();
+            $table->primary('id');
+            $table->foreign('enseignant_id')->references('id')->on('enseignants');
+            $table->foreign('departement_id')->references('id')->on('departements');
+            $table->timestamps();
 		});
 	}
 

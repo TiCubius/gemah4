@@ -36,20 +36,8 @@
 					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Confirmation du mot de passe" required>
 				</div>
 
-
-				<div class="form-group">
-					<label for="academie">Académie de l'utilisateur</label>
-					<select id="academie" class="form-control" name="academie" required>
-						<option value="" hidden>Sélectionner une Académie</option>
-						@foreach($academies as $academy)
-							@if(old("academie") == $academy->id)
-								<option selected value="{{ $academy->id }}">{{ $academy->nom }}</option>
-							@else
-								<option value="{{ $academy->id }}">{{ $academy->nom }}</option>
-							@endif
-						@endforeach
-					</select>
-				</div>
+				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
+				@endcomponent
 
 				<div class="form-group">
 					<label for="service">Service de l'utilisateur</label>

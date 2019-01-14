@@ -12,6 +12,7 @@ class Materiel extends Model
 		"domaine_id",
         "eleve_id",
 		"type_id",
+        "departement_id",
 		"marque",
 		"modele",
 		"num_serie",

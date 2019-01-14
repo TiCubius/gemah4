@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Academie;
+use App\Models\Departement;
 use App\Models\Service;
 use App\Models\Utilisateur;
 use App\Models\Region;
@@ -18,7 +19,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageIndexUtilisateurs()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateurs = factory(Utilisateur::class, 5)->create();
 
@@ -44,14 +44,14 @@ class UtilisateursTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un utilisateur");
-		$request->assertSee("Nom de l'utilisateur");
-		$request->assertSee("Prénom de l'utilisateur");
-		$request->assertSee("Adresse E-Mail de l'utilisateur");
-		$request->assertSee("Mot de passe de l'utilisateur");
-		$request->assertSee("Confirmation du mot de passe de l'utilisateur");
-		$request->assertSee("Académie de l'utilisateur");
-		$request->assertSee("Service de l'utilisateur");
-		$request->assertSee("Créer l'utilisateur");
+		$request->assertSee("Nom");
+		$request->assertSee("Prénom");
+		$request->assertSee("Adresse");
+		$request->assertSee("Mot");
+		$request->assertSee("Confirmation du mot de passe");
+		$request->assertSee("Département");
+		$request->assertSee("Service");
+		$request->assertSee("Créer");
 	}
 
 	/**
@@ -74,7 +74,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationUtilisateurExistant()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateurs = factory(Utilisateur::class, 5)->create();
 
@@ -93,7 +92,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationUtilisateurComplet()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 
 		$request = $this->post("/administrations/utilisateurs", [
@@ -103,8 +101,7 @@ class UtilisateursTest extends TestCase
 			"email"                 => "unit@testing.fr",
 			"password"              => "unit.testing",
 			"password_confirmation" => "unit.testing",
-			"academie"              => 1,
-			"service"               => 1,
+			"service"               => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -118,7 +115,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionUtilisateur()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateur = factory(Utilisateur::class)->create();
 
@@ -126,13 +122,13 @@ class UtilisateursTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Utilisateur->nom}");
-		$request->assertSee("Nom de l'utilisateur");
-		$request->assertSee("Prénom de l'utilisateur");
-		$request->assertSee("Adresse E-Mail de l'utilisateur");
-		$request->assertSee("Académie de l'utilisateur");
-		$request->assertSee("Service de l'utilisateur");
-		$request->assertSee("Éditer l'utilisateur");
-		$request->assertSee("Supprimer l'utilisateur");
+		$request->assertSee("Nom");
+		$request->assertSee("Prénom");
+		$request->assertSee("Adresse E-Mail");
+		$request->assertSee("Département");
+		$request->assertSee("Service");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -140,7 +136,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurIncomplet()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateur = factory(Utilisateur::class)->create();
 
@@ -158,8 +153,7 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurExistant()
 	{
-		$Academie = factory(Academie::class)->create();
-		$Service = factory(Service::class)->create();
+	    $Service = factory(Service::class)->create();
 		$Utilisateurs = factory(Utilisateur::class, 2)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateurs[0]->id}", [
@@ -167,8 +161,7 @@ class UtilisateursTest extends TestCase
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
 			"email"    => $Utilisateurs[1]->email,
-			"academie" => 1,
-			"service"  => 1,
+			"service"  => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -182,7 +175,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletSansModification()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateur = factory(Utilisateur::class)->create();
 
@@ -191,7 +183,6 @@ class UtilisateursTest extends TestCase
 			"nom"      => $Utilisateur->nom,
 			"prenom"   => $Utilisateur->prenom,
 			"email"    => $Utilisateur->email,
-			"academie" => $Utilisateur->academie_id,
 			"service"  => $Utilisateur->service_id,
 		]);
 
@@ -206,7 +197,6 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
 	{
-		$Academie = factory(Academie::class)->create();
 		$Service = factory(Service::class)->create();
 		$Utilisateur = factory(Utilisateur::class)->create();
 
@@ -215,8 +205,7 @@ class UtilisateursTest extends TestCase
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
 			"email"    => "unit@testing.fr",
-			"academie" => 1,
-			"service"  => 1,
+			"service"  => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -235,7 +224,7 @@ class UtilisateursTest extends TestCase
 		$request = $this->get("/administrations/utilisateurs/{$Utilisateur->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'utilisateur");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Utilisateur->nom} {$Utilisateur->prenom}") . "</b>.");
 	}
 

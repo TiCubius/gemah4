@@ -11,7 +11,7 @@ class Eleve extends Model
 {
 	protected $fillable = [
 		"etablissement_id",
-		"academie_id",
+		"departement_id",
 		"nom",
 		"prenom",
 		"code_ine",

@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(\App\Models\Etablissement::class, function(Faker $faker) {
 	$enseignant = factory(\App\Models\Enseignant::class)->create();
-	$academy = factory(\App\Models\Academie::class)->create();
+	$departement = factory(\App\Models\Departement::class)->create();
 
 	return [
 		"id"            => $faker->name,
@@ -17,6 +17,6 @@ $factory->define(\App\Models\Etablissement::class, function(Faker $faker) {
 		"adresse"       => $faker->address,
 		"telephone"     => $faker->randomNumber(9, true),
 		"enseignant_id" => $enseignant->id,
-		"academie_id"   => $academy->id,
+		"departement_id"=> $departement->id,
 	];
 });

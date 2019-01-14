@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AffectationResponsableController extends Controller
+class ResponsableController extends Controller
 {
 	/***
 	 * GET - Liste des responsables qu'il est possible d'affecter

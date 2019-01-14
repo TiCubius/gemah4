@@ -36,20 +36,6 @@
 				@endcomponent
 
 				<div class="form-group">
-					<label for="etablissement_id">Établissement</label>
-					<select id="etablissement_id" class="form-control" name="etablissement_id" required>
-						<option>Sélectionnez un établissement</option>
-						@foreach($etablissements as $etablissement)
-							@if($etablissement->id === old("etablissement_id"))
-								<option value="{{ $etablissement->id }}" selected>{{ $etablissement->nom }}</option>
-							@else
-								<option value="{{ $etablissement->id }}">{{ $etablissement->nom }}</option>
-							@endif
-						@endforeach
-					</select>
-				</div>
-
-				<div class="form-group">
 					<label class="optional" for="code_ine">Code INE</label>
 					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ old("code_ine") }}" placeholder="Ex : 0000000000X">
 				</div>

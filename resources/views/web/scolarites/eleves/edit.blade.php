@@ -24,7 +24,7 @@
 
 				<div class="form-group">
 					<label for="date_naissance">Date de naissance</label>
-					<input id="date_naissance" class="form-control" name="date_naissance" type="date" value="{{ $eleve->date_naissance }}" required>
+					<input id="date_naissance" class="form-control" name="date_naissance" type="date" value="{{ $eleve->date_naissance->format("d/m/Y") }}" required>
 				</div>
 
 				<div class="form-group">
@@ -34,20 +34,6 @@
 
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $eleve->departement_id])
 				@endcomponent
-
-				<div class="form-group">
-					<label for="etablissement_id">Établissement</label>
-					<select id="etablissement_id" class="form-control" name="etablissement_id" required>
-						<option>Sélectionnez un établissement</option>
-						@foreach($etablissements as $etablissement)
-							@if($etablissement->id === $eleve->etablissement_id)
-								<option value="{{ $etablissement->id }}" selected>{{ $etablissement->nom }}</option>
-							@else
-								<option value="{{ $etablissement->id }}">{{ $etablissement->nom }}</option>
-							@endif
-						@endforeach
-					</select>
-				</div>
 
 				<div class="form-group">
 					<label class="optional" for="code_ine">Code INE</label>

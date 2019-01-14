@@ -16,7 +16,7 @@ class CreateEtablissementsTable extends Migration
 		Schema::create('etablissements', function(Blueprint $table) {
 			$table->string('id');
 
-			$table->unsignedInteger('enseignant_id');
+			$table->unsignedInteger('enseignant_id')->nullable();
             $table->string('departement_id');
             $table->string('type');
             $table->string('nom');

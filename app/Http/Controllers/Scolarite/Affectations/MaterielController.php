@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AffectationMaterielController extends Controller
+class MaterielController extends Controller
 {
 	/**
 	 * GET - Liste du matériel qu'il est possible d'affecter

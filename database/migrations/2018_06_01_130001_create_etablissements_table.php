@@ -17,19 +17,19 @@ class CreateEtablissementsTable extends Migration
 			$table->string('id');
 
 			$table->unsignedInteger('enseignant_id')->nullable();
+            $table->unsignedInteger('type_etablissement_id');
             $table->string('departement_id');
-            $table->string('type');
             $table->string('nom');
             $table->string('degre');
             $table->string('regime');
             $table->string('adresse')->nullable();
             $table->string('code_postal');
             $table->string('ville');
-            $table->string("email")->nullable();
             $table->string('telephone')->nullable();
 
             $table->primary('id');
-            $table->foreign('enseignant_id')->references('id')->on('enseignants');
+			$table->foreign('enseignant_id')->references('id')->on('enseignants');
+			$table->foreign('type_etablissement_id')->references('id')->on('types_etablissements');
             $table->foreign('departement_id')->references('id')->on('departements');
             $table->timestamps();
 		});

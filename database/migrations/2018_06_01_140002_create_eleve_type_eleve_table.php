@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEleveTypeEleve extends Migration
+class CreateEleveTypeEleveTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,6 +18,9 @@ class CreateEleveTypeEleve extends Migration
             $table->unsignedInteger('type_eleve_id');
 
             $table->primary(["eleve_id", "type_eleve_id"]);
+
+	        $table->foreign("eleve_id")->references("id")->on("eleves");
+	        $table->foreign("type_eleve_id")->references("id")->on("types_eleves");
         });
     }
 

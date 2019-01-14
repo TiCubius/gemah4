@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Etablissement extends Model
 {
@@ -11,7 +12,6 @@ class Etablissement extends Model
 	protected $fillable = [
 		"id",
 		"nom",
-		"type",
 		"degre",
 		"regime",
 		"ville",
@@ -20,7 +20,18 @@ class Etablissement extends Model
 		"telephone",
 		"enseignant_id",
 		"departement_id",
+		"type_etablissement_id",
 	];
+
+	/**
+	 * Un établissement appartient à un type
+	 *
+	 * @return BelongsTo
+	 */
+	public function type(): BelongsTo
+	{
+		return $this->belongsTo(TypeEtablissement::class);
+	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
@@ -66,7 +77,7 @@ class Etablissement extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function ($query) use ($nom, $ville, $telephone) {
+		return $query->where(function($query) use ($nom, $ville, $telephone) {
 			$query->where("nom", "LIKE", "%{$nom}%")
 				->orWhere("ville", "LIKE", "%{$ville}%")
 				->orWhere("telephone", "LIKE", "%{$telephone}%");

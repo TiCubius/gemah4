@@ -273,7 +273,7 @@ class EtablissementsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer l'établissement");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$etablissement->nom}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$etablissement->nom}" . "</b>.");
 	}
 
 

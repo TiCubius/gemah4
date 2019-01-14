@@ -79,7 +79,7 @@
 				</div>
 				<div class="modal-body text-center">
 					<p>
-						Vous êtes sur le point de supprimer <b>{{ strtoupper("{$utilisateur->nom} {$utilisateur->prenom}") }}</b>.
+						Vous êtes sur le point de supprimer <b>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</b>.
 						<br>
 						Cette action est irreversible
 					</p>

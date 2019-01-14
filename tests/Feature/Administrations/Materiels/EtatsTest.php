@@ -192,7 +192,7 @@ class EtatsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer l'état matériel");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper($EtatMateriel->nom) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->nom . "</b>.");
 	}
 
 

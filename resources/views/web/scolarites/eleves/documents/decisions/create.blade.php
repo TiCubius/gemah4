@@ -14,22 +14,22 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="date_cda">Date de la CDA</label>
+                    <label class="optional" for="date_cda">Date de la CDA</label>
                     <input type="date" id="date_cda" name="date_cda" placeholder="Date de la CDA" class="form-control" value="{{ Session::get('_old_input')['date_cda'] ?? '' }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="date_notif">Date de réception de la notification</label>
+                    <label class="optional" for="date_notif">Date de réception de la notification</label>
                     <input type="date" id="date_notif" name="date_notif" placeholder="Date de réception de la notification" class="form-control" value="{{ Session::get('_old_input')['date_notif'] ?? '' }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="date_limite">Date limite de la décision</label>
+                    <label class="optional" for="date_limite">Date limite de la décision</label>
                     <input type="date" id="date_limite" name="date_limite" placeholder="Date limite de la décision" class="form-control" value="{{ Session::get('_old_input')['date_limite'] ?? '' }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="date_convention">Date de la convention</label>
+                    <label class="optional" for="date_convention">Date de la convention</label>
                     <input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Date de la convention" class="form-control" value="{{ Session::get('_old_input')['date_lidate_conventionmite'] ?? '' }}">
                 </div>
             </div>

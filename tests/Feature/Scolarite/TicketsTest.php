@@ -194,7 +194,7 @@ class TicketsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le ticket");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . str_limit(strtoupper($ticketMessage->ticket->libelle), 15) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . str_limit($ticketMessage->ticket->libelle, 15) . "</b>.");
 	}
 
 	/**

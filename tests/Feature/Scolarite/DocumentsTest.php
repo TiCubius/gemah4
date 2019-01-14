@@ -200,7 +200,7 @@ class DocumentsTest extends TestCase
 
         $request->assertStatus(200);
         $request->assertSee("Supprimer {$document->nom}");
-        $request->assertSee("Vous êtes sur le point de supprimer <b>".strtoupper("{$document->nom}") . "</b>.");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>"."{$document->nom}" . "</b>.");
     }
 
 
@@ -235,6 +235,6 @@ class DocumentsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
-    }
+    } 
 
 }

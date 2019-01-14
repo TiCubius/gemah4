@@ -15,13 +15,11 @@
                         Ajouter un document
                     </div>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Conventions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item"
                            href="{{route('web.scolarites.eleves.documents.decisions.create', [$eleve]) }}">
                             Décision
                         </a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
                            href="{{ route('web.scolarites.eleves.documents.create', [$eleve]) }}">
                             Autre document
@@ -59,19 +57,19 @@
                         <div class="card-body">
                             <p class="mb-0">
                                 <b>Réunion CDA</b>:
-                                {!! $decision->date_cda->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_cda ? $decision->date_cda->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Réception de la Notification</b>:
-                                {!! $decision->date_notif->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_notif ? $decision->date_notif->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Date Limite de la Décision</b>:
-                                {!! $decision->date_limite->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_limite ? $decision->date_limite->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <p class="mb-0">
                                 <b>Date Convention</b>:
-                                {!! $decision->date_convention->format("d/m/Y") ?? '<span class="text-muted">Non défini</span>' !!}
+                                {!! $decision->date_convention ? $decision->date_convention->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
                             </p>
                             <hr>
                             <p class="mb-0">
@@ -98,12 +96,12 @@
                             </a>
                             @if($decision->document_id)
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="">
+                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $decision]) }}">
                                         <i class="fas fa-download"></i>
                                         Télécharger
                                     </a>
                                     <a class="btn btn-sm btn-outline-success" target="_blank"
-                                       href="{{ asset('storage/' . $decision->document_id) }}">
+                                       href="{{ asset('storage/decisions/' . $decision->document->path) }}">
                                         <i class="far fa-eye"></i>
                                         Visualiser
                                     </a>
@@ -144,11 +142,11 @@
                                 </a>
                                 @if($document->path)
                                     <div class="btn-group">
-                                        <a class="btn btn-sm btn-primary" target="_blank" href="">
+                                        <a class="btn btn-sm btn-primary" target="_blank" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
                                             <i class="fas fa-download"></i>
                                             Télécharger
                                         </a>
-                                        <a class="btn btn-sm btn-primary" target="_blank"
+                                        <a class="btn btn-sm btn-primary"
                                            href="{{ asset('storage/documents/' . $document->path) }}">
                                             <i class="far fa-eye"></i>
                                             Visualiser
@@ -176,12 +174,6 @@
 
 @section('scripts')
     <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
-    <script>
 
         $('#type').on('change', () => {
 
@@ -190,7 +182,7 @@
             $(`.js-document`).hide()
             $(`.js-document-${type.val()}`).show()
 
+        }).trigger("change")
 
-        })
     </script>
 @endsection

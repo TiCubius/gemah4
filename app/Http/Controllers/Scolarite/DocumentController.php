@@ -13,6 +13,7 @@ use App\Models\Eleve;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentController extends Controller
 {
@@ -179,4 +180,21 @@ class DocumentController extends Controller
 
         return back()->withErrors("Ce document n'appartient pas à cet élève");
     }
+
+    /**
+     * GET - Télécharge le document
+     *
+     * @param Eleve $eleve
+     * @param Decision $document
+     * @return StreamedResponse|RedirectResponse
+     */
+    public function download(Eleve $eleve, Document $document)
+    {
+        if ($document->eleve_id == $eleve->id) {
+            return Storage::download('public/documents/' . $document->path);
+        }
+
+        return back()->withErrors("Ce document n'appartient pas cet élève");
+    }
+
 }

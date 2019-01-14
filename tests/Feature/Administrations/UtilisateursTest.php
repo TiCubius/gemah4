@@ -236,7 +236,7 @@ class UtilisateursTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer l'utilisateur");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Utilisateur->nom} {$Utilisateur->prenom}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Utilisateur->nom} {$Utilisateur->prenom}" . "</b>.");
 	}
 
 

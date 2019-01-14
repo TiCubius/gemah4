@@ -269,7 +269,7 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le matériel");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Stock->marque} {$Stock->modele}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Stock->marque} {$Stock->modele}" . "</b>.");
 	}
 
 	/**

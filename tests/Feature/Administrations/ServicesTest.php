@@ -191,7 +191,7 @@ class ServicesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le service");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper($Service->nom) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Service->nom . "</b>.");
 	}
 
 	/**

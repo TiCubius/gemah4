@@ -11,9 +11,11 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DecisionController extends Controller
 {
@@ -51,45 +53,45 @@ class DecisionController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param Eleve $eleve
-     * @return RedirectResponse
+     * @return RedéirectResponse
      */
     public function store(Request $request, Eleve $eleve): RedirectResponse
     {
         $request->validate([
-            'date_limite'     => 'required|date|nullable',
-            'date_cda'        => 'nullable|date',
-            'date_notif'      => 'nullable|date',
+            'date_limite' => 'nullable|date',
+            'date_cda' => 'nullable|date',
+            'date_notif' => 'nullable|required_with:date_limite|date',
             'date_convention' => 'nullable|date',
-            'numero_dossier'  => 'nullable|max:191',
-            'enseignant_id'   => 'nullable|integer',
-            'nom_suivi'       => 'nullable|string|max:191',
-            'file'            => 'required'
+            'numero_dossier' => 'nullable|max:191',
+            'enseignant_id' => 'nullable|integer',
+            'nom_suivi' => 'nullable|string|max:191',
+            'file' => 'required'
         ]);
 
-            // On enregistre le fichier
-            $filename = $this->generateFilename($eleve, $request->file('file'));
-            $request->file('file')->storeAs('public/decisions/', $filename);
+        // On enregistre le fichier
+        $filename = $this->generateFilename($eleve, $request->file('file'));
+        $request->file('file')->storeAs('public/decisions/', $filename);
 
-            $document = Document::create([
-                'nom'              => "Décision du " .Carbon::parse($request->input('date_notif'))->format('d/m/Y'),
-                'description'      => $request->input('description'),
-                'type_document_id' => TypeDocument::where('nom', 'Décision')->first()->id,
-                'path'             => $filename,
-                'eleve_id'         => $eleve->id
-            ]);
+        $document = Document::create([
+            'nom' => "Décision du " . Carbon::parse($request->input('date_notif'))->format('d/m/Y'),
+            'description' => $request->input('description'),
+            'type_document_id' => TypeDocument::where('nom', 'Décision')->first()->id,
+            'path' => $filename,
+            'eleve_id' => $eleve->id
+        ]);
 
 
         Decision::create([
-            'date_cda'        => $request->input('date_cda'),
-            'date_notif'      => $request->input('date_notif'),
-            'date_limite'     => $request->input('date_limite'),
+            'date_cda' => $request->input('date_cda'),
+            'date_notif' => $request->input('date_notif'),
+            'date_limite' => $request->input('date_limite'),
             'date_convention' => $request->input('date_convention'),
-            'numero_dossier'  => $request->input('numero_dossier'),
-            'nom_suivi'       => $request->input('nom_suivi'),
+            'numero_dossier' => $request->input('numero_dossier'),
+            'nom_suivi' => $request->input('nom_suivi'),
 
-            'eleve_id'      => $eleve->id,
+            'eleve_id' => $eleve->id,
             'enseignant_id' => $request->input('enseignant_id'),
-            'document_id'   => $document->id,
+            'document_id' => $document->id,
         ]);
 
         return redirect(route('web.scolarites.eleves.documents.index', [$eleve]));
@@ -98,7 +100,7 @@ class DecisionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -131,13 +133,13 @@ class DecisionController extends Controller
     public function update(Request $request, Eleve $eleve, Decision $decision): RedirectResponse
     {
         $request->validate([
-            'date_limite'     => 'required|date|nullable',
-            'date_cda'        => 'nullable|date',
-            'date_notif'      => 'nullable|date',
+            'date_limite' => 'required|date|nullable',
+            'date_cda' => 'nullable|date',
+            'date_notif' => 'nullable|required_with:date_limite|date',
             'date_convention' => 'nullable|date',
-            'numero_dossier'  => 'nullable|max:191',
-            'enseignant_id'   => 'nullable|integer',
-            'nom_suivi'       => 'nullable|string|max:191',
+            'numero_dossier' => 'nullable|max:191',
+            'enseignant_id' => 'nullable|integer',
+            'nom_suivi' => 'nullable|string|max:191',
         ]);
 
         if ($request->hasFile('file')) {
@@ -151,23 +153,23 @@ class DecisionController extends Controller
             $filename = $this->generateFilename($eleve, $request->file('file'));
             $request->file('file')->storeAs('public/decisions/', $filename);
 
-            $document =Document::create([
-                'type_document_id'     => TypeDocument::where('nom', 'Décision')->first()->id,
-                'path'     => $filename,
+            $document = Document::create([
+                'type_document_id' => TypeDocument::where('nom', 'Décision')->first()->id,
+                'path' => $filename,
                 'eleve_id' => $eleve->id,
             ]);
         }
 
         $decision->update([
-            'date_cda'        => $request->input('date_cda'),
-            'date_notif'      => $request->input('date_notif'),
-            'date_limite'     => $request->input('date_limite'),
+            'date_cda' => $request->input('date_cda'),
+            'date_notif' => $request->input('date_notif'),
+            'date_limite' => $request->input('date_limite'),
             'date_convention' => $request->input('date_convention'),
-            'numero_dossier'  => $request->input('numero_dossier'),
-            'nom_suivi'       => $request->input('nom_suivi'),
-            'eleve_id'        => $eleve->id,
-            'enseignant_id'   => $request->input('enseignant_id'),
-            'document_id'     => isset($document) ? $document->id : $decision->document_id,
+            'numero_dossier' => $request->input('numero_dossier'),
+            'nom_suivi' => $request->input('nom_suivi'),
+            'eleve_id' => $eleve->id,
+            'enseignant_id' => $request->input('enseignant_id'),
+            'document_id' => isset($document) ? $document->id : $decision->document_id,
         ]);
 
         return redirect(route('web.scolarites.eleves.documents.index', [$eleve]));
@@ -189,4 +191,21 @@ class DecisionController extends Controller
 
         return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
     }
+
+    /**
+     * GET - Télécharge la décision
+     *
+     * @param Eleve $eleve
+     * @param Decision $decision
+     * @return StreamedResponse|RedirectResponse
+     */
+    public function download(Eleve $eleve, Decision $decision)
+    {
+        if ($decision->eleve_id == $eleve->id) {
+            return Storage::download('public/decisions/' . $decision->document->path);
+        }
+
+        return back()->withErrors("Cette decision n'appartient pas cet élève");
+    }
+
 }

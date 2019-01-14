@@ -202,7 +202,7 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le responsable");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$Responsable->nom} {$Responsable->prenom}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Responsable->nom} {$Responsable->prenom}" . "</b>.");
 	}
 
 

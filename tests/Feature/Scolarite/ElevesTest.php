@@ -278,7 +278,7 @@ class ElevesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer l'élève");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$eleve->nom} {$eleve->prenom}") . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$eleve->nom} {$eleve->prenom}" . "</b>.");
 	}
 
 

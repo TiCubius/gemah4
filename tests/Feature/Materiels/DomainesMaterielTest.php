@@ -187,7 +187,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le domaine");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper($Domaine->nom) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Domaine->nom . "</b>.");
 	}
 
 	/**

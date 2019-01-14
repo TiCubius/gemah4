@@ -234,7 +234,7 @@ class DecisionsTest extends TestCase
 
         $request->assertStatus(200);
         $request->assertSee("Supprimer {$decision->document->nom}");
-        $request->assertSee("Vous êtes sur le point de supprimer <b>" . strtoupper("{$decision->document->nom}") . "</b>.");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$decision->document->nom}" . "</b>.");
     }
 
 

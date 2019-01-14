@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Eleve extends Model
@@ -84,7 +85,8 @@ class Eleve extends Model
      *
      * @return BelongsToMany
      */
-    public function type_eleve() : BelongsToMany{
+    public function types(): BelongsToMany
+    {
         return $this->belongsToMany(TypeEleve::class);
     }
 

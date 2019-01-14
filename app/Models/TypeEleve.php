@@ -15,7 +15,7 @@ class TypeEleve extends Model
      *
      * @return BelongsToMany
      */
-    public function eleve() : BelongsToMany{
+    public function eleves() : BelongsToMany{
         return $this->belongsToMany(Eleve::class);
     }
 }

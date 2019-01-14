@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEleveTypeEleve extends Migration
+class CreateTypesEtablissements extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateEleveTypeEleve extends Migration
      */
     public function up()
     {
-        Schema::create('eleve_type_eleve', function (Blueprint $table) {
-            $table->unsignedInteger('eleve_id');
-            $table->unsignedInteger('type_eleve_id');
-
-            $table->primary(["eleve_id", "type_eleve_id"]);
+        Schema::create('types_etablissements', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nom');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ class CreateEleveTypeEleve extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eleve_type_eleve');
+        Schema::dropIfExists('types_etablissements');
     }
 }

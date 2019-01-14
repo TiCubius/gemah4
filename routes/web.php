@@ -39,6 +39,7 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 
         Route::group(["prefix" => "/documents", "as" => "documents."], function () {
             Route::resource("decisions", "Scolarite\DecisionController");
+            Route::get("/decisions/{decision}/download", "Scolarite\DecisionController@download")->name("decisions.download");
             Route::get("/{document}/download", "Scolarite\DocumentController@download")->name("download");
         });
 

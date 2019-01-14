@@ -12,8 +12,9 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve]) }}">Affecter à un responsable</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.etablissements.index", [$eleve]) }}">Affecter un établissement</a>
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.materiels.index", [$eleve]) }}">Affecter un matériel</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve]) }}">Affecter à un responsable</a>
 
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}">Modifier l'élève</a>
@@ -43,20 +44,26 @@
 			</div>
 		</div>
 
-		<div class="col-md-6 mb-3">
-			<div class="card w-100">
-				<div class="card-header gemah-bg-primary">Etablissement</div>
 
-				<div class="card-body">
-					<strong>Nom</strong>: {{ $eleve->etablissement->nom }} <br>
-					<strong>Type</strong>: {{ $eleve->etablissement->type }} <br>
-					<strong>Classe</strong>: {{ $eleve->classe }} <br>
-					<strong>Adresse</strong>: {{ $eleve->etablissement->adresse }} <br>
-					<strong>Ville</strong>: {{ $eleve->etablissement->ville }} <br>
-					<strong>Téléphone</strong>: {{ $eleve->etablissement->telephone }} <br>
+		@isset($eleve->etablissement)
+			<div class="col-md-6 mb-3">
+				<div class="card w-100">
+					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">Etablissement
+
+						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-etablissements-{{ $eleve->etablissement->id }}">Désaffecter</button>
+					</div>
+
+					<div class="card-body">
+						<strong>Nom</strong>: {{ $eleve->etablissement->nom }} <br>
+						<strong>Type</strong>: {{ $eleve->etablissement->type }} <br>
+						<strong>Classe</strong>: {{ $eleve->classe }} <br>
+						<strong>Adresse</strong>: {{ $eleve->etablissement->adresse }} <br>
+						<strong>Ville</strong>: {{ $eleve->etablissement->ville }} <br>
+						<strong>Téléphone</strong>: {{ $eleve->etablissement->telephone }} <br>
+					</div>
 				</div>
 			</div>
-		</div>
+		@endisset
 
 		@foreach($eleve->responsables as $responsable)
 			<div class="col-md-6 mb-3">
@@ -143,18 +150,26 @@
 
 	</div>
 
-	@foreach($eleve->responsables as $responsable)
-		@component("web._includes.components.modals.detach", ["route" => route("web.scolarites.eleves.affectations.responsables.detach", [$eleve, $responsable]), "id" => "modal-responsable-{$responsable->id}"])
+	@isset($eleve->etablissement)
+		@component("web._includes.components.modals.detach", ["route" => route("web.scolarites.eleves.affectations.etablissements.detach", [$eleve, $eleve->etablissement]), "id" => "modal-etablissements-{$eleve->etablissement->id}"])
 			@slot("name")
-				{{ "{$responsable->nom} {$responsable->prenom}" }}
+				{{ "{$eleve->etablissement->nom}" }}
 			@endslot
 		@endcomponent
-	@endforeach
+	@endisset
 
 	@foreach($eleve->materiels as $materiel)
 		@component("web._includes.components.modals.detach", ["route" => route("web.scolarites.eleves.affectations.materiels.detach", [$eleve, $materiel]), "id" => "modal-materiel-{$materiel->id}"])
 			@slot("name")
 				{{ "{$materiel->marque} {$materiel->modele}" }}
+			@endslot
+		@endcomponent
+	@endforeach
+
+	@foreach($eleve->responsables as $responsable)
+		@component("web._includes.components.modals.detach", ["route" => route("web.scolarites.eleves.affectations.responsables.detach", [$eleve, $responsable]), "id" => "modal-responsable-{$responsable->id}"])
+			@slot("name")
+				{{ "{$responsable->nom} {$responsable->prenom}" }}
 			@endslot
 		@endcomponent
 	@endforeach

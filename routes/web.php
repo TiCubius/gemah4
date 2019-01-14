@@ -55,18 +55,25 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 	Route::resource("etablissements", "Scolarite\EtablissementController");
 
 	Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
-		// Affectation d'un responsable
-		Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
-			Route::get("/", "Scolarite\Affectations\AffectationResponsableController@index")->name("index");
-			Route::post("{responsable}", "Scolarite\Affectations\AffectationResponsableController@attach")->name("attach");
-			Route::delete("{responsable}", "Scolarite\Affectations\AffectationResponsableController@detach")->name("detach");
+		//Affectation d'un établissement
+		Route::group(["prefix" => "etablissements", "as" => "etablissements."], function () {
+			Route::get("/", "Scolarite\Affectations\EtablissementController@index")->name("index");
+			Route::post("/{etablissement}", "Scolarite\Affectations\EtablissementController@attach")->name("attach");
+			Route::delete("/{etablissement}", "Scolarite\Affectations\EtablissementController@detach")->name("detach");
 		});
 
 		//Affectation d'un matériel
 		Route::group(["prefix" => "materiels", "as" => "materiels."], function () {
-			Route::get("/", "Scolarite\Affectations\AffectationMaterielController@index")->name("index");
-			Route::post("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@attach")->name("attach");
-			Route::delete("/{materiel}", "Scolarite\Affectations\AffectationMaterielController@detach")->name("detach");
+			Route::get("/", "Scolarite\Affectations\MaterielController@index")->name("index");
+			Route::post("/{materiel}", "Scolarite\Affectations\MaterielController@attach")->name("attach");
+			Route::delete("/{materiel}", "Scolarite\Affectations\MaterielController@detach")->name("detach");
+		});
+
+		// Affectation d'un responsable
+		Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
+			Route::get("/", "Scolarite\Affectations\ResponsableController@index")->name("index");
+			Route::post("{responsable}", "Scolarite\Affectations\ResponsableController@attach")->name("attach");
+			Route::delete("{responsable}", "Scolarite\Affectations\ResponsableController@detach")->name("detach");
 		});
 	});
 });

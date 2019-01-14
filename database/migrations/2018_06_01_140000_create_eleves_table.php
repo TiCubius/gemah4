@@ -16,7 +16,7 @@ class CreateElevesTable extends Migration
 		Schema::create('eleves', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->string('etablissement_id');
+			$table->string('etablissement_id')->nullable();
             $table->string('departement_id');
             $table->string('nom');
             $table->string('prenom');

@@ -101,8 +101,12 @@ class TypeEleveController extends Controller
 	 */
 	public function destroy(TypeEleve $type): RedirectResponse
 	{
-		$type->delete();
-
-		return redirect(route("web.administrations.eleves.types.index"));
+	    if ($type->eleves->isNotEmpty()) {
+            return back()->withErrors("Le type que vous essayez de supprimer est associer a un ou plusieurs élèves");
+        }
+	    else {
+            $type->delete();
+            return redirect(route("web.administrations.eleves.types.index"));
+        }
 	}
 }

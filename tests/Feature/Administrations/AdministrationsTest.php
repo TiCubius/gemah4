@@ -26,7 +26,7 @@ class AdministrationsTest extends TestCase
 		$request->assertSee('Gestion des utilisateurs');
 
 		$request->assertSee("Gestion des états matériel");
-		$request->assertSee('Gestion des tickets');
+		$request->assertSee('Gestion des types tickets');
 		$request->assertSee('Historique des actions');
 		$request->assertSee('Liste des permissions');
 	}

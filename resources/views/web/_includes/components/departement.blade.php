@@ -7,7 +7,7 @@
         @foreach($academies as $academy)
             <optgroup label="{{ $academy->nom }}">
                 @foreach($academy->departements as $departement)
-                    @if($departement->id === ($id ?? null))
+                    @if($departement->id == ($id ?? null))
                         <option selected value="{{ $departement->id }}">{{ $departement->nom }}</option>
                     @else
                         <option value="{{ $departement->id }}">{{ $departement->nom }}</option>

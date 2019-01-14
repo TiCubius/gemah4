@@ -12,7 +12,7 @@
 				<div class="card-header gemah-bg-primary">Rechercher un établissement</div>
 
 				<div class="card-body">
-					@component("web._includes.components.departement", ["academies" => $academies])
+					@component("web._includes.components.departement", ["academies" => $academies, "id" => app("request")->input("departement_id")])
 					@endcomponent
 
 					<div class="form-group">
@@ -76,8 +76,7 @@
 					</table>
 				@endif
 			</div>
-		@endif
-
+		@endisset
 	</div>
 
 @endsection

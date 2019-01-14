@@ -22,10 +22,11 @@ class CreateEtablissementsTable extends Migration
             $table->string('nom');
             $table->string('degre');
             $table->string('regime');
-            $table->string('adresse');
+            $table->string('adresse')->nullable();
             $table->string('code_postal');
             $table->string('ville');
-            $table->string('telephone');
+            $table->string("email")->nullable();
+            $table->string('telephone')->nullable();
 
             $table->primary('id');
             $table->foreign('enseignant_id')->references('id')->on('enseignants');

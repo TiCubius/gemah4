@@ -66,11 +66,10 @@ class Etablissement extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function ($query) use ($departement, $nom, $ville, $telephone) {
-			$query->where("departement_id", $departement)
-				->orWhere("nom", "LIKE", "%{$nom}%")
+		return $query->where(function ($query) use ($nom, $ville, $telephone) {
+			$query->where("nom", "LIKE", "%{$nom}%")
 				->orWhere("ville", "LIKE", "%{$ville}%")
 				->orWhere("telephone", "LIKE", "%{$telephone}%");
-		});
+		})->where("departement_id", $departement);
 	}
 }

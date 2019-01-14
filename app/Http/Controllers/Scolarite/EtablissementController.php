@@ -20,15 +20,17 @@ class EtablissementController extends Controller
 	 */
 	public function index(Request $request): View
 	{
+		$academies = Academie::all();
+
 		$latestCreatedEtablissements = Etablissement::latestCreated()->take(10)->get();
 		$latestUpdatedEtablissements = Etablissement::latestUpdated()->take(10)->get();
 
-		if ($request->exists(["nom", "ville", "telephone"])) {
-			$searchedEtablissements = Etablissement::search($request->input("nom"), $request->input("ville"), $request->input("telephone"))
+		if ($request->exists(["departement_id", "nom", "ville", "telephone"])) {
+			$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))
 				->get();
 		}
 
-		return view("web.scolarites.etablissements.index", compact('latestCreatedEtablissements', 'latestUpdatedEtablissements', 'searchedEtablissements'));
+		return view("web.scolarites.etablissements.index", compact("academies", "latestCreatedEtablissements", "latestUpdatedEtablissements", 'searchedEtablissements'));
 	}
 
 	/**

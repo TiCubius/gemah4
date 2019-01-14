@@ -70,9 +70,18 @@ class AcademiesSeeder extends Seeder
 		"La Réunion"                 => [
 			"Académie de La Réunion",
 		],
-        "Mayotte"                    => [
-            "Académie de Mayotte",
-        ],
+		"Mayotte"                    => [
+			"Académie de Mayotte",
+		],
+		"Polynésie Française"        => [
+			"Académie de Polynésie Française",
+		],
+		"Nouvelle-Calédonie"         => [
+			"Académie de Nouvelle-Calédonie",
+		],
+		"Autres Régions"             => [
+			"Académies Autres",
+		],
 	];
 
 	public function run()
@@ -81,7 +90,8 @@ class AcademiesSeeder extends Seeder
 			foreach ($academies as $academy) {
 				\App\Models\Academie::create([
 					"nom"       => $academy,
-                    "region_id" => \App\Models\Region::where("nom", "=", $region)->first()->id,
+					"region_id" => \App\Models\Region::where("nom", "=", $region)
+						->first()->id,
 				]);
 			}
 		}

@@ -20,6 +20,9 @@
 						@component("web._includes.components.departement", ["academies" => $academies, "id" => app("request")->input("departement_id")])
 						@endcomponent
 
+						@component("web._includes.components.types_etablissements", ["types" => $types, "id" => app("request")->input("type_etablissement_id")])
+						@endcomponent
+
 						<div class="form-group">
 							<label class="optional" for="nom">Nom de l'établissement</label>
 							<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">

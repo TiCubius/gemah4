@@ -22,9 +22,20 @@ class EtablissementSeeder extends Seeder
 		$progress->start();
 
 		foreach ($etablissements as $key => $etablissement) {
+			$type = \App\Models\TypeEtablissement::where("nom", $etablissement->fields->nature_uai_libe)
+				->first();
+			if (!$type) {
+				$type = \App\Models\TypeEtablissement::create([
+					"nom" => $etablissement->fields->nature_uai_libe,
+				]);
+			}
+
+
 			\App\Models\Etablissement::create([
+				"type_etablissement_id" => $type->id,
+				"departement_id"        => $etablissement->fields->code_departement,
+
 				"id"          => $etablissement->fields->numero_uai,
-				"type"        => $etablissement->fields->nature_uai_libe,
 				"nom"         => $etablissement->fields->appellation_officielle ?? "NON DEFINI",
 				"degre"       => ($etablissement->fields->nature_uai < 200) ? "Primaire" : "Secondaire",
 				"regime"      => $etablissement->fields->secteur_public_prive_libe,
@@ -32,8 +43,6 @@ class EtablissementSeeder extends Seeder
 				"code_postal" => $etablissement->fields->code_postal_uai,
 				"ville"       => $etablissement->fields->libelle_commune,
 				"telephone"   => null,
-
-				"departement_id" => $etablissement->fields->code_departement,
 			]);
 
 			$progress->advance();

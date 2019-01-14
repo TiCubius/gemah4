@@ -54,6 +54,12 @@
 					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ old("code_ine") }}" placeholder="Ex : 0000000000X">
 				</div>
 
+				@foreach($types as $type)
+					<div class="custom-control custom-checkbox">
+						<input id="type-{{ $type->id }}" class="custom-control-input" name="types[]" value="{{ $type->id }}" type="checkbox">
+						<label class="custom-control-label" for="type-{{ $type->id }}">{{ $type->nom }}</label>
+					</div>
+					@endforeach
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer l'élève</button>
 				</div>

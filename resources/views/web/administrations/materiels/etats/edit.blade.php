@@ -7,7 +7,6 @@
 		@endcomponent
 
 		<div class="col-12">
-
 			<form class="mb-3" action="{{ route("web.administrations.materiels.etats.update", [$etat]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}

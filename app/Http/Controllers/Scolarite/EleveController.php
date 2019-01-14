@@ -39,7 +39,7 @@ class EleveController extends Controller
 	public function create(): View
 	{
 		$academies = Academie::with("departements")->get();
-		$etablissements = Etablissement::all();
+        $etablissements = Etablissement::with("departements")->get();
 
 		return view("web.scolarites.eleves.create", compact("academies", "etablissements"));
 	}
@@ -52,6 +52,7 @@ class EleveController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
+	    dd($request->all());
 		$request->validate([
 			"nom"              => "required|max:255",
 			"prenom"           => "required|max:255",

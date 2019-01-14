@@ -71,7 +71,7 @@ class Eleve extends Model
     }
 
     /***
-     * Un élève peut avoir plusieurs documents
+     * Un élève peut avoir plusieurs decisions
      *
      * @return HasMany
      */
@@ -79,6 +79,15 @@ class Eleve extends Model
     {
         return $this->hasMany(Decision::class);
     }
+    /**
+     * Un élève appartient à plusieurs types
+     *
+     * @return BelongsToMany
+     */
+    public function type_eleve() : BelongsToMany{
+        return $this->belongsToMany(TypeEleve::class);
+    }
+
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *

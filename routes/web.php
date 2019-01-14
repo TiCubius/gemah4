@@ -93,6 +93,10 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::resource("services", "Administrations\ServiceController");
 	Route::resource("utilisateurs", "Administrations\UtilisateurController");
 
+    Route::group(["prefix" => "/eleves", "as" => "eleves."], function () {
+        Route::resource("types", "Administrations\TypeEleveController");
+    });
+
 	Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});

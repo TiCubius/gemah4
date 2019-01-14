@@ -47,7 +47,10 @@
 					Gestion des états matériel
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des tickets
+					Gestion des types tickets
+				</a>
+				<a href="{{ route("web.administrations.eleves.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des types élèves
 				</a>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
 					Historique des actions

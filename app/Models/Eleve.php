@@ -112,34 +112,63 @@ class Eleve extends Model
 		return $query->orderBy("updated_at", "DESC");
 	}
 
-	/**
-	 * Effectue une recherce sur le nom, prénom, email ou téléphone sur Responsable
-	 *
-	 * @param        $query
-	 * @param string $nom
-	 * @param string $prenom
-	 * @param        $date_naissance
-	 * @param        $code_ine
-	 * @return Builder
-	 */
-	public function scopeSearch($query, $nom, $prenom, $date_naissance, $code_ine): Builder
+    /**
+     * Effectue une recherce sur le département, type ET (nom, prénom, email ou téléphone sur élève)
+     *
+     * @param        $query
+     * @param $departement_id
+     * @param $type_eleve_id
+     * @param string $nom
+     * @param string $prenom
+     * @param        $date_naissance
+     * @param        $code_ine
+     * @return Builder
+     */
+	public function scopeSearch($query, $departement_id, $type_eleve_id, $nom, $prenom, $date_naissance, $code_ine): Builder
 	{
 		// Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
-		$nom = $nom ?? "--";
+		$departement_id = $departement_id ?? "--";
+		$type_eleve_id = $type_eleve_id ?? "--";
+        $nom = $nom ?? "--";
 		$prenom = $prenom ?? "--";
 		$date_naissance = $date_naissance ?? "--";
 		$code_ine = $code_ine ?? "--";
 
+
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function($query) use ($nom, $prenom, $date_naissance, $code_ine) {
+		$search = $query->where(function($query) use ($nom, $prenom, $date_naissance, $code_ine) {
 			$query->where("nom", "LIKE", "%{$nom}%")
 				->orWhere("prenom", "LIKE", "%{$prenom}%")
 				->orWhere("date_naissance", "LIKE", "%{$date_naissance}%")
 				->orWhere("code_ine", "LIKE", "%{$code_ine}%");
 		});
+
+		if ($departement_id !== "--") {
+            $search->where("departement_id", $departement_id);
+        }
+
+		if ($type_eleve_id !== "--") {
+		    $search->type($type_eleve_id);
+        }
+
+		return $search;
 	}
+
+    /**
+     * Recherche un élève avec l'id de type elève donné en paramètre
+     *
+     * @param $query
+     * @param $type_id
+     * @return mixed
+     */
+	public function scopeType($query, $type_id)
+    {
+        return $query->whereHas("types", function ($query) use ($type_id) {
+            $query->where("id", $type_id);
+        });
+    }
 
 }

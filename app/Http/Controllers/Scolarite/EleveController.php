@@ -22,15 +22,17 @@ class EleveController extends Controller
 	 */
 	public function index(Request $request): View
 	{
-		$latestCreatedEleves = Eleve::latestCreated()->take(10)->get();
+	    $academies = Academie::with("departements")->get();
+        $types = TypeEleve::all();
+        $latestCreatedEleves = Eleve::latestCreated()->take(10)->get();
 		$latestUpdatedEleves = Eleve::latestUpdated()->take(10)->get();
 
-		if ($request->exists(["nom", "prenom", "date_naissance", "code_ine"])) {
-			$searchedEleves = Eleve::search($request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"))
+		if ($request->exists(["departement_id", "type_eleve_id", "nom", "prenom", "date_naissance", "code_ine"])) {
+            $searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"),  $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"))
 				->get();
 		}
 
-		return view("web.scolarites.eleves.index", compact('latestCreatedEleves', 'latestUpdatedEleves', 'searchedEleves'));
+		return view("web.scolarites.eleves.index", compact("latestCreatedEleves", "latestUpdatedEleves", "searchedEleves", "academies", "types"));
 	}
 
 	/**

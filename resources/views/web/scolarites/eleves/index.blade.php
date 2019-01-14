@@ -17,6 +17,12 @@
                 <form class="card" method="GET">
                     <div class="card-header gemah-bg-primary">Rechercher un élève</div>
                     <div class="card-body">
+
+                        @component("web._includes.components.departement",["academies" => $academies, "id" => app("request")->input("departement_id")])
+                            @endcomponent
+
+                        @component("web._includes.components.types_eleves",["types" => $types, "id" => app("request")->input("type_eleve_id")])
+                            @endcomponent
                         <div class="form-group">
                             <label class="optional" for="nom">Nom de l'élève</label>
                             <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom"

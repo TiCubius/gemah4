@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\Etablissement;
+use App\Models\TypeEleve;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -40,8 +41,9 @@ class EleveController extends Controller
 	public function create(): View
 	{
 		$academies = Academie::with("departements")->get();
+		$types = TypeEleve::all();
 
-		return view("web.scolarites.eleves.create", compact("academies"));
+		return view("web.scolarites.eleves.create", compact("academies", "types"));
 	}
 
 	/**
@@ -59,9 +61,10 @@ class EleveController extends Controller
 			"classe"         => "required",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves",
+            "types"          => "required"
 		]);
 
-		Eleve::create($request->only([
+		$eleve = Eleve::create($request->only([
 			"nom",
 			"prenom",
 			"date_naissance",
@@ -69,6 +72,10 @@ class EleveController extends Controller
 			"departement_id",
 			"code_ine",
 		]));
+
+		foreach ($request->input("types") as $type) {
+		    TypeEleve::findOrFail($type)->eleves()->attach($eleve);
+        }
 
 		return redirect(route("web.scolarites.eleves.index"));
 	}
@@ -110,8 +117,9 @@ class EleveController extends Controller
 	public function edit(Eleve $eleve): View
 	{
 		$academies = Academie::with("departements")->get();
+        $types = TypeEleve::all();
 
-		return view("web.scolarites.eleves.edit", compact("academies", "eleve"));
+        return view("web.scolarites.eleves.edit", compact("academies", "eleve", "types"));
 	}
 
 	/**
@@ -130,6 +138,7 @@ class EleveController extends Controller
 			"classe"         => "required",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
+            "types"          => "required"
 		]);
 
 		$eleve->update($request->only([
@@ -140,6 +149,12 @@ class EleveController extends Controller
 			"departement_id",
 			"code_ine",
 		]));
+
+		$eleve->types()->detach()   ;
+
+        foreach ($request->input("types") as $type) {
+            TypeEleve::findOrFail($type)->eleves()->attach($eleve);
+        }
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
@@ -171,6 +186,7 @@ class EleveController extends Controller
 
 		$eleve->decisions()->delete();
 		$eleve->documents()->delete();
+		$eleve->types()->detach();
 
 		$eleve->delete();
 

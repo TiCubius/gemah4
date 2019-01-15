@@ -57,7 +57,7 @@ class EtatController extends Controller
 	 * @param EtatMateriel $etat
 	 * @return View
 	 */
-	public function edit(EtatMateriel $etat): View
+            public function edit(EtatMateriel $etat): View
 	{
 		return view("web.administrations.materiels.etats.edit", compact("etat"));
 	}

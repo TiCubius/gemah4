@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
+use App\Models\TypeEtablissement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,15 +21,18 @@ class EtablissementController extends Controller
 	 */
 	public function index(Request $request): View
 	{
+		$academies = Academie::with("departements")->get();
+		$types = TypeEtablissement::all();
+
 		$latestCreatedEtablissements = Etablissement::latestCreated()->take(10)->get();
 		$latestUpdatedEtablissements = Etablissement::latestUpdated()->take(10)->get();
 
-		if ($request->exists(["nom", "ville", "telephone"])) {
-			$searchedEtablissements = Etablissement::search($request->input("nom"), $request->input("ville"), $request->input("telephone"))
+		if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
+			$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))
 				->get();
 		}
 
-		return view("web.scolarites.etablissements.index", compact('latestCreatedEtablissements', 'latestUpdatedEtablissements', 'searchedEtablissements'));
+		return view("web.scolarites.etablissements.index", compact("academies", "latestCreatedEtablissements", "latestUpdatedEtablissements", "searchedEtablissements", "types"));
 	}
 
 	/**
@@ -40,8 +44,9 @@ class EtablissementController extends Controller
 	{
 		$academies = Academie::with("departements")->get();
 		$enseignants = Enseignant::all();
+		$types = TypeEtablissement::all();
 
-		return view("web.scolarites.etablissements.create", compact("enseignants", "academies"));
+		return view("web.scolarites.etablissements.create", compact("academies", "enseignants", "types"));
 	}
 
 	/**
@@ -53,31 +58,32 @@ class EtablissementController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"id"            => "required|max:191|unique:etablissements",
-			"nom"           => "required|max:191",
-			"type"          => "required|max:191",
-			"degre"         => "required|max:191",
-			"regime"        => "required|max:191",
-			"ville"         => "required|max:191",
-			"code_postal"   => "required|numeric|digits:5",
-			"adresse"       => "required|max:191",
-			"telephone"     => "required|numeric",
-			"enseignant_id" => "nullable|exists:enseignants,id",
-			"departement_id"=> "required|exists:departements,id",
+			"id"                    => "required|max:191|unique:etablissements",
+			"nom"                   => "required|max:191",
+			"type_etablissement_id" => "required|exists:types_etablissements,id",
+			"degre"                 => "required|max:191",
+			"regime"                => "required|max:191",
+			"ville"                 => "required|max:191",
+			"code_postal"           => "required|numeric|digits:5",
+			"adresse"               => "required|max:191",
+			"telephone"             => "required|numeric",
+			"enseignant_id"         => "nullable|exists:enseignants,id",
+			"departement_id"        => "required|exists:departements,id",
 		]);
 
 		Etablissement::create($request->only([
+			"departement_id",
+			"enseignant_id",
+			"type_etablissement_id",
+
 			"id",
 			"nom",
-			"type",
 			"degre",
 			"regime",
 			"ville",
 			"code_postal",
 			"adresse",
 			"telephone",
-			"enseignant_id",
-			"departement_id",
 		]));
 
 		return redirect(route("web.scolarites.etablissements.index"));
@@ -104,8 +110,9 @@ class EtablissementController extends Controller
 	{
 		$academies = Academie::with("departements")->get();
 		$enseignants = Enseignant::all();
+		$types = TypeEtablissement::all();
 
-		return view("web.scolarites.etablissements.edit", compact("etablissement", "academies", "enseignants"));
+		return view("web.scolarites.etablissements.edit", compact("academies", "enseignants", "etablissement", "types"));
 	}
 
 	/**
@@ -118,23 +125,23 @@ class EtablissementController extends Controller
 	public function update(Request $request, Etablissement $etablissement): RedirectResponse
 	{
 		$request->validate([
-			"id"            => "required|max:191|unique:etablissements,id,{$etablissement->id}",
-			"nom"           => "required|max:191",
-			"type"          => "required|max:191",
-			"degre"         => "required|max:191",
-			"regime"        => "required|max:191",
-			"ville"         => "required|max:191",
-			"code_postal"   => "required|numeric|digits:5",
-			"adresse"       => "required|max:191",
-			"telephone"     => "required|numeric",
-			"enseignant_id" => "nullable|exists:enseignants,id",
-			"departement_id"=> "required|exists:departements,id",
+			"id"                    => "required|max:191|unique:etablissements,id,{$etablissement->id}",
+			"nom"                   => "required|max:191",
+			"type_etablissement_id" => "required|exists:types_etablissements,id",
+			"degre"                 => "required|max:191",
+			"regime"                => "required|max:191",
+			"ville"                 => "required|max:191",
+			"code_postal"           => "required|numeric|digits:5",
+			"adresse"               => "required|max:191",
+			"telephone"             => "required|numeric",
+			"enseignant_id"         => "nullable|exists:enseignants,id",
+			"departement_id"        => "required|exists:departements,id",
 		]);
 
 		$etablissement->update($request->only([
 			"id",
 			"nom",
-			"type",
+			"type_etablissement_id",
 			"degre",
 			"regime",
 			"ville",

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Eleve extends Model
@@ -71,7 +72,7 @@ class Eleve extends Model
     }
 
     /***
-     * Un élève peut avoir plusieurs documents
+     * Un élève peut avoir plusieurs decisions
      *
      * @return HasMany
      */
@@ -79,6 +80,16 @@ class Eleve extends Model
     {
         return $this->hasMany(Decision::class);
     }
+    /**
+     * Un élève appartient à plusieurs types
+     *
+     * @return BelongsToMany
+     */
+    public function types(): BelongsToMany
+    {
+        return $this->belongsToMany(TypeEleve::class);
+    }
+
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
 	 *

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Models\Academie;
 use App\Models\Departement;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
+use App\Models\TypeEtablissement;
 use Tests\TestCase;
 
 class EtablissementsTest extends TestCase
@@ -75,20 +75,22 @@ class EtablissementsTest extends TestCase
 		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 		$etablissement = factory(Etablissement::class)->create();
+		$type = factory(TypeEtablissement::class)->create();
 
 		$request = $this->post("/scolarites/etablissements", [
-			"_token"        => csrf_token(),
-			"id"            => $etablissement->id,
-			"nom"           => "unit.testing",
-			"type"          => "unit.testing",
-			"degre"         => "second",
-			"regime"        => "Privé",
-			"ville"         => "unit.testing",
-			"code_postal"   => "42000",
-			"adresse"       => "unit.testing",
-			"telephone"     => "0123456789",
-			"enseignant_id" => $enseignant->id,
-			"departement_id"=> $departement->id,
+			"_token"                => csrf_token(),
+			"departement_id"        => $departement->id,
+			"enseignant_id"         => $enseignant->id,
+			"type_etablissement_id" => $type->id,
+
+			"id"          => $etablissement->id,
+			"nom"         => "unit.testing",
+			"degre"       => "second",
+			"regime"      => "Privé",
+			"ville"       => "unit.testing",
+			"code_postal" => "42000",
+			"adresse"     => "unit.testing",
+			"telephone"   => "0123456789",
 		]);
 
 		$request->assertStatus(302);
@@ -103,20 +105,22 @@ class EtablissementsTest extends TestCase
 	{
 		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
+		$type = factory(TypeEtablissement::class)->create();
 
 		$request = $this->post("/scolarites/etablissements", [
-			"_token"        => csrf_token(),
-			"id"            => "UT",
-			"nom"           => "unit.testing",
-			"type"          => "unit.testing",
-			"degre"         => "second",
-			"regime"        => "Privé",
-			"ville"         => "unit.testing",
-			"code_postal"   => "42000",
-			"adresse"       => "unit.testing",
-			"telephone"     => "0123456789",
-			"enseignant_id" => $enseignant->id,
-			"departement_id"=> $departement->id,
+			"_token"                => csrf_token(),
+			"departement_id"        => $departement->id,
+			"enseignant_id"         => $enseignant->id,
+			"type_etablissement_id" => $type->id,
+
+			"id"          => "UT",
+			"nom"         => "unit.testing",
+			"degre"       => "second",
+			"regime"      => "Privé",
+			"ville"       => "unit.testing",
+			"code_postal" => "42000",
+			"adresse"     => "unit.testing",
+			"telephone"   => "0123456789",
 		]);
 
 		$request->assertStatus(302);
@@ -175,20 +179,22 @@ class EtablissementsTest extends TestCase
 		$departement = factory(Departement::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 		$etablissements = factory(Etablissement::class, 2)->create();
+		$type = factory(TypeEtablissement::class)->create();
 
 		$request = $this->put("/scolarites/etablissements/{$etablissements[1]->id}", [
-			"_token"        => csrf_token(),
-			"id"            => $etablissements[0]->id,
-			"nom"           => "unit.testing",
-			"type"          => "unit.testing",
-			"degre"         => "second",
-			"regime"        => "Privé",
-			"ville"         => "unit.testing",
-			"code_postal"   => "42000",
-			"adresse"       => "unit.testing",
-			"telephone"     => "0123456789",
-			"enseignant_id" => $enseignant->id,
-			"departement_id"=> $departement->id,
+			"_token"                => csrf_token(),
+			"departement_id"        => $departement->id,
+			"enseignant_id"         => $enseignant->id,
+			"type_etablissement_id" => $type->id,
+
+			"id"          => $etablissements[0]->id,
+			"nom"         => "unit.testing",
+			"degre"       => "second",
+			"regime"      => "Privé",
+			"ville"       => "unit.testing",
+			"code_postal" => "42000",
+			"adresse"     => "unit.testing",
+			"telephone"   => "0123456789",
 		]);
 
 		$request->assertStatus(302);
@@ -208,18 +214,18 @@ class EtablissementsTest extends TestCase
 		$etablissement = factory(Etablissement::class)->create();
 
 		$request = $this->put("/scolarites/etablissements/{$etablissement->id}", [
-			"_token"        => csrf_token(),
-			"id"            => $etablissement->id,
-			"nom"           => $etablissement->nom,
-			"type"          => $etablissement->type,
-			"degre"         => $etablissement->degre,
-			"regime"        => $etablissement->regime,
-			"ville"         => $etablissement->ville,
-			"code_postal"   => $etablissement->code_postal,
-			"adresse"       => $etablissement->adresse,
-			"telephone"     => $etablissement->telephone,
-			"enseignant_id" => $etablissement->enseignant_id,
-			"departement_id"=> $etablissement->departement_id,
+			"_token"                => csrf_token(),
+			"id"                    => $etablissement->id,
+			"nom"                   => $etablissement->nom,
+			"type_etablissement_id" => $etablissement->type_etablissement_id,
+			"degre"                 => $etablissement->degre,
+			"regime"                => $etablissement->regime,
+			"ville"                 => $etablissement->ville,
+			"code_postal"           => $etablissement->code_postal,
+			"adresse"               => $etablissement->adresse,
+			"telephone"             => $etablissement->telephone,
+			"enseignant_id"         => $etablissement->enseignant_id,
+			"departement_id"        => $etablissement->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -239,18 +245,18 @@ class EtablissementsTest extends TestCase
 		$etablissement = factory(Etablissement::class)->create();
 
 		$request = $this->put("/scolarites/etablissements/{$etablissement->id}", [
-			"_token"        => csrf_token(),
-			"id"            => $etablissement->id,
-			"nom"           => "unit.testing",
-			"type"          => $etablissement->type,
-			"degre"         => $etablissement->degre,
-			"regime"        => $etablissement->regime,
-			"ville"         => $etablissement->ville,
-			"code_postal"   => $etablissement->code_postal,
-			"adresse"       => $etablissement->adresse,
-			"telephone"     => $etablissement->telephone,
-			"enseignant_id" => $etablissement->enseignant_id,
-			"departement_id"=> $etablissement->departement_id,
+			"_token"                => csrf_token(),
+			"id"                    => $etablissement->id,
+			"nom"                   => "unit.testing",
+			"type_etablissement_id" => $etablissement->type_etablissement_id,
+			"degre"                 => $etablissement->degre,
+			"regime"                => $etablissement->regime,
+			"ville"                 => $etablissement->ville,
+			"code_postal"           => $etablissement->code_postal,
+			"adresse"               => $etablissement->adresse,
+			"telephone"             => $etablissement->telephone,
+			"enseignant_id"         => $etablissement->enseignant_id,
+			"departement_id"        => $etablissement->departement_id,
 		]);
 
 		$request->assertStatus(302);

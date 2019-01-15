@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Departement;
 use App\Models\Eleve;
-use App\Models\Etablissement;
+use App\Models\Materiel;
+use App\Models\Responsable;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -44,7 +46,6 @@ class ElevesTest extends TestCase
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Classe");
 		$request->assertSee("Département");
-		$request->assertSee("Établissement");
 		$request->assertSee("Code INE");
 
 		$request->assertSee("Créer");
@@ -73,40 +74,40 @@ class ElevesTest extends TestCase
 		$eleve = factory(Eleve::class)->create();
 
 		$request = $this->post("/scolarites/eleves", [
-			"_token"           => csrf_token(),
-			"nom"              => $eleve->nom,
-			"prenom"           => $eleve->prenom,
-			"date_naissance"   => $eleve->date_naissance,
-			"classe"           => $eleve->classe,
-			"departement_id"   => $eleve->departement_id,
-			"etablissement_id" => $eleve->etablissement,
-			"code_ine"         => $eleve->code_ine,
+			"_token"         => csrf_token(),
+			"nom"            => $eleve->nom,
+			"prenom"         => $eleve->prenom,
+			"date_naissance" => $eleve->date_naissance,
+			"classe"         => $eleve->classe,
+			"departement_id" => $eleve->departement_id,
+			"code_ine"       => $eleve->code_ine,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 	}
 
-    public function testTraitementFormulaireCreationEleveCompletSansINE()
-    {
-        $etablissement = factory(Etablissement::class)->create();
+	public function testTraitementFormulaireCreationEleveCompletSansINE()
+	{
+		$departement = factory(Departement::class)->create();
 
-        $request = $this->post("/scolarites/eleves", [
-            "_token"           => csrf_token(),
-            "nom"              => "unit.testing",
-            "prenom"           => "unit.testing",
-            "date_naissance"   => Carbon::now(),
-            "classe"           => "unit.testing",
-            "departement_id"   => $etablissement->departement_id,
-            "etablissement_id" => $etablissement->id,
-            "code_ine"         => "",
-        ]);
+		$request = $this->post("/scolarites/eleves", [
+			"_token"         => csrf_token(),
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"date_naissance" => Carbon::now(),
+			"classe"         => "unit.testing",
+			"departement_id" => $departement->id,
+			"code_ine"       => "",
+		]);
 
-        $request->assertStatus(302);
-        $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("eleves", ["nom" => "unit.testing", "prenom" => "unit.testing"]);
-
-    }
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("eleves", [
+			"nom"    => "unit.testing",
+			"prenom" => "unit.testing",
+		]);
+	}
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Eleve à bien été créée lors de la soumissions d'un
@@ -114,17 +115,16 @@ class ElevesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEleveCompletAvecCodeINE()
 	{
-		$etablissement = factory(Etablissement::class)->create();
+		$departement = factory(Departement::class)->create();
 
 		$request = $this->post("/scolarites/eleves", [
-			"_token"           => csrf_token(),
-			"nom"              => "unit.testing",
-			"prenom"           => "unit.testing",
-			"date_naissance"   => Carbon::now(),
-			"classe"           => "unit.testing",
-			"departement_id"      => $etablissement->departement_id,
-			"etablissement_id" => $etablissement->id,
-			"code_ine"         => "unit.testin",
+			"_token"         => csrf_token(),
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"date_naissance" => Carbon::now(),
+			"classe"         => "unit.testing",
+			"departement_id" => $departement->id,
+			"code_ine"       => "unit.testin",
 		]);
 
 		$request->assertStatus(302);
@@ -164,7 +164,6 @@ class ElevesTest extends TestCase
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Classe");
 		$request->assertSee("Département");
-		$request->assertSee("Établissement");
 		$request->assertSee("Code INE");
 
 		$request->assertSee("Éditer");
@@ -195,14 +194,13 @@ class ElevesTest extends TestCase
 		$eleves = factory(Eleve::class, 2)->create();
 
 		$request = $this->put("/scolarites/eleves/{$eleves[0]->id}", [
-			"_token"           => csrf_token(),
-			"nom"              => $eleves[1]->nom,
-			"prenom"           => $eleves[1]->prenom,
-			"date_naissance"   => $eleves[1]->date_naissance,
-			"classe"           => $eleves[1]->classe,
-			"departement_id"   => $eleves[1]->departement_id,
-			"etablissement_id" => $eleves[1]->etablissement,
-			"code_ine"         => $eleves[1]->code_ine,
+			"_token"         => csrf_token(),
+			"nom"            => $eleves[1]->nom,
+			"prenom"         => $eleves[1]->prenom,
+			"date_naissance" => $eleves[1]->date_naissance,
+			"classe"         => $eleves[1]->classe,
+			"departement_id" => $eleves[1]->departement_id,
+			"code_ine"       => $eleves[1]->code_ine,
 		]);
 
 
@@ -224,14 +222,13 @@ class ElevesTest extends TestCase
 		$eleve = factory(Eleve::class)->create();
 
 		$request = $this->put("/scolarites/eleves/{$eleve->id}", [
-			"_token"           => csrf_token(),
-			"nom"              => $eleve->nom,
-			"prenom"           => $eleve->prenom,
-			"date_naissance"   => $eleve->date_naissance,
-			"classe"           => $eleve->classe,
-			"departement_id"      => $eleve->departement_id,
-			"etablissement_id" => $eleve->etablissement_id,
-			"code_ine"         => $eleve->code_ine,
+			"_token"         => csrf_token(),
+			"nom"            => $eleve->nom,
+			"prenom"         => $eleve->prenom,
+			"date_naissance" => $eleve->date_naissance,
+			"classe"         => $eleve->classe,
+			"departement_id" => $eleve->departement_id,
+			"code_ine"       => $eleve->code_ine,
 		]);
 
 		$request->assertStatus(302);
@@ -250,17 +247,16 @@ class ElevesTest extends TestCase
 	public function testTraitementFormulaireEditionEleveCompletAvecModification()
 	{
 		$eleve = factory(Eleve::class)->create();
-		$etablissement = factory(Etablissement::class)->create();
+		$departement = factory(Departement::class)->create();
 
 		$request = $this->put("/scolarites/eleves/{$eleve->id}", [
-			"_token"           => csrf_token(),
-			"nom"              => "unit.testing",
-			"prenom"           => "unit.testing",
-			"date_naissance"   => Carbon::now(),
-			"classe"           => "unit.testing",
-			"departement_id"   => $etablissement->departement_id,
-			"etablissement_id" => $etablissement->id,
-			"code_ine"         => "unit.testin",
+			"_token"         => csrf_token(),
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"date_naissance" => Carbon::now(),
+			"classe"         => "unit.testing",
+			"departement_id" => $departement->id,
+			"code_ine"       => "unit.testin",
 		]);
 
 		$request->assertStatus(302);
@@ -285,6 +281,42 @@ class ElevesTest extends TestCase
 
 
 	/**
+	 * Vérifie qu'une erreur est présente lors de la suppression d'un élève associé à un
+	 * responsable, et que l'éleve n'a pas été supprimé
+	 */
+	public function testTraitementSuppressionEleveAvecResponsables()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$responsable = factory(Responsable::class)->create();
+
+		$responsable->eleves()->attach($eleve);
+
+		$request = $this->delete("/scolarites/eleves/{$eleve->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
+	}
+
+	/**
+	 * Vérifie qu'une erreur est présente lors de la suppression d'un élève associé à un
+	 * matériel, et que l'éleve n'a pas été supprimé
+	 */
+	public function testTraitementSuppressionEleveAvecMateriels()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$materiel = factory(Materiel::class)->create([
+			"eleve_id" => $eleve->id,
+		]);
+
+		$request = $this->delete("/scolarites/eleves/{$eleve->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
+	}
+
+	/**
 	 * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été supprimé
 	 */
 	public function testTraitementSuppressionEleve()
@@ -297,5 +329,4 @@ class ElevesTest extends TestCase
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
 	}
-
 }

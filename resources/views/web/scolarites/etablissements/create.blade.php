@@ -72,7 +72,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="enseignant_id">Enseignant Référent</label>
+						<label class="optional" for="enseignant_id">Enseignant Référent</label>
 						<select id="enseignant_id" class="form-control" name="enseignant_id">
 							<option value="">Sélectionnez un enseignant</option>
 							@foreach($enseignants as $enseignant)

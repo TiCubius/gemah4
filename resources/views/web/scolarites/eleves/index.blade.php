@@ -94,12 +94,12 @@
                                 @foreach($latestCreatedEleves as $eleve)
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-                                        <div>
-                                            <a href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Voir le profil</button>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-primary"href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+                                                Voir le profil
                                             </a>
-                                            <a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                            <a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
+                                                Editer
                                             </a>
                                         </div>
                                     </li>
@@ -117,12 +117,12 @@
                                 @foreach($latestUpdatedEleves as $eleve)
                                     <li class="list-group-item d-flex justify-content-between ">
                                         <span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-                                        <div>
-                                            <a href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Voir le profil</button>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+                                                Voir le profil
                                             </a>
-                                            <a href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-                                                <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                            <a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
+                                                Editer
                                             </a>
                                         </div>
                                     </li>

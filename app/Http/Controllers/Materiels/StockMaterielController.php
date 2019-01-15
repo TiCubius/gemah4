@@ -75,7 +75,7 @@ class StockMaterielController extends Controller
 			"date_service_fait"     => "nullable",
 			"date_fin_garantie"     => "nullable",
 			"achat_pour"            => "nullable",
-            "departement_id"        => "required"
+            "departement_id"        => "required|exists:departements,id"
 		]);
 
 		Materiel::create($request->only([
@@ -144,7 +144,7 @@ class StockMaterielController extends Controller
 			"nom_fournisseur" => "nullable",
 			"prix_ttc"        => "required",
 			"etat_id"         => "required",
-            "departement_id"  => "required",
+            "departement_id"  => "required|exists:departements,id",
 
 			"num_devis"             => "nullable",
 			"num_formulaire_chorus" => "nullable",

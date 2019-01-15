@@ -19,7 +19,7 @@ class Etablissement extends Model
 		"adresse",
 		"telephone",
 		"enseignant_id",
-        "departement_id",
+		"departement_id",
 	];
 
 	/**
@@ -48,15 +48,17 @@ class Etablissement extends Model
 	 * Effectue une recherce sur le nom, prénom, email ou téléphone sur Responsable
 	 *
 	 * @param        $query
+	 * @param        $departement
 	 * @param string $nom
 	 * @param        $ville
 	 * @param string $telephone
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $nom, $ville, $telephone): Builder
+	public function scopeSearch($query, $departement, $nom, $ville, $telephone): Builder
 	{
 		// Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
+		$departement = $departement ?? "--";
 		$nom = $nom ?? "--";
 		$ville = $ville ?? "--";
 		$telephone = $telephone ?? "--";
@@ -64,8 +66,9 @@ class Etablissement extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function($query) use ($nom, $ville, $telephone) {
-			$query->where("nom", "LIKE", "%{$nom}%")
+		return $query->where(function ($query) use ($departement, $nom, $ville, $telephone) {
+			$query->where("departement_id", $departement)
+				->orWhere("nom", "LIKE", "%{$nom}%")
 				->orWhere("ville", "LIKE", "%{$ville}%")
 				->orWhere("telephone", "LIKE", "%{$telephone}%");
 		});

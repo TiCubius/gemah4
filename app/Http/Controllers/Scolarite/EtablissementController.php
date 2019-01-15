@@ -62,8 +62,8 @@ class EtablissementController extends Controller
 			"code_postal"   => "required|numeric|digits:5",
 			"adresse"       => "required|max:191",
 			"telephone"     => "required|numeric",
-			"enseignant_id" => "required|exists:enseignants,id",
-			"departement_id"=> "required",
+			"enseignant_id" => "nullable|exists:enseignants,id",
+			"departement_id"=> "required|exists:departements,id",
 		]);
 
 		Etablissement::create($request->only([
@@ -127,8 +127,8 @@ class EtablissementController extends Controller
 			"code_postal"   => "required|numeric|digits:5",
 			"adresse"       => "required|max:191",
 			"telephone"     => "required|numeric",
-			"enseignant_id" => "required|exists:enseignants,id",
-			"departement_id"=> "required",
+			"enseignant_id" => "nullable|exists:enseignants,id",
+			"departement_id"=> "required|exists:departements,id",
 		]);
 
 		$etablissement->update($request->only([

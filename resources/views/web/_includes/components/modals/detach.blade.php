@@ -12,7 +12,7 @@
 			</div>
 			<div class="modal-body text-center">
 				<p>
-					Vous êtes sur le point de désaffecter <b>{{ strtoupper($name) }}</b>
+					Vous êtes sur le point de désaffecter <b>{{ $name }}</b>.
 					<br>
 					Êtes-vous sûr de vouloir continuer ?
 				</p>

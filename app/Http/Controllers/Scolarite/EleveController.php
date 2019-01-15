@@ -8,6 +8,7 @@ use App\Models\Eleve;
 use App\Models\Etablissement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class EleveController extends Controller
@@ -39,9 +40,8 @@ class EleveController extends Controller
 	public function create(): View
 	{
 		$academies = Academie::with("departements")->get();
-		$etablissements = Etablissement::all();
 
-		return view("web.scolarites.eleves.create", compact("academies", "etablissements"));
+		return view("web.scolarites.eleves.create", compact("academies"));
 	}
 
 	/**
@@ -53,13 +53,12 @@ class EleveController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"              => "required|max:255",
-			"prenom"           => "required|max:255",
-			"date_naissance"   => "required|date",
-			"classe"           => "required",
-			"departement_id"   => "required",
-			"etablissement_id" => "required|exists:etablissements,id",
-			"code_ine"         => "nullable |max:11|unique:eleves",
+			"nom"            => "required|max:255",
+			"prenom"         => "required|max:255",
+			"date_naissance" => "required|date",
+			"classe"         => "required",
+			"departement_id" => "required|exists:departements,id",
+			"code_ine"       => "nullable|max:11|unique:eleves",
 		]);
 
 		Eleve::create($request->only([
@@ -68,7 +67,6 @@ class EleveController extends Controller
 			"date_naissance",
 			"classe",
 			"departement_id",
-			"etablissement_id",
 			"code_ine",
 		]));
 
@@ -112,9 +110,8 @@ class EleveController extends Controller
 	public function edit(Eleve $eleve): View
 	{
 		$academies = Academie::with("departements")->get();
-		$etablissements = Etablissement::all();
 
-		return view("web.scolarites.eleves.edit", compact("academies", "etablissements", "eleve"));
+		return view("web.scolarites.eleves.edit", compact("academies", "eleve"));
 	}
 
 	/**
@@ -127,13 +124,12 @@ class EleveController extends Controller
 	public function update(Request $request, Eleve $eleve): RedirectResponse
 	{
 		$request->validate([
-			"nom"              => "required|max:255",
-			"prenom"           => "required|max:255",
-			"date_naissance"   => "required|date",
-			"classe"           => "required",
-			"departement_id"   => "required",
-			"etablissement_id" => "required|exists:etablissements,id",
-			"code_ine"         => "nullable|max:11|unique:eleves,id,{$eleve->id}",
+			"nom"            => "required|max:255",
+			"prenom"         => "required|max:255",
+			"date_naissance" => "required|date",
+			"classe"         => "required",
+			"departement_id" => "required|exists:departements,id",
+			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
 		]);
 
 		$eleve->update($request->only([
@@ -142,11 +138,10 @@ class EleveController extends Controller
 			"date_naissance",
 			"classe",
 			"departement_id",
-			"etablissement_id",
 			"code_ine",
 		]));
 
-		return redirect(route("web.scolarites.eleves.index"));
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 
 	/**
@@ -158,6 +153,25 @@ class EleveController extends Controller
 	 */
 	public function destroy(Eleve $eleve): RedirectResponse
 	{
+		if ($eleve->responsables->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un élève tant qu'il a des responsables affectés");
+		}
+
+		if ($eleve->materiels->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un élève tant qu'il a des matériels affectés");
+		}
+
+		foreach ($eleve->decisions as $decision) {
+			Storage::delete("storage/decisions/{$decision->document->path}");
+		}
+
+		foreach ($eleve->documents as $document) {
+			Storage::delete("storage/document/{$document->path}");
+		}
+
+		$eleve->decisions()->delete();
+		$eleve->documents()->delete();
+
 		$eleve->delete();
 
 		return redirect(route("web.scolarites.eleves.index"));

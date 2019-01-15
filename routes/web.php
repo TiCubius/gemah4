@@ -103,6 +103,10 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
+
+	Route::group(["prefix" => "/types", "as" => "types."], function (){
+	    Route::resource("tickets", "Administrations\Types\TypeTicketController");
+    });
 });
 
 Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function (){

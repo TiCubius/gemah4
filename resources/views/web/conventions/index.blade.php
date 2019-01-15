@@ -5,6 +5,18 @@
         Liste des conventions
     @endcomponent
 
+    <a href="{{ route("web.conventions.signatures_effectues") }}" target="_blank">
+        <button class="btn btn-outline-primary">
+            Liste des responsables ayant signé
+        </button>
+    </a>
+
+    <a href="{{ route("web.conventions.signatures_manquantes") }}" target="_blank">
+        <button class="btn btn-outline-primary">
+            Liste des responsables n'ayant pas signé
+        </button>
+    </a>
+
     <form method="POST" action="{{ route("web.conventions.update", ["" => $eleves]) }}">
         {{ csrf_field() }}
         {{ method_field("PATCH") }}

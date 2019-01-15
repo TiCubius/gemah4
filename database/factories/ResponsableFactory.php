@@ -18,4 +18,6 @@ $factory->define(\App\Models\Responsable::class, function(Faker $faker) {
 		"updated_at"    => $faker->date(),
         "departement_id"=> $departement->id,
 	];
+
+
 });

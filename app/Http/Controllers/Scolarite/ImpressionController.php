@@ -92,5 +92,4 @@ class ImpressionController extends Controller
 
 		return PDF::loadView('pdf.recuperations', compact('eleve', 'decision'))->stream();
 	}
-
 }

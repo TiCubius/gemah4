@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class ConventionController extends Controller
 {
@@ -36,12 +38,9 @@ class ConventionController extends Controller
 
         foreach ($eleves as $eleve) {
             foreach ($eleve->responsables as $responsable) {
-                /** Pour chaque responsable d'un élève on récupère l'accès à la ligne de la table pivot */
-                $eleve_responsable = $eleve->responsables()->find($responsable->id);
-
                 /** Si la convention n'était pas déjà signé mais que la checkbox si, enregistre à la date du coche */
-                if ($request->input("eleve-{$eleve->id}_responsable-{$responsable->id}") != null && $eleve_responsable->pivot->etat_signature == 0)  {
-                    $eleve_responsable->pivot->update([
+                if ($request->input("eleve-{$eleve->id}_responsable-{$responsable->id}") != null && $responsable->pivot->etat_signature == 0)  {
+                    $responsable->pivot->update([
                         "etat_signature" => 1,
                         "date_signature" => Carbon::now()
                     ]);
@@ -49,7 +48,7 @@ class ConventionController extends Controller
                 /** Si la checbox est décocher, alors on remet à zéro la ligne de la table pivot */
                 elseif(($request->input("eleve-{$eleve->id}_responsable-{$responsable->id}") == null))
                 {
-                    $eleve_responsable->pivot->update([
+                    $responsable->pivot->update([
                         "etat_signature" => 0,
                         "date_signature" => null
                     ]);
@@ -58,5 +57,32 @@ class ConventionController extends Controller
         }
 
         return redirect(route("web.conventions.index"));
+    }
+
+
+    /***
+     * @param $eleves
+     * @return Response
+     */
+    public function signatures_effectues(): Response
+    {
+        $titre = "Liste des responsables ayant signé";
+        $responsables = Responsable::with("eleves")->has("eleves")->get();
+        $etat = 1;
+
+        return PDF::loadView('pdf.signatures', compact('titre', 'responsables', 'etat'))->stream();
+    }
+
+    /***
+     * @param $eleves
+     * @return Response
+     */
+    public function signatures_manquantes(): Response
+    {
+        $titre = "Liste des responsables n'ayant pas signé";
+        $responsables = Responsable::with("eleves")->has("eleves")->get();
+        $etat = 0;
+
+        return PDF::loadView('pdf.signatures', compact('titre', 'responsables', 'etat'))->stream();
     }
 }

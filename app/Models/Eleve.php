@@ -47,7 +47,7 @@ class Eleve extends Model
      */
     public function responsables()
     {
-        return $this->belongsToMany(Responsable::class, "eleve_responsable");
+        return $this->belongsToMany(Responsable::class, "eleve_responsable")->withPivot('etat_signature', 'date_signature');
     }
 
     /***

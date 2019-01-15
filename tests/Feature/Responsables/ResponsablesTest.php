@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Eleve;
 use App\Models\Departement;
 use App\Models\Responsable;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class ResponsablesTest extends TestCase

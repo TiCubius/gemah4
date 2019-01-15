@@ -22,6 +22,7 @@ class IndexTest extends TestCase
 		$request->assertSee('Gestion de la scolarité');
 		$request->assertSee('Gestion des responsables');
 		$request->assertSee('Gestion du matériel');
+		$request->assertSee("Conventions");
 		$request->assertSee('Statistiques');
 		$request->assertSee('Administrations');
 	}

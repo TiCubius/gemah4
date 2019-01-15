@@ -20,11 +20,23 @@ class Responsable extends Model
     ];
 
 
+    /***
+     * Retourne la liste de tous les élèves associés avec la table pivot
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
 	public function eleves()
     {
-        return $this->belongsToMany(Eleve::class, "eleve_responsable");
+        return $this->belongsToMany(Eleve::class, "eleve_responsable")->withPivot('etat_signature', 'date_signature');
     }
 
+    /***
+     * Retourne la liste des responsables non associés à l'élève
+     *
+     * @param Builder $query
+     * @param Eleve $eleve
+     * @return Builder
+     */
     public function scopeNotRelated(Builder $query, Eleve $eleve): Builder
     {
         return $query->whereDoesntHave('eleves', function($query) use ($eleve) {

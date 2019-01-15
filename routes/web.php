@@ -97,3 +97,8 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 		Route::resource("etats", "Administrations\Materiels\EtatController");
 	});
 });
+
+Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function (){
+    Route::get("/", "Responsables\ConventionController@index")->name("index");
+    Route::patch("/", "Responsables\ConventionController@update")->name("update");
+});

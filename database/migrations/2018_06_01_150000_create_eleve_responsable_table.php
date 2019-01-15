@@ -18,6 +18,8 @@ class CreateEleveResponsableTable extends Migration
 
 			$table->unsignedInteger('eleve_id');
 			$table->unsignedInteger('responsable_id');
+            $table->boolean('etat_signature')->default(0);
+            $table->timestamp('date_signature')->nullable();
 
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('responsable_id')->references('id')->on('responsables');

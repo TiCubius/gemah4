@@ -33,7 +33,6 @@ class CreateHistoriquesTable extends Migration
 			$table->unsignedInteger('materiel_id')->nullable();
 			$table->unsignedInteger('document_id')->nullable();
 			$table->unsignedInteger('decision_id')->nullable();
-			$table->unsignedInteger('convention_id')->nullable();
 			$table->unsignedInteger('ticket_message_id')->nullable();
 			$table->string('type');
 			$table->string('contenue');
@@ -49,7 +48,6 @@ class CreateHistoriquesTable extends Migration
 			$table->foreign('domaine_id')->references('id')->on('domaines_materiel')->onDelete('set null');
 			$table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('set null');
 			$table->foreign('responsable_id')->references('id')->on('responsables')->onDelete('set null');
-			$table->foreign('convention_id')->references('id')->on('conventions')->onDelete('set null');
 			$table->foreign('etablissement_id')->references('id')->on('etablissements')->onDelete('set null');
 			$table->foreign('enseignant_id')->references('id')->on('enseignants')->onDelete('set null');
 			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs')->onDelete('set null');

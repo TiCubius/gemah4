@@ -61,6 +61,8 @@ class ConventionController extends Controller
 
 
     /***
+     * Génération d'un PDF comprennant la liste des responsables ayant signé (avec le/les élèves impacté)
+     *
      * @param $eleves
      * @return Response
      */
@@ -74,6 +76,8 @@ class ConventionController extends Controller
     }
 
     /***
+     * Génération d'un PDF comprennant la liste des responsables n'ayant pas signé (avec le/les élèves impacté)
+     *
      * @param $eleves
      * @return Response
      */

@@ -18,7 +18,7 @@
                         <div class="card-body">
                             @foreach($eleve->responsables as $responsable)
                                 <div class="custom-control custom-checkbox">
-                                    <input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input" type="checkbox"
+                                    <input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input check" type="checkbox"
                                             @if($responsable->pivot->etat_signature )
                                             checked
                                             @endif>
@@ -34,5 +34,16 @@
         </div>
         <button type="submit" class="btn btn-menu btn-outline-primary float-right">Enregistrer</button>
     </form>
+
+    <input type="button" onclick="uncheckAll()" class="btn btn-outline-danger" value="Remettre à zéro">
+
+    <script>
+        function uncheckAll() {
+            var inputs = document.querySelectorAll('.check');
+            for(var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
+            }
+        }
+    </script>
 
 @endsection

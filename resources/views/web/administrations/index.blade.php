@@ -51,7 +51,7 @@
 				</a>
 
 				<a href="{{ route("web.administrations.types.tickets.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des tickets
+					Gestion des types de tickets
 				</a>
 
 				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">

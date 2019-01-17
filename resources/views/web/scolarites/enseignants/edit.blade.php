@@ -44,10 +44,8 @@
 					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 92 12 62" value="{{ $enseignant->telephone }}">
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer l'enseignant</button>
-					<button class="btn btn-sm btn-outline-success">Éditer l'enseignant</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

@@ -46,10 +46,8 @@
 				</div>
 
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer l'utilisateur</button>
-					<button class="btn btn-sm btn-outline-success">Éditer l'utilisateur</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>
@@ -74,8 +72,8 @@
 					</p>
 				</div>
 				<div class="modal-footer d-flex justify-content-between">
-					<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-					<button type="submit" class="btn btn-danger">Supprimer l'utilisateur</button>
+					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal"><i class="far fa-trash-alt"></i> Supprimer</button>
+					<button class="btn btn-sm btn-outline-success"><i class="far fa-edit"></i> Éditer</button>
 				</div>
 			</div>
 		</div>

@@ -24,11 +24,8 @@
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $service->departement_id])
 				@endcomponent
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le service
-					</button>
-					<button class="btn btn-sm btn-outline-success">Éditer</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

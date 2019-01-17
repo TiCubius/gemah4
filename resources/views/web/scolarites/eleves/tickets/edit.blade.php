@@ -31,10 +31,8 @@
 					</select>
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le ticket</button>
-					<button class="btn btn-sm btn-outline-success">Éditer le ticket</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 

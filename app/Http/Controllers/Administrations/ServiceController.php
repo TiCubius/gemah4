@@ -44,12 +44,10 @@ class ServiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$departement = Departement::find($request->input("departements_id"));
-
 		$request->validate([
-			"nom"            => "required|max:191|unique_with:services,id",
+			"nom"            => "required|max:191|unique_with:services,departement_id",
 			"description"    => "required|max:191",
-			"departement_id" => "required|max:191",
+			"departement_id" => "required|max:191|exists:departements,id",
 		]);
 
 		Service::create($request->only(["nom", "description", "departement_id"]));
@@ -91,9 +89,9 @@ class ServiceController extends Controller
 	public function update(Request $request, Service $service): RedirectResponse
 	{
 		$request->validate([
-			"nom"            => "required|max:191|unique_with:services,departement_id,{$service->id}",
+			"nom"            => "required|max:191|unique_with:departement_id,{$service->id}",
 			"description"    => "required|max:191",
-			"departement_id" => "required|max:191",
+			"departement_id" => "required|max:191|exists:departement,id",
 		]);
 
 		$service->update($request->only(["nom", "description", "departement_id"]));

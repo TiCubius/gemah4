@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.academies.index"])
-			Édition de {{ $academy->nom }}
+			Édition de l'{{ $academy->nom }}
 		@endcomponent
 
 		<div class="col-12">
@@ -32,11 +32,18 @@
 					</select>
 				</div>
 
-				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Éditer l'académie</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 
 		</div>
 	</div>
+
+
+	@component("web._includes.components.modals.destroy", 	["route" => "web.administrations.academies.destroy", "id" => $academy])
+		@slot("name")
+			{{ "{$academy->nom}" }}
+		@endslot
+	@endcomponent
+
 @endsection

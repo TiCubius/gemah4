@@ -9,7 +9,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Départements, Académies et Régions
+					<i class="fas fa-map-marker-alt"></i>  Départements, Académies et Régions
 				</div>
 
 				<a href="{{ route("web.administrations.departements.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -26,7 +26,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Services et Utilisateurs
+					<i class="fas fa-users-cog"></i>  Services et Utilisateurs
 				</div>
 
 				<a href="{{ route("web.administrations.services.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -40,7 +40,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Outils
+					<i class="fas fa-tools"></i>  Outils
 				</div>
 
 				<a href="{{ route("web.administrations.eleves.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">

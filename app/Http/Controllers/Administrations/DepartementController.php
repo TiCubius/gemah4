@@ -115,8 +115,7 @@ class DepartementController extends Controller
 	 */
 	public function destroy(Departement $departement): RedirectResponse
 	{
-		dd($departement->eleves()->exists(), $departement->materiels()->exists(), $departement->responsables()->exists(), $departement->etablissements()->exists());
-		dd($departement->has("eleves", "materiels", "responsables", "etablissements"));
+
 		if (!($departement->has("eleves") and $departement->has("materiels") and $departement->has("responsables") and $departement->has("etablissements"))) {
 			$departement->delete();
 

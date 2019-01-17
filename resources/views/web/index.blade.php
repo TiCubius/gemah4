@@ -11,37 +11,37 @@
 		<div class="col-12">
 			<a href="{{ route("web.scolarites.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Gestion de la scolarité
+					<i class="fas fa-user-graduate"></i> Gestion de la scolarité
 				</button>
 			</a>
 
 			<a href="{{ route("web.responsables.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Gestion des responsables
+					<i class="fas fa-user-tie"></i> Gestion des responsables
 				</button>
 			</a>
 
 			<a href="{{ route("web.materiels.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Gestion du matériel
+					<i class="fas fa-laptop"></i> Gestion du matériel
 				</button>
 			</a>
 
 			<a href="#">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Statistiques
+					<i class="far fa-list-alt"></i> Statistiques
 				</button>
 			</a>
 
 			<a href="{{ route("web.conventions.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Conventions
+					<i class="far fa-file-alt"></i> Conventions
 				</button>
 			</a>
 
 			<a href="{{ route('web.administrations.index') }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Administrations
+					<i class="fas fa-cog"></i> Administrations
 				</button>
 			</a>
 		</div>

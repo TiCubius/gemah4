@@ -8,7 +8,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 		@yield('css')
 
 		<title>{{ $title ?? 'GEMAH' }}</title>

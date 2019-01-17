@@ -16,10 +16,8 @@
 					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Matériel" value="{{ $type->libelle }}" required>
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer</button>
-					<button class="btn btn-sm btn-outline-success">Éditer</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

@@ -33,12 +33,6 @@
 									<a href="{{ route("web.administrations.departements.edit", [$departement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
-
-									<form action="{{ route("web.administrations.departements.destroy", [$departement]) }}" method="POST">
-										{{ csrf_field() }}
-										{{ method_field("DELETE") }}
-										<button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-									</form>
 								</td>
 							</tr>
 						@endforeach

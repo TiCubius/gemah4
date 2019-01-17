@@ -17,10 +17,8 @@
 					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: ..." value="{{ $ticket->libelle }}" required>
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le type de ticket</button>
-					<button class="btn btn-sm btn-outline-success">Éditer le type de ticket</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

@@ -147,7 +147,7 @@
 
 			<div class="actions d-flex justify-content-center">
 				<a href="{{ route('web.materiels.stocks.edit', [$stock]) }}" class="btn btn-sm btn-outline-primary">
-					Modifier le matériel
+					<i class="far fa-edit"></i> Modifier
 				</a>
 			</div>
 

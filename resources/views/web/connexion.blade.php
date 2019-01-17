@@ -16,7 +16,6 @@
 
 </head>
 <body>
-<div>
     <main role="main" class="inner cover">
         <div class="text-sh">
             <h3>Bienvenue sur l'application</h3>
@@ -29,27 +28,26 @@
 
         <form class="form-signin" method="post">
             {{ csrf_field() }}
+
             @include('web._includes.flash')
             <div class="text-center mb-4">
-                <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-
-
             </div>
 
             <div class="form-label-group">
-                <input id="inputEmail" class="form-control" name="email" type="email" placeholder="Adresse mail" required autofocus>
+                <input id="inputEmail" class="form-control" name="email" type="email" placeholder="Adresse mail"
+                       required autofocus>
                 <label for="inputEmail"> Adresse mail</label>
             </div>
 
             <div class="form-label-group">
-                <input id="inputPassword" class="form-control" name="password" type="password" placeholder="Mot de passe" required>
+                <input id="inputPassword" class="form-control" name="password" type="password"
+                       placeholder="Mot de passe" required>
                 <label for="inputPassword">Mot de passe</label>
             </div>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
         </form>
     </main>
-</div>
 </body>
 </html>

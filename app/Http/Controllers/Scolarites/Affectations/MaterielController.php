@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\DomaineMateriel;
 use App\Models\Eleve;
-use App\Models\EtatMateriel;
+use App\Models\EtatAdministratifMateriel;
 use App\Models\Materiel;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -26,17 +26,9 @@ class MaterielController extends Controller
 	{
 		$academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
-		$etats = EtatMateriel::orderBy("libelle")->get();
+		$etats = EtatAdministratifMateriel::orderBy("libelle")->get();
 
-		if ($request->exists([
-			"departement_id",
-			"type_materiel_id",
-			"etat_materiel_id",
-			"marque",
-			"modele",
-			"numero_serie",
-            "cle_produit",
-		])) {
+		if ($request->exists(["departement_id", "type_materiel_id", "etat_materiel_id", "marque", "modele", "numero_serie", "cle_produit"])) {
 			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->where("eleve_id", null)->with("type", "etat")->get();
 		}
 

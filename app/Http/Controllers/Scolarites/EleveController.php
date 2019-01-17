@@ -34,7 +34,7 @@ class EleveController extends Controller
 			"date_naissance",
 			"code_ine",
 		])) {
-			$searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"))->get();
+			$searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), null)->get();
 		}
 
 		return view("web.scolarites.eleves.index", compact("latestCreatedEleves", "latestUpdatedEleves", "searchedEleves", "academies", "types"));

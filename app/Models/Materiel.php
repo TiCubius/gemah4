@@ -19,7 +19,8 @@ class Materiel extends Model
         "cle_produit",
 		"nom_fournisseur",
 		"prix_ttc",
-		"etat_materiel_id",
+		"etat_administratif_materiel_id",
+        "etat_physique_materiel_id",
 		"numero_devis",
 		"numero_formulaire_chorus",
 		"numero_facture_chorus",
@@ -52,14 +53,24 @@ class Materiel extends Model
 	}
 
 	/**
-	 * Un matériel possède un état
+	 * Un matériel possède un état administratif
 	 *
 	 * @return BelongsTo
 	 */
-	public function etat(): BelongsTo
+	public function etat_administratif(): BelongsTo
 	{
-		return $this->belongsTo(EtatMateriel::class, "etat_materiel_id");
+		return $this->belongsTo(EtatAdministratifMateriel::class, "etat_administratif_materiel_id");
 	}
+
+    /**
+     * Un matériel possède un état physique
+     *
+     * @return BelongsTo
+     */
+    public function etat_physique(): BelongsTo
+    {
+        return $this->belongsTo(EtatPhysiqueMateriel::class, "etat_physique_materiel_id");
+    }
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
@@ -69,7 +80,7 @@ class Materiel extends Model
 	 */
 	public function scopeLatestCreated($query): Builder
 	{
-		return $query->orderBy("created_at", "DESC")->with("etat");
+		return $query->orderBy("created_at", "DESC")->with("etat_administratif", "etat_physique");
 	}
 
 	/**
@@ -80,7 +91,7 @@ class Materiel extends Model
 	 */
 	public function scopeLatestUpdated($query): Builder
 	{
-		return $query->orderBy("updated_at", "DESC")->with("etat");
+		return $query->orderBy("updated_at", "DESC")->with("etat_administratif", "etat_physique");
 	}
 
 	/**
@@ -94,13 +105,14 @@ class Materiel extends Model
 	 * @param        $numeroSerie
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $departementId, $typeId, $etatId, $marque, $modele, $numeroSerie, $cleProduit): Builder
+	public function scopeSearch($query, $departementId, $typeId, $etatAdministratifId, $etatPhysiqueId, $marque, $modele, $numeroSerie, $cleProduit): Builder
 	{
 		// Dans le cas où la variable "type", "marque", "numero_serie" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
 		$departementId = $departementId ?? "--";
 		$typeId = $typeId ?? "--";
-		$etatId = $etatId ?? "--";
+        $etatAdministratifId = $etatAdministratifId ?? "--";
+        $etatPhysiqueId = $etatPhysiqueId ?? "--";
 		$marque = $marque ?? "--";
 		$modele = $modele ?? "--";
 		$numeroSerie = $numeroSerie ?? "--";
@@ -132,9 +144,13 @@ class Materiel extends Model
 			$search = $search->where("type_materiel_id", $typeId);
 		}
 
-		if ($etatId != "--") {
-			$search = $search->where("etat_materiel_id", $etatId);
+		if ($etatAdministratifId != "--") {
+			$search = $search->where("etat_administratif_materiel_id", $etatAdministratifId);
 		}
+
+        if ($etatPhysiqueId != "--") {
+            $search = $search->where("etat_physique_materiel_id", $etatPhysiqueId);
+        }
 
 		return $search;
 	}

@@ -6,7 +6,7 @@ $factory->define(\App\Models\Responsable::class, function (Faker $faker) {
 	$departement = factory(\App\Models\Departement::class)->create();
 
 	return [
-		"civilite"       => $faker->randomElement(['M.', 'Mme', 'M/Mme']),
+		"civilite"       => $faker->randomElement(['M.', 'Mme', 'M./Mme']),
 		"nom"            => $faker->word,
 		"prenom"         => $faker->word,
 		"code_postal"    => $faker->randomNumber(5, true),

@@ -28,7 +28,7 @@
 							</div>
 
 							<div class="form-group">
-								<label class="optional" for="numero_facture_chorus">Nom de facture CHROUS</label>
+								<label class="optional" for="numero_facture_chorus">Nom de facture CHORUS</label>
 								<input id="numero_facture_chorus" class="form-control" name="numero_facture_chorus" type="text" placeholder="Ex: ..." value="{{ $stock->numero_facture_chorus }}">
 							</div>
 
@@ -117,11 +117,25 @@
 							</div>
 
 							<div class="form-group">
-								<label for="etat_materiel_id">Etat du matériel</label>
-								<select id="etat_materiel_id" class="form-control" name="etat_materiel_id" required>
+								<label for="etat_administratif_materiel_id">Etat administratif du matériel</label>
+								<select id="etat_administratif_materiel_id" class="form-control" name="etat_administratif_materiel_id" required>
 									<option value="">Veuillez sélectionner l'état du matériel</option>
-									@foreach ($etats as $etat)
-										@if($stock->etat_materiel_id === $etat->id)
+									@foreach ($etats_administratifs as $etat)
+										@if($stock->etat_administratif_materiel_id === $etat->id)
+											<option value="{{ $etat->id }}" selected>{{ $etat->libelle }}</option>
+										@else
+											<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+										@endif
+									@endforeach
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="etat_physique_materiel_id">Etat physique du matériel</label>
+								<select id="etat_physique_materiel_id" class="form-control" name="etat_physique_materiel_id" required>
+									<option value="">Veuillez sélectionner l'état du matériel</option>
+									@foreach ($etats_physiques as $etat)
+										@if($stock->etat_physique_materiel_id === $etat->id)
 											<option value="{{ $etat->id }}" selected>{{ $etat->libelle }}</option>
 										@else
 											<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>

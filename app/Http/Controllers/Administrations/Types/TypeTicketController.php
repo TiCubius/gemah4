@@ -50,7 +50,7 @@ class TypeTicketController extends Controller
 	}
 
 	/**
-	 * GET - Affiche le formulaire d'édition d'un état matériel
+	 * GET - Affiche le formulaire d'édition d'un type de ticket
 	 *
 	 * @param TypeTicket $ticket
 	 * @return View
@@ -61,10 +61,10 @@ class TypeTicketController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés à l'état matériel
+	 * PUT - Enregistre les modifications apportés au type de ticket
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param TypeTicket                $type
+	 * @param TypeTicket                $ticket
 	 * @return RedirectResponse
 	 */
 	public function update(Request $request, TypeTicket $ticket): RedirectResponse
@@ -79,7 +79,7 @@ class TypeTicketController extends Controller
 	}
 
 	/**
-	 * DELETE - Supprime l'état matériel
+	 * DELETE - Supprime le type de ticket
 	 *
 	 * @param TypeTicket $ticket
 	 * @return RedirectResponse

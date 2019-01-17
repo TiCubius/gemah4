@@ -47,15 +47,19 @@
 					Gestion des types d'élèves
 				</a>
 				<a href="{{ route("web.administrations.etablissements.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des types d'établissements
+					Gestion des types d'établissement
 				</a>
 
 				<a href="{{ route("web.administrations.types.tickets.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des types de tickets
+					Gestion des types de ticket
 				</a>
 
-				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des états matériel
+				<a href="{{ route("web.administrations.materiels.etats.administratifs.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des états administratifs matériel
+				</a>
+
+				<a href="{{ route("web.administrations.materiels.etats.physiques.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des états physiques matériel
 				</a>
 
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">

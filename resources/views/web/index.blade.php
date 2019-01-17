@@ -27,7 +27,7 @@
 				</button>
 			</a>
 
-			<a href="#">
+			<a href="{{ route("web.statistiques.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="far fa-list-alt"></i> Statistiques
 				</button>
@@ -41,7 +41,7 @@
 
 			<a href="{{ route('web.administrations.index') }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					<i class="fas fa-cog"></i> Administrations
+					<i class="fas fa-cog"></i> Administration
 				</button>
 			</a>
 		</div>

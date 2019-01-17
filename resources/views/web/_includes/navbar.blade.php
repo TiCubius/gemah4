@@ -9,7 +9,7 @@
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active">
 				<a class="nav-link" href="{{ route('web.index') }}">
-					<i class="fas fa-home"></i> Acceuil
+					<i class="fas fa-home"></i> Accueil
 				</a>
 			</li>
 			<li class="nav-item active">

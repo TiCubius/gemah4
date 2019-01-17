@@ -11,11 +11,13 @@
 |
 */
 
+
 Route::get('/connexion', 'ConnexionController@index')->name('web.connexion');
 Route::post('/connexion', 'ConnexionController@login');
 Route::get('/deconnexion', 'ConnexionController@logout')->name('web.logout');
 
 Route::group(["middleware" => "authentification"], function () {
+
     Route::get('/', 'GemahController@index')->name('web.index');
 
     Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {
@@ -57,15 +59,9 @@ Route::group(["middleware" => "authentification"], function () {
         Route::resource("enseignants", "Scolarites\EnseignantController");
         Route::resource("etablissements", "Scolarites\EtablissementController");
 
-        Route::group([
-            "prefix" => "eleves/{eleve}/affectations",
-            "as" => "eleves.affectations.",
-        ], function () {
+        Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
             //Affectation d'un établissement
-            Route::group([
-                "prefix" => "etablissements",
-                "as" => "etablissements.",
-            ], function () {
+            Route::group(["prefix" => "etablissements", "as" => "etablissements."], function () {
                 Route::get("/", "Scolarites\Affectations\EtablissementController@index")->name("index");
                 Route::post("/{etablissement}", "Scolarites\Affectations\EtablissementController@attach")->name("attach");
                 Route::delete("/{etablissement}", "Scolarites\Affectations\EtablissementController@detach")->name("detach");
@@ -99,15 +95,14 @@ Route::group(["middleware" => "authentification"], function () {
         Route::resource("stocks", "Materiels\StockMaterielController");
     });
 
-    Route::group([
-        "prefix" => "/administrations",
-        "as" => "web.administrations.",
-    ], function () {
+    Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function () {
         Route::resource("/", "Administrations\AdministrationController")->only("index");
 
         Route::resource("departements", "Administrations\DepartementController");
         Route::resource("academies", "Administrations\AcademieController");
         Route::resource("regions", "Administrations\RegionController");
+
+        Route::patch("parametres", "Administrations\ParametreController@update")->name("parametres.update");
 
         Route::resource("services", "Administrations\ServiceController");
         Route::resource("utilisateurs", "Administrations\UtilisateurController");
@@ -121,7 +116,10 @@ Route::group(["middleware" => "authentification"], function () {
         });
 
         Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
-            Route::resource("etats", "Administrations\Materiels\EtatMaterielController");
+            Route::group(["prefix" => "/etats", "as" => "etats."], function () {
+                Route::resource("administratifs", "Administrations\Materiels\EtatAdministratifMaterielController");
+                Route::resource("physiques", "Administrations\Materiels\EtatPhysiqueMaterielController");
+            });
         });
 
         Route::group(["prefix" => "/types", "as" => "types."], function () {
@@ -137,4 +135,8 @@ Route::group(["middleware" => "authentification"], function () {
         Route::get("impressions_toutes_conventions", "Responsables\ConventionController@impressions_toutes_conventions")->name("impressions_toutes_conventions");
     });
 
+    Route::group(["prefix" => "/statistiques", "as" => "web.statistiques."], function () {
+        Route::get("/", "Statistiques\StatistiquesController@index")->name("index");
+        Route::get("/generale", "Statistiques\StatistiquesController@generale")->name("generale");
+    });
 });

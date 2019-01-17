@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
-class EtatsMaterielSeeder extends Seeder
+class EtatsAdministratifsMaterielSeeder extends Seeder
 {
 	private $etats = [
-		["Bon état", "#005500"],
+	    ["Neuf", "#00bb00"],
 		["Occasion", "#555500"],
 		["En panne", "#9b6039"],
 		["Volé", "#9b3939"],
@@ -19,7 +19,7 @@ class EtatsMaterielSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->etats as $etat) {
-			\App\Models\EtatMateriel::create([
+			\App\Models\EtatAdministratifMateriel::create([
 				"libelle" => $etat[0],
 				"couleur" => $etat[1],
 			]);

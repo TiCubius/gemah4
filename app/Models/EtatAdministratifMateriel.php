@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class EtatMateriel extends Model
+class EtatAdministratifMateriel extends Model
 {
-	public $table = "etats_materiels";
+	public $table = "etats_administratifs_materiels";
 	protected $fillable = [
 	    "libelle",
         "couleur"
@@ -20,6 +20,6 @@ class EtatMateriel extends Model
 	 */
 	public function materiels()
 	{
-		return $this->hasMany(Materiel::class, "etat_materiel_id");
+		return $this->hasMany(Materiel::class, "etat_administratif_materiel_id");
 	}
 }

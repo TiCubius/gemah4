@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use Carbon\Carbon;
+use ParametresSeeders;
 use Tests\TestCase;
 
 class ConventionsTest extends TestCase
@@ -14,6 +15,7 @@ class ConventionsTest extends TestCase
 	 */
 	public function testAffichageIndexConventions()
 	{
+		$this->seed(ParametresSeeders::class);
 		$responsable = factory(Responsable::class)->create();
 		$eleve = factory(Eleve::class)->create();
 
@@ -71,7 +73,4 @@ class ConventionsTest extends TestCase
 			"date_signature" => null,
 		]);
 	}
-
 }
-
-?>

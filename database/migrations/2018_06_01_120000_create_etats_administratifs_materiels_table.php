@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEtatsMaterielsTable extends Migration
+class CreateEtatsAdministratifsMaterielsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEtatsMaterielsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('etats_materiels', function (Blueprint $table) {
+		Schema::create('etats_administratifs_materiels', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->string('libelle');
@@ -30,6 +30,6 @@ class CreateEtatsMaterielsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('etats_materiels');
+		Schema::dropIfExists('etats_administratifs_materiels');
 	}
 }

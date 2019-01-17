@@ -53,8 +53,13 @@
 							</p>
 
 							<p class="mb-0">
-								<strong>Etat du matériel</strong>:
-								{!!  $stock->etat->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								<strong>Etat administratif</strong>:
+								{!!  $stock->etat_administratif->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
+							</p>
+
+							<p class="mb-0">
+								<strong>Etat physique</strong>:
+								{!!  $stock->etat_physique->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">

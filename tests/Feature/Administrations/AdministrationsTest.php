@@ -9,8 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AdministrationsTest extends TestCase
 {
 	/**
-	 * Test l'index du menu de l'Administrations
-	 * Il est composé de liens vers les différentes sections utile aux administrateurs
+	 * Test l'index du menu de l'administration
+	 * Il est composé de liens vers les différentes sections utiles aux administrateurs
 	 *
 	 * @return void
 	 */

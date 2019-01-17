@@ -61,7 +61,7 @@ class AcademiesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'une Académie déjà existante
+	 * d'une académie déjà existante
 	 */
 	public function testTraitementFormulaireCreationAcademieExistante()
 	{
@@ -79,7 +79,7 @@ class AcademiesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'une Académie à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'une académie à bien été créée lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationAcademieComplet()
@@ -132,7 +132,7 @@ class AcademiesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'une Académie déjà existante
+	 * d'une académie déjà existante
 	 */
 	public function testTraitementFormulaireEditionAcademieExistante()
 	{
@@ -151,7 +151,7 @@ class AcademiesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'Académie à bien été éditée lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que l'académie à bien été éditée lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletSansModification()
@@ -173,7 +173,7 @@ class AcademiesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'Académie à bien été éditée lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que l'académie à bien été éditée lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletAvecModification()

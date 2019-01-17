@@ -53,6 +53,11 @@
 							</p>
 
 							<p class="mb-0">
+								<strong>Etat du matériel</strong>:
+								{!!  $stock->etat->nom ?? '<span class="text-muted"> Non renseigné</span>' !!}
+							</p>
+
+							<p class="mb-0">
 								<strong>N° de devis</strong>:
 								{!! $stock->num_devis ?? '<span class="text-muted">Non rensigné</span>' !!}
 							</p>
@@ -106,11 +111,6 @@
 							<p class="mb-0">
 								<strong>Acheté pour</strong>:
 								{!! $stock->achat_pour ?? '<span class="text-muted"> Non renseigné</span>' !!}
-							</p>
-
-							<p class="mb-0">
-								<strong>Etat du matériel</strong>:
-								{!!  $stock->etat->nom ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">

@@ -16,7 +16,6 @@ class DepartementsTest extends TestCase
      */
     public function testAffichageIndexDepartements()
     {
-        $academie = factory(Academie::class, 1)->create();
         $departements = factory(Departement::class, 5)->create();
 
         $request = $this->get("/administrations/departements");
@@ -61,9 +60,9 @@ class DepartementsTest extends TestCase
 
     /**
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-     * d'un Département déjà existante
+     * d'un département déjà existant
      */
-    public function testTraitementFormulaireCreationDepartementExistante()
+    public function testTraitementFormulaireCreationDepartementExistant()
     {
         $academie = factory(Academie::class)->create();
         $departements = factory(Departement::class, 5)->create();
@@ -80,7 +79,7 @@ class DepartementsTest extends TestCase
     }
 
     /**
-     * Vérifie qu'aucune erreur n'est présente et qu'un Département à bien été créée lors de la soumissions d'un
+     * Vérifie qu'aucune erreur n'est présente et qu'un département à bien été créée lors de la soumissions d'un
      * formulaire de création complet
      */
     public function testTraitementFormulaireCreationDepartementComplet()
@@ -137,9 +136,9 @@ class DepartementsTest extends TestCase
 
     /**
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-     * d'un Département déjà existante
+     * d'un département déjà existant
      */
-    public function testTraitementFormulaireEditionDepartementExistante()
+    public function testTraitementFormulaireEditionDepartementExistant()
     {
         $academie = factory(Academie::class)->create();
         $departements = factory(Departement::class, 2)->create();
@@ -160,8 +159,8 @@ class DepartementsTest extends TestCase
     }
 
     /**
-     * Vérifie qu'aucune erreur n'est présente et que le Département à bien été éditée lors de la soumission
-     * d'un formulaire d'édition complet
+     * Vérifie qu'aucune erreur n'est présente et que le département à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet sans modification
      */
     public function testTraitementFormulaireEditionDepartementCompletSansModification()
     {
@@ -186,8 +185,8 @@ class DepartementsTest extends TestCase
     }
 
     /**
-     * Vérifie qu'aucune erreur n'est présente et que l'Académie à bien été éditée lors de la soumission
-     * d'un formulaire d'édition complet
+     * Vérifie qu'aucune erreur n'est présente et que le département à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet avec modification
      */
     public function testTraitementFormulaireEditionDepartementCompletAvecModification()
     {

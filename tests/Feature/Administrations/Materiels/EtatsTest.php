@@ -57,7 +57,7 @@ class EtatsTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un EtatMateriel déjà existante
+	 * d'un état materiel déjà existant
 	 */
 	public function testTraitementFormulaireCreationEtatMaterielExistant()
 	{
@@ -74,7 +74,7 @@ class EtatsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un EtatMateriel à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un état matériel à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationEtatMaterielComplet()
@@ -143,8 +143,8 @@ class EtatsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'EtatMateriel à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielCompletSansModification()
 	{
@@ -162,8 +162,8 @@ class EtatsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'EtatMateriel à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielCompletAvecModification()
 	{
@@ -197,7 +197,7 @@ class EtatsTest extends TestCase
 
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'Etat Materiel à bien été supprimé
+	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été supprimé
 	 */
 	public function testTraitementSuppressionEtatMateriel()
 	{

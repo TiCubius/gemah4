@@ -68,7 +68,7 @@ class ResponsablesTest extends TestCase
 
 		$request = $this->post("/responsables", [
 			"_token"   => csrf_token(),
-			"civilite" => "M",
+			"civilite" => "M.",
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
             "departement_id" => $departement->id
@@ -145,7 +145,7 @@ class ResponsablesTest extends TestCase
 
 		$request = $this->put("/responsables/{$Responsable->id}", [
 			"_token"   => csrf_token(),
-			"civilite" => "M",
+			"civilite" => "M.",
 			"nom"      => "unit.testing",
 			"prenom"   => "unit.testing",
             "departement_id" => $departement->id

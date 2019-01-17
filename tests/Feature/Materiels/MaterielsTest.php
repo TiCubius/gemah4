@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class MaterielsTest extends TestCase
 {
 	/**
-	 * Test l'index du menu du Matériel
+	 * Test l'index du menu du matériel
 	 *
 	 * @return void
 	 */

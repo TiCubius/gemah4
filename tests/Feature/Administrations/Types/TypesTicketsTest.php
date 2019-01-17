@@ -52,7 +52,7 @@ class TypesTicketsTest extends TestCase
 
     /***
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-     * d'un TypeTicket déjà existant
+     * d'un type de ticket déjà existant
      */
     public function testTraitementFormulaireCreationExistantTypeTicket()
     {
@@ -68,7 +68,7 @@ class TypesTicketsTest extends TestCase
     }
 
     /***
-     * Vérifie qu'aucune erreur n'est présente et qu'un TypeTicket à bien été créé lors de la soumissions d'un
+     * Vérifie qu'aucune erreur n'est présente et qu'un type de ticket à bien été créé lors de la soumissions d'un
      * formulaire de création complet
      */
     public function testTraitementFormulaireCreationCompletTypeTicket()
@@ -116,7 +116,7 @@ class TypesTicketsTest extends TestCase
 
     /***
      * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-     * d'un TypeTicket déjà existant
+     * d'un type de ticket déjà existant
      */
     public function testTraitementFormulaireEditionExistantTypeTicket()
     {
@@ -133,8 +133,8 @@ class TypesTicketsTest extends TestCase
     }
 
     /***
-     * Vérifie qu'aucune erreur n'est présente et que le TypeTicket à bien été éditée lors de la soumission
-     * d'un formulaire d'édition complet
+     * Vérifie qu'aucune erreur n'est présente et que le type de ticket à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet sans modification
      */
     public function testTraitementFormulaireEditionCompletSansModificationTypeTicket()
     {
@@ -151,8 +151,8 @@ class TypesTicketsTest extends TestCase
     }
 
     /***
-     * Vérifie qu'aucune erreur n'est présente et que le TypeTicket à bien été éditée lors de la soumission
-     * d'un formulaire d'édition complet
+     * Vérifie qu'aucune erreur n'est présente et que le type de ticket à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet avec modification
      */
     public function testTraitementFormulaireEditionCompletAvecModificationTypeTicket()
     {
@@ -183,7 +183,7 @@ class TypesTicketsTest extends TestCase
     }
 
     /***
-     * Vérifie qu'aucune erreur n'est présente et que l'Etat Materiel à bien été supprimé
+     * Vérifie qu'aucune erreur n'est présente et que le type de ticket à bien été supprimé
      */
     public function testTraitementSuppressionTypeTicket()
     {

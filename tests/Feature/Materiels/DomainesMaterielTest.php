@@ -58,7 +58,7 @@ class DomainesMaterielTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Domaine déjà existant
+	 * d'un domaine déjà existant
 	 */
 	public function testTraitementFormulaireCreationDomaineExistant()
 	{
@@ -74,7 +74,7 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un Domaine à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un domaine à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationDomaineComplet()
@@ -123,7 +123,7 @@ class DomainesMaterielTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Domaine déjà existante
+	 * d'un domaine déjà existant
 	 */
 	public function testTraitementFormulaireEditionDomaineExistant()
 	{
@@ -140,8 +140,8 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Domaine à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le domaine à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionDomaineCompletSansModification()
 	{
@@ -158,8 +158,8 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Domaine à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le domaine à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionDomaineCompletAvecModification()
 	{
@@ -191,7 +191,7 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que des erreurs sont présentes et que le Domaine n'à pas été supprimé s'il est associé à un type
+	 * Vérifie que des erreurs sont présentes et que le domaine n'à pas été supprimé s'il est associé à un type
 	 */
 	public function testTraitementSuppressionDomaineAssocie()
 	{
@@ -208,7 +208,7 @@ class DomainesMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Domaine à bien été supprimé s'il n'est associé à aucun
+	 * Vérifie qu'aucune erreur n'est présente et que le domaine à bien été supprimé s'il n'est associé à aucun
 	 * type
 	 */
 	public function testTraitementSuppressionDomaineNonAssocie()

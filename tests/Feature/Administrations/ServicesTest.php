@@ -60,7 +60,7 @@ class ServicesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Service déjà existant
+	 * d'un service déjà existant
 	 */
 	public function testTraitementFormulaireCreationServiceExistant()
 	{
@@ -78,7 +78,7 @@ class ServicesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un Service à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un service à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationServiceComplet()
@@ -132,7 +132,7 @@ class ServicesTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Service déjà existant
+	 * d'un service déjà existant
 	 */
 	public function testTraitementFormulaireEditionServiceExistant()
 	{
@@ -151,8 +151,8 @@ class ServicesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le service à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet sans modifcication
 	 */
 	public function testTraitementFormulaireEditionServiceCompletSansModification()
 	{
@@ -171,8 +171,8 @@ class ServicesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le service à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionServiceCompletAvecModification()
 	{
@@ -207,7 +207,7 @@ class ServicesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que des erreurs sont présentes et que le Service n'est pas supprimé s'il est associé à des utilisateurs
+	 * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des utilisateurs
 	 */
 	public function testTraitementSuppressionServiceAssocie()
 	{
@@ -224,7 +224,7 @@ class ServicesTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été supprimé s'il n'est associé à aucun
+	 * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucun
 	 * utilisateur
 	 */
 	public function testTraitementSuppressionServiceNonAssocie()

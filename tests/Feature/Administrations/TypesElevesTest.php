@@ -62,7 +62,7 @@ class TypeEleveTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Service déjà existant
+	 * d'un type d'élève déjà existant
 	 */
 	public function testTraitementFormulaireCreationTypeExistant()
 	{
@@ -127,7 +127,7 @@ class TypeEleveTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Service déjà existant
+	 * d'un type d'élève déjà existant
 	 */
 	public function testTraitementFormulaireEditionTypeExistant()
 	{
@@ -144,8 +144,8 @@ class TypeEleveTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionServiceTypeSansModification()
 	{
@@ -162,8 +162,8 @@ class TypeEleveTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Service à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionTypeCompletAvecModification()
 	{
@@ -195,7 +195,7 @@ class TypeEleveTest extends TestCase
 	}
 
     /**
-     * Vérifie qu'aucune erreur n'est présente et que le Service à bien été supprimé s'il n'est associé à aucun
+     * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
      * utilisateur
      */
     public function testTraitementSuppressionTypeAssocie()
@@ -211,7 +211,7 @@ class TypeEleveTest extends TestCase
         $this->assertDatabaseHas("types_eleves", ["nom" => $type->nom]);
     }
     /**
-     * Vérifie qu'aucune erreur n'est présente et que le Service à bien été supprimé s'il n'est associé à aucun
+     * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
      * utilisateur
      */
     public function testTraitementSuppressionTypeNonAssocie()

@@ -79,7 +79,7 @@ class StocksMaterielTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Matériel déjà existant
+	 * d'un matériel déjà existant
 	 */
 	public function testTraitementFormulaireCreationStockExistant()
 	{
@@ -90,7 +90,7 @@ class StocksMaterielTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un Matériel à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un matériel à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationStockComplet()
@@ -116,7 +116,9 @@ class StocksMaterielTest extends TestCase
 		$this->assertDatabaseHas("materiels", ["marque" => "unit.testing"]);
 	}
 
-
+    /**
+     * Vérifie que les données af
+     */
 	public function testAffichageInformationsStock()
 	{
 		$stock = factory(Materiel::class)->create();
@@ -126,13 +128,13 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(200);
 
 		$request->assertSee("Descriptif matériel de {$stock->modele}");
-		$request->assertSee("Type");
-		$request->assertSee("Marque");
-		$request->assertSee("Modèle");
-		$request->assertSee("N° de série");
-		$request->assertSee("Nom du fournisseur");
-		$request->assertSee("Prix TTC");
-		$request->assertSee("Etat du matériel");
+		$request->assertSee($stock->type->nom);
+		$request->assertSee($stock->marque);
+		$request->assertSee($stock->modele);
+		$request->assertSee($stock->num_serie);
+		$request->assertSee($stock->nom_fournisseur);
+		$request->assertSee($stock->prix_ttc);
+		$request->assertSee($stock->etat->nom);
 		$request->assertSee("Informations Administrative");
 
 		$request->assertSee("N° de devis");

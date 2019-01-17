@@ -57,7 +57,7 @@ class RegionsTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'une Région déjà existante
+	 * d'une région déjà existante
 	 */
 	public function testTraitementFormulaireCreationRegionExistante()
 	{
@@ -73,7 +73,7 @@ class RegionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'une Région à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'une région à bien été créée lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationRegionComplet()
@@ -121,7 +121,7 @@ class RegionsTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'une Région déjà existante
+	 * d'une région déjà existante
 	 */
 	public function testTraitementFormulaireEditionRegionExistante()
 	{
@@ -138,8 +138,8 @@ class RegionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que la Région à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que la région à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionRegionCompletSansModification()
 	{
@@ -156,8 +156,8 @@ class RegionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que la Région à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que la région à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionRegionCompletAvecModification()
 	{

@@ -70,7 +70,7 @@ class UtilisateursTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un Utilisateur déjà existante
+	 * d'un utilisateur déjà existant
 	 */
 	public function testTraitementFormulaireCreationUtilisateurExistant()
 	{
@@ -87,7 +87,7 @@ class UtilisateursTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un Utilisateur à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un utilisateur à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationUtilisateurComplet()
@@ -149,7 +149,7 @@ class UtilisateursTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un Utilisateur déjà existante
+	 * d'un utilisateur déjà existant
 	 */
 	public function testTraitementFormulaireEditionUtilisateurExistant()
 	{
@@ -170,12 +170,11 @@ class UtilisateursTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'Utilisateur à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletSansModification()
 	{
-		$Service = factory(Service::class)->create();
 		$Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
@@ -192,8 +191,8 @@ class UtilisateursTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'Utilisateur à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
 	{
@@ -230,7 +229,7 @@ class UtilisateursTest extends TestCase
 
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le Utilisateur à bien été supprimé
+	 * Vérifie qu'aucune erreur n'est présente et que le utilisateur à bien été supprimé
 	 */
 	public function testTraitementSuppressionUtilisateur()
 	{

@@ -58,7 +58,7 @@ class TypeEtablissementTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un TypeEtablissement déjà existant
+	 * d'un type d'établissement déjà existant
 	 */
 	public function testTraitementFormulaireCreationTypeEtablissementExistant()
 	{
@@ -74,7 +74,7 @@ class TypeEtablissementTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un TypeEtablissement à bien été créée lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un type d'établissement à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationTypeEtablissementComplet()
@@ -123,7 +123,7 @@ class TypeEtablissementTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un TypeEtablissement déjà existant
+	 * d'un typed'établissement déjà existant
 	 */
 	public function testTraitementFormulaireEditionTypeEtablissementExistant()
 	{
@@ -140,8 +140,8 @@ class TypeEtablissementTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le TypeEtablissement à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'établissement à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionTypeEtablissementCompletSansModification()
 	{
@@ -160,8 +160,8 @@ class TypeEtablissementTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le TypeEtablissement à bien été éditée lors de la soumission
-	 * d'un formulaire d'édition complet
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'établissement à bien été éditée lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionTypeEtablissementCompletAvecModification()
 	{
@@ -196,7 +196,7 @@ class TypeEtablissementTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que des erreurs sont présentes et que le TypeEtablissement n'est pas supprimé s'il est associé à des utilisateurs
+	 * Vérifie que des erreurs sont présentes et que le type d'établissement n'est pas supprimé s'il est associé à des utilisateurs
 	 */
 	public function testTraitementSuppressionTypeEtablissementAssocie()
 	{
@@ -213,7 +213,7 @@ class TypeEtablissementTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le TypeEtablissement à bien été supprimé s'il n'est associé à aucun
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'établissement à bien été supprimé s'il n'est associé à aucun
 	 * utilisateur
 	 */
 	public function testTraitementSuppressionTypeEtablissementNonAssocie()

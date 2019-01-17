@@ -19,7 +19,7 @@ class DomainesMaterielSeeder extends Seeder
     {
         foreach ($this->domaines as $domaine) {
         	\App\Models\DomaineMateriel::create([
-        		"nom" => $domaine
+        		"libelle" => $domaine
 	        ]);
         }
     }

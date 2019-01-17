@@ -30,7 +30,7 @@ class TicketMessagesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("ticket_messages", ["contenu" => "unit.testing"]);
+		$this->assertDatabaseHas("messages_tickets", ["contenu" => "unit.testing"]);
 	}
 
 	/**
@@ -88,7 +88,7 @@ class TicketMessagesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("ticket_messages", ["contenu" => "unit.testing"]);
+		$this->assertDatabaseHas("messages_tickets", ["contenu" => "unit.testing"]);
 	}
 
 	/**
@@ -108,6 +108,6 @@ class TicketMessagesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("ticket_messages", ["contenu" => $message->contenu]);
+		$this->assertDatabaseMissing("messages_tickets", ["contenu" => $message->contenu]);
 	}
 }

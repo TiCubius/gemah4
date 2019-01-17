@@ -11,14 +11,14 @@ class Materiel extends Model
 	protected $fillable = [
 		"domaine_id",
 		"eleve_id",
-		"type_id",
+		"type_materiel_id",
         "departement_id",
 		"marque",
 		"modele",
 		"num_serie",
 		"nom_fournisseur",
 		"prix_ttc",
-		"etat_id",
+		"etat_materiel_id",
 		"num_devis",
 		"num_formulaire_chorus",
 		"num_facture_chorus",
@@ -47,15 +47,17 @@ class Materiel extends Model
 	 */
 	public function type(): BelongsTo
 	{
-		return $this->belongsTo(TypeMateriel::class);
+		return $this->belongsTo(TypeMateriel::class, "type_materiel_id");
 	}
 
 	/**
+     * Un matériel possède un état
+     *
 	 * @return BelongsTo
 	 */
 	public function etat(): BelongsTo
 	{
-		return $this->belongsTo(EtatMateriel::class);
+		return $this->belongsTo(EtatMateriel::class, "etat_materiel_id");
 	}
 
 	/**
@@ -105,14 +107,14 @@ class Materiel extends Model
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
 		return $query->select('materiels.*')
-			->join("etats_materiel", "materiels.etat_id", "etats_materiel.id")
+			->join("etats_materiels", "materiels.etat_materiel_id", "etats_materiels.id")
 			->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
-				$query->where("type_id", $typeId)
+				$query->where("type_materiel_id", $typeId)
 					->orWhere("marque", "LIKE", "%{$marque}%")
 					->orWhere("modele", "LIKE", "%{$modele}%")
 					->orWhere("num_serie", "LIKE", "%{$numSerie}%");
 			})
-			->orWhere("etat_id", $etatId);
+			->orWhere("etat_materiel_id", $etatId);
 	}
 
 }

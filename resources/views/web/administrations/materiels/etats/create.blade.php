@@ -12,12 +12,12 @@
 				{{ csrf_field() }}
 
 				<div class="form-group">
-					<label for="nom">Nom de l'état matériel</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="E.g : Volé, Cassé" value="{{ old("nom") }}" required>
+					<label for="libelle">Libellé</label>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="E.g : Volé, Cassé" value="{{ old("libelle") }}" required>
 				</div>
 				<div class="form-group">
-					<label for="nom">Couleur de l'état matériel</label>
-					<input id="nom" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ old("couleur") }}" required>
+					<label for="couleur">Couleur</label>
+					<input id="couleur" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ old("couleur") }}" required>
 				</div>
 
 				<div class="d-flex justify-content-center">

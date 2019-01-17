@@ -18,7 +18,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$types = TypeMateriel::with('domaine')->orderBy("nom")->get();
+		$types = TypeMateriel::with('domaine')->orderBy("libelle")->get();
 
 		return view("web.materiels.types.index", compact("types"));
 	}
@@ -30,7 +30,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom")->get();
+		$domaines = DomaineMateriel::orderBy("libelle")->get();
 
 		return view("web.materiels.types.create", compact("domaines"));
 	}
@@ -44,12 +44,12 @@ class TypeMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:types_materiel",
-			"domaine" => "required|exists:domaines_materiel,id",
+			"libelle"     => "required|max:191|unique:types_materiels",
+			"domaine" => "required|exists:domaines_materiels,id",
 		]);
 
 		TypeMateriel::create([
-			"nom"        => $request->input("nom"),
+			"libelle"        => $request->input("libelle"),
 			"domaine_id" => $request->input("domaine"),
 		]);
 
@@ -75,7 +75,7 @@ class TypeMaterielController extends Controller
 	 */
 	public function edit(TypeMateriel $type): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom")->get();
+		$domaines = DomaineMateriel::orderBy("libelle")->get();
 
 		return view("web.materiels.types.edit", compact("type", "domaines"));
 	}
@@ -90,12 +90,12 @@ class TypeMaterielController extends Controller
 	public function update(Request $request, TypeMateriel $type): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:types_materiel,nom,{$type->id}",
-			"domaine" => "required|exists:domaines_materiel,id",
+			"libelle"     => "required|max:191|unique:types_materiels,libelle,{$type->id}",
+			"domaine" => "required|exists:domaines_materiels,id",
 		]);
 
 		$type->update([
-			"nom"        => $request->input("nom"),
+			"libelle"        => $request->input("libelle"),
 			"domaine_id" => $request->input("domaine"),
 		]);
 

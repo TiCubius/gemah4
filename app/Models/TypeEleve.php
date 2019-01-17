@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class TypeEleve extends Model
 {
     protected $table = "types_eleves";
-    protected $fillable = ["nom"];
+    protected $fillable = ["libelle"];
 
     /**
      * Un type d'élève appartient à plusieurs élève

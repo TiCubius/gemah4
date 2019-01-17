@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TypeTicket extends Model
 {
-	protected $table = "types_ticket";
+	protected $table = "types_tickets";
 
 	protected $fillable = [
 	    "libelle"

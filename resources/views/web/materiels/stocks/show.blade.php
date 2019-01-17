@@ -29,7 +29,7 @@
 
 							<p class="mb-0">
 								<strong>Type</strong>:
-								{!! $stock->type->nom ?? '<span class="text-muted">Non rensigné</span>' !!}
+								{!! $stock->type->libelle ?? '<span class="text-muted">Non rensigné</span>' !!}
 							</p>
 
 							<p class="mb-0">

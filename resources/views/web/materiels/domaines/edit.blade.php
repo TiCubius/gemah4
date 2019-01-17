@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.materiels.domaines.index"])
-			Édition de {{ $domaine->nom }}
+			Édition de {{ $domaine->libelle }}
 		@endcomponent
 
 		<div class="col-12">
@@ -12,8 +12,8 @@
 				{{ method_field("PUT") }}
 
 				<div class="form-group">
-					<label for="nom">Nom du domaine</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $domaine->nom }}" required>
+					<label for="libelle">Libellé</label>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Smith" value="{{ $domaine->libelle }}" required>
 				</div>
 
 				<div class="d-flex justify-content-between">
@@ -26,7 +26,7 @@
 
 	@component("web._includes.components.modals.destroy", ["route" => "web.materiels.domaines.destroy", "id" => $domaine])
 		@slot("name")
-			{{ $domaine->nom }}
+			{{ $domaine->libelle }}
 		@endslot
 	@endcomponent
 @endsection

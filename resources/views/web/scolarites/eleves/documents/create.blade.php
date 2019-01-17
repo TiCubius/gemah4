@@ -28,8 +28,8 @@
                     <select id="type_document_id" class="form-control" name="type_document_id" required>
                         <option selected value="" hidden>Sélectionnez un type</option>
                         @foreach($types as $type)
-                            @if($type->nom !== "Décision"))
-                            <option value="{{ $type->id }}">{{ $type->nom }}</option>
+                            @if($type->libelle !== "Décision"))
+                            <option value="{{ $type->id }}">{{ $type->libelle }}</option>
                             @endif
                         @endforeach
                     </select>

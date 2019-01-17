@@ -15,14 +15,14 @@
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
 						<tr>
-							<th>Nom</th>
+							<th>Libellé</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($domaines as $domaine)
 							<tr>
-								<td>{{ $domaine->nom }}</td>
+								<td>{{ $domaine->libelle }}</td>
 								<td>
 									<a href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

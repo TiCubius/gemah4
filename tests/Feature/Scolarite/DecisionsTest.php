@@ -20,17 +20,14 @@ class DecisionsTest extends TestCase
      */
     public function testAffichageIndexDecision()
     {
-        $eleve = factory(Eleve::class)->create();
-        $decisions = factory(Decision::class, 5)->create([
-            "eleve_id" => $eleve->id
-        ]);
-
-        $request = $this->get("/scolarites/eleves/{$eleve->id}/documents");
-
-        $request->assertStatus(200);
-        $request->assertSee("Gestion des documents");
+        $decisions = factory(Decision::class, 5)->create();
 
         foreach ($decisions as $decision) {
+            $request = $this->get("/scolarites/eleves/{$decision->document->eleve_id}/documents");
+
+            $request->assertStatus(200);
+            $request->assertSee("Gestion des documents");
+
             $request->assertSee($decision->date_convention->format('d/m/Y'));
         }
     }
@@ -82,18 +79,17 @@ class DecisionsTest extends TestCase
     {
         $eleve = factory(Eleve::class)->create();
         factory(TypeDocument::class)->create([
-            "nom" => 'Décision'
+            "libelle" => 'Décision'
         ]);
 
         $request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
             "_token" => csrf_token(),
             "enseignant_id" => $eleve->enseignant_id,
             "date_cda" => \Carbon\Carbon::now(),
-            "date_notif" => \Carbon\Carbon::now(),
+            "date_notification" => \Carbon\Carbon::now(),
             "date_limite" => \Carbon\Carbon::now(),
             "date_convention" => \Carbon\Carbon::now(),
             "numero_dossier" => "unit.testing",
-            "nom_suivi" => "unit.testing",
             "file" => UploadedFile::fake()->create("avatar.jpg"),
         ]);
         $request->assertStatus(302);
@@ -150,33 +146,31 @@ class DecisionsTest extends TestCase
      */
     public function testTraitementFormulaireEditionDecisionCompleteSansModification()
     {
-        $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create();
         $decision = factory(Decision::class)->create([
-            'eleve_id' => $eleve->id
+            'document_id' => $document->id
         ]);
 
 
-        $request = $this->put("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}", [
+        $request = $this->put("/scolarites/eleves/{$document->eleve_id}/documents/decisions/{$decision->id}", [
             "_token" => csrf_token(),
-            "enseignant_id" => $decision->eleve->enseignant_id,
+            "enseignant_id" => $decision->enseignant_id,
             "date_cda" => $decision->date_cda,
-            "date_notif" => $decision->date_notif,
+            "date_notification" => $decision->date_notification,
             "date_limite" => $decision->date_limite,
             "date_convention" => $decision->date_convention,
             "numero_dossier" => $decision->numero_dossier,
-            "nom_suivi" => $decision->nom_suivi,
         ]);
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
         $this->assertDatabaseHas("decisions", [
-            "enseignant_id" => $decision->eleve->enseignant_id,
+            "enseignant_id" => $decision->enseignant_id,
             "date_cda" => $decision->date_cda,
-            "date_notif" => $decision->date_notif,
+            "date_notification" => $decision->date_notification,
             "date_limite" => $decision->date_limite,
             "date_convention" => $decision->date_convention,
             "numero_dossier" => $decision->numero_dossier,
-            "nom_suivi" => $decision->nom_suivi,
         ]);
     }
 
@@ -187,8 +181,11 @@ class DecisionsTest extends TestCase
     public function testTraitementFormulaireEditionDecisionCompletAvecModification()
     {
         $eleve = factory(Eleve::class)->create();
+        $document = factory(Document::class)->create([
+            "eleve_id" => $eleve->id
+        ]);
         $decision = factory(Decision::class)->create([
-            'eleve_id' => $eleve->id
+            'document_id' => $document->id
         ]);
 
         $path = $decision->document->path;
@@ -198,11 +195,10 @@ class DecisionsTest extends TestCase
             "_token" => csrf_token(),
             "enseignant_id" => $eleve->enseignant_id,
             "date_cda" => $date,
-            "date_notif" => $date,
+            "date_notification" => $date,
             "date_limite" => $date,
             "date_convention" => $date,
             "numero_dossier" => "unit.testing",
-            "nom_suivi" => "unit.testing",
             "file" => UploadedFile::fake()->create("avatar.jpg"),
         ]);
 
@@ -211,11 +207,10 @@ class DecisionsTest extends TestCase
         $this->assertDatabaseHas("decisions", [
             "enseignant_id" => $eleve->enseignant_id,
             "date_cda" => $date,
-            "date_notif" => $date,
+            "date_notification" => $date,
             "date_limite" => $date,
             "date_convention" => $date,
             "numero_dossier" => "unit.testing",
-            "nom_suivi" => "unit.testing",
         ]);
         $this->assertDatabaseMissing("documents", ["path" => $path]);
     }

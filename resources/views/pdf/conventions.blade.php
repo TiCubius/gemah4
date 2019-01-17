@@ -125,7 +125,7 @@
 						<tbody>
 							@foreach($eleve->materiels as $materiel)
 								<tr>
-									<td>{{ $materiel->type->nom }}</td>
+									<td>{{ $materiel->type->libelle }}</td>
 									<td>{{ $materiel->marque }}</td>
 									<td>{{ $materiel->num_serie }}</td>
 								</tr>

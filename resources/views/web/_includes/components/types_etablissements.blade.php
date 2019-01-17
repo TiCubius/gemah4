@@ -6,9 +6,9 @@
 
         @foreach($types as $type)
             @if($type->id === ($id ?? null))
-                <option value="{{ $type->id }}" selected>{{ "{$type->nom}" }}</option>
+                <option value="{{ $type->id }}" selected>{{ "{$type->libelle}" }}</option>
             @else
-                <option value="{{ $type->id }}">{{ "{$type->nom}" }}</option>
+                <option value="{{ $type->id }}">{{ "{$type->libelle}" }}</option>
             @endif
         @endforeach
 

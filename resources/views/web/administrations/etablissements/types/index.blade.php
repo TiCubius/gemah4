@@ -15,14 +15,14 @@
                 <table class="table table-sm table-hover text-center">
                     <thead class="gemah-bg-primary">
                     <tr>
-                        <th>Nom</th>
+                        <th>Libellé</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($typeEtablissements as $typeEtablissement)
                         <tr>
-                            <td>{{ $typeEtablissement->nom }}</td>
+                            <td>{{ $typeEtablissement->libelle }}</td>
                             <td>
                                 <a href="{{ route("web.administrations.etablissements.types.edit", [$typeEtablissement]) }}">
                                     <button class="btn btn-sm btn-outline-primary">Editer</button>

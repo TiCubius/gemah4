@@ -61,7 +61,7 @@
                                                value="{{ $type->id }}" type="checkbox">
                                     @endif
                                     <label class="custom-control-label"
-                                           for="type-{{ $type->id }}">{{ $type->nom }}</label>
+                                           for="type-{{ $type->id }}">{{ $type->libelle }}</label>
                                 </div>
                             @endforeach
                         </div>

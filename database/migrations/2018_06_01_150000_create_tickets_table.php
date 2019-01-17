@@ -19,8 +19,9 @@ class CreateTicketsTable extends Migration
 			$table->unsignedInteger('type_ticket_id');
 			$table->unsignedInteger('eleve_id');
 			$table->string("libelle");
+			$table->boolean("utilisation_joker")->default(false);
 
-			$table->foreign('type_ticket_id')->references('id')->on('types_ticket');
+			$table->foreign('type_ticket_id')->references('id')->on('types_tickets');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 
 			$table->timestamps();

@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DomaineMateriel extends Model
 {
-	public $table = "domaines_materiel";
-	protected $fillable = ["nom"];
+	public $table = "domaines_materiels";
+	protected $fillable = [
+	    "libelle"
+    ];
 
 	/**
 	 * Un Domaine Matériel possède plusieurs types
@@ -17,6 +19,6 @@ class DomaineMateriel extends Model
 	 */
 	public function types(): HasMany
 	{
-		return $this->hasMany(TypeMateriel::class, 'domaine_id')->orderby("nom");
+		return $this->hasMany(TypeMateriel::class, 'domaine_id')->orderby("libelle");
 	}
 }

@@ -6,7 +6,7 @@ $factory->define(App\Models\TypeMateriel::class, function(Faker $faker) {
 	$domaine = factory(\App\Models\DomaineMateriel::class)->create();
 
 	return [
-		"nom"        => $faker->word,
+		"libelle"        => $faker->word,
 		"domaine_id" => $domaine->id,
 	];
 });

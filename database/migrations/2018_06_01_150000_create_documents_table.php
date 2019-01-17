@@ -23,7 +23,7 @@ class CreateDocumentsTable extends Migration
 
 			$table->unsignedInteger('eleve_id');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
-            $table->foreign('type_document_id')->references('id')->on('types_document');
+            $table->foreign('type_document_id')->references('id')->on('types_documents');
 
             $table->timestamps();
 		});

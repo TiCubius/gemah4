@@ -27,10 +27,10 @@
 
                 <div>
                     <div class="form-group">
-                        <label for="date_notif">Date de réception de la notification</label>
-                        <input type="date" id="date_notif" name="date_notif"
+                        <label for="date_notification">Date de réception de la notification</label>
+                        <input type="date" id="date_notification" name="date_notification"
                                placeholder="Date de réception de la notification" class="form-control"
-                               value="{{ $decision->date_notif ? $decision->date_notif->format('Y-m-d') : '' }}">
+                               value="{{ $decision->date_notification ? $decision->date_notification->format('Y-m-d') : '' }}">
                     </div>
                 </div>
 

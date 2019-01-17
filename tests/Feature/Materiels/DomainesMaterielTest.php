@@ -24,7 +24,7 @@ class DomainesMaterielTest extends TestCase
 		$request->assertSee("Gestion des domaines matériel");
 
 		foreach ($Domaines as $Domaine) {
-			$request->assertSee($Domaine->nom);
+			$request->assertSee($Domaine->libelle);
 		}
 	}
 
@@ -38,7 +38,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un domaine matériel");
-		$request->assertSee("Nom du domaine");
+		$request->assertSee("Libellé");
 		$request->assertSee("Créer le domaine");
 	}
 
@@ -66,7 +66,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request = $this->post("/materiels/domaines", [
 			"_token" => csrf_token(),
-			"nom"    => $Domaines->random()->nom,
+			"libelle"    => $Domaines->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -81,12 +81,12 @@ class DomainesMaterielTest extends TestCase
 	{
 		$request = $this->post("/materiels/domaines", [
 			"_token"      => csrf_token(),
-			"nom"         => "unit.testing",
+			"libelle"         => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("domaines_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("domaines_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -100,8 +100,8 @@ class DomainesMaterielTest extends TestCase
 		$request = $this->get("/materiels/domaines/{$Domaine->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Domaine->nom}");
-		$request->assertSee("Nom du domaine");
+		$request->assertSee("Édition de {$Domaine->libelle}");
+		$request->assertSee("Libellé");
 		$request->assertSee("Éditer le domaine");
 		$request->assertSee("Supprimer le domaine");
 	}
@@ -131,12 +131,12 @@ class DomainesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/domaines/{$Domaines[0]->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $Domaines[1]->nom,
+			"libelle"         => $Domaines[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("domaines_materiel", ["nom" => $Domaines[0]->nom]);
+		$this->assertDatabaseHas("domaines_materiels", ["libelle" => $Domaines[0]->libelle]);
 	}
 
 	/**
@@ -149,12 +149,12 @@ class DomainesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/domaines/{$Domaine->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $Domaine->nom,
+			"libelle"         => $Domaine->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("domaines_materiel", ["nom" => $Domaine->nom]);
+		$this->assertDatabaseHas("domaines_materiels", ["libelle" => $Domaine->libelle]);
 	}
 
 	/**
@@ -167,12 +167,12 @@ class DomainesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/domaines/{$Domaine->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => "unit.testing",
+			"libelle"         => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("domaines_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("domaines_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -187,7 +187,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le domaine");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Domaine->nom . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Domaine->libelle . "</b>.");
 	}
 
 	/**
@@ -204,7 +204,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("domaines_materiel", ["nom" => $Domaine->nom]);
+		$this->assertDatabaseHas("domaines_materiels", ["libelle" => $Domaine->libelle]);
 	}
 
 	/**
@@ -219,7 +219,7 @@ class DomainesMaterielTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("domaines_materiel", ["nom" => $Domaine->nom]);
+		$this->assertDatabaseMissing("domaines_materiels", ["libelle" => $Domaine->libelle]);
 	}
 
 }

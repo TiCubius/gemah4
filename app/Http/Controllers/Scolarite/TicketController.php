@@ -50,7 +50,7 @@ class TicketController extends Controller
 	{
 		$request->validate([
 			"libelle"        => "required|max:255",
-			"type_ticket_id" => "required|exists:types_ticket,id",
+			"type_ticket_id" => "required|exists:types_tickets,id",
 		]);
 
 		Ticket::create([
@@ -101,7 +101,7 @@ class TicketController extends Controller
 	{
 		$request->validate([
 			"libelle"        => "required|max:255",
-			"type_ticket_id" => "required|exists:types_ticket,id",
+			"type_ticket_id" => "required|exists:types_tickets,id",
 		]);
 
 		$ticket->update($request->only(["libelle", "type_ticket_id"]));

@@ -178,15 +178,10 @@ class EleveController extends Controller
 			return back()->withErrors("Impossible de supprimer un élève tant qu'il a des matériels affectés");
 		}
 
-		foreach ($eleve->decisions as $decision) {
-			Storage::delete("storage/decisions/{$decision->document->path}");
-		}
-
 		foreach ($eleve->documents as $document) {
 			Storage::delete("storage/document/{$document->path}");
 		}
 
-		$eleve->decisions()->delete();
 		$eleve->documents()->delete();
 		$eleve->types()->detach();
 

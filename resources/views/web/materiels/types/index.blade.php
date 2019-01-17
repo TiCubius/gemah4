@@ -23,8 +23,8 @@
 					<tbody>
 						@foreach($types as $type)
 							<tr>
-								<td>{{ $type->domaine->nom }}</td>
-								<td>{{ $type->nom }}</td>
+								<td>{{ $type->domaine->libelle }}</td>
+								<td>{{ $type->libelle }}</td>
 								<td>
 									<a href="{{ route("web.materiels.types.edit", [$type]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

@@ -22,7 +22,7 @@ class TypesMaterielSeeder extends Seeder
 			"Clavier Clevy",
 			"Clavier",
 			"Clé USB",
-			"Guide doits",
+			"Guide-doigts",
 			"Housse",
 			"Imprimante / Scanner",
 			"Imprimante",
@@ -37,14 +37,31 @@ class TypesMaterielSeeder extends Seeder
 			"Pavé numérique",
 			"Sac à dos",
 			"Souris",
-			"Sous Scan",
+			"Souris Scan",
 			"Stylet",
 			"Tablette",
-			"Trackball"
+			"Trackball",
+            "Bloc notes"
 		],
 		"Logiciel" => [
-
+            "Pack Office",
+            "Dragon Naturaly Speaking",
+            "Lexibar",
+            "Pictop",
+            "Kurzwein",
+            "ZoomText",
+            "Antidote",
+            "Cabri",
+            "Geogebra",
+            "Calroread",
+            "Genex",
+            "Woody",
+            "Medialexie",
+            "Tap'Touche",
 		],
+        "GEMAH2" => [
+            "GEMAH2"
+        ],
 	];
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TicketMessage extends Model
 {
+    protected $table = "messages_tickets";
 
 	protected $fillable = ["ticket_id", "contenu"];
 

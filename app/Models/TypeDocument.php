@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TypeDocument extends Model
 {
-    protected $table = "types_document";
-    protected $fillable = ["nom"];
+    protected $table = "types_documents";
+    protected $fillable = ["libelle"];
 }

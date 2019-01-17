@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        @component("web._includes.components.title", ["back" => "web.scolarites.eleves.index", "id" => [$eleve]])
+        @component("web._includes.components.title", ["back" => "web.scolarites.eleves.show", "id" => [$eleve]])
             <div class="d-flex justify-content-between">
                 <h4>Gestion des documents</h4>
             </div>
@@ -32,7 +32,7 @@
     </div>
 
 
-    @if ($eleve->documents->isEmpty() && $eleve->decisions->isEmpty())
+    @if ($eleve->documents->isEmpty())
         <div class="col-12">
             <div class="alert alert-warning">
                 Aucun document n'a été trouvé pour cet élève
@@ -44,79 +44,75 @@
                 <div class="form-group">
                     <label for="type">Type de Document</label>
                     <select name="type" id="type" class="form-control" required>
-                            <option selected value="" hidden>Choisissez un Type de Document</option>
+                        <option selected value="" hidden>Choisissez un Type de Document</option>
                         @foreach($typesDocument as $typeDocument)
                             <option value="{{ $typeDocument->id }}">{{ $typeDocument->nom }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            @foreach ($eleve->decisions as $decision)
-                <div class="col-6 js-document js-document-{{ $decision->document->type_document_id }}" style="display: none;">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <p class="mb-0">
-                                <b>Réunion CDA</b>:
-                                {!! $decision->date_cda ? $decision->date_cda->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                            <p class="mb-0">
-                                <b>Réception de la Notification</b>:
-                                {!! $decision->date_notif ? $decision->date_notif->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                            <p class="mb-0">
-                                <b>Date Limite de la Décision</b>:
-                                {!! $decision->date_limite ? $decision->date_limite->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                            <p class="mb-0">
-                                <b>Date Convention</b>:
-                                {!! $decision->date_convention ? $decision->date_convention->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                            <hr>
-                            <p class="mb-0">
-                                <b>Numéro MDPH</b>:
-                                {!! $decision->numero_dossier ?? '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                            <p class="mb-0">
-                                <b>Enseignant Référent</b>:
-                                @if ($decision->enseignant_id !== NULL)
-                                    {{ $decision->enseignant->nom }} {{ $decision->enseignant->prenom }}
-                                @else
-                                    <span class="text-muted">Non défini</span>
-                                @endif
-                            </p>
-                            <p class="mb-0">
-                                <b>Suivi par</b>:
-                                {!! $decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
-                            </p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve, $decision]) }}">
-                                <i class="far fa-edit"></i>
-                                Modifier
-                            </a>
-                            @if($decision->document_id)
+            @foreach($eleve->documents as $document)
+                @if ($document->typeDocument->nom == "Décision")
+                    <div class="col-6 js-document js-document-{{ $document->type_document_id }}"
+                         style="display: none;">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    <b>Réunion CDA</b>:
+                                    {!! $document->decision->date_cda ? $document->decision->date_cda->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                                <p class="mb-0">
+                                    <b>Réception de la Notification</b>:
+                                    {!! $document->decision->date_notification ? $document->decision->date_notification->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                                <p class="mb-0">
+                                    <b>Date Limite de la Décision</b>:
+                                    {!! $document->decision->date_limite ? $document->decision->date_limite->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                                <p class="mb-0">
+                                    <b>Date Convention</b>:
+                                    {!! $document->decision->date_convention ? $document->decision->date_convention->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                                <hr>
+                                <p class="mb-0">
+                                    <b>Numéro MDPH</b>:
+                                    {!! $document->decision->numero_dossier ?? '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                                <p class="mb-0">
+                                    <b>Enseignant Référent</b>:
+                                    @if ($document->decision->enseignant_id !== NULL)
+                                        {{ $document->decision->enseignant->nom }} {{ $document->decision->enseignant->prenom }}
+                                    @else
+                                        <span class="text-muted">Non défini</span>
+                                    @endif
+                                </p>
+                                <p class="mb-0">
+                                    <b>Suivi par</b>:
+                                    {!! $document->decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
+                                </p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve, $document->decision]) }}">
+                                    <i class="far fa-edit"></i>
+                                    Modifier
+                                </a>
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-success" target="_blank" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $decision]) }}">
+                                    <a class="btn btn-sm btn-outline-success" target="_blank"
+                                       href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document->decision]) }}">
                                         <i class="fas fa-download"></i>
                                         Télécharger
                                     </a>
                                     <a class="btn btn-sm btn-outline-success" target="_blank"
-                                       href="{{ asset('storage/decisions/' . $decision->document->path) }}">
+                                       href="{{ asset('storage/decisions/' . $document->path) }}">
                                         <i class="far fa-eye"></i>
                                         Visualiser
                                     </a>
                                 </div>
-                            @else
-                                <div class="btn-group" data-toggle="tooltip" data-placement="top"
-                                     title="Aucun fichier n'a été envoyé lors de la création de la décision">
-                                    <a class="btn btn-sm btn-outline-danger" href="#">
-                                        <i class="far fa-question-circle"></i>
-                                    </a>
-                                </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
 
             @foreach ($eleve->documents as $document)
@@ -142,7 +138,8 @@
                                 </a>
                                 @if($document->path)
                                     <div class="btn-group">
-                                        <a class="btn btn-sm btn-primary" target="_blank" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
+                                        <a class="btn btn-sm btn-primary" target="_blank"
+                                           href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
                                             <i class="fas fa-download"></i>
                                             Télécharger
                                         </a>

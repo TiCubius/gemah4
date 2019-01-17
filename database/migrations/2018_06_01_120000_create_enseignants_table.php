@@ -16,10 +16,10 @@ class CreateEnseignantsTable extends Migration
 		Schema::create('enseignants', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->enum('civilite', ['M', 'Mme']);
+			$table->enum('civilite', ['M.', 'Mme']);
 			$table->string('nom');
 			$table->string('prenom');
-			$table->string('email');
+			$table->string('email')->nullable();
 			$table->string('telephone')->nullable();
 
 			$table->timestamps();

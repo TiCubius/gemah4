@@ -27,7 +27,7 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 
 	Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
 		Route::resource("tickets", "Scolarite\TicketController");
-		Route::resource("documents", "Scolarite\DocumentController");
+		Route::resource("documents", "Scolarite\Documents\DocumentController");
 
 		Route::group(["prefix" => "/impressions", "as" => "impressions."], function () {
 			Route::get("autorisations", "Scolarite\ImpressionController@autorisations")->name("autorisations");
@@ -38,9 +38,9 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 		});
 
         Route::group(["prefix" => "/documents", "as" => "documents."], function () {
-            Route::resource("decisions", "Scolarite\DecisionController");
-            Route::get("/decisions/{decision}/download", "Scolarite\DecisionController@download")->name("decisions.download");
-            Route::get("/{document}/download", "Scolarite\DocumentController@download")->name("download");
+            Route::resource("decisions", "Scolarite\Documents\DecisionController");
+            Route::get("/decisions/{decision}/download", "Scolarite\Documents\DecisionController@download")->name("decisions.download");
+            Route::get("/{document}/download", "Scolarite\Documents\DocumentController@download")->name("download");
         });
 
 		// Liste du matériel de l'élève
@@ -101,15 +101,15 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 	Route::resource("utilisateurs", "Administrations\UtilisateurController");
 
 	Route::group(["prefix" => "/eleves", "as" => "eleves."], function () {
-		Route::resource("types", "Administrations\TypeEleveController");
+		Route::resource("types", "Administrations\Types\TypeEleveController");
 	});
 
 	Route::group(["prefix" => "/etablissements", "as" => "etablissements."], function () {
-		Route::resource("types", "Administrations\TypeEtablissementController");
+		Route::resource("types", "Administrations\Types\TypeEtablissementController");
 	});
 
 	Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
-		Route::resource("etats", "Administrations\Materiels\EtatController");
+		Route::resource("etats", "Administrations\Materiels\EtatMaterielController");
 	});
 
 	Route::group(["prefix" => "/types", "as" => "types."], function (){

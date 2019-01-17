@@ -70,16 +70,16 @@
 							<h5 class="card-title text-center">Informations du Matériel</h5>
 
 							<div class="form-group">
-								<label for="type_id">Type du matériel</label>
-								<select id="type_id" class="form-control" name="type_id">
+								<label for="type_materiel_id">Type du matériel</label>
+								<select id="type_materiel_id" class="form-control" name="type_materiel_id">
 									<option value="">Sélectionnez un type</option>
 									@foreach ($domaines as $domaine)
-										<optgroup label="{{ $domaine->nom }}">
+										<optgroup label="{{ $domaine->libelle }}">
 											@foreach($domaine->types as $type)
-												@if (old("type_id") == $type->id)
-													<option selected value="{{ $type->id }}">{{ $type->nom }}</option>
+												@if (old("type_materiel_id") == $type->id)
+													<option selected value="{{ $type->id }}">{{ $type->libelle }}</option>
 												@else
-													<option value="{{ $type->id }}">{{ $type->nom }}</option>
+													<option value="{{ $type->id }}">{{ $type->libelle }}</option>
 												@endif
 											@endforeach
 										</optgroup>
@@ -116,11 +116,11 @@
 							</div>
 
 							<div class="form-group">
-								<label for="etat_id">Etat du matériel</label>
-								<select id="etat_id" class="form-control" name="etat_id" required>
+								<label for="etat_materiel_id">Etat du matériel</label>
+								<select id="etat_materiel_id" class="form-control" name="etat_materiel_id" required>
 									<option value="">Veuillez sélectionner l'état du matériel</option>
 									@foreach ($etats as $etat)
-										@if (old("etat_id") == $etat->id)
+										@if (old("etat_materiel_id") == $etat->id)
 											<option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
 										@else
 											<option value="{{ $etat->id }}">{{ $etat->nom }}</option>

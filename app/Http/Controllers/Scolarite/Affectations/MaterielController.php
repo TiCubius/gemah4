@@ -23,11 +23,11 @@ class MaterielController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request): View
 	{
-		$domaines = DomaineMateriel::with("types")->orderBy("nom")->get();
-		$etats = EtatMateriel::orderBy("nom")->get();
+		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
+		$etats = EtatMateriel::orderBy("libelle")->get();
 
-		if ($request->exists(["type_id", "etat_id", "marque", "modele", "num_serie"])) {
-			$searchedMateriels = Materiel::search($request->input("type_id"), $request->input("etat_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))
+		if ($request->exists(["type_materiel_id", "etat_materiel_id", "marque", "modele", "num_serie"])) {
+			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))
 				->where("eleve_id", null)
 				->get();
 		}

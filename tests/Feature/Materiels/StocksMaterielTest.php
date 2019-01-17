@@ -102,13 +102,13 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->post("/materiels/stocks", [
-			"_token"   => csrf_token(),
-			"type_id"  => $TypeMateriel->id,
-			"marque"   => "unit.testing",
-			"modele"   => "unit.testing",
-			"prix_ttc" => 5.99,
-			"etat_id"  => 1,
-            "departement_id" => $departement->id,
+			"_token"            => csrf_token(),
+			"type_materiel_id"  => $TypeMateriel->id,
+			"marque"            => "unit.testing",
+			"modele"            => "unit.testing",
+			"prix_ttc"          => 5.99,
+			"etat_materiel_id"           => 1,
+            "departement_id"    => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -128,13 +128,13 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(200);
 
 		$request->assertSee("Descriptif matériel de {$stock->modele}");
-		$request->assertSee($stock->type->nom);
+		$request->assertSee($stock->type->libelle);
 		$request->assertSee($stock->marque);
 		$request->assertSee($stock->modele);
-		$request->assertSee($stock->num_serie);
+		$request->assertSee($stock->numero_serie);
 		$request->assertSee($stock->nom_fournisseur);
 		$request->assertSee($stock->prix_ttc);
-		$request->assertSee($stock->etat->nom);
+		$request->assertSee($stock->etat->libelle);
 		$request->assertSee("Informations Administrative");
 
 		$request->assertSee("N° de devis");
@@ -226,13 +226,13 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
-			"_token"   => csrf_token(),
-			"type_id"  => $TypeMateriel->id,
-			"marque"   => $Stock->marque,
-			"modele"   => $Stock->modele,
-			"prix_ttc" => $Stock->prix_ttc,
-			"etat_id"  => $Stock->etat_id,
-            "departement_id" => $departement->id,
+			"_token"            => csrf_token(),
+			"type_materiel_id"  => $TypeMateriel->id,
+			"marque"            => $Stock->marque,
+			"modele"            => $Stock->modele,
+			"prix_ttc"          => $Stock->prix_ttc,
+			"etat_materiel_id"           => $Stock->etat_materiel_id,
+            "departement_id"    => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -254,14 +254,14 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
-			"_token"     => csrf_token(),
-			"domaine_id" => $DomaineMateriel->id,
-			"type_id"    => $TypeMateriel->id,
-			"marque"     => "unit.testing",
-			"modele"     => "unit.testing",
-			"prix_ttc"   => 5.99,
-			"etat_id"    => 1,
-            "departement_id" => $departement->id,
+			"_token"              => csrf_token(),
+			"domaine_id"          => $DomaineMateriel->id,
+			"type_materiel_id"    => $TypeMateriel->id,
+			"marque"              => "unit.testing",
+			"modele"              => "unit.testing",
+			"prix_ttc"            => 5.99,
+			"etat_materiel_id"             => 1,
+            "departement_id"      => $departement->id,
 		]);
 
 		$request->assertStatus(302);

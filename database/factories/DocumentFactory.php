@@ -11,5 +11,6 @@ $factory->define(App\Models\Document::class, function(Faker $faker) {
 		"description"      => $faker->word,
 		"eleve_id"         => $eleve->id,
 		"type_document_id" => $type->id,
+        "path"             => $faker->word.".pdf",
 	];
 });

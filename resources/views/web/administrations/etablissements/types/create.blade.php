@@ -11,8 +11,8 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="nom">Nom</label>
-                    <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
+                    <label for="libelle">Libellé</label>
+                    <input id="libelle" class="form-control" name="libelle" type="text" placeholder="Libellé" value="{{ old("libelle") }}" required>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-sm btn-outline-success">Créer le type d'établissement</button>

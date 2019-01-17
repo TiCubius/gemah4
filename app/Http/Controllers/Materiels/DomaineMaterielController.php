@@ -17,7 +17,7 @@ class DomaineMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$domaines = DomaineMateriel::orderBy("nom")->get();
+		$domaines = DomaineMateriel::orderBy("libelle")->get();
 
 		return view("web.materiels.domaines.index", compact("domaines"));
 	}
@@ -41,10 +41,10 @@ class DomaineMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:domaines_materiel",
+			"libelle" => "required|max:191|unique:domaines_materiels",
 		]);
 
-		DomaineMateriel::create($request->only(["nom"]));
+		DomaineMateriel::create($request->only(["libelle"]));
 
 		return redirect(route("web.materiels.domaines.index"));
 	}
@@ -81,10 +81,10 @@ class DomaineMaterielController extends Controller
 	public function update(Request $request, DomaineMateriel $domaine): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:domaines_materiel,nom,{$domaine->id}",
+			"libelle" => "required|max:191|unique:domaines_materiels,libelle,{$domaine->id}",
 		]);
 
-		$domaine->update($request->only(["nom"]));
+		$domaine->update($request->only(["libelle"]));
 
 		return redirect(route("web.materiels.domaines.index"));
 	}

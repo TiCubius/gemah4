@@ -3,7 +3,7 @@
     <div class="row">
 
         @component("web._includes.components.title", ["back" => "web.administrations.services.index"])
-            Édition de {{ $type->nom }}
+            Édition de {{ $type->libelle }}
         @endcomponent
 
         <div class="col-12">
@@ -12,9 +12,9 @@
                 {{ method_field("put") }}
 
                 <div class="form-group">
-                    <label for="nom">Nom</label>
-                    <input id="nom" class="form-control" name="nom" type="text" placeholder="Nom"
-                           value="{{ $type->nom }}" required>
+                    <label for="libelle">Libellé</label>
+                    <input id="libelle" class="form-control" name="libelle" type="text" placeholder="Libellé"
+                           value="{{ $type->libelle }}" required>
                 </div>
                 <div class="d-flex justify-content-between">
                     <button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer</button>
@@ -26,7 +26,7 @@
 
     @component("web._includes.components.modals.destroy", ["route" => "web.administrations.eleves.types.destroy", "id" => $type])
         @slot("name")
-            {{ $type->nom }}
+            {{ $type->libelle }}
         @endslot
     @endcomponent
 

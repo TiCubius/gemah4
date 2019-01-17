@@ -9,7 +9,7 @@ class TypeEtablissement extends Model
 {
 	protected $table = "types_etablissements";
 	protected $fillable = [
-		"nom",
+		"libelle",
 	];
 
 	/**

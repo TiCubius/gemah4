@@ -26,7 +26,7 @@ class EtablissementSeeder extends Seeder
 				->first();
 			if (!$type) {
 				$type = \App\Models\TypeEtablissement::create([
-					"nom" => $etablissement->fields->nature_uai_libe,
+					"libelle" => $etablissement->fields->nature_uai_libe,
 				]);
 			}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrations;
+namespace App\Http\Controllers\Administrations\Types;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
@@ -20,7 +20,7 @@ class TypeEleveController extends Controller
 	public function index(): View
 	{
 
-		$typeEleves = TypeEleve::orderBy("nom")->get();
+		$typeEleves = TypeEleve::orderBy("libelle")->get();
 
 		return view("web.administrations.eleves.types.index", compact("typeEleves"));
 	}
@@ -44,10 +44,10 @@ class TypeEleveController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			"nom"         => "required|max:191|unique:types_eleves,nom",
+			"libelle"         => "required|max:191|unique:types_eleves,libelle",
 		]);
 
-		TypeEleve::create($request->only(["nom"]));
+		TypeEleve::create($request->only(["libelle"]));
 
 		return redirect(route("web.administrations.eleves.types.index"));
 	}
@@ -74,20 +74,20 @@ class TypeEleveController extends Controller
 		return view("web.administrations.eleves.types.edit", compact("type"));
 	}
 
-	/**
-	 * PUT - Enregistre les modifications apportés au type_eleve
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @param TypeEleve                   $type_eleve
-	 * @return RedirectResponse
-	 */
+    /**
+     * PUT - Enregistre les modifications apportés au type_eleve
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param TypeEleve $type
+     * @return RedirectResponse
+     */
 	public function update(Request $request, TypeEleve $type): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:types_eleves,nom,{$type->id}",
+			"libelle" => "required|max:191|unique:types_eleves,libelle,{$type->id}",
 		]);
 
-		$type->update($request->only(["nom"]));
+		$type->update($request->only(["libelle"]));
 
 		return redirect(route("web.administrations.eleves.types.index"));
 	}

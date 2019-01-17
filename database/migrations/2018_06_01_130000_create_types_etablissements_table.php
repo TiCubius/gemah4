@@ -15,7 +15,7 @@ class CreateTypesEtablissementsTable extends Migration
     {
         Schema::create('types_etablissements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom');
+            $table->string('libelle');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrations;
+namespace App\Http\Controllers\Administrations\Types;
 
 use App\Http\Controllers\Controller;
 use App\Models\TypeEtablissement;
@@ -17,7 +17,7 @@ class TypeEtablissementController extends Controller
 	 */
 	public function index(): View
 	{
-		$typeEtablissements = TypeEtablissement::orderBy("nom")->get();
+		$typeEtablissements = TypeEtablissement::orderBy("libelle")->get();
 
 		return view("web.administrations.etablissements.types.index", compact("typeEtablissements"));
 	}
@@ -41,10 +41,10 @@ class TypeEtablissementController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:types_etablissements,nom",
+			"libelle" => "required|max:191|unique:types_etablissements,libelle",
 		]);
 
-		TypeEtablissement::create($request->only(["nom"]));
+		TypeEtablissement::create($request->only(["libelle"]));
 
 		return redirect(route("web.administrations.etablissements.types.index"));
 	}
@@ -70,10 +70,10 @@ class TypeEtablissementController extends Controller
 	public function update(Request $request, TypeEtablissement $type): RedirectResponse
 	{
 		$request->validate([
-			"nom" => "required|max:191|unique:types_etablissements,nom,{$type->id}",
+			"libelle" => "required|max:191|unique:types_etablissements,libelle,{$type->id}",
 		]);
 
-		$type->update($request->only(["nom"]));
+		$type->update($request->only(["libelle"]));
 
 		return redirect(route("web.administrations.etablissements.types.index"));
 	}

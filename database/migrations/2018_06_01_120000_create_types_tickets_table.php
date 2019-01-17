@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDomainesMaterielTable extends Migration
+class CreateTypesTicketsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDomainesMaterielTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('domaines_materiel', function(Blueprint $table) {
+		Schema::create('types_tickets', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->string('nom');
+			$table->string('libelle');
 
 			$table->timestamps();
 		});
@@ -29,6 +29,6 @@ class CreateDomainesMaterielTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('domaines_materiel');
+		Schema::dropIfExists('types_tickets');
 	}
 }

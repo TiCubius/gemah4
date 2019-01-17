@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite;
+namespace App\Http\Controllers\Scolarite\Documents;
 
 use App\Models\Decision;
 use App\Models\Document;
@@ -53,18 +53,17 @@ class DecisionController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param Eleve $eleve
-     * @return RedéirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, Eleve $eleve): RedirectResponse
     {
         $request->validate([
             'date_limite' => 'nullable|date',
             'date_cda' => 'nullable|date',
-            'date_notif' => 'nullable|required_with:date_limite|date',
+            'date_notification' => 'nullable|required_with:date_limite|date',
             'date_convention' => 'nullable|date',
             'numero_dossier' => 'nullable|max:191',
             'enseignant_id' => 'nullable|integer',
-            'nom_suivi' => 'nullable|string|max:191',
             'file' => 'required'
         ]);
 
@@ -75,7 +74,7 @@ class DecisionController extends Controller
         $document = Document::create([
             'nom' => "Décision du " . Carbon::parse($request->input('date_notif'))->format('d/m/Y'),
             'description' => $request->input('description'),
-            'type_document_id' => TypeDocument::where('nom', 'Décision')->first()->id,
+            'type_document_id' => TypeDocument::where('libelle', 'Décision')->first()->id,
             'path' => $filename,
             'eleve_id' => $eleve->id
         ]);
@@ -83,29 +82,16 @@ class DecisionController extends Controller
 
         Decision::create([
             'date_cda' => $request->input('date_cda'),
-            'date_notif' => $request->input('date_notif'),
+            'date_notification' => $request->input('date_notification'),
             'date_limite' => $request->input('date_limite'),
             'date_convention' => $request->input('date_convention'),
             'numero_dossier' => $request->input('numero_dossier'),
-            'nom_suivi' => $request->input('nom_suivi'),
 
-            'eleve_id' => $eleve->id,
-            'enseignant_id' => $request->input('enseignant_id'),
             'document_id' => $document->id,
+            'enseignant_id' => $request->input('enseignant_id'),
         ]);
 
         return redirect(route('web.scolarites.eleves.documents.index', [$eleve]));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -135,11 +121,10 @@ class DecisionController extends Controller
         $request->validate([
             'date_limite' => 'required|date|nullable',
             'date_cda' => 'nullable|date',
-            'date_notif' => 'nullable|required_with:date_limite|date',
+            'date_notification' => 'nullable|required_with:date_limite|date',
             'date_convention' => 'nullable|date',
             'numero_dossier' => 'nullable|max:191',
             'enseignant_id' => 'nullable|integer',
-            'nom_suivi' => 'nullable|string|max:191',
         ]);
 
         if ($request->hasFile('file')) {
@@ -154,7 +139,7 @@ class DecisionController extends Controller
             $request->file('file')->storeAs('public/decisions/', $filename);
 
             $document = Document::create([
-                'type_document_id' => TypeDocument::where('nom', 'Décision')->first()->id,
+                'type_document_id' => TypeDocument::where('libelle', 'Décision')->first()->id,
                 'path' => $filename,
                 'eleve_id' => $eleve->id,
             ]);
@@ -162,12 +147,11 @@ class DecisionController extends Controller
 
         $decision->update([
             'date_cda' => $request->input('date_cda'),
-            'date_notif' => $request->input('date_notif'),
+            'date_notification' => $request->input('date_notification'),
             'date_limite' => $request->input('date_limite'),
             'date_convention' => $request->input('date_convention'),
             'numero_dossier' => $request->input('numero_dossier'),
-            'nom_suivi' => $request->input('nom_suivi'),
-            'eleve_id' => $eleve->id,
+
             'enseignant_id' => $request->input('enseignant_id'),
             'document_id' => isset($document) ? $document->id : $decision->document_id,
         ]);

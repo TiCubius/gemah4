@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite;
+namespace App\Http\Controllers\Scolarite\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;

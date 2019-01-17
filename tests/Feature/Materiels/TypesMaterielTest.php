@@ -27,8 +27,8 @@ class TypesMaterielTest extends TestCase
 		$request->assertSee("Gestion des types matériel");
 
 		foreach ($Types as $Type) {
-			$request->assertSee($Type->nom);
-			$request->assertSee($Type->domaine->nom);
+			$request->assertSee($Type->libelle);
+			$request->assertSee($Type->domaine->libelle);
 		}
 	}
 
@@ -43,7 +43,7 @@ class TypesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type matériel");
-		$request->assertSee("Nom du type");
+		$request->assertSee("Libellé");
 		$request->assertSee("Domaine Matériel");
 		$request->assertSee("Créer le type");
 	}
@@ -75,7 +75,7 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->post("/materiels/types", [
 			"_token"  => csrf_token(),
-			"nom"     => $Types->random()->nom,
+			"libelle" => $Types->random()->libelle,
 			"domaine" => $Domaine->random()->id,
 		]);
 
@@ -92,13 +92,13 @@ class TypesMaterielTest extends TestCase
 		$Domaine = factory(DomaineMateriel::class)->create();
 		$request = $this->post("/materiels/types", [
 			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
+			"libelle" => "unit.testing",
 			"domaine" => $Domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -113,8 +113,8 @@ class TypesMaterielTest extends TestCase
 		$request = $this->get("/materiels/types/{$Type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Type->nom}");
-		$request->assertSee("Nom du type");
+		$request->assertSee("Édition de {$Type->libelle}");
+		$request->assertSee("Libellé");
 		$request->assertSee("Domaine Matériel");
 		$request->assertSee("Éditer le type");
 		$request->assertSee("Supprimer le type");
@@ -147,13 +147,13 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Types[0]->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => $Types[1]->nom,
+			"libelle"     => $Types[1]->libelle,
 			"domaine" => $Domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_materiel", ["nom" => $Types[0]->nom]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => $Types[0]->libelle]);
 	}
 
 	/**
@@ -167,13 +167,13 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Type->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => $Type->nom,
+			"libelle"     => $Type->libelle,
 			"domaine" => $Type->domaine_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_materiel", ["nom" => $Type->nom]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => $Type->libelle]);
 	}
 
 	/**
@@ -187,13 +187,13 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Type->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
+			"libelle"     => "unit.testing",
 			"domaine" => $Domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -209,7 +209,7 @@ class TypesMaterielTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer le type");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Type->nom . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Type->libelle . "</b>.");
 	}
 
 	/**
@@ -225,7 +225,7 @@ class TypesMaterielTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("types_materiel", ["nom" => $Type->nom]);
+		$this->assertDatabaseMissing("types_materiels", ["libelle" => $Type->libelle]);
 	}
 
 }

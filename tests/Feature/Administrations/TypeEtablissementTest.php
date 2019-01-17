@@ -24,7 +24,7 @@ class TypeEtablissementTest extends TestCase
 		$request->assertSee("Gestion des types d'établissements");
 
 		foreach ($types as $type) {
-			$request->assertSee($type->nom);
+			$request->assertSee($type->libelle);
 		}
 	}
 
@@ -38,7 +38,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type d'établissement");
-		$request->assertSee("Nom");
+		$request->assertSee("Libellé");
 		$request->assertSee("Créer le type d'établissement");
 	}
 
@@ -66,7 +66,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request = $this->post("/administrations/etablissements/types", [
 			"_token"         => csrf_token(),
-			"nom"            => $types->random()->nom,
+			"libelle"            => $types->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -81,12 +81,12 @@ class TypeEtablissementTest extends TestCase
 	{
 		$request = $this->post("/administrations/etablissements/types", [
 			"_token"         => csrf_token(),
-			"nom"            => "unit.testing",
+			"libelle"            => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_etablissements", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_etablissements", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -100,8 +100,8 @@ class TypeEtablissementTest extends TestCase
 		$request = $this->get("/administrations/etablissements/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$type->nom}");
-		$request->assertSee("Nom");
+		$request->assertSee("Édition de {$type->libelle}");
+		$request->assertSee("Libellé");
 		$request->assertSee("Éditer");
 		$request->assertSee("Supprimer");
 	}
@@ -131,12 +131,12 @@ class TypeEtablissementTest extends TestCase
 
 		$request = $this->put("/administrations/etablissements/types/{$types[0]->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $types[1]->nom,
+			"libelle"         => $types[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_etablissements", ["nom" => $types[0]->nom]);
+		$this->assertDatabaseHas("types_etablissements", ["libelle" => $types[0]->libelle]);
 	}
 
 	/**
@@ -149,14 +149,14 @@ class TypeEtablissementTest extends TestCase
 
 		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
 			"_token"         => csrf_token(),
-			"nom"            => $type->nom,
+			"libelle"            => $type->libelle,
 			"description"    => $type->description,
 			"departement_id" => $type->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_etablissements", ["nom" => $type->nom]);
+		$this->assertDatabaseHas("types_etablissements", ["libelle" => $type->libelle]);
 	}
 
 	/**
@@ -170,14 +170,14 @@ class TypeEtablissementTest extends TestCase
 
 		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
 			"_token"         => csrf_token(),
-			"nom"            => "unit.testing",
+			"libelle"        => "unit.testing",
 			"description"    => "unit.testing",
 			"departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_etablissements", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_etablissements", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -192,7 +192,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->nom . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->libelle . "</b>.");
 	}
 
 	/**
@@ -209,7 +209,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_etablissements", ["nom" => $type->nom]);
+		$this->assertDatabaseHas("types_etablissements", ["libelle" => $type->libelle]);
 	}
 
 	/**
@@ -224,7 +224,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("types_etablissements", ["nom" => $type->nom]);
+		$this->assertDatabaseMissing("types_etablissements", ["libelle" => $type->libelle]);
 	}
 
 }

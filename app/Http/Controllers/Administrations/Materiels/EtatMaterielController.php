@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class EtatController extends Controller
+class EtatMaterielController extends Controller
 {
 
 	/**
@@ -42,11 +42,11 @@ class EtatController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:etats_materiel",
-			"couleur" => "required|max:7|unique:etats_materiel",
+			"libelle"     => "required|max:191|unique:etats_materiels",
+			"couleur" => "required|max:7|unique:etats_materiels",
 		]);
 
-		EtatMateriel::create($request->only(["nom", "couleur"]));
+		EtatMateriel::create($request->only(["libelle", "couleur"]));
 
 		return redirect(route("web.administrations.materiels.etats.index"));
 	}
@@ -72,11 +72,11 @@ class EtatController extends Controller
 	public function update(Request $request, EtatMateriel $etat): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191|unique:etats_materiel,nom,{$etat->id}",
-			"couleur" => "required|max:191|unique:etats_materiel,couleur,{$etat->id}",
+			"libelle"     => "required|max:191|unique:etats_materiels,libelle,{$etat->id}",
+			"couleur" => "required|max:191|unique:etats_materiels,couleur,{$etat->id}",
 		]);
 
-		$etat->update($request->only(["nom", "couleur"]));
+		$etat->update($request->only(["libelle", "couleur"]));
 
 		return redirect(route("web.administrations.materiels.etats.index"));
 	}

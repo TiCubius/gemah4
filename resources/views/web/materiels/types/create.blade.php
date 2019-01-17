@@ -11,8 +11,8 @@
 				{{ csrf_field() }}
 
 				<div class="form-group">
-					<label for="nom">Nom du type</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ old("nom") }}" required>
+					<label for="libelle">Libellé</label>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Smith" value="{{ old("libelle") }}" required>
 				</div>
 
 				<div class="form-group">
@@ -20,7 +20,7 @@
 					<select id="domaine" class="form-control" name="domaine" required>
 						<option value="" hidden>Sélectionner un Domaine</option>
 						@foreach($domaines as $domaine)
-							<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
+							<option value="{{ $domaine->id }}">{{ $domaine->libelle }}</option>
 						@endforeach
 					</select>
 				</div>

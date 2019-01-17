@@ -41,7 +41,7 @@ class TypeTicketController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            "libelle"     => "required|max:191|unique:types_ticket",
+            "libelle"     => "required|max:191|unique:types_tickets",
         ]);
 
         TypeTicket::create($request->only(["libelle"]));
@@ -70,7 +70,7 @@ class TypeTicketController extends Controller
     public function update(Request $request, TypeTicket $ticket): RedirectResponse
     {
         $request->validate([
-            "libelle"     => "required|max:191|unique:types_ticket,libelle,{$ticket->id}",
+            "libelle"     => "required|max:191|unique:types_tickets,libelle,{$ticket->id}",
         ]);
 
         $ticket->update($request->only(["libelle"]));

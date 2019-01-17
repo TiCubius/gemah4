@@ -209,6 +209,6 @@ class TicketsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("tickets", ["id" => $ticketMessage->ticket->id]);
-		$this->assertDatabaseMissing("ticket_messages", ["id" => $ticketMessage->id]);
+		$this->assertDatabaseMissing("messages_tickets", ["id" => $ticketMessage->id]);
 	}
 }

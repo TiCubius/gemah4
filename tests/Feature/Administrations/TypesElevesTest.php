@@ -28,7 +28,7 @@ class TypeEleveTest extends TestCase
 		$request->assertSee("Gestion des types d'élèves");
 
 		foreach ($types as $type) {
-			$request->assertSee($type->nom);
+			$request->assertSee($type->libelle);
 		}
 	}
 
@@ -42,7 +42,7 @@ class TypeEleveTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type d'élève");
-		$request->assertSee("Nom");
+		$request->assertSee("Libellé");
 		$request->assertSee("Créer le type d'élève");
 	}
 
@@ -70,7 +70,7 @@ class TypeEleveTest extends TestCase
 
 		$request = $this->post("/administrations/eleves/types", [
 			"_token" => csrf_token(),
-			"nom"    => $type->random()->nom,
+			"libelle"    => $type->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -85,12 +85,12 @@ class TypeEleveTest extends TestCase
 	{
 		$request = $this->post("/administrations/eleves/types", [
 			"_token"      => csrf_token(),
-			"nom"         => "unit.testing",
+			"libelle"         => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -104,8 +104,8 @@ class TypeEleveTest extends TestCase
 		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$type->nom}");
-		$request->assertSee("Nom");
+		$request->assertSee("Édition de {$type->libelle}");
+		$request->assertSee("Libellé");
 		$request->assertSee("Éditer");
 		$request->assertSee("Supprimer");
 	}
@@ -135,12 +135,12 @@ class TypeEleveTest extends TestCase
 
 		$request = $this->put("/administrations/eleves/types/{$type[0]->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $type[1]->nom,
+			"libelle"         => $type[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_eleves", ["nom" => $type[0]->nom]);
+		$this->assertDatabaseHas("types_eleves", ["libelle" => $type[0]->libelle]);
 	}
 
 	/**
@@ -153,12 +153,12 @@ class TypeEleveTest extends TestCase
 
 		$request = $this->put("/administrations/eleves/types/{$type->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $type->nom,
+			"libelle"         => $type->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["nom" => $type->nom]);
+		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
 	}
 
 	/**
@@ -171,12 +171,12 @@ class TypeEleveTest extends TestCase
 
 		$request = $this->put("/administrations/eleves/types/{$type->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => "unit.testing",
+			"libelle"         => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -190,8 +190,8 @@ class TypeEleveTest extends TestCase
 		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer ".$type->nom);
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->nom . "</b>.");
+		$request->assertSee("Supprimer ".$type->libelle);
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->libelle . "</b>.");
 	}
 
     /**
@@ -208,7 +208,7 @@ class TypeEleveTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
-        $this->assertDatabaseHas("types_eleves", ["nom" => $type->nom]);
+        $this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
     }
     /**
      * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
@@ -222,7 +222,7 @@ class TypeEleveTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseMissing("types_eleves", ["nom" => $type->nom]);
+        $this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
     }
 
 }

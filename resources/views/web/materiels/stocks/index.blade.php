@@ -18,16 +18,16 @@
 					<div class="card-header gemah-bg-primary">Rechercher un matériel</div>
 					<div class="card-body">
 						<div class="form-group">
-							<label class="optional" for="type_id">Type</label>
-							<select id="type_id" class="form-control" name="type_id">
+							<label class="optional" for="type_materiel_id">Type</label>
+							<select id="type_materiel_id" class="form-control" name="type_materiel_id">
 								<option value>Sélectionnez un type</option>
 								@foreach ($domaines as $domaine)
-									<optgroup label="{{ $domaine->nom }}">
+									<optgroup label="{{ $domaine->libelle }}">
 										@foreach($domaine->types as $type)
-											@if(Request::get("type_id") == $type->id)
-												<option selected value="{{ $type->id }}">{{ $type->nom }}</option>
+											@if(Request::get("type_materiel_id") == $type->id)
+												<option selected value="{{ $type->id }}">{{ $type->libelle }}</option>
 											@else
-												<option value="{{ $type->id }}">{{ $type->nom }}</option>
+												<option value="{{ $type->id }}">{{ $type->libelle }}</option>
 											@endif
 										@endforeach
 									</optgroup>
@@ -35,14 +35,14 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label class="optional" for="etat_id">État</label>
-							<select id="etat_id" class="form-control" name="etat_id">
+							<label class="optional" for="etat_materiel_id">État</label>
+							<select id="etat_materiel_id" class="form-control" name="etat_materiel_id">
 								<option value>Sélectionnez un état</option>
 								@foreach($etats as $etat)
-									@if(Request::get("etat_id") == $etat->id)
-										<option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
+									@if(Request::get("etat_materiel_id") == $etat->id)
+										<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
 									@else
-										<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
+										<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
 									@endif
 								@endforeach
 							</select>

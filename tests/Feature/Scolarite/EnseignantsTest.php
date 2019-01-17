@@ -187,7 +187,7 @@ class EnseignantsTest extends TestCase
 
 		$request = $this->put("/scolarites/enseignants/{$Enseignant->id}", [
 			"_token"    => csrf_token(),
-			"civilite"  => "M",
+			"civilite"  => "M.",
 			"nom"       => "unit.testing",
 			"prenom"    => "unit.testing",
 			"email"     => "unit@testing.fr",

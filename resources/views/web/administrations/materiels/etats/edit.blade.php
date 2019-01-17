@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.materiels.etats.index"])
-			Édition de {{ $etat->nom }}
+			Édition de {{ $etat->libelle }}
 		@endcomponent
 
 		<div class="col-12">
@@ -12,12 +12,12 @@
 				{{ method_field("put") }}
 
 				<div class="form-group">
-					<label for="nom">Nom de l'état matériel</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="E.g : Volé, Cassé" value="{{ $etat->nom }}" required>
+					<label for="libelle">Libellé</label>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="E.g : Volé, Cassé" value="{{ $etat->libelle }}" required>
 				</div>
 				<div class="form-group">
-					<label for="nom">Couleur de l'état matériel</label>
-					<input id="nom" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ $etat->couleur }}" required>
+					<label for="couleur">Couleur</label>
+					<input id="couleur" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ $etat->couleur }}" required>
 				</div>
 
 				<div class="d-flex justify-content-between">
@@ -30,7 +30,7 @@
 
 	@component("web._includes.components.modals.destroy", ["route" => "web.administrations.materiels.etats.destroy", "id" => $etat])
 		@slot("name")
-			{{ $etat->nom }}
+			{{ $etat->libelle }}
 		@endslot
 	@endcomponent
 

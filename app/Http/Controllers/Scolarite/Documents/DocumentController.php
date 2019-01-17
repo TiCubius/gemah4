@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite;
+namespace App\Http\Controllers\Scolarite\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
@@ -41,6 +41,7 @@ class DocumentController extends Controller
 	public function index(Eleve $eleve): View
 	{
 		$typesDocument = TypeDocument::all();
+		$eleve->load("documents", "documents.decision");
 
 		return view('web.scolarites.eleves.documents.index', compact('eleve', 'typesDocument'));
 	}
@@ -71,7 +72,7 @@ class DocumentController extends Controller
 		$request->validate([
 			'nom'              => 'required|max:191',
 			'description'      => 'required|max:191',
-			'type_document_id' => 'required',
+			'type_document_id' => 'required|exists:types_documents',
 			'file'             => 'required',
 		]);
 
@@ -184,7 +185,7 @@ class DocumentController extends Controller
 	 * GET - Télécharge le document
 	 *
 	 * @param Eleve    $eleve
-	 * @param Decision $document
+	 * @param Document $document
 	 * @return StreamedResponse|RedirectResponse
 	 */
 	public function download(Eleve $eleve, Document $document)

@@ -15,7 +15,7 @@ class CreateTypesElevesTable extends Migration
     {
         Schema::create('types_eleves', function (Blueprint $table) {
             $table->increments('id');
-            $table->string(('nom'));
+            $table->string('libelle');
             $table->timestamps();
         });
     }

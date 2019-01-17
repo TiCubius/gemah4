@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\EtatMateriel;
 use Tests\TestCase;
 
-class EtatsTest extends TestCase
+class EtatsMaterielsTest extends TestCase
 {
 
 	/**
@@ -21,7 +21,7 @@ class EtatsTest extends TestCase
 		$request->assertSee("Gestion des états matériel");
 
 		foreach ($Etats as $Etat) {
-			$request->assertSee($Etat->nom);
+			$request->assertSee($Etat->libelle);
 			$request->assertSee($Etat->couleur);
 		}
 	}
@@ -36,8 +36,8 @@ class EtatsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un état matériel");
-		$request->assertSee("Nom de l'état");
-		$request->assertSee("Couleur de l'état matériel");
+		$request->assertSee("Libellé");
+		$request->assertSee("Couleur");
 		$request->assertSee("Créer l'état matériel");
 	}
 
@@ -65,7 +65,7 @@ class EtatsTest extends TestCase
 
 		$request = $this->post("/administrations/materiels/etats", [
 			"_token"  => csrf_token(),
-			"nom"     => $Etats->random()->nom,
+			"libelle"     => $Etats->random()->libelle,
 			"couleur" => $Etats->random()->couleur,
 		]);
 
@@ -81,13 +81,13 @@ class EtatsTest extends TestCase
 	{
 		$request = $this->post("/administrations/materiels/etats", [
 			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
+			"libelle" => "unit.testing",
 			"couleur" => "112233",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("etats_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -101,9 +101,9 @@ class EtatsTest extends TestCase
 		$request = $this->get("/administrations/materiels/etats/{$Etat->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Etat->nom}");
-		$request->assertSee("Nom de l'état");
-		$request->assertSee("Couleur de l'état matériel");
+		$request->assertSee("Édition de {$Etat->libelle}");
+		$request->assertSee("Libellé");
+		$request->assertSee("Couleur");
 		$request->assertSee("Éditer l'état matériel");
 		$request->assertSee("Supprimer l'état matériel");
 	}
@@ -133,13 +133,13 @@ class EtatsTest extends TestCase
 
 		$request = $this->put("/administrations/materiels/etats/{$Etats[0]->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => $Etats[1]->nom,
+			"libelle"     => $Etats[1]->libelle,
 			"couleur" => "112233",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("etats_materiel", ["nom" => $Etats[0]->nom]);
+		$this->assertDatabaseHas("etats_materiels", ["libelle" => $Etats[0]->libelle]);
 	}
 
 	/**
@@ -152,13 +152,13 @@ class EtatsTest extends TestCase
 
 		$request = $this->put("/administrations/materiels/etats/{$Etat->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => $Etat->nom,
+			"libelle" => $Etat->libelle,
 			"couleur" => $Etat->couleur,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiel", ["nom" => $Etat->nom]);
+		$this->assertDatabaseHas("etats_materiels", ["libelle" => $Etat->libelle]);
 	}
 
 	/**
@@ -171,13 +171,13 @@ class EtatsTest extends TestCase
 
 		$request = $this->put("/administrations/materiels/etats/{$Etat->id}", [
 			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
+			"libelle" => "unit.testing",
 			"couleur" => "556677",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiel", ["nom" => "unit.testing"]);
+		$this->assertDatabaseHas("etats_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -192,7 +192,7 @@ class EtatsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer l'état matériel");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->nom . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->libelle . "</b>.");
 	}
 
 
@@ -207,8 +207,8 @@ class EtatsTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("etats_materiel", [
-			"nom"     => $EtatMateriel->nom,
+		$this->assertDatabaseMissing("etats_materiels", [
+			"libelle"     => $EtatMateriel->libelle,
 			"couleur" => $EtatMateriel->couleur,
 		]);
 	}

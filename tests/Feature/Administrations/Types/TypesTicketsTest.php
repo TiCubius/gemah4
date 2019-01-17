@@ -80,7 +80,7 @@ class TypesTicketsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("types_ticket", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("types_tickets", ["libelle" => "unit.testing"]);
     }
 
     /***
@@ -129,7 +129,7 @@ class TypesTicketsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasErrors();
-        $this->assertDatabaseHas("types_ticket", ["libelle" => $types[0]->libelle]);
+        $this->assertDatabaseHas("types_tickets", ["libelle" => $types[0]->libelle]);
     }
 
     /***
@@ -147,7 +147,7 @@ class TypesTicketsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("types_ticket", ["libelle" => $type->libelle]);
+        $this->assertDatabaseHas("types_tickets", ["libelle" => $type->libelle]);
     }
 
     /***
@@ -165,7 +165,7 @@ class TypesTicketsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("types_ticket", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("types_tickets", ["libelle" => "unit.testing"]);
     }
 
     /***
@@ -193,7 +193,7 @@ class TypesTicketsTest extends TestCase
 
         $request->assertStatus(302);
         $request->assertSessionHasNoErrors();
-        $this->assertDatabaseMissing("types_ticket", [
+        $this->assertDatabaseMissing("types_tickets", [
             "libelle"     => $type->libelle,
         ]);
     }

@@ -71,15 +71,6 @@ class Eleve extends Model
         return $this->hasMany(Document::class);
     }
 
-    /***
-     * Un élève peut avoir plusieurs decisions
-     *
-     * @return HasMany
-     */
-    public function decisions(): HasMany
-    {
-        return $this->hasMany(Decision::class);
-    }
     /**
      * Un élève appartient à plusieurs types
      *
@@ -161,13 +152,13 @@ class Eleve extends Model
      * Recherche un élève avec l'id de type elève donné en paramètre
      *
      * @param $query
-     * @param $type_id
+     * @param $type_eleve_id
      * @return mixed
      */
-	public function scopeType($query, $type_id)
+	public function scopeType($query, $type_eleve_id)
     {
-        return $query->whereHas("types", function ($query) use ($type_id) {
-            $query->where("id", $type_id);
+        return $query->whereHas("types", function ($query) use ($type_eleve_id) {
+            $query->where("id", $type_eleve_id);
         });
     }
 

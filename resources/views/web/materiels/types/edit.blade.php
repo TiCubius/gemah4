@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.materiels.types.index"])
-			Édition de {{ $type->nom }}
+			Édition de {{ $type->libelle }}
 		@endcomponent
 
 		<div class="col-12">
@@ -12,8 +12,8 @@
 				{{ method_field("PUT") }}
 
 				<div class="form-group">
-					<label for="nom">Nom du type</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $type->nom }}" required>
+					<label for="libelle">Libellé</label>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Smith" value="{{ $type->libelle }}" required>
 				</div>
 
 				<div class="form-group">
@@ -22,9 +22,9 @@
 						<option value="" hidden>Sélectionner un Domaine</option>
 						@foreach($domaines as $domaine)
 							@if($type->domaine_id === $domaine->id)
-								<option selected value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
+								<option selected value="{{ $domaine->id }}">{{ $domaine->libelle }}</option>
 							@else
-								<option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
+								<option value="{{ $domaine->id }}">{{ $domaine->libelle }}</option>
 							@endif
 						@endforeach
 					</select>
@@ -40,7 +40,7 @@
 
 	@component("web._includes.components.modals.destroy", ["route" => "web.materiels.types.destroy", "id" => $type])
 		@slot("name")
-			{{ $type->nom }}
+			{{ $type->libelle }}
 		@endslot
 	@endcomponent
 

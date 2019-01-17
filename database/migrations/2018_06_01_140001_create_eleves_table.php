@@ -20,7 +20,7 @@ class CreateElevesTable extends Migration
             $table->string('departement_id');
             $table->string('nom');
             $table->string('prenom');
-            $table->string('code_INE', 11)->nullable();
+            $table->string('code_ine', 11)->nullable();
             $table->string('classe');
             $table->integer('joker')->default(0);
             $table->float('prix_global')->default(0);

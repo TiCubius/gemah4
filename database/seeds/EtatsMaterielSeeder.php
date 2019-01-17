@@ -18,7 +18,7 @@ class EtatsMaterielSeeder extends Seeder
 	{
 		foreach ($this->etats as $etat) {
 			\App\Models\EtatMateriel::create([
-				"nom"     => $etat[0],
+				"libelle" => $etat[0],
 				"couleur" => $etat[1],
 			]);
 		}

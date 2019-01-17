@@ -16,18 +16,15 @@ class CreateDecisionsTable extends Migration
 		Schema::create('decisions', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->unsignedInteger('eleve_id');
-			$table->unsignedInteger('document_id')->nullable();
+			$table->unsignedInteger('document_id');
 			$table->unsignedInteger('enseignant_id')->nullable();
 			$table->timestamp('date_cda')->nullable();
-			$table->timestamp('date_notif')->nullable();
+			$table->timestamp('date_notification')->nullable();
 			$table->timestamp('date_limite')->nullable();
 			$table->timestamp('date_convention')->nullable();
 			$table->integer('numero_dossier')->nullable();
-			$table->string('nom_suivi')->nullable();
 
-			$table->foreign('eleve_id')->references('id')->on('eleves');
-			$table->foreign('document_id')->references('id')->on('documents')->onDelete('set null');
+			$table->foreign('document_id')->references('id')->on('documents');
 			$table->foreign('enseignant_id')->references('id')->on('enseignants');
 			$table->timestamps();
 		});

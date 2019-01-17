@@ -59,7 +59,7 @@
                             <input id="type-{{ $type->id }}" class="custom-control-input" name="types[]"
                                    value="{{ $type->id }}" type="checkbox">
                         @endif
-                        <label class="custom-control-label" for="type-{{ $type->id }}">{{ $type->nom }}</label>
+                        <label class="custom-control-label" for="type-{{ $type->id }}">{{ $type->libelle }}</label>
                     </div>
                 @endforeach
                         </div>

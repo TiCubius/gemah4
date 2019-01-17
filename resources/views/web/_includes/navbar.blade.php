@@ -13,7 +13,7 @@
 				</a>
 			</li>
 			<li class="nav-item active">
-				<a class="nav-link" href="#navbarTemp">
+				<a class="nav-link" href="{{ route("web.logout") }}">
 					<i class="fas fa-sign-out-alt"></i> Déconnexion
 				</a>
 			</li>

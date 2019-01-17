@@ -31,7 +31,7 @@ class ServiceController extends Controller
 	 */
 	public function create(): View
 	{
-		$academies = Academie::with("departement")->get();
+		$academies = Academie::with("departements")->get();
 
 		return view("web.administrations.services.create", compact("academies"));
 	}

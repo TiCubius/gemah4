@@ -47,6 +47,9 @@ class ImpressionController extends Controller
 		if ($eleve->responsables->isEmpty()) {
 			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.");
 		}
+		if (!$eleve->etablissement) {
+		    return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun établissement.");
+        }
 		if ($eleve->decisions->isEmpty()) {
 			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
 		}
@@ -54,9 +57,9 @@ class ImpressionController extends Controller
 			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucun matériel.");
 		}
 
-		$decision = $eleve->decisions->sortBy("created_at")->last();
+        $eleves = $eleve->with("responsables", "etablissement", "decisions", "materiels")->where('id', $eleve->id)->get();
 
-		return PDF::loadView('pdf.conventions', compact('eleve', 'decision'))->stream();
+		return PDF::loadView('pdf.conventions', compact('eleves'))->stream();
 	}
 
 	/**

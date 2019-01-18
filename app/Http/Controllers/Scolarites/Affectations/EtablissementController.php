@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\Etablissement;
+use App\Models\TypeEtablissement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,14 +22,16 @@ class EtablissementController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request)
 	{
+        $types = TypeEtablissement::all();
+
 		if ($eleve->etablissement_id === null) {
 			$academies = Academie::with("departements")->get();
 
 			if ($request->exists(["nom", "ville", "telephone"])) {
-				$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
+				$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
 			}
 
-			return view("web.scolarites.eleves.affectations.etablissements", compact("eleve", "academies", "searchedEtablissements"));
+			return view("web.scolarites.eleves.affectations.etablissements", compact("eleve", "academies", "types", "searchedEtablissements"));
 		}
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("L'élève est déjà affecté à un établissement.");

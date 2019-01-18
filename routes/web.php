@@ -129,4 +129,5 @@ Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function 
 	Route::patch("/", "Responsables\ConventionController@update")->name("update");
 	Route::get("signatures_effectues", "Responsables\ConventionController@signatures_effectues")->name("signatures_effectues");
 	Route::get("signatures_manquantes", "Responsables\ConventionController@signatures_manquantes")->name("signatures_manquantes");
+	Route::get("impressions_toutes_conventions", "Responsables\ConventionController@impressions_toutes_conventions")->name("impressions_toutes_conventions");
 });

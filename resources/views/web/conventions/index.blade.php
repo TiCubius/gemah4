@@ -15,6 +15,9 @@
 					<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Liste des responsables n'aynt pas signé</a>
 
 					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}">Impression de toutes les signatures non signé</a>
+
+					<div class="dropdown-divider"></div>
 					<a id="reset" class="dropdown-item" href="#">Remettre à zéro</a>
 				</div>
 			</div>

@@ -14,6 +14,9 @@
 		<title>{{ $title ?? 'GEMAH' }}</title>
 	</head>
 	<body>
+		<div class="navbar_message">
+			ATTENTION: Toutes modifications sur cette version de GEMAH ne sera pas sauvegardée !
+		</div>
 		@include("web._includes.navbar")
 		<div class="container-fluid">
 			<div class="row">

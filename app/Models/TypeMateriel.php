@@ -18,7 +18,7 @@ class TypeMateriel extends Model
 	 */
 	public function domaine(): BelongsTo
 	{
-		return $this->belongsTo(DomaineMateriel::class)->orderBy("nom");
+		return $this->belongsTo(DomaineMateriel::class)->orderBy("libelle");
 	}
 
 	/**
@@ -28,6 +28,6 @@ class TypeMateriel extends Model
 	 */
 	public function materiels(): HasMany
 	{
-		return $this->hasMany(Materiel::class)->orderBy("nom");
+		return $this->hasMany(Materiel::class);
 	}
 }

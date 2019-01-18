@@ -127,7 +127,11 @@
 								<tr>
 									<td>{{ $materiel->type->libelle }}</td>
 									<td>{{ $materiel->marque }}</td>
-									<td>{{ $materiel->numero_serie }}</td>
+									@if($materiel->type->domaine->libelle == "Logiciel")
+										<td>{{ $materiel->cle_produit }}</td>
+									@else
+										<td>{{ $materiel->numero_serie }}</td>
+									@endif
 								</tr>
 							@endforeach
 						</tbody>

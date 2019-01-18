@@ -22,7 +22,7 @@ class CreateDecisionsTable extends Migration
 			$table->timestamp('date_notification')->nullable();
 			$table->timestamp('date_limite')->nullable();
 			$table->timestamp('date_convention')->nullable();
-			$table->integer('numero_dossier')->nullable();
+			$table->string('numero_dossier')->nullable();
 
 			$table->foreign('document_id')->references('id')->on('documents');
 			$table->foreign('enseignant_id')->references('id')->on('enseignants');

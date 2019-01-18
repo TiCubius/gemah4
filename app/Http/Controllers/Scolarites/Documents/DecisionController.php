@@ -185,7 +185,7 @@ class DecisionController extends Controller
 	 */
 	public function download(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->eleve_id == $eleve->id) {
+		if ($decision->document->eleve_id == $eleve->id) {
 			return Storage::download('public/decisions/' . $decision->document->path);
 		}
 

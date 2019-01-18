@@ -50,7 +50,6 @@ class DecisionsTest extends TestCase
 		$request->assertSee("Date de la convention");
 		$request->assertSee("Numéro du dossier MDPH");
 		$request->assertSee("Nom/prénom de l'enseignant référent");
-		$request->assertSee("Affaire suivie par");
 		$request->assertSee("Fichier");
 
 		$request->assertSee("Ajouter la décision");
@@ -125,23 +124,6 @@ class DecisionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition incomplet
-	 */
-	public function testTraitementFormulaireEditionDecisionIncomplet()
-	{
-		$eleve = factory(Eleve::class)->create();
-		$decision = factory(Decision::class)->create();
-
-
-		$request = $this->patch("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}", [
-			"_token" => csrf_token(),
-		]);
-
-		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
-	}
-
-	/**
 	 * Vérifie qu'aucune erreur n'est présente et que la décision à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
@@ -151,7 +133,6 @@ class DecisionsTest extends TestCase
 		$decision = factory(Decision::class)->create([
 			'document_id' => $document->id,
 		]);
-
 
 		$request = $this->put("/scolarites/eleves/{$document->eleve_id}/documents/decisions/{$decision->id}", [
 			"_token"            => csrf_token(),

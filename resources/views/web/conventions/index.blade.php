@@ -15,6 +15,10 @@
 					<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Liste des responsables n'aynt pas signé</a>
 
 					<div class="dropdown-divider"></div>
+					<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>
+					<a class="dropdown-item" data-toggle="modal" data-target="#modal">Importer une sauvegarde</a>
+
+					<div class="dropdown-divider"></div>
 					<a id="reset" class="dropdown-item" href="#">Remettre à zéro</a>
 				</div>
 			</div>
@@ -37,17 +41,23 @@
 
 								<div class="card-body">
 									@foreach($eleve->responsables as $responsable)
-										<div class="custom-control custom-checkbox" data-toggle="tooltip" data-placement="bottom" title="Signée le {{ \Carbon\Carbon::parse($responsable->pivot->date_signature)->format("d/m/Y") }}">
-											@if($responsable->pivot->etat_signature )
-												<input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input js-checked" type="checkbox" checked>
-											@else
-												<input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input js-checked" type="checkbox">
-											@endif
+										@if($responsable->pivot->etat_signature)
+											<div class="custom-control custom-checkbox" data-toggle="tooltip" data-placement="bottom" title="Signée le {{ \Carbon\Carbon::parse($responsable->pivot->date_signature)->format("d/m/Y") }}">
+												<input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input js-checkbox" type="checkbox" checked>
 
-											<label class="custom-control-label" for="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}">
-												{{ $responsable->nom }} {{ $responsable->prenom }}
-											</label>
-										</div>
+												<label class="custom-control-label" for="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}">
+													{{ $responsable->nom }} {{ $responsable->prenom }}
+												</label>
+											</div>
+										@else
+											<div class="custom-control custom-checkbox">
+												<input name="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" id="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}" class="custom-control-input js-checkbox" type="checkbox">
+
+												<label class="custom-control-label" for="eleve-{{$eleve->id}}_responsable-{{ $responsable->id }}">
+													{{ $responsable->nom }} {{ $responsable->prenom }}
+												</label>
+											</div>
+										@endif
 									@endforeach
 								</div>
 							</div>
@@ -60,6 +70,33 @@
 		</div>
 	</div>
 
+	<form id="modal" class="modal fade" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					Importer des données
+				</div>
+
+				<div class="modal-body text-center">
+					<p>
+						L'importation d'une sauvegarde précédente écrasera toutes les données présentes.
+						<br>
+					</p>
+
+					<div class="custom-file">
+						<input id="file" type="file" class="custom-file-input" id="customFile">
+						<label class="custom-file-label" for="customFile">Choose file</label>
+					</div>
+				</div>
+
+				<div class="modal-footer d-flex justify-content-between">
+					<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+					<button id="import" type="button" class="btn btn-primary" data-dismiss="modal">Importer</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
 @endsection
 
 @section("scripts")
@@ -70,9 +107,47 @@
 	</script>
 	<script>
 		document.querySelector(`#reset`).addEventListener(`click`, () => {
-			let inputs = document.querySelectorAll('.js-checked')
+			let inputs = document.querySelectorAll('.js-checkbox')
 			for (let i = 0; i < inputs.length; i++) {
 				inputs[i].checked = false
+			}
+		})
+	</script>
+	<script>
+		$(`#export`).click(function () {
+			let JSONExport = []
+			let inputs = document.querySelectorAll(".js-checkbox")
+
+			inputs.forEach((input) => {
+				JSONExport.push({id: input.id, checked: input.checked})
+			})
+
+			this.download = `Sauvegarde des conventions - ${(new Date()).toLocaleDateString('fr-FR')}.json`
+			this.href = (`data:application/octet-stream;charset=utf-8,${encodeURIComponent(JSON.stringify(JSONExport))}`)
+		})
+
+		$(`#import`).click(() => {
+			let file = document.getElementById("file").files[0]
+			if (file) {
+				let reader = new FileReader()
+				reader.readAsText(file, "UTF-8")
+				reader.onload = function (evt) {
+					let data = JSON.parse(evt.target.result)
+
+					let inputs = document.querySelectorAll(".js-checkbox")
+					inputs.forEach((input) => {
+						let checkbox = data.find((d) => {
+							return d.id === input.id
+						})
+
+						if (checkbox.checked) {
+							input.checked = true
+						}
+					})
+				}
+				reader.onerror = function (evt) {
+					console.error(evt)
+				}
 			}
 		})
 	</script>

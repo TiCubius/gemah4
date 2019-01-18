@@ -68,9 +68,9 @@ class DecisionController extends Controller
 	public function store(Request $request, Eleve $eleve): RedirectResponse
 	{
 		$request->validate([
-			'date_limite'       => 'nullable|required_with:date_notification|date',
+			'date_limite'       => 'nullable|date',
 			'date_cda'          => 'nullable|date',
-			'date_notification' => 'nullable|required_with:date_limite|date',
+			'date_notification' => 'nullable|date',
 			'date_convention'   => 'nullable|date',
 			'numero_dossier'    => 'nullable|max:191',
 			'enseignant_id'     => 'nullable|integer',
@@ -129,9 +129,9 @@ class DecisionController extends Controller
 	public function update(Request $request, Eleve $eleve, Decision $decision): RedirectResponse
 	{
 		$request->validate([
-			'date_limite'       => 'nullable|required_with:date_notification|date',
+			'date_limite'       => 'nullable|date',
 			'date_cda'          => 'nullable|date',
-			'date_notification' => 'nullable|required_with:date_limite|date',
+			'date_notification' => 'nullable|date',
 			'date_convention'   => 'nullable|date',
 			'numero_dossier'    => 'nullable|max:191',
 			'enseignant_id'     => 'nullable|integer',

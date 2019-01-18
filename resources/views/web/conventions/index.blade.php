@@ -15,10 +15,11 @@
 					<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Liste des responsables n'aynt pas signé</a>
 
 					<div class="dropdown-divider"></div>
-					<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>
-					<a class="dropdown-item" data-toggle="modal" data-target="#modal">Importer une sauvegarde</a>
+					<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}">Impression de toutes les signatures non signé</a>
 
 					<div class="dropdown-divider"></div>
+					<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>
+					<a class="dropdown-item" data-toggle="modal" data-target="#modal">Importer une sauvegarde</a>
 					<a id="reset" class="dropdown-item" href="#">Remettre à zéro</a>
 				</div>
 			</div>

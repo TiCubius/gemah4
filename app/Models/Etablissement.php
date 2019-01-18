@@ -65,11 +65,11 @@ class Etablissement extends Model
      * @param string $telephone
      * @return Builder
      */
-    public function scopeSearch($query, $departement, $type, $nom, $ville, $telephone): Builder
+    public function scopeSearch($query, $departementId, $type, $nom, $ville, $telephone): Builder
     {
         // Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
         // dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
-        $departement = $departement ?? "--";
+        $departementId = $departementId ?? "--";
         $type = $type ?? "--";
         $nom = $nom ?? "--";
         $ville = $ville ?? "--";
@@ -78,7 +78,7 @@ class Etablissement extends Model
         // On souhaite une requête SQL du type:
         // SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
         // Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-        $search = $query->select("etablissemnts.*")->where(function ($query) use ($type, $nom, $ville, $telephone) {
+        $search = $query->select("etablissements.*")->where(function ($query) use ($type, $nom, $ville, $telephone) {
             if ($type != "--"){
                 $query = $query->orwhere("type_etablissement_id", "LIKE", "%{$type}%");
             }
@@ -93,8 +93,8 @@ class Etablissement extends Model
             }
 		});
 
-        if ($departement !== "--") {
-            $search->where("departement_id", $departement);
+        if ($departementId !== "--") {
+            $search->where("departement_id", $departementId);
         }
 
         return $search;

@@ -127,7 +127,7 @@
 								<tr>
 									<td>{{ $materiel->type->libelle }}</td>
 									<td>{{ $materiel->marque }}</td>
-									<td>{{ $materiel->num_serie }}</td>
+									<td>{{ $materiel->numero_serie }}</td>
 								</tr>
 							@endforeach
 						</tbody>

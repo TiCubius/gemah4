@@ -13,6 +13,7 @@
 
 		<title>{{ $title ?? 'GEMAH' }}</title>
 	</head>
+
 	<body>
 		@include("web._includes.navbar")
 		<div class="container-fluid">
@@ -26,6 +27,7 @@
 						</div>
 					@endif
 				</div>
+
 				<div class="col-12 col-xl-10">
 					@include("web._includes.flash")
 					@yield("content")

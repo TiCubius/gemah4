@@ -49,8 +49,8 @@
 						<input id="modele" class="form-control" name="modele" type="text" placeholder="E.g : ProBook 650 G3" value="{{ Request::get("modele") }}">
 					</div>
 					<div class="form-group">
-						<label class="optional" for="num_serie">N° de Série</label>
-						<input id="num_serie" class="form-control" name="num_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("num_serie") }}">
+						<label class="optional" for="numero_serie">N° de Série</label>
+						<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
 					</div>
 
 					<div class="d-flex justify-content-between">

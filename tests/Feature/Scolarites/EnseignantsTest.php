@@ -36,10 +36,10 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un enseignant");
-		$request->assertSee("Nom de l'enseignant");
-		$request->assertSee("Prénom de l'enseignant");
-		$request->assertSee("Adresse E-Mail de l'enseignant");
-		$request->assertSee("Téléphone de l'enseignant");
+		$request->assertSee("Nom");
+		$request->assertSee("Prénom");
+		$request->assertSee("Adresse E-Mail");
+		$request->assertSee("Téléphone");
 		$request->assertSee("Créer l'enseignant");
 	}
 
@@ -110,10 +110,10 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Enseignant->nom}");
-		$request->assertSee("Nom de l'enseignant");
-		$request->assertSee("Prénom de l'enseignant");
-		$request->assertSee("Adresse E-Mail de l'enseignant");
-		$request->assertSee("Téléphone de l'enseignant");
+		$request->assertSee("Nom");
+		$request->assertSee("Prénom");
+		$request->assertSee("Adresse E-Mail");
+		$request->assertSee("Téléphone");
 		$request->assertSee("Éditer l'enseignant");
 		$request->assertSee("Supprimer l'enseignant");
 	}

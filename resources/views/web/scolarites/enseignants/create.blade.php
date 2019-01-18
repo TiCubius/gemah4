@@ -20,23 +20,23 @@
 				</div>
 
 				<div class="form-group">
-					<label for="nom">Nom de l'enseignant</label>
+					<label for="nom">Nom</label>
 					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="form-group">
-					<label for="prenom">Prénom de l'enseignant</label>
+					<label for="prenom">Prénom</label>
 					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ old("prenom") }}" required>
 				</div>
 
 
 				<div class="form-group">
-					<label for="email">Adresse E-Mail de l'enseignant</label>
+					<label for="email">Adresse E-Mail</label>
 					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ old("email") }}" required>
 				</div>
 
 				<div class="form-group">
-					<label class="optional" for="telephone">Téléphone de l'enseignant</label>
+					<label class="optional" for="telephone">Téléphone</label>
 					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}">
 				</div>
 

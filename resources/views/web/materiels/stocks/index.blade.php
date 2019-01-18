@@ -12,6 +12,7 @@
 					Aucun matériel n'est enregistré sur l'application
 				@endcomponent
 			</div>
+
 		@else
 			<div class="col-12">
 				<form class="card mb-3">
@@ -34,6 +35,7 @@
 								@endforeach
 							</select>
 						</div>
+
 						<div class="form-group">
 							<label class="optional" for="etat_materiel_id">État</label>
 							<select id="etat_materiel_id" class="form-control" name="etat_materiel_id">
@@ -47,17 +49,20 @@
 								@endforeach
 							</select>
 						</div>
+
 						<div class="form-group">
 							<label class="optional" for="marque">Marque</label>
 							<input id="marque" class="form-control" name="marque" type="text" placeholder="E.g : Asus" value="{{ Request::get("marque") }}">
 						</div>
+
 						<div class="form-group">
 							<label class="optional" for="modele">Modèle</label>
 							<input id="modele" class="form-control" name="modele" type="text" placeholder="E.g : ProBook 650 G3" value="{{ Request::get("modele") }}">
 						</div>
+
 						<div class="form-group">
-							<label class="optional" for="num_serie">N° de Série</label>
-							<input id="num_serie" class="form-control" name="num_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("num_serie") }}">
+							<label class="optional" for="numero_serie">N° de Série</label>
+							<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
 						</div>
 
 						<div class="d-flex justify-content-between">
@@ -68,6 +73,7 @@
 						</div>
 					</div>
 				</form>
+
 			</div>
 			@isset($searchedMateriels)
 				@if($searchedMateriels->isEmpty())
@@ -76,6 +82,7 @@
 							Aucun matériel n'a été trouvé avec ces critères
 						@endcomponent
 					</div>
+
 				@else
 					<div class="col-12">
 						<table class="table table-hover text-center">
@@ -87,6 +94,7 @@
 									<th>Actions</th>
 								</tr>
 							</thead>
+
 							<tbody>
 								@foreach($searchedMateriels as $materiel)
 									<tr>
@@ -107,6 +115,7 @@
 						</table>
 					</div>
 				@endif
+
 			@else
 				@if($latestCreatedMateriels->isNotEmpty())
 					<div class="col-12 col-lg-6">
@@ -116,6 +125,7 @@
 								@foreach($latestCreatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
 										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
+
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<div class="actions">
 											<a href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
@@ -139,6 +149,7 @@
 								@foreach($latestUpdatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
 										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
+
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<div class="actions">
 											<a href="{{ route("web.materiels.stocks.show", [$materiel]) }}">

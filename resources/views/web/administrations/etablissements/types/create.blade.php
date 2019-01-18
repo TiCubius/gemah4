@@ -12,7 +12,7 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Libellé" value="{{ old("libelle") }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: LYCEE POLYVALENT" value="{{ old("libelle") }}" required>
 				</div>
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer le type d'établissement</button>

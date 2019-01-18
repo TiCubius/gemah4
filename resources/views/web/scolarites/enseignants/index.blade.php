@@ -18,12 +18,12 @@
 					<div class="card-header gemah-bg-primary">Rechercher un enseignant</div>
 					<div class="card-body">
 						<div class="form-group">
-							<label class="optional" for="nom">Nom du enseignant</label>
+							<label class="optional" for="nom">Nom</label>
 							<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
 						</div>
 
 						<div class="form-group">
-							<label class="optional" for="prenom">Prénom du enseignant</label>
+							<label class="optional" for="prenom">Prénom</label>
 							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ app("request")->input("prenom") }}">
 						</div>
 

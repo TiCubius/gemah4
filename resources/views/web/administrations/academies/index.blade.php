@@ -11,6 +11,7 @@
 				<div class="alert alert-warning">
 					Aucune académie n'est enregistré sur l'application
 				</div>
+
 			@else
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
@@ -20,6 +21,7 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						@foreach($academies as $academy)
 							<tr>
@@ -36,5 +38,6 @@
 				</table>
 			@endif
 		</div>
+
 	</div>
 @endsection

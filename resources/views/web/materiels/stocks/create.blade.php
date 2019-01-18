@@ -16,23 +16,23 @@
 							<h5 class="card-title text-center">Informations Administrative</h5>
 
 							<div class="form-group">
-								<label class="optional" for="num_devis">Numéro de devis</label>
-								<input id="num_devis" class="form-control" name="num_devis" type="text" placeholder="Ex: ..." value="{{ old("num_devis") }}">
+								<label class="optional" for="numero_devis">Numéro de devis</label>
+								<input id="numero_devis" class="form-control" name="numero_devis" type="text" placeholder="Ex: ..." value="{{ old("numero_devis") }}">
 							</div>
 
 							<div class="form-group">
-								<label class="optional" for="num_formulaire_chorus">Numéro de formulaire CHORUS</label>
-								<input id="num_formulaire_chorus" class="form-control" name="num_formulaire_chorus" type="text" placeholder="Ex: ..." value="{{ old("num_formulaire_chorus") }}">
+								<label class="optional" for="numero_formulaire_chorus">Numéro de formulaire CHORUS</label>
+								<input id="numero_formulaire_chorus" class="form-control" name="numero_formulaire_chorus" type="text" placeholder="Ex: ..." value="{{ old("numero_formulaire_chorus") }}">
 							</div>
 
 							<div class="form-group">
-								<label class="optional" for="num_facture_chorus">Nom de facture CHROUS</label>
-								<input id="num_facture_chorus" class="form-control" name="num_facture_chorus" type="text" placeholder="Ex: ..." value="{{ old("num_facture_chorus") }}">
+								<label class="optional" for="numero_facture_chorus">Nom de facture CHROUS</label>
+								<input id="numero_facture_chorus" class="form-control" name="numero_facture_chorus" type="text" placeholder="Ex: ..." value="{{ old("numero_facture_chorus") }}">
 							</div>
 
 							<div class="form-group">
-								<label class="optional" for="num_ej">Numéro d'engagement juridique</label>
-								<input id="num_ej" class="form-control" name="num_ej" type="text" placeholder="Ex: ..." value="{{ old("num_ej") }}">
+								<label class="optional" for="numero_ej">Numéro d'engagement juridique</label>
+								<input id="numero_ej" class="form-control" name="numero_ej" type="text" placeholder="Ex: ..." value="{{ old("numero_ej") }}">
 							</div>
 
 							<div class="form-group">
@@ -100,8 +100,8 @@
 
 
 							<div class="form-group">
-								<label class="optional" for="num_serie">Numéro de série / Clé de produit</label>
-								<input id="num_serie" class="form-control" name="num_serie" type="text" placeholder="Ex: AAAA-BBBB-CCCC-DDDD" value="{{ old("num_serie") }}">
+								<label class="optional" for="numero_serie">Numéro de série / Clé de produit</label>
+								<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="Ex: AAAA-BBBB-CCCC-DDDD" value="{{ old("numero_serie") }}">
 							</div>
 
 							<div class="form-group">

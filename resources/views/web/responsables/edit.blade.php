@@ -62,7 +62,7 @@
 				@endcomponent
 
 				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le responsable }}</button>
+					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le responsable</button>
 					<button class="btn btn-sm btn-outline-success">Éditer</button>
 				</div>
 			</form>

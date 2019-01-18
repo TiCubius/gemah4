@@ -13,11 +13,12 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="E.g : Volé, Cassé" value="{{ old("libelle") }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Volé" value="{{ old("libelle") }}" required>
 				</div>
+
 				<div class="form-group">
 					<label for="couleur">Couleur</label>
-					<input id="couleur" class="form-control" name="couleur" type="color" placeholder="couleur" value="{{ old("couleur") }}" required>
+					<input id="couleur" class="form-control" name="couleur" type="color" value="{{ old("couleur") }}" required>
 				</div>
 
 				<div class="d-flex justify-content-center">

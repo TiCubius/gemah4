@@ -13,13 +13,13 @@
 				{{ method_field("put") }}
 
 				<div class="form-group">
-					<label for="nom">Nom de l'académie</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $academy->nom }}" required>
+					<label for="nom">Nom</label>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Académie de Lyon" value="{{ $academy->nom }}" required>
 				</div>
 
 
 				<div class="form-group">
-					<label for="region">Région de l'académie</label>
+					<label for="region">Région</label>
 					<select id="region" class="form-control" name="region" required>
 						<option value="" hidden>Sélectionner une Région</option>
 						@foreach($regions as $region)

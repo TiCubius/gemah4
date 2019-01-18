@@ -11,28 +11,28 @@
 				{{ csrf_field() }}
 
 				<div class="form-group">
-					<label for="nom">Nom de l'utilisateur</label>
+					<label for="nom">Nom</label>
 					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="form-group">
-					<label for="prenom">Prénom de l'utilisateur</label>
+					<label for="prenom">Prénom</label>
 					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ old("prenom") }}" required>
 				</div>
 
 
 				<div class="form-group">
-					<label for="email">Adresse E-Mail de l'utilisateur</label>
+					<label for="email">Adresse E-Mail</label>
 					<input id="email" class="form-control" name="email" type="email" placeholder="Adresse E-Mail" value="{{ old("email") }}" required>
 				</div>
 
 
 				<div class="form-group">
-					<label for="password">Mot de passe de l'utilisateur</label>
+					<label for="password">Mot de passe</label>
 					<input id="password" class="form-control" name="password" type="password" placeholder="Mot de passe" minlength="8" required>
 				</div>
 				<div class="form-group">
-					<label for="password_confirmation">Confirmation du mot de passe de l'utilisateur</label>
+					<label for="password_confirmation">Confirmation du mot de passe</label>
 					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Confirmation du mot de passe" required>
 				</div>
 
@@ -40,7 +40,7 @@
 				@endcomponent
 
 				<div class="form-group">
-					<label for="service">Service de l'utilisateur</label>
+					<label for="service">Service</label>
 					<select id="service" class="form-control" name="service" required>
 						<option value="" hidden>Sélectionner un Service</option>
 						@foreach($services as $service)

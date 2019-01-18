@@ -12,7 +12,7 @@
 				{{ method_field("put") }}
 
 				<div class="form-group">
-					<label for="nom">Nom de la région</label>
+					<label for="nom">Nom</label>
 					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $region->nom }}" required>
 				</div>
 

@@ -11,6 +11,7 @@
 				<div class="alert alert-warning">
 					Aucun département n'est enregistré sur l'application
 				</div>
+
 			@else
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
@@ -21,6 +22,7 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						@foreach($departements as $departement)
 							<tr>
@@ -31,6 +33,7 @@
 									<a href="{{ route("web.administrations.departements.edit", [$departement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+
 									<form action="{{ route("web.administrations.departements.destroy", [$departement]) }}" method="POST">
 										{{ csrf_field() }}
 										{{ method_field("DELETE") }}
@@ -41,6 +44,7 @@
 						@endforeach
 					</tbody>
 				</table>
+
 			@endif
 		</div>
 	</div>

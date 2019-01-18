@@ -16,7 +16,7 @@
 					@endcomponent
 
 					<div class="form-group">
-						<label class="optional" for="nom">Nom de l'établissement</label>
+						<label class="optional" for="nom">Nom</label>
 						<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
 					</div>
 

@@ -17,7 +17,7 @@
 						<div class="card-body">
 							<p class="mb-0">
 								<strong>N° de série</strong>:
-								{!! $stock->num_serie ?? '<span class="text-muted">Non rensigné</span>' !!}
+								{!! $stock->numero_serie ?? '<span class="text-muted">Non rensigné</span>' !!}
 							</p>
 
 							@if(!empty($stock->cle_produit))
@@ -59,7 +59,7 @@
 
 							<p class="mb-0">
 								<strong>N° de devis</strong>:
-								{!! $stock->num_devis ?? '<span class="text-muted">Non rensigné</span>' !!}
+								{!! $stock->numero_devis ?? '<span class="text-muted">Non rensigné</span>' !!}
 							</p>
 						</div>
 					</div>
@@ -72,17 +72,17 @@
 						<div class="card-body">
 							<p class="mb-0">
 								<strong>N° de facture CHORUS</strong>:
-								{!! $stock->num_facture_chorus ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->numero_facture_chorus ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
 								<strong>N° de formulaire CHORUS</strong>:
-								{!! $stock->num_formulaire_chorus ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->numero_formulaire_chorus ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
 								<strong>N° d'engagement juridique EJ</strong>:
-								{!! $stock->num_EJ  ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->numero_EJ  ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">

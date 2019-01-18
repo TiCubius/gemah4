@@ -36,7 +36,7 @@
 
 			<div class="col-sm-12 col-md-6">
 				<div class="form-group">
-					<label for="description">Description du document</label>
+					<label for="description">Description</label>
 					<input type="text" id="description" name="description" placeholder="Description du Document" class="form-control" value="{{ Session::get('_old_input')['description'] ?? '' }}">
 				</div>
 			</div>

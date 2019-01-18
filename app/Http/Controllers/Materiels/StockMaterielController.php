@@ -29,9 +29,9 @@ class StockMaterielController extends Controller
 			"etat_materiel_id",
 			"marque",
 			"modele",
-			"num_serie",
+			"numero_serie",
 		])) {
-			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->get();
+			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->get();
 		} else {
 			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
 			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
@@ -154,7 +154,7 @@ class StockMaterielController extends Controller
 			"numero_devis"             => "nullable",
 			"numero_formulaire_chorus" => "nullable",
 			"numero_facture_chorus"    => "nullable",
-			"num_ej"                   => "nullable",
+			"numero_ej"                => "nullable",
 			"date_ej"                  => "nullable",
 			"date_facture"             => "nullable",
 			"date_service_fait"        => "nullable",
@@ -166,7 +166,7 @@ class StockMaterielController extends Controller
 			"type_materiel_id",
 			"marque",
 			"modele",
-			"num_serie",
+			"numero_serie",
 			"nom_fournisseur",
 			"prix_ttc",
 			"etat_materiel_id",

@@ -21,6 +21,7 @@ class StockMaterielController extends Controller
 	 */
 	public function index(Request $request): View
 	{
+		$academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
@@ -31,13 +32,13 @@ class StockMaterielController extends Controller
 			"modele",
 			"numero_serie",
 		])) {
-			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->get();
+			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->with("eleve", "etat", "type")->get();
 		} else {
 			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
 			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
 		}
 
-		return view("web.materiels.stocks.index", compact("domaines", "etats", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
+		return view("web.materiels.stocks.index", compact("academies", "domaines", "etats", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
 	}
 
 	/**

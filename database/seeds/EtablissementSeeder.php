@@ -18,7 +18,7 @@ class EtablissementSeeder extends Seeder
 
 		$output = new ConsoleOutput();
 		$progress = new ProgressBar($output, count($etablissements));
-		$progress->setFormat("<fg=white> %current%/%max% [%bar%] %percent:3s%%\n  TIME: %elapsed:6s%\n  ETA: %estimated:-6s%");
+		$progress->setFormat("<fg=white> %current%/%max% [%bar%] %percent:3s%%\n  TIME: %elapsed:6s%\n  EST: %estimated:-6s% / ETA: %remaining:-6s%");
 		$progress->start();
 
 		foreach ($etablissements as $key => $etablissement) {

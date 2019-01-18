@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Scolarites\Affectations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academie;
 use App\Models\DomaineMateriel;
 use App\Models\Eleve;
 use App\Models\EtatMateriel;
@@ -23,20 +24,22 @@ class MaterielController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request): View
 	{
+		$academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
 		if ($request->exists([
+			"departement_id",
 			"type_materiel_id",
 			"etat_materiel_id",
 			"marque",
 			"modele",
 			"numero_serie",
 		])) {
-			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->where("eleve_id", null)->get();
+			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->where("eleve_id", null)->with("type", "etat")->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "searchedMateriels"));
+		return view("web.scolarites.eleves.affectations.materiels", compact("academies", "domaines", "eleve", "etats", "searchedMateriels"));
 	}
 
 

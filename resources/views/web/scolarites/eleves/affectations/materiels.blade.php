@@ -9,9 +9,14 @@
 		<div class="col-12">
 			<form class="card mb-3">
 				<div class="card-header gemah-bg-primary">Rechercher un matériel</div>
+
 				<div class="card-body">
+					@component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
+					@endcomponent
+
 					<div class="form-group">
 						<label class="optional" for="type_materiel_id">Type</label>
+
 						<select id="type_materiel_id" class="form-control" name="type_materiel_id">
 							<option value>Sélectionnez un type</option>
 							@foreach ($domaines as $domaine)
@@ -27,6 +32,7 @@
 							@endforeach
 						</select>
 					</div>
+
 					<div class="form-group">
 						<label class="optional" for="etat_materiel_id">État</label>
 						<select id="etat_materiel_id" class="form-control" name="etat_materiel_id">
@@ -40,14 +46,17 @@
 							@endforeach
 						</select>
 					</div>
+
 					<div class="form-group">
 						<label class="optional" for="marque">Marque</label>
 						<input id="marque" class="form-control" name="marque" type="text" placeholder="E.g : Asus" value="{{ Request::get("marque") }}">
 					</div>
+
 					<div class="form-group">
 						<label class="optional" for="modele">Modèle</label>
 						<input id="modele" class="form-control" name="modele" type="text" placeholder="E.g : ProBook 650 G3" value="{{ Request::get("modele") }}">
 					</div>
+
 					<div class="form-group">
 						<label class="optional" for="numero_serie">N° de Série</label>
 						<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
@@ -71,23 +80,61 @@
 					@endcomponent
 				</div>
 			@else
-				<div class="col-12">
+				<div class="col-12 mb-3">
+					<div class="card">
+						<div class="card-body">
+							Nombres de matériel : {{ count($searchedMateriels) }}
+							<ul class="mb-0">
+								@foreach($searchedMateriels->groupBy("etat_materiel_id") as $materiels)
+									<li>{{ count($materiels) }} {{ $materiels[0]->etat->libelle }}</li>
+								@endforeach
+								<li>
+									{{ count($searchedMateriels->where("eleve_id", "!=", null)) }} Affectés
+								</li>
+								<li>
+									{{ count($searchedMateriels->where("eleve_id", null)) }} Non affectés
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 table-responsive">
 					<table class="table table-hover text-center">
 						<thead class="gemah-bg-primary">
-							<tr>
-								<td>État</td>
-								<th>Marque</th>
-								<th>Modèle</th>
-								<th>Actions</th>
+							<tr class="text-center">
+								<th class="align-middle">État</th>
+								<th class="align-middle">Type</th>
+								<th class="align-middle">Marque</th>
+								<th class="align-middle">Modèle</th>
+								<th class="align-middle">N° de Série</th>
+								<th class="align-middle">Prix</th>
+								<th class="align-middle">Assigné à</th>
+								<th class="align-middle">Date de prêt</th>
+								<th class="align-middle">Actions</th>
 							</tr>
 						</thead>
+
 						<tbody>
 							@foreach($searchedMateriels as $materiel)
-								{{ debug($materiel) }}
 								<tr>
-									<td class="couleur" style="width: 57px; background:{{ $materiel->etat->couleur }}"></td>
+									<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etat->libelle }}" style="width: 57px; background:{{ $materiel->etat->couleur }}"></td>
+									<td>{{ $materiel->type->libelle }}</td>
 									<td>{{ $materiel->marque }}</td>
 									<td>{{ $materiel->modele }}</td>
+									<td>{{ $materiel->numero_serie }}</td>
+									<td>{{ $materiel->prix }}</td>
+									@if ($materiel->eleve)
+										<td>
+											<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">
+												{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}
+											</a>
+										</td>
+										<td>{{ \Carbon\Carbon::parse($materiel->date_pret)->format("d/m/Y") }}</td>
+									@else
+										<td></td>
+										<td></td>
+									@endif
 									<td>
 										<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 											{{ csrf_field() }}

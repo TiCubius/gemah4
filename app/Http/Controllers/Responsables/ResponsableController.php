@@ -19,14 +19,15 @@ class ResponsableController extends Controller
 	 */
 	public function index(Request $request): View
 	{
+        $academies = Academie::with("departements")->get();
 		$latestCreatedResponsables = Responsable::latestCreated()->take(10)->get();
 		$latestUpdatedResponsables = Responsable::latestUpdated()->take(10)->get();
 
-		if ($request->exists(["nom", "prenom", "email", "telephone"])) {
-			$searchedResponsables = Responsable::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"))->get();
+		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
+			$searchedResponsables = Responsable::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
 		}
 
-		return view("web.responsables.index", compact('latestCreatedResponsables', 'latestUpdatedResponsables', 'searchedResponsables'));
+		return view("web.responsables.index", compact('latestCreatedResponsables', 'latestUpdatedResponsables', 'searchedResponsables', 'academies'));
 	}
 
 	/**
@@ -74,17 +75,6 @@ class ResponsableController extends Controller
 		]));
 
 		return redirect(route("web.responsables.index"));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param Responsable $responsable
-	 * @return void
-	 */
-	public function show(Responsable $responsable)
-	{
-		//
 	}
 
 	/**

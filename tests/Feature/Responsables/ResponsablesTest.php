@@ -90,6 +90,7 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Responsable->nom}");
+        $request->assertSee("Département");
 		$request->assertSee("Nom");
 		$request->assertSee("Éditer");
 		$request->assertSee("Supprimer");

@@ -12,7 +12,8 @@ class Enseignant extends Model
         "nom",
         "prenom",
         "email",
-        "telephone"
+        "telephone",
+        "departement_id"
     ];
 
 
@@ -48,7 +49,7 @@ class Enseignant extends Model
 	 * @param string $telephone
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $nom, $prenom, $email, $telephone): Builder
+	public function scopeSearch($query, $nom, $prenom, $email, $telephone, $departementId): Builder
 	{
 		// Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
@@ -60,12 +61,27 @@ class Enseignant extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Responsables WHERE (nom LIKE "%--%" OR prenom LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		return $query->where(function($query) use ($nom, $prenom, $email, $telephone) {
-			$query->where("nom", "LIKE", "%{$nom}%")
-				->orWhere("prenom", "LIKE", "%{$prenom}%")
-				->orWhere("email", "LIKE", "%{$email}%")
-				->orWhere("telephone", "LIKE", "%{$telephone}%");
-		});
+        $search = $query->select('enseignants.*')->where(function ($query) use ($nom, $prenom, $email, $telephone){
+            if($nom != "--"){
+                $query= $query->orWhere("nom", "LIKE", "%{$nom}%");
+            }
+            if($prenom != "--"){
+                $query= $query->orWhere("prenom", "LIKE", "%{$prenom}%");
+            }
+            if($email != "--"){
+                $query= $query->orWhere("email", "LIKE", "%{$email}%");
+            }
+            if($telephone != "--"){
+                $query= $query->orWhere("telephone", "LIKE", "%{$telephone}%");
+            }
+        });
+
+        if ($departementId != "--") {
+            $search = $search->where("departement_id", $departementId);
+        }
+
+
+        return $search;
 	}
 
 }

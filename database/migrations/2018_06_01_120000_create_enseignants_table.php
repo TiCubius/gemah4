@@ -21,6 +21,9 @@ class CreateEnseignantsTable extends Migration
 			$table->string('prenom');
 			$table->string('email')->nullable();
 			$table->string('telephone')->nullable();
+			$table->string('departement_id');
+
+			$table->foreign('departement_id')->references('id')->on('departements');
 
 			$table->timestamps();
 		});

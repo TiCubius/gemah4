@@ -16,6 +16,7 @@ class Materiel extends Model
 		"marque",
 		"modele",
 		"numero_serie",
+        "cle_produit",
 		"nom_fournisseur",
 		"prix_ttc",
 		"etat_materiel_id",
@@ -93,7 +94,7 @@ class Materiel extends Model
 	 * @param        $numeroSerie
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $departementId, $typeId, $etatId, $marque, $modele, $numeroSerie): Builder
+	public function scopeSearch($query, $departementId, $typeId, $etatId, $marque, $modele, $numeroSerie, $cleProduit): Builder
 	{
 		// Dans le cas où la variable "type", "marque", "numero_serie" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
@@ -107,7 +108,8 @@ class Materiel extends Model
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
-		$search = $query->select('materiels.*')->join("etats_materiels", "materiels.etat_materiel_id", "etats_materiels.id")->where(function ($query) use ($typeId, $marque, $modele, $numeroSerie) {
+
+		$search = $query->select('materiels.*')->where(function ($query) use ($typeId, $marque, $modele, $numeroSerie, $cleProduit) {
 			if ($marque != "--") {
 				$query = $query->orWhere("marque", "LIKE", "%{$marque}%");
 			}
@@ -117,6 +119,9 @@ class Materiel extends Model
 			if ($numeroSerie != "--") {
 				$query = $query->orWhere("numero_serie", "LIKE", "%{$numeroSerie}%");
 			}
+            if ($cleProduit != "--") {
+                $query = $query->orWhere("numero_serie", "LIKE", "%{$cleProduit}%");
+            }
 		});
 
 		if ($departementId != "--") {

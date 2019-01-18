@@ -10,6 +10,9 @@
 			<form class="mb-3" action="{{ route("web.scolarites.enseignants.index") }}" method="POST">
 				{{ csrf_field() }}
 
+				@component("web._includes.components.departement", ["academies" => $academies])
+				@endcomponent
+
 				<div class="form-group">
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>

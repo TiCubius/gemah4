@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Scolarites\Affectations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use Illuminate\Http\RedirectResponse;
@@ -20,13 +21,14 @@ class ResponsableController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request): View
 	{
+        $academies = Academie::with("departements")->get();
 		$responsables = Responsable::notRelated($eleve);
 
-		if ($request->exists(["nom", "prenom", "email", "telephone"])) {
-			$searchedResponsables = $responsables->search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"))->get();
+		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
+			$searchedResponsables = $responsables->search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.responsables", compact("eleve", "latestCreatedResponsables", "latestUpdatedResponsables", "searchedResponsables"));
+		return view("web.scolarites.eleves.affectations.responsables", compact("eleve", "latestCreatedResponsables", "latestUpdatedResponsables", "searchedResponsables", "academies"));
 	}
 
 	/***

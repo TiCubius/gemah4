@@ -11,6 +11,9 @@
 				{{ csrf_field() }}
 				{{ method_field("PUT") }}
 
+				@component("web._includes.components.departement", ["academies" => $academies])
+				@endcomponent
+
 				<div class="form-group">
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>

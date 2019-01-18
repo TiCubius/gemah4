@@ -11,6 +11,9 @@
 				{{ csrf_field() }}
 				{{ method_field("PUT") }}
 
+				@component("web._includes.components.departement", ["academies" => $academies])
+				@endcomponent
+
 				<div class="form-group">
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>
@@ -57,9 +60,6 @@
 					<label class="optional" for="adresse">Adresse</label>
 					<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ $responsable->adresse }}">
 				</div>
-
-				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $responsable->departement_id])
-				@endcomponent
 
 				<div class="d-flex justify-content-between">
 					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le responsable</button>

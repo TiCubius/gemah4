@@ -21,6 +21,10 @@
 							<form class="card" method="GET">
 								<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
 								<div class="card-body">
+
+									@component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
+									@endcomponent
+
 									<div class="form-group">
 										<label class="optional" for="nom">Nom</label>
 										<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">

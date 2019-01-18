@@ -28,11 +28,11 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 		Route::resource("documents", "Scolarites\Documents\DocumentController");
 
 		Route::group(["prefix" => "/impressions", "as" => "impressions."], function () {
-			Route::get("autorisations", "Scolarites\ImpressionController@autorisations")->name("autorisations");
-			Route::get("consignes", "Scolarites\ImpressionController@consignes")->name("consignes");
-			Route::get("conventions", "Scolarites\ImpressionController@conventions")->name("conventions");
-			Route::get("recapitulatifs", "Scolarites\ImpressionController@recapitulatifs")->name("recapitulatifs");
-			Route::get("recuperations", "Scolarites\ImpressionController@recuperations")->name("recuperations");
+			Route::get("autorisations", "Scolarites\Documents\ImpressionController@autorisations")->name("autorisations");
+			Route::get("consignes", "Scolarites\Documents\ImpressionController@consignes")->name("consignes");
+			Route::get("conventions", "Scolarites\Documents\ImpressionController@conventions")->name("conventions");
+			Route::get("recapitulatifs", "Scolarites\Documents\ImpressionController@recapitulatifs")->name("recapitulatifs");
+			Route::get("recuperations", "Scolarites\Documents\ImpressionController@recuperations")->name("recuperations");
 		});
 
 		Route::group(["prefix" => "/documents", "as" => "documents."], function () {

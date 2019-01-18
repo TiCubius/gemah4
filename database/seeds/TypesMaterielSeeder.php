@@ -58,6 +58,7 @@ class TypesMaterielSeeder extends Seeder
 			"Medialexie",
 			"Tap'Touche",
             "Omnipage",
+            "Claroread",
 		],
 		"GEMAH2"       => [
 			"GEMAH2",

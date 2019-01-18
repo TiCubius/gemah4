@@ -31,8 +31,9 @@ class StockMaterielController extends Controller
 			"marque",
 			"modele",
 			"numero_serie",
+            "cle_produit",
 		])) {
-			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->with("eleve", "etat", "type")->get();
+			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->with("eleve", "etat", "type", "type.domaine")->get();
 		} else {
 			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
 			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();

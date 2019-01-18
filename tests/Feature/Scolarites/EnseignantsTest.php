@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Departement;
 use App\Models\Enseignant;
 use Tests\TestCase;
 
@@ -36,6 +37,7 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un enseignant");
+        $request->assertSee("Département");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
 		$request->assertSee("Adresse E-Mail");
@@ -72,6 +74,7 @@ class EnseignantsTest extends TestCase
 			"prenom"    => $Enseignant->prenom,
 			"email"     => $Enseignant->email,
 			"telephone" => $Enseignant->telephone,
+            "departement_id" => $Enseignant->departement_id
 		]);
 
 		$request->assertStatus(302);
@@ -84,6 +87,7 @@ class EnseignantsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEnseignantComplet()
 	{
+	    $departement = factory(Departement::class)->create();
 		$request = $this->post("/scolarites/enseignants", [
 			"_token"    => csrf_token(),
 			"civilite"  => "Mme",
@@ -91,6 +95,7 @@ class EnseignantsTest extends TestCase
 			"prenom"    => "unit.testing",
 			"email"     => "unit@testing.fr",
 			"telephone" => "0123456789",
+            "departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -110,6 +115,7 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Enseignant->nom}");
+		$request->assertSee("Département");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
 		$request->assertSee("Adresse E-Mail");
@@ -148,6 +154,7 @@ class EnseignantsTest extends TestCase
 			"prenom"    => $Enseignants[1]->prenom,
 			"email"     => $Enseignants[1]->email,
 			"telephone" => $Enseignants[1]->telephone,
+            "departement_id" => $Enseignants[1]->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -173,6 +180,7 @@ class EnseignantsTest extends TestCase
 			"prenom"    => $Enseignant->prenom,
 			"email"     => $Enseignant->email,
 			"telephone" => $Enseignant->telephone,
+            "departement_id" => $Enseignant->departement_id
 		]);
 
 		$request->assertStatus(302);
@@ -198,6 +206,7 @@ class EnseignantsTest extends TestCase
 			"prenom"    => "unit.testing",
 			"email"     => "unit@testing.fr",
 			"telephone" => "0123456789",
+            "departement_id" => $Enseignant->departement_id
 		]);
 
 		$request->assertStatus(302);

@@ -35,8 +35,9 @@ class MaterielController extends Controller
 			"marque",
 			"modele",
 			"numero_serie",
+            "cle_produit",
 		])) {
-			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"))->where("eleve_id", null)->with("type", "etat")->get();
+			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->where("eleve_id", null)->with("type", "etat")->get();
 		}
 
 		return view("web.scolarites.eleves.affectations.materiels", compact("academies", "domaines", "eleve", "etats", "searchedMateriels"));

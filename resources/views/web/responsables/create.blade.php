@@ -10,6 +10,9 @@
 			<form class="mb-3" action="{{ route("web.responsables.index") }}" method="POST">
 				{{ csrf_field() }}
 
+				@component("web._includes.components.departement", ["academies" => $academies])
+				@endcomponent
+
 				<div class="form-group">
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>
@@ -56,9 +59,6 @@
 					<label class="optional" for="adresse">Adresse</label>
 					<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}">
 				</div>
-
-				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
-				@endcomponent
 
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer</button>

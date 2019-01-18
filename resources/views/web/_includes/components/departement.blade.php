@@ -6,7 +6,7 @@
 	@endisset
 
 	<select id="departement_id" class="form-control" name="departement_id">
-		<option value="" hidden>Sélectionner un Département</option>
+		<option value="">Sélectionner un Département</option>
 
 		@foreach($academies as $academy)
 			<optgroup label="{{ $academy->nom }}">

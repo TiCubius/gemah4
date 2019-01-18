@@ -70,6 +70,11 @@
 							<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="Ex: 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
 						</div>
 
+							<div class="form-group">
+								<label class="optional" for="cle_produit">Clé de produit</label>
+								<input id="cle_produit" class="form-control" name="cle_produit" type="text" placeholder="Ex: 754W-8574-1456" value="{{ Request::get("cle_produit") }}">
+							</div>
+
 						<div class="d-flex justify-content-between">
 							<a href="{{ route("web.materiels.stocks.index") }}">
 								<button class="btn btn-outline-dark" type="button">Annuler la recherche</button>

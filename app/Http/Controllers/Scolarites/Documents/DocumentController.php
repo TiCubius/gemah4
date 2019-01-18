@@ -33,6 +33,17 @@ class DocumentController extends Controller
 	}
 
 	/**
+	 * PRIVATE - Supprime les accents
+	 *
+	 * @param $str
+	 * @return string
+	 */
+	private function stripAccents($str)
+	{
+		return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+	}
+
+	/**
 	 * GET - Affiche la liste des documents pour l'élève
 	 *
 	 * @param Eleve $eleve
@@ -190,7 +201,7 @@ class DocumentController extends Controller
 	public function download(Eleve $eleve, Document $document)
 	{
 		if ($document->eleve_id == $eleve->id) {
-			return Storage::download('public/documents/' . $document->path);
+			return Storage::download('public/documents/' . $document->path, $this->stripAccents($document->path));
 		}
 
 		return back()->withErrors("Ce document n'appartient pas cet élève");

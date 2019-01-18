@@ -51,11 +51,6 @@
 						@endforeach
 					</select>
 				</div>
-
-				<div class="form-group">
-					<label for="nom_suivi">Affaire suivie par</label>
-					<input type="text" id="nom_suivi" name="nom_suivi" placeholder="Ex: John SMITH" class="form-control" value="{{ Session::get('_old_input')['nom_suivi'] ?? '' }}">
-				</div>
 			</div>
 
 			<div class="col-sm-12">

@@ -35,7 +35,7 @@ class RegionsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'une région");
-		$request->assertSee("Nom de la région");
+		$request->assertSee("Nom");
 		$request->assertSee("Créer la région");
 	}
 
@@ -98,7 +98,7 @@ class RegionsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Region->nom}");
-		$request->assertSee("Nom de la région");
+		$request->assertSee("Nom");
 		$request->assertSee("Éditer la région");
 	}
 

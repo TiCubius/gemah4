@@ -16,7 +16,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="domaine">Domaine Matériel</label>
+					<label for="domaine">Domaine</label>
 					<select id="domaine" class="form-control" name="domaine" required>
 						<option value="" hidden>Sélectionner un Domaine</option>
 						@foreach($domaines as $domaine)

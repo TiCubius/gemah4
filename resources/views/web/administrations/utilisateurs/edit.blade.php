@@ -32,7 +32,7 @@
 				@endcomponent
 
 				<div class="form-group">
-					<label for="service">Service de l'utilisateur</label>
+					<label for="service">Service</label>
 					<select id="service" class="form-control" name="service" required>
 						<option hidden>Sélectionner un Service</option>
 						@foreach($services as $service)

@@ -38,8 +38,8 @@ class AcademiesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'une académie");
-		$request->assertSee("Nom de l'académie");
-		$request->assertSee("Région de l'académie");
+		$request->assertSee("Nom");
+		$request->assertSee("Région");
 		$request->assertSee("Créer l'académie");
 	}
 
@@ -108,7 +108,7 @@ class AcademiesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Academie->nom}");
-		$request->assertSee("Nom de l'académie");
+		$request->assertSee("Nom");
 		$request->assertSee("Éditer l'académie");
 	}
 

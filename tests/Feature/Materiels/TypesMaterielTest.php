@@ -42,7 +42,7 @@ class TypesMaterielTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type matériel");
 		$request->assertSee("Libellé");
-		$request->assertSee("Domaine Matériel");
+		$request->assertSee("Domaine");
 		$request->assertSee("Créer le type");
 	}
 
@@ -113,7 +113,7 @@ class TypesMaterielTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Type->libelle}");
 		$request->assertSee("Libellé");
-		$request->assertSee("Domaine Matériel");
+		$request->assertSee("Domaine");
 		$request->assertSee("Éditer le type");
 		$request->assertSee("Supprimer le type");
 	}

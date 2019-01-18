@@ -30,7 +30,7 @@
 
 				<div>
 					<div class="form-group">
-						<label for="date_limite">Date limite de la décision</label>
+						<label for="date_limite">Date limite</label>
 						<input type="date" id="date_limite" name="date_limite" placeholder="Date limite de la décision" class="form-control" value="{{ $decision->date_limite ? $decision->date_limite->format('Y-m-d') : '' }}">
 					</div>
 				</div>

@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 class TypesDocumentSeeder extends Seeder
 {
-
 	protected $types = [
 		"Décision",
 		"Autre",

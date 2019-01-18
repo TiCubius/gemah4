@@ -11,6 +11,7 @@
 				<div class="alert alert-warning">
 					Aucun type d'établissement n'est enregistré sur l'application
 				</div>
+
 			@else
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
@@ -19,6 +20,7 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						@foreach($typeEtablissements as $typeEtablissement)
 							<tr>

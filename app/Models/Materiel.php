@@ -15,14 +15,14 @@ class Materiel extends Model
         "departement_id",
 		"marque",
 		"modele",
-		"num_serie",
+		"numero_serie",
 		"nom_fournisseur",
 		"prix_ttc",
 		"etat_materiel_id",
-		"num_devis",
-		"num_formulaire_chorus",
-		"num_facture_chorus",
-		"num_ej",
+		"numero_devis",
+		"numero_formulaire_chorus",
+		"numero_facture_chorus",
+		"numero_ej",
 		"date_ej",
 		"date_facture",
 		"date_service_fait",
@@ -82,37 +82,37 @@ class Materiel extends Model
 		return $query->orderBy("updated_at", "DESC")->with("etat");
 	}
 
-	/**
-	 * Effectue une recherce sur le matériel
-	 *
-	 * @param        $query
-	 * @param        $typeId
-	 * @param        $etatId
-	 * @param        $marque
-	 * @param        $modele
-	 * @param        $numSerie
-	 * @return Builder
-	 */
-	public function scopeSearch($query, $typeId, $etatId, $marque, $modele, $numSerie): Builder
+    /**
+     * Effectue une recherce sur le matériel
+     *
+     * @param        $query
+     * @param        $typeId
+     * @param        $etatId
+     * @param        $marque
+     * @param        $modele
+     * @param        $numeroSerie
+     * @return Builder
+     */
+	public function scopeSearch($query, $typeId, $etatId, $marque, $modele, $numeroSerie): Builder
 	{
-		// Dans le cas où la variable "type", "marque", "num_serie" est vide, on souhaite ignorer le champs
+		// Dans le cas où la variable "type", "marque", "numero_serie" est vide, on souhaite ignorer le champs
 		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
 		$typeId = $typeId ?? "--";
 		$etatId = $etatId ?? "--";
 		$marque = $marque ?? "--";
 		$modele = $modele ?? "--";
-		$numSerie = $numSerie ?? "--";
+		$numeroSerie = $numeroSerie ?? "--";
 
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
 		return $query->select('materiels.*')
 			->join("etats_materiels", "materiels.etat_materiel_id", "etats_materiels.id")
-			->where(function($query) use ($typeId, $marque, $modele, $numSerie) {
+			->where(function($query) use ($typeId, $marque, $modele, $numeroSerie) {
 				$query->where("type_materiel_id", $typeId)
 					->orWhere("marque", "LIKE", "%{$marque}%")
 					->orWhere("modele", "LIKE", "%{$modele}%")
-					->orWhere("num_serie", "LIKE", "%{$numSerie}%");
+					->orWhere("numero_serie", "LIKE", "%{$numeroSerie}%");
 			})
 			->orWhere("etat_materiel_id", $etatId);
 	}

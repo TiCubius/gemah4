@@ -12,8 +12,9 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Libellé" value="{{ old("Libellé") }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Matériel" value="{{ old("Libellé") }}" required>
 				</div>
+
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer le type d'élève</button>
 				</div>

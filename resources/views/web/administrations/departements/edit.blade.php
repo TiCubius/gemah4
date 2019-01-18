@@ -14,12 +14,12 @@
 
 				<div class="form-group">
 					<label for="id">Code</label>
-					<input id="id" class="form-control" name="id" type="text" placeholder="Code" value="{{ $departement->id }}" required>
+					<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 42" value="{{ $departement->id }}" required>
 				</div>
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $departement->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Loire" value="{{ $departement->nom }}" required>
 				</div>
 
 

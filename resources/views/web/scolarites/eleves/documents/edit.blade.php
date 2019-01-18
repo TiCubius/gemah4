@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="form-group">
-					<label for="type">Type de Document</label>
+					<label for="type">Type</label>
 					<select name="type" id="type" class="form-control" required>
 						<option disabled value="MDPH">Décision MDPH</option>
 						<option selected value="autre">Autre</option>
@@ -27,14 +27,14 @@
 
 			<div class="col-sm-12 col-md-6 js-other">
 				<div class="form-group">
-					<label for="nom">Nom du document</label>
+					<label for="nom">Nom</label>
 					<input type="text" id="nom" name="nom" placeholder="Nom du Document" class="form-control" value="{{ $document->nom ?? '' }}">
 				</div>
 			</div>
 
 			<div class="col-sm-12 col-md-6 js-other">
 				<div class="form-group">
-					<label for="description">Description du document</label>
+					<label for="description">Description</label>
 					<input type="text" id="description" name="description" placeholder="Description du Document" class="form-control" value="{{ $document->description ?? '' }}">
 				</div>
 			</div>

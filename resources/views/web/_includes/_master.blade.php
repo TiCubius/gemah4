@@ -13,6 +13,7 @@
 
 		<title>{{ $title ?? 'GEMAH' }}</title>
 	</head>
+
 	<body>
 		<div class="navbar_message">
 			ATTENTION: Toutes modifications sur cette version de GEMAH ne sera pas sauvegardée !
@@ -29,6 +30,7 @@
 						</div>
 					@endif
 				</div>
+
 				<div class="col-12 col-xl-10">
 					@include("web._includes.flash")
 					@yield("content")

@@ -24,7 +24,7 @@
 				</div>
 
 				<div class="form-group">
-					<label class="optional" for="date_limite">Date limite de la décision</label>
+					<label class="optional" for="date_limite">Date limite</label>
 					<input type="date" id="date_limite" name="date_limite" placeholder="Date limite de la décision" class="form-control" value="{{ Session::get('_old_input')['date_limite'] ?? '' }}">
 				</div>
 

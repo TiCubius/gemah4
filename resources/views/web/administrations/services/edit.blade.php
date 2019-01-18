@@ -12,12 +12,12 @@
 				{{ method_field("put") }}
 
 				<div class="form-group">
-					<label for="nom">Nom du service</label>
+					<label for="nom">Nom</label>
 					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $service->nom }}" required>
 				</div>
 
 				<div class="form-group">
-					<label for="description">Description du service</label>
+					<label for="description">Description</label>
 					<input id="description" class="form-control" name="description" type="text" placeholder="Description" value="{{ $service->description }}" required>
 				</div>
 

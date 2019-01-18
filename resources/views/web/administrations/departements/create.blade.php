@@ -13,12 +13,12 @@
 
 				<div class="form-group">
 					<label for="id">Code</label>
-					<input id="id" class="form-control" name="id" type="text" placeholder="Code" value="{{ old("id") }}" required>
+					<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 42" value="{{ old("id") }}" required>
 				</div>
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Loire" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="form-group">

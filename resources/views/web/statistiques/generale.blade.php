@@ -12,8 +12,8 @@
                     <div class="card-header gemah-bg-primary">
                         Recherche :
                         <a data-toggle="collapse" href="#option_recherche" aria-expanded="true"
-                           aria-controls="option_recherche" id="recherche">
-                            <i class="fa fa-chevron-down pull-right">...</i>
+                           aria-controls="option_recherche" id="recherche" style="text-decoration:none; color:#FFFFFF">
+                            <i class="fa fa-chevron-down pull-right"></i>
                         </a>
                     </div>
 
@@ -69,8 +69,8 @@
                     <div class="card-header gemah-bg-primary">
                         Filtres :
                         <a data-toggle="collapse" href="#option_filtre" aria-expanded="true"
-                           aria-controls="option_filtre" id="filtre">
-                            <i class="fa fa-chevron-down pull-right">...</i>
+                           aria-controls="option_filtre" id="filtre" style="text-decoration:none; color:#FFFFFF">
+                            <i class="fa fa-chevron-down pull-right"></i>
                         </a>
                     </div>
                     <div id="option_filtre" class="collapse show" aria-labelledby="filtre">

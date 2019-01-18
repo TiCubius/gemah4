@@ -49,6 +49,7 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"      => "required|max:191",
 			"prenom"   => "required|max:191",
+			"pseudo"   => "required|max:191",
 			"email"    => "required|max:191|email|unique:utilisateurs",
 			"password" => "required|min:8|confirmed",
 			"service"  => "required|exists:services,id",
@@ -57,6 +58,7 @@ class UtilisateurController extends Controller
 		Utilisateur::create([
 			"nom"        => $request->input("nom"),
 			"prenom"     => $request->input("prenom"),
+			"pseudo"     => $request->input("pseudo"),
 			"email"      => $request->input("email"),
 			"password"   => Hash::make($request->input("password")),
 			"service_id" => $request->input("service"),
@@ -102,6 +104,7 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"     => "required|max:191",
 			"prenom"  => "required|max:191",
+			"pseudo"  => "required|max:191",
 			"email"   => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
 			"service" => "required|exists:services,id",
 		]);

@@ -35,9 +35,9 @@
             </div>
 
             <div class="form-label-group">
-                <input id="inputEmail" class="form-control" name="email" type="email" placeholder="Adresse mail"
+                <input id="pseudo" class="form-control" name="pseudo" type="pseudo" placeholder="Adresse mail"
                        required autofocus>
-                <label for="inputEmail"> Adresse mail</label>
+                <label for="pseudo">Pseudo</label>
             </div>
 
             <div class="form-label-group">

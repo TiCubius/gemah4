@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Administrations\Types;
 
 use App\Http\Controllers\Controller;
-use App\Models\Academie;
-use App\Models\Departement;
 use App\Models\TypeEleve;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,7 +42,7 @@ class TypeEleveController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			"libelle"         => "required|max:191|unique:types_eleves,libelle",
+			"libelle" => "required|max:191|unique:types_eleves,libelle",
 		]);
 
 		TypeEleve::create($request->only(["libelle"]));
@@ -63,24 +61,24 @@ class TypeEleveController extends Controller
 		//
 	}
 
-    /**
-     * GET - Affiche le formulaire d'édition d'un type_eleve
-     *
-     * @param TypeEleve $type
-     * @return View
-     */
+	/**
+	 * GET - Affiche le formulaire d'édition d'un type_eleve
+	 *
+	 * @param TypeEleve $type
+	 * @return View
+	 */
 	public function edit(TypeEleve $type): View
 	{
 		return view("web.administrations.eleves.types.edit", compact("type"));
 	}
 
-    /**
-     * PUT - Enregistre les modifications apportés au type_eleve
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param TypeEleve $type
-     * @return RedirectResponse
-     */
+	/**
+	 * PUT - Enregistre les modifications apportés au type_eleve
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 * @param TypeEleve                 $type
+	 * @return RedirectResponse
+	 */
 	public function update(Request $request, TypeEleve $type): RedirectResponse
 	{
 		$request->validate([
@@ -101,12 +99,11 @@ class TypeEleveController extends Controller
 	 */
 	public function destroy(TypeEleve $type): RedirectResponse
 	{
-	    if ($type->eleves->isNotEmpty()) {
-            return back()->withErrors("Le type que vous essayez de supprimer est associer a un ou plusieurs élèves");
-        }
-	    else {
-            $type->delete();
-            return redirect(route("web.administrations.eleves.types.index"));
-        }
+		if ($type->eleves->isNotEmpty()) {
+			return back()->withErrors("Le type que vous essayez de supprimer est associer a un ou plusieurs élèves");
+		} else {
+			$type->delete();
+			return redirect(route("web.administrations.eleves.types.index"));
+		}
 	}
 }

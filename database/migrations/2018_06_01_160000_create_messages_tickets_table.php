@@ -13,7 +13,7 @@ class CreateMessagesTicketsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('messages_tickets', function(Blueprint $table) {
+		Schema::create('messages_tickets', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->unsignedInteger('ticket_id');

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateEtablissementsTable extends Migration
 {
@@ -13,25 +13,25 @@ class CreateEtablissementsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('etablissements', function(Blueprint $table) {
+		Schema::create('etablissements', function (Blueprint $table) {
 			$table->string('id');
 
 			$table->unsignedInteger('enseignant_id')->nullable();
-            $table->unsignedInteger('type_etablissement_id');
-            $table->string('departement_id');
-            $table->string('nom');
-            $table->string('degre');
-            $table->string('regime');
-            $table->string('adresse')->nullable();
-            $table->string('code_postal');
-            $table->string('ville');
-            $table->string('telephone')->nullable();
+			$table->unsignedInteger('type_etablissement_id');
+			$table->string('departement_id');
+			$table->string('nom');
+			$table->string('degre');
+			$table->string('regime');
+			$table->string('adresse')->nullable();
+			$table->string('code_postal');
+			$table->string('ville');
+			$table->string('telephone')->nullable();
 
-            $table->primary('id');
+			$table->primary('id');
 			$table->foreign('enseignant_id')->references('id')->on('enseignants');
 			$table->foreign('type_etablissement_id')->references('id')->on('types_etablissements');
-            $table->foreign('departement_id')->references('id')->on('departements');
-            $table->timestamps();
+			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->timestamps();
 		});
 	}
 

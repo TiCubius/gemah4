@@ -11,69 +11,73 @@
 |
 */
 
-use Barryvdh\DomPDF\PDF;
-
 Route::get('/', 'GemahController@index')->name('web.index');
 
 Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {
-	Route::resource("/", "Scolarite\ScolariteController")->only("index");
+	Route::resource("/", "Scolarites\ScolariteController")->only("index");
 
 	// En anglais, le singulier de '...ves' is 'fe'
 	// Exemple: multiples lives -> one life
 	// Par conséquent, le paramètre par défaut était elefe (Laravel 5.7)
-	Route::resource("eleves", "Scolarite\EleveController")->parameters([
-		'eleves' => 'eleve'
+	Route::resource("eleves", "Scolarites\EleveController")->parameters([
+		'eleves' => 'eleve',
 	]);
 
 	Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
-		Route::resource("tickets", "Scolarite\TicketController");
-		Route::resource("documents", "Scolarite\Documents\DocumentController");
+		Route::resource("tickets", "Scolarites\TicketController");
+		Route::resource("documents", "Scolarites\Documents\DocumentController");
 
 		Route::group(["prefix" => "/impressions", "as" => "impressions."], function () {
-			Route::get("autorisations", "Scolarite\ImpressionController@autorisations")->name("autorisations");
-			Route::get("consignes", "Scolarite\ImpressionController@consignes")->name("consignes");
-			Route::get("conventions", "Scolarite\ImpressionController@conventions")->name("conventions");
-			Route::get("recapitulatifs", "Scolarite\ImpressionController@recapitulatifs")->name("recapitulatifs");
-			Route::get("recuperations", "Scolarite\ImpressionController@recuperations")->name("recuperations");
+			Route::get("autorisations", "Scolarites\ImpressionController@autorisations")->name("autorisations");
+			Route::get("consignes", "Scolarites\ImpressionController@consignes")->name("consignes");
+			Route::get("conventions", "Scolarites\ImpressionController@conventions")->name("conventions");
+			Route::get("recapitulatifs", "Scolarites\ImpressionController@recapitulatifs")->name("recapitulatifs");
+			Route::get("recuperations", "Scolarites\ImpressionController@recuperations")->name("recuperations");
 		});
 
-        Route::group(["prefix" => "/documents", "as" => "documents."], function () {
-            Route::resource("decisions", "Scolarite\Documents\DecisionController");
-            Route::get("/decisions/{decision}/download", "Scolarite\Documents\DecisionController@download")->name("decisions.download");
-            Route::get("/{document}/download", "Scolarite\Documents\DocumentController@download")->name("download");
-        });
+		Route::group(["prefix" => "/documents", "as" => "documents."], function () {
+			Route::resource("decisions", "Scolarites\Documents\DecisionController");
+			Route::get("/decisions/{decision}/download", "Scolarites\Documents\DecisionController@download")->name("decisions.download");
+			Route::get("/{document}/download", "Scolarites\Documents\DocumentController@download")->name("download");
+		});
 
 		// Liste du matériel de l'élève
-		Route::get("/materiels", "Scolarite\EleveController@materiels")->name("materiels");
+		Route::get("/materiels", "Scolarites\EleveController@materiels")->name("materiels");
 
 		Route::group(["prefix" => "tickets/{ticket}", "as" => "tickets."], function () {
-			Route::resource("messages", "Scolarite\TicketMessageController")->only(["store", "edit", "update", "destroy"]);
+			Route::resource("messages", "Scolarites\TicketMessageController")->only(["store", "edit", "update", "destroy"]);
 		});
 	});
 
-	Route::resource("enseignants", "Scolarite\EnseignantController");
-	Route::resource("etablissements", "Scolarite\EtablissementController");
+	Route::resource("enseignants", "Scolarites\EnseignantController");
+	Route::resource("etablissements", "Scolarites\EtablissementController");
 
-	Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
+	Route::group([
+		"prefix" => "eleves/{eleve}/affectations",
+		"as"     => "eleves.affectations.",
+	], function () {
 		//Affectation d'un établissement
-		Route::group(["prefix" => "etablissements", "as" => "etablissements."], function () {
-			Route::get("/", "Scolarite\Affectations\EtablissementController@index")->name("index");
-			Route::post("/{etablissement}", "Scolarite\Affectations\EtablissementController@attach")->name("attach");
-			Route::delete("/{etablissement}", "Scolarite\Affectations\EtablissementController@detach")->name("detach");
+		Route::group([
+			"prefix" => "etablissements",
+			"as"     => "etablissements.",
+		], function () {
+			Route::get("/", "Scolarites\Affectations\EtablissementController@index")->name("index");
+			Route::post("/{etablissement}", "Scolarites\Affectations\EtablissementController@attach")->name("attach");
+			Route::delete("/{etablissement}", "Scolarites\Affectations\EtablissementController@detach")->name("detach");
 		});
 
 		//Affectation d'un matériel
 		Route::group(["prefix" => "materiels", "as" => "materiels."], function () {
-			Route::get("/", "Scolarite\Affectations\MaterielController@index")->name("index");
-			Route::post("/{materiel}", "Scolarite\Affectations\MaterielController@attach")->name("attach");
-			Route::delete("/{materiel}", "Scolarite\Affectations\MaterielController@detach")->name("detach");
+			Route::get("/", "Scolarites\Affectations\MaterielController@index")->name("index");
+			Route::post("/{materiel}", "Scolarites\Affectations\MaterielController@attach")->name("attach");
+			Route::delete("/{materiel}", "Scolarites\Affectations\MaterielController@detach")->name("detach");
 		});
 
 		// Affectation d'un responsable
 		Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
-			Route::get("/", "Scolarite\Affectations\ResponsableController@index")->name("index");
-			Route::post("{responsable}", "Scolarite\Affectations\ResponsableController@attach")->name("attach");
-			Route::delete("{responsable}", "Scolarite\Affectations\ResponsableController@detach")->name("detach");
+			Route::get("/", "Scolarites\Affectations\ResponsableController@index")->name("index");
+			Route::post("{responsable}", "Scolarites\Affectations\ResponsableController@attach")->name("attach");
+			Route::delete("{responsable}", "Scolarites\Affectations\ResponsableController@detach")->name("detach");
 		});
 	});
 });
@@ -90,7 +94,10 @@ Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function () {
 	Route::resource("stocks", "Materiels\StockMaterielController");
 });
 
-Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function () {
+Route::group([
+	"prefix" => "/administrations",
+	"as"     => "web.administrations.",
+], function () {
 	Route::resource("/", "Administrations\AdministrationController")->only("index");
 
 	Route::resource("departements", "Administrations\DepartementController");
@@ -112,14 +119,14 @@ Route::group(["prefix" => "/administrations", "as" => "web.administrations."], f
 		Route::resource("etats", "Administrations\Materiels\EtatMaterielController");
 	});
 
-	Route::group(["prefix" => "/types", "as" => "types."], function (){
-	    Route::resource("tickets", "Administrations\Types\TypeTicketController");
-    });
+	Route::group(["prefix" => "/types", "as" => "types."], function () {
+		Route::resource("tickets", "Administrations\Types\TypeTicketController");
+	});
 });
 
-Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function (){
-    Route::get("/", "Responsables\ConventionController@index")->name("index");
-    Route::patch("/", "Responsables\ConventionController@update")->name("update");
-    Route::get("signatures_effectues", "Responsables\ConventionController@signatures_effectues")->name("signatures_effectues");
-    Route::get("signatures_manquantes", "Responsables\ConventionController@signatures_manquantes")->name("signatures_manquantes");
+Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function () {
+	Route::get("/", "Responsables\ConventionController@index")->name("index");
+	Route::patch("/", "Responsables\ConventionController@update")->name("update");
+	Route::get("signatures_effectues", "Responsables\ConventionController@signatures_effectues")->name("signatures_effectues");
+	Route::get("signatures_manquantes", "Responsables\ConventionController@signatures_manquantes")->name("signatures_manquantes");
 });

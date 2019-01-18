@@ -152,7 +152,10 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("enseignants", ["nom" => $Enseignants[0]->nom, "prenom" => $Enseignants[0]->prenom]);
+		$this->assertDatabaseHas("enseignants", [
+			"nom"    => $Enseignants[0]->nom,
+			"prenom" => $Enseignants[0]->prenom,
+		]);
 	}
 
 	/**
@@ -174,7 +177,10 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("enseignants", ["nom" => $Enseignant->nom, "prenom" => $Enseignant->prenom]);
+		$this->assertDatabaseHas("enseignants", [
+			"nom"    => $Enseignant->nom,
+			"prenom" => $Enseignant->prenom,
+		]);
 	}
 
 	/**

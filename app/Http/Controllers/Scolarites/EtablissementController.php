@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite;
+namespace App\Http\Controllers\Scolarites;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
@@ -27,9 +27,14 @@ class EtablissementController extends Controller
 		$latestCreatedEtablissements = Etablissement::latestCreated()->take(10)->get();
 		$latestUpdatedEtablissements = Etablissement::latestUpdated()->take(10)->get();
 
-		if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
-			$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))
-				->get();
+		if ($request->exists([
+			"departement_id",
+			"type_etablissement_id",
+			"nom",
+			"ville",
+			"telephone",
+		])) {
+			$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
 		}
 
 		return view("web.scolarites.etablissements.index", compact("academies", "latestCreatedEtablissements", "latestUpdatedEtablissements", "searchedEtablissements", "types"));

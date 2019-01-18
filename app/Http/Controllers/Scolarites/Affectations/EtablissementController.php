@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite\Affectations;
+namespace App\Http\Controllers\Scolarites\Affectations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
@@ -25,8 +25,7 @@ class EtablissementController extends Controller
 			$academies = Academie::with("departements")->get();
 
 			if ($request->exists(["nom", "ville", "telephone"])) {
-				$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))
-					->get();
+				$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
 			}
 
 			return view("web.scolarites.eleves.affectations.etablissements", compact("eleve", "academies", "searchedEtablissements"));

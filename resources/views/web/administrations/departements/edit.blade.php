@@ -29,7 +29,7 @@
 						<option value="" hidden>Sélectionner une Académie</option>
 						@foreach($academies as $academie)
 							@if ($departement->academie_id == $academie->id))
-								<option selected value="{{ $academie->id }}">{{ $academie->nom }}</option>
+							<option selected value="{{ $academie->id }}">{{ $academie->nom }}</option>
 							@else
 								<option value="{{ $academie->id }}">{{ $academie->nom }}</option>
 							@endif

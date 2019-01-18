@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Eleve;
 use App\Models\Departement;
+use App\Models\Eleve;
 use App\Models\Responsable;
-use Carbon\Carbon;
 use Tests\TestCase;
 
 class ResponsablesTest extends TestCase
@@ -56,7 +55,7 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-	}   
+	}
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Responsable à bien été créée lors de la soumissions d'un
@@ -64,14 +63,14 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationResponsableComplet()
 	{
-        $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 
 		$request = $this->post("/responsables", [
-			"_token"   => csrf_token(),
-			"civilite" => "M.",
-			"nom"      => "unit.testing",
-			"prenom"   => "unit.testing",
-            "departement_id" => $departement->id
+			"_token"         => csrf_token(),
+			"civilite"       => "M.",
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -120,17 +119,18 @@ class ResponsablesTest extends TestCase
 		$Responsable = factory(Responsable::class)->create();
 
 		$request = $this->put("/responsables/{$Responsable->id}", [
-			"_token"   => csrf_token(),
-			"civilite" => $Responsable->civilite,
-			"nom"      => $Responsable->nom,
-			"prenom"   => $Responsable->prenom,
-            "departement_id" => $Responsable->departement_id
+			"_token"         => csrf_token(),
+			"civilite"       => $Responsable->civilite,
+			"nom"            => $Responsable->nom,
+			"prenom"         => $Responsable->prenom,
+			"departement_id" => $Responsable->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("responsables", ["nom"    => $Responsable->nom,
-		                                          "prenom" => $Responsable->prenom,
+		$this->assertDatabaseHas("responsables", [
+			"nom"    => $Responsable->nom,
+			"prenom" => $Responsable->prenom,
 		]);
 	}
 
@@ -140,21 +140,22 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionResponsableCompletAvecModification()
 	{
-        $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 		$Responsable = factory(Responsable::class)->create();
 
 		$request = $this->put("/responsables/{$Responsable->id}", [
-			"_token"   => csrf_token(),
-			"civilite" => "M.",
-			"nom"      => "unit.testing",
-			"prenom"   => "unit.testing",
-            "departement_id" => $departement->id
+			"_token"         => csrf_token(),
+			"civilite"       => "M.",
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("responsables", ["nom"    => "unit.testing",
-		                                          "prenom" => "unit.testing",
+		$this->assertDatabaseHas("responsables", [
+			"nom"    => "unit.testing",
+			"prenom" => "unit.testing",
 		]);
 	}
 
@@ -185,8 +186,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("responsables", ["nom"    => $Responsable->nom,
-		                                              "prenom" => $Responsable->prenom,
+		$this->assertDatabaseMissing("responsables", [
+			"nom"    => $Responsable->nom,
+			"prenom" => $Responsable->prenom,
 		]);
 	}
 
@@ -204,8 +206,9 @@ class ResponsablesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("responsables", ["nom"    => $responsable->nom,
-		                                          "prenom" => $responsable->prenom,
+		$this->assertDatabaseHas("responsables", [
+			"nom"    => $responsable->nom,
+			"prenom" => $responsable->prenom,
 		]);
 	}
 

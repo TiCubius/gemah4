@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite\Affectations;
+namespace App\Http\Controllers\Scolarites\Affectations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
@@ -23,8 +23,7 @@ class ResponsableController extends Controller
 		$responsables = Responsable::notRelated($eleve);
 
 		if ($request->exists(["nom", "prenom", "email", "telephone"])) {
-			$searchedResponsables = $responsables->search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"))
-				->get();
+			$searchedResponsables = $responsables->search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"))->get();
 		}
 
 		return view("web.scolarites.eleves.affectations.responsables", compact("eleve", "latestCreatedResponsables", "latestUpdatedResponsables", "searchedResponsables"));

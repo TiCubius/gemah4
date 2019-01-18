@@ -44,12 +44,12 @@ class TypeMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"libelle"     => "required|max:191|unique:types_materiels",
+			"libelle" => "required|max:191|unique:types_materiels",
 			"domaine" => "required|exists:domaines_materiels,id",
 		]);
 
 		TypeMateriel::create([
-			"libelle"        => $request->input("libelle"),
+			"libelle"    => $request->input("libelle"),
 			"domaine_id" => $request->input("domaine"),
 		]);
 
@@ -90,12 +90,12 @@ class TypeMaterielController extends Controller
 	public function update(Request $request, TypeMateriel $type): RedirectResponse
 	{
 		$request->validate([
-			"libelle"     => "required|max:191|unique:types_materiels,libelle,{$type->id}",
+			"libelle" => "required|max:191|unique:types_materiels,libelle,{$type->id}",
 			"domaine" => "required|exists:domaines_materiels,id",
 		]);
 
 		$type->update([
-			"libelle"        => $request->input("libelle"),
+			"libelle"    => $request->input("libelle"),
 			"domaine_id" => $request->input("domaine"),
 		]);
 

@@ -36,7 +36,7 @@ class ResponsableController extends Controller
 	 */
 	public function create(): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 
 		return view("web.responsables.create", compact("academies"));
 	}
@@ -50,15 +50,15 @@ class ResponsableController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"civilite"    => "required",
-			"nom"         => "required|max:191",
-			"prenom"      => "required|max:191",
-			"email"       => "nullable|email|max:191",
-			"telephone"   => "nullable",
-			"code_postal" => "nullable|max:191",
-			"ville"       => "nullable|max:191",
-			"adresse"     => "nullable|max:191",
-            "departement_id" => "required",
+			"civilite"       => "required",
+			"nom"            => "required|max:191",
+			"prenom"         => "required|max:191",
+			"email"          => "nullable|email|max:191",
+			"telephone"      => "nullable",
+			"code_postal"    => "nullable|max:191",
+			"ville"          => "nullable|max:191",
+			"adresse"        => "nullable|max:191",
+			"departement_id" => "required",
 		]);
 
 		Responsable::create($request->only([
@@ -70,7 +70,7 @@ class ResponsableController extends Controller
 			"code_postal",
 			"ville",
 			"adresse",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.responsables.index"));
@@ -95,7 +95,7 @@ class ResponsableController extends Controller
 	 */
 	public function edit(Responsable $responsable): View
 	{
-	    $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 
 		return view("web.responsables.edit", compact("responsable", "academies"));
 	}
@@ -110,15 +110,15 @@ class ResponsableController extends Controller
 	public function update(Request $request, Responsable $responsable): RedirectResponse
 	{
 		$request->validate([
-			"civilite"    => "required",
-			"nom"         => "required|max:191",
-			"prenom"      => "required|max:191",
-			"email"       => "nullable|email|max:191",
-			"telephone"   => "nullable",
-			"code_postal" => "nullable|max:191",
-			"ville"       => "nullable|max:191",
-			"adresse"     => "nullable|max:191",
-            "departement_id" => "required"
+			"civilite"       => "required",
+			"nom"            => "required|max:191",
+			"prenom"         => "required|max:191",
+			"email"          => "nullable|email|max:191",
+			"telephone"      => "nullable",
+			"code_postal"    => "nullable|max:191",
+			"ville"          => "nullable|max:191",
+			"adresse"        => "nullable|max:191",
+			"departement_id" => "required",
 		]);
 
 		$responsable->update($request->only([
@@ -130,7 +130,7 @@ class ResponsableController extends Controller
 			"code_postal",
 			"ville",
 			"adresse",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.responsables.index"));

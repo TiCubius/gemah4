@@ -18,7 +18,7 @@ class EtatMaterielController extends Controller
 	 */
 	public function index(): View
 	{
-		$etats = EtatMateriel::orderBy("nom")->get();
+		$etats = EtatMateriel::orderBy("libelle")->get();
 
 		return view("web.administrations.materiels.etats.index", compact("etats"));
 	}
@@ -42,7 +42,7 @@ class EtatMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"libelle"     => "required|max:191|unique:etats_materiels",
+			"libelle" => "required|max:191|unique:etats_materiels",
 			"couleur" => "required|max:7|unique:etats_materiels",
 		]);
 
@@ -57,7 +57,7 @@ class EtatMaterielController extends Controller
 	 * @param EtatMateriel $etat
 	 * @return View
 	 */
-            public function edit(EtatMateriel $etat): View
+	public function edit(EtatMateriel $etat): View
 	{
 		return view("web.administrations.materiels.etats.edit", compact("etat"));
 	}
@@ -72,7 +72,7 @@ class EtatMaterielController extends Controller
 	public function update(Request $request, EtatMateriel $etat): RedirectResponse
 	{
 		$request->validate([
-			"libelle"     => "required|max:191|unique:etats_materiels,libelle,{$etat->id}",
+			"libelle" => "required|max:191|unique:etats_materiels,libelle,{$etat->id}",
 			"couleur" => "required|max:191|unique:etats_materiels,couleur,{$etat->id}",
 		]);
 

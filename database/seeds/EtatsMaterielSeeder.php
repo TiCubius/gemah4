@@ -5,6 +5,8 @@ use Illuminate\Database\Seeder;
 class EtatsMaterielSeeder extends Seeder
 {
 	private $etats = [
+		["Bon état", "#005500"],
+		["Occasion", "#555500"],
 		["En panne", "#9b6039"],
 		["Volé", "#9b3939"],
 	];

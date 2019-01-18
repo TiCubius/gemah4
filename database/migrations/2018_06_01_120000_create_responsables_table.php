@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateResponsablesTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateResponsablesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('responsables', function(Blueprint $table) {
+		Schema::create('responsables', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->enum('civilite', ['M.', 'Mme', 'M/Mme']);
@@ -23,10 +23,10 @@ class CreateResponsablesTable extends Migration
 			$table->string('telephone')->nullable();
 			$table->string('code_postal')->nullable();
 			$table->string('ville')->nullable();
-            $table->string('adresse')->nullable();
-            $table->string('departement_id');
+			$table->string('adresse')->nullable();
+			$table->string('departement_id');
 
-            $table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements');
 
 			$table->timestamps();
 		});

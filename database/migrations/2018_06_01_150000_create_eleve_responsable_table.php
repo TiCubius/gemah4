@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateEleveResponsableTable extends Migration
 {
@@ -13,13 +13,13 @@ class CreateEleveResponsableTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('eleve_responsable', function(Blueprint $table) {
+		Schema::create('eleve_responsable', function (Blueprint $table) {
 			$table->primary(['eleve_id', 'responsable_id']);
 
 			$table->unsignedInteger('eleve_id');
 			$table->unsignedInteger('responsable_id');
-            $table->boolean('etat_signature')->default(0);
-            $table->timestamp('date_signature')->nullable();
+			$table->boolean('etat_signature')->default(0);
+			$table->timestamp('date_signature')->nullable();
 
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('responsable_id')->references('id')->on('responsables');

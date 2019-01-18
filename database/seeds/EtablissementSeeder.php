@@ -22,8 +22,7 @@ class EtablissementSeeder extends Seeder
 		$progress->start();
 
 		foreach ($etablissements as $key => $etablissement) {
-			$type = \App\Models\TypeEtablissement::where("nom", $etablissement->fields->nature_uai_libe)
-				->first();
+			$type = \App\Models\TypeEtablissement::where("libelle", $etablissement->fields->nature_uai_libe)->first();
 			if (!$type) {
 				$type = \App\Models\TypeEtablissement::create([
 					"libelle" => $etablissement->fields->nature_uai_libe,

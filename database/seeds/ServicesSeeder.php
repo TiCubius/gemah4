@@ -11,15 +11,14 @@ class ServicesSeeder extends Seeder
 
 	public function run()
 	{
-        foreach(\App\Models\Departement::all() as $departement)
-        {
-            foreach ($this->services as $service => $description) {
-                \App\Models\Service::create([
-                    "nom"               => $service,
-                    "description"       => $description,
-                    "departement_id"    => $departement->id
-                ]);
-            }
-        }
+		foreach (\App\Models\Departement::all() as $departement) {
+			foreach ($this->services as $service => $description) {
+				\App\Models\Service::create([
+					"nom"            => $service,
+					"description"    => $description,
+					"departement_id" => $departement->id,
+				]);
+			}
+		}
 	}
 }

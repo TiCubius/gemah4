@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Departement;
 use App\Models\Etablissement;
 use App\Models\TypeEtablissement;
-use App\Models\Utilisateur;
 use Tests\TestCase;
 
 class TypeEtablissementTest extends TestCase
@@ -65,8 +64,8 @@ class TypeEtablissementTest extends TestCase
 		$types = factory(TypeEtablissement::class, 5)->create();
 
 		$request = $this->post("/administrations/etablissements/types", [
-			"_token"         => csrf_token(),
-			"libelle"            => $types->random()->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $types->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -80,8 +79,8 @@ class TypeEtablissementTest extends TestCase
 	public function testTraitementFormulaireCreationTypeEtablissementComplet()
 	{
 		$request = $this->post("/administrations/etablissements/types", [
-			"_token"         => csrf_token(),
-			"libelle"            => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
@@ -130,8 +129,8 @@ class TypeEtablissementTest extends TestCase
 		$types = factory(TypeEtablissement::class, 2)->create();
 
 		$request = $this->put("/administrations/etablissements/types/{$types[0]->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => $types[1]->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $types[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -149,7 +148,7 @@ class TypeEtablissementTest extends TestCase
 
 		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
 			"_token"         => csrf_token(),
-			"libelle"            => $type->libelle,
+			"libelle"        => $type->libelle,
 			"description"    => $type->description,
 			"departement_id" => $type->departement_id,
 		]);

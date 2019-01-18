@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\Academie;
 use App\Models\Region;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcademiesTest extends TestCase
 {
@@ -158,7 +156,7 @@ class AcademiesTest extends TestCase
 	{
 		$Region = factory(Region::class)->create();
 		$Academie = factory(Academie::class)->create([
-			"region_id" => $Region->id
+			"region_id" => $Region->id,
 		]);
 
 		$request = $this->put("/administrations/academies/{$Academie->id}", [

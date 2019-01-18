@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateHistoriquesTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateHistoriquesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('historiques', function(Blueprint $table) {
+		Schema::create('historiques', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->unsignedInteger('from_id')->nullable();

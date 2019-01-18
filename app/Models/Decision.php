@@ -24,23 +24,24 @@ class Decision extends Model
         "date_convention",
     ];
 
+
+	/***
+	 * Une décision est liée a un document
+	 *
+	 * @return BelongsTo
+	 */
+	public function document(): BelongsTo
+	{
+		return $this->belongsTo(Document::class);
+	}
+
     /***
-     * Une decision est liée a un enseignant
+     * Une décision est liée a un enseignant
      *
      * @return BelongsTo
      */
     public function enseignant(): BelongsTo
     {
         return $this->belongsTo(Enseignant::class);
-    }
-
-    /***
-     * Une decision est liée a un document
-     *
-     * @return BelongsTo
-     */
-    public function document(): BelongsTo
-    {
-        return $this->belongsTo(Document::class);
     }
 }

@@ -95,20 +95,20 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationStockComplet()
 	{
-	    $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
 			"domaine_id" => $DomaineMateriel->id,
 		]);
 
 		$request = $this->post("/materiels/stocks", [
-			"_token"            => csrf_token(),
-			"type_materiel_id"  => $TypeMateriel->id,
-			"marque"            => "unit.testing",
-			"modele"            => "unit.testing",
-			"prix_ttc"          => 5.99,
-			"etat_materiel_id"           => 1,
-            "departement_id"    => $departement->id,
+			"_token"           => csrf_token(),
+			"type_materiel_id" => $TypeMateriel->id,
+			"marque"           => "unit.testing",
+			"modele"           => "unit.testing",
+			"prix_ttc"         => 5.99,
+			"etat_materiel_id" => 1,
+			"departement_id"   => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -116,9 +116,9 @@ class StocksMaterielTest extends TestCase
 		$this->assertDatabaseHas("materiels", ["marque" => "unit.testing"]);
 	}
 
-    /**
-     * Vérifie que les données af
-     */
+	/**
+	 * Vérifie que les données af
+	 */
 	public function testAffichageInformationsStock()
 	{
 		$stock = factory(Materiel::class)->create();
@@ -218,7 +218,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionStockCompletSansModification()
 	{
-	    $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 		$Stock = factory(Materiel::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
@@ -226,13 +226,13 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
-			"_token"            => csrf_token(),
-			"type_materiel_id"  => $TypeMateriel->id,
-			"marque"            => $Stock->marque,
-			"modele"            => $Stock->modele,
-			"prix_ttc"          => $Stock->prix_ttc,
-			"etat_materiel_id"           => $Stock->etat_materiel_id,
-            "departement_id"    => $departement->id,
+			"_token"           => csrf_token(),
+			"type_materiel_id" => $TypeMateriel->id,
+			"marque"           => $Stock->marque,
+			"modele"           => $Stock->modele,
+			"prix_ttc"         => $Stock->prix_ttc,
+			"etat_materiel_id" => $Stock->etat_materiel_id,
+			"departement_id"   => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -246,7 +246,7 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionStockCompletAvecModification()
 	{
-	    $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 		$Stock = factory(Materiel::class)->create();
 		$DomaineMateriel = factory(DomaineMateriel::class)->create();
 		$TypeMateriel = factory(TypeMateriel::class)->create([
@@ -254,14 +254,14 @@ class StocksMaterielTest extends TestCase
 		]);
 
 		$request = $this->put("/materiels/stocks/{$Stock->id}", [
-			"_token"              => csrf_token(),
-			"domaine_id"          => $DomaineMateriel->id,
-			"type_materiel_id"    => $TypeMateriel->id,
-			"marque"              => "unit.testing",
-			"modele"              => "unit.testing",
-			"prix_ttc"            => 5.99,
-			"etat_materiel_id"             => 1,
-            "departement_id"      => $departement->id,
+			"_token"           => csrf_token(),
+			"domaine_id"       => $DomaineMateriel->id,
+			"type_materiel_id" => $TypeMateriel->id,
+			"marque"           => "unit.testing",
+			"modele"           => "unit.testing",
+			"prix_ttc"         => 5.99,
+			"etat_materiel_id" => 1,
+			"departement_id"   => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -297,7 +297,10 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("materiels", ["modele" => $stock->modele, "marque" => $stock->marque]);
+		$this->assertDatabaseHas("materiels", [
+			"modele" => $stock->modele,
+			"marque" => $stock->marque,
+		]);
 	}
 
 	/**
@@ -312,7 +315,10 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("materiels", ["modele" => $stock->modele, "marque" => $stock->marque]);
+		$this->assertDatabaseMissing("materiels", [
+			"modele" => $stock->modele,
+			"marque" => $stock->marque,
+		]);
 	}
 
 }

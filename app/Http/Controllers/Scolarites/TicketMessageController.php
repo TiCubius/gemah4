@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite;
+namespace App\Http\Controllers\Scolarites;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
@@ -85,9 +85,6 @@ class TicketMessageController extends Controller
 	{
 		$message->delete();
 
-		return redirect(route("web.scolarites.eleves.tickets.show", [
-			$eleve,
-			$ticket,
-		]))->with("success", "Le message a été supprimé avec succès");
+		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]))->with("success", "Le message a été supprimé avec succès");
 	}
 }

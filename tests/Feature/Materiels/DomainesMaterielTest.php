@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\DomaineMateriel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DomainesMaterielTest extends TestCase
 {
@@ -65,8 +63,8 @@ class DomainesMaterielTest extends TestCase
 		$Domaines = factory(DomaineMateriel::class, 5)->create();
 
 		$request = $this->post("/materiels/domaines", [
-			"_token" => csrf_token(),
-			"libelle"    => $Domaines->random()->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $Domaines->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -80,8 +78,8 @@ class DomainesMaterielTest extends TestCase
 	public function testTraitementFormulaireCreationDomaineComplet()
 	{
 		$request = $this->post("/materiels/domaines", [
-			"_token"      => csrf_token(),
-			"libelle"         => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
@@ -130,8 +128,8 @@ class DomainesMaterielTest extends TestCase
 		$Domaines = factory(DomaineMateriel::class, 2)->create();
 
 		$request = $this->put("/materiels/domaines/{$Domaines[0]->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => $Domaines[1]->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $Domaines[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -148,8 +146,8 @@ class DomainesMaterielTest extends TestCase
 		$Domaine = factory(DomaineMateriel::class)->create();
 
 		$request = $this->put("/materiels/domaines/{$Domaine->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => $Domaine->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $Domaine->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -166,8 +164,8 @@ class DomainesMaterielTest extends TestCase
 		$Domaine = factory(DomaineMateriel::class)->create();
 
 		$request = $this->put("/materiels/domaines/{$Domaine->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
@@ -197,7 +195,7 @@ class DomainesMaterielTest extends TestCase
 	{
 		$Domaine = factory(DomaineMateriel::class)->create();
 		$Type = factory(TypeMateriel::class)->create([
-			"domaine_id" => $Domaine->id
+			"domaine_id" => $Domaine->id,
 		]);
 
 		$request = $this->delete("/materiels/domaines/{$Domaine->id}");

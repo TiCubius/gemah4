@@ -2,15 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Departement;
 use App\Models\Eleve;
-use App\Models\Service;
 use App\Models\TypeEleve;
-use App\Models\Utilisateur;
-use phpDocumentor\Reflection\Type;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TypeEleveTest extends TestCase
 {
@@ -69,8 +63,8 @@ class TypeEleveTest extends TestCase
 		$type = factory(TypeEleve::class, 5)->create();
 
 		$request = $this->post("/administrations/eleves/types", [
-			"_token" => csrf_token(),
-			"libelle"    => $type->random()->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -84,8 +78,8 @@ class TypeEleveTest extends TestCase
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
 		$request = $this->post("/administrations/eleves/types", [
-			"_token"      => csrf_token(),
-			"libelle"         => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
@@ -134,8 +128,8 @@ class TypeEleveTest extends TestCase
 		$type = factory(TypeEleve::class, 2)->create();
 
 		$request = $this->put("/administrations/eleves/types/{$type[0]->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => $type[1]->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -152,8 +146,8 @@ class TypeEleveTest extends TestCase
 		$type = factory(TypeEleve::class)->create();
 
 		$request = $this->put("/administrations/eleves/types/{$type->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => $type->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -167,11 +161,11 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeCompletAvecModification()
 	{
-	    $type = factory(TypeEleve::class)->create();
+		$type = factory(TypeEleve::class)->create();
 
 		$request = $this->put("/administrations/eleves/types/{$type->id}", [
-			"_token"      => csrf_token(),
-			"libelle"         => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
@@ -190,39 +184,40 @@ class TypeEleveTest extends TestCase
 		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer ".$type->libelle);
+		$request->assertSee("Supprimer " . $type->libelle);
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->libelle . "</b>.");
 	}
 
-    /**
-     * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
-     * utilisateur
-     */
-    public function testTraitementSuppressionTypeAssocie()
-    {
-        $type = factory(TypeEleve::class)->create();
-        $eleve = factory(Eleve::class)->create();
-        $eleve->types()->attach($type);
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
+	 * utilisateur
+	 */
+	public function testTraitementSuppressionTypeAssocie()
+	{
+		$type = factory(TypeEleve::class)->create();
+		$eleve = factory(Eleve::class)->create();
+		$eleve->types()->attach($type);
 
-        $request = $this->delete("/administrations/eleves/types/{$type->id}");
+		$request = $this->delete("/administrations/eleves/types/{$type->id}");
 
-        $request->assertStatus(302);
-        $request->assertSessionHasErrors();
-        $this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
-    }
-    /**
-     * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
-     * utilisateur
-     */
-    public function testTraitementSuppressionTypeNonAssocie()
-    {
-        $type = factory(TypeEleve::class)->create();
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+	}
 
-        $request = $this->delete("/administrations/eleves/types/{$type->id}");
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
+	 * utilisateur
+	 */
+	public function testTraitementSuppressionTypeNonAssocie()
+	{
+		$type = factory(TypeEleve::class)->create();
 
-        $request->assertStatus(302);
-        $request->assertSessionHasNoErrors();
-        $this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
-    }
+		$request = $this->delete("/administrations/eleves/types/{$type->id}");
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
+	}
 
 }

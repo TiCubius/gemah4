@@ -92,7 +92,7 @@ class AffectationsMaterielTest extends TestCase
 	{
 		$eleve = factory(Eleve::class)->create();
 		$materiel = factory(Materiel::class)->create([
-			'eleve_id' => $eleve->id
+			'eleve_id' => $eleve->id,
 		]);
 
 		$request = $this->delete("/scolarites/eleves/{$eleve->id}/affectations/materiels/{$materiel->id}");

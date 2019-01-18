@@ -57,7 +57,7 @@
 				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des états matériel
 				</a>
-				
+
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
 					Historique des actions
 				</a>

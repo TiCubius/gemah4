@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(\App\Models\Enseignant::class, function(Faker $faker) {
+$factory->define(\App\Models\Enseignant::class, function (Faker $faker) {
 	return [
 		"civilite"  => "M.",
 		"nom"       => $faker->word,

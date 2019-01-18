@@ -196,8 +196,7 @@ class DepartementsSeeder extends Seeder
 				\App\Models\Departement::create([
 					"id"          => $id,
 					"nom"         => $departement,
-					"academie_id" => \App\Models\Academie::where("nom", "=", $academie)
-						->first()->id,
+					"academie_id" => \App\Models\Academie::where("nom", "=", $academie)->first()->id,
 				]);
 			}
 		}

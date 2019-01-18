@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Region;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegionsTest extends TestCase
 {

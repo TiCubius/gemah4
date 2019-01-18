@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite\Affectations;
+namespace App\Http\Controllers\Scolarites\Affectations;
 
 use App\Http\Controllers\Controller;
 use App\Models\DomaineMateriel;
@@ -26,10 +26,14 @@ class MaterielController extends Controller
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
-		if ($request->exists(["type_materiel_id", "etat_materiel_id", "marque", "modele", "num_serie"])) {
-			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))
-				->where("eleve_id", null)
-				->get();
+		if ($request->exists([
+			"type_materiel_id",
+			"etat_materiel_id",
+			"marque",
+			"modele",
+			"num_serie",
+		])) {
+			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->where("eleve_id", null)->get();
 		}
 
 		return view("web.scolarites.eleves.affectations.materiels", compact("eleve", "domaines", "etats", "searchedMateriels"));

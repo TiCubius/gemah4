@@ -65,7 +65,7 @@ class EtatsMaterielsTest extends TestCase
 
 		$request = $this->post("/administrations/materiels/etats", [
 			"_token"  => csrf_token(),
-			"libelle"     => $Etats->random()->libelle,
+			"libelle" => $Etats->random()->libelle,
 			"couleur" => $Etats->random()->couleur,
 		]);
 
@@ -133,7 +133,7 @@ class EtatsMaterielsTest extends TestCase
 
 		$request = $this->put("/administrations/materiels/etats/{$Etats[0]->id}", [
 			"_token"  => csrf_token(),
-			"libelle"     => $Etats[1]->libelle,
+			"libelle" => $Etats[1]->libelle,
 			"couleur" => "112233",
 		]);
 
@@ -208,7 +208,7 @@ class EtatsMaterielsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("etats_materiels", [
-			"libelle"     => $EtatMateriel->libelle,
+			"libelle" => $EtatMateriel->libelle,
 			"couleur" => $EtatMateriel->couleur,
 		]);
 	}

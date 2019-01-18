@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite\Documents;
+namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
@@ -46,7 +46,6 @@ class DocumentController extends Controller
 		return view('web.scolarites.eleves.documents.index', compact('eleve', 'typesDocument'));
 	}
 
-
 	/**
 	 * GET - Affiche le formulaire de création d'un document
 	 *
@@ -72,7 +71,7 @@ class DocumentController extends Controller
 		$request->validate([
 			'nom'              => 'required|max:191',
 			'description'      => 'required|max:191',
-			'type_document_id' => 'required|exists:types_documents',
+			'type_document_id' => 'required|exists:types_documents,id',
 			'file'             => 'required',
 		]);
 
@@ -196,5 +195,4 @@ class DocumentController extends Controller
 
 		return back()->withErrors("Ce document n'appartient pas cet élève");
 	}
-
 }

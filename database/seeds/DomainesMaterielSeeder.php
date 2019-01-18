@@ -8,19 +8,20 @@ class DomainesMaterielSeeder extends Seeder
 		"Audio",
 		"Informatique",
 		"Logiciel",
+		"GEMAH2"
 	];
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        foreach ($this->domaines as $domaine) {
-        	\App\Models\DomaineMateriel::create([
-        		"libelle" => $domaine
-	        ]);
-        }
-    }
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		foreach ($this->domaines as $domaine) {
+			\App\Models\DomaineMateriel::create([
+				"libelle" => $domaine,
+			]);
+		}
+	}
 }

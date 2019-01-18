@@ -54,7 +54,7 @@
 
 							<p class="mb-0">
 								<strong>Etat du matériel</strong>:
-								{!!  $stock->etat->nom ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!!  $stock->etat->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">

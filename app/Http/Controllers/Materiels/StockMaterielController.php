@@ -24,9 +24,14 @@ class StockMaterielController extends Controller
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
-		if ($request->exists(["type_materiel_id", "etat_materiel_id", "marque", "modele", "num_serie"])) {
-			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))
-				->get();
+		if ($request->exists([
+			"type_materiel_id",
+			"etat_materiel_id",
+			"marque",
+			"modele",
+			"num_serie",
+		])) {
+			$searchedMateriels = Materiel::search($request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("num_serie"))->get();
 		} else {
 			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
 			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
@@ -42,7 +47,7 @@ class StockMaterielController extends Controller
 	 */
 	public function create(): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
@@ -58,24 +63,24 @@ class StockMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"type_materiel_id"=> "required",
-			"marque"          => "required",
-			"modele"          => "required",
-			"numero_serie"       => "nullable",
-			"nom_fournisseur" => "nullable",
-			"prix_ttc"        => "required",
-			"etat_materiel_id"         => "required",
+			"type_materiel_id" => "required",
+			"marque"           => "required",
+			"modele"           => "required",
+			"numero_serie"     => "nullable",
+			"nom_fournisseur"  => "nullable",
+			"prix_ttc"         => "required",
+			"etat_materiel_id" => "required",
 
 			"numero_devis"             => "nullable",
 			"numero_formulaire_chorus" => "nullable",
 			"numero_facture_chorus"    => "nullable",
 			"numero_ej"                => "nullable",
-			"date_ej"               => "nullable",
-			"date_facture"          => "nullable",
-			"date_service_fait"     => "nullable",
-			"date_fin_garantie"     => "nullable",
-			"achat_pour"            => "nullable",
-            "departement_id"        => "required|exists:departements,id"
+			"date_ej"                  => "nullable",
+			"date_facture"             => "nullable",
+			"date_service_fait"        => "nullable",
+			"date_fin_garantie"        => "nullable",
+			"achat_pour"               => "nullable",
+			"departement_id"           => "required|exists:departements,id",
 		]);
 
 		Materiel::create($request->only([
@@ -95,7 +100,7 @@ class StockMaterielController extends Controller
 			"date_service_fait",
 			"date_fin_garantie",
 			"achat_pour",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.materiels.stocks.index"));
@@ -120,7 +125,7 @@ class StockMaterielController extends Controller
 	 */
 	public function edit(Materiel $stock): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
@@ -137,24 +142,24 @@ class StockMaterielController extends Controller
 	public function update(Request $request, Materiel $stock): RedirectResponse
 	{
 		$request->validate([
-			"type_materiel_id"=> "required",
-			"marque"          => "required",
-			"modele"          => "required",
-			"numero_serie"       => "nullable",
-			"nom_fournisseur" => "nullable",
-			"prix_ttc"        => "required",
-			"etat_materiel_id"         => "required",
-            "departement_id"  => "required|exists:departements,id",
+			"type_materiel_id" => "required",
+			"marque"           => "required",
+			"modele"           => "required",
+			"numero_serie"     => "nullable",
+			"nom_fournisseur"  => "nullable",
+			"prix_ttc"         => "required",
+			"etat_materiel_id" => "required",
+			"departement_id"   => "required|exists:departements,id",
 
 			"numero_devis"             => "nullable",
 			"numero_formulaire_chorus" => "nullable",
 			"numero_facture_chorus"    => "nullable",
-			"num_ej"                => "nullable",
-			"date_ej"               => "nullable",
-			"date_facture"          => "nullable",
-			"date_service_fait"     => "nullable",
-			"date_fin_garantie"     => "nullable",
-			"achat_pour"            => "nullable",
+			"num_ej"                   => "nullable",
+			"date_ej"                  => "nullable",
+			"date_facture"             => "nullable",
+			"date_service_fait"        => "nullable",
+			"date_fin_garantie"        => "nullable",
+			"achat_pour"               => "nullable",
 		]);
 
 		$stock->update($request->only([
@@ -174,7 +179,7 @@ class StockMaterielController extends Controller
 			"date_service_fait",
 			"date_fin_garantie",
 			"achat_pour",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.materiels.stocks.index"));

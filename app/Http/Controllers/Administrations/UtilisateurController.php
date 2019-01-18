@@ -55,11 +55,11 @@ class UtilisateurController extends Controller
 		]);
 
 		Utilisateur::create([
-			"nom"      => $request->input("nom"),
-			"prenom"   => $request->input("prenom"),
-			"email"    => $request->input("email"),
-			"password" => Hash::make($request->input("password")),
-			"service_id"  => $request->input("service"),
+			"nom"        => $request->input("nom"),
+			"prenom"     => $request->input("prenom"),
+			"email"      => $request->input("email"),
+			"password"   => Hash::make($request->input("password")),
+			"service_id" => $request->input("service"),
 		]);
 
 		return redirect(route("web.administrations.utilisateurs.index"));
@@ -100,10 +100,10 @@ class UtilisateurController extends Controller
 	public function update(Request $request, Utilisateur $utilisateur): RedirectResponse
 	{
 		$request->validate([
-			"nom"      => "required|max:191",
-			"prenom"   => "required|max:191",
-			"email"    => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
-			"service"  => "required|exists:services,id",
+			"nom"     => "required|max:191",
+			"prenom"  => "required|max:191",
+			"email"   => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
+			"service" => "required|exists:services,id",
 		]);
 
 		$utilisateur->update($request->all());

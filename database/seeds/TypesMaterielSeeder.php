@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class TypesMaterielSeeder extends Seeder
 {
 	private $types = [
-		"Audio" => [
+		"Audio"        => [
 			"Adaptateur",
 			"Cordon",
 			"Emetteur",
@@ -15,7 +15,7 @@ class TypesMaterielSeeder extends Seeder
 			"Oticon",
 			"Récepteur",
 			"Sabot",
-			"Télécommande"
+			"Télécommande",
 		],
 		"Informatique" => [
 			"Casque audio",
@@ -41,44 +41,44 @@ class TypesMaterielSeeder extends Seeder
 			"Stylet",
 			"Tablette",
 			"Trackball",
-            "Bloc notes"
+			"Bloc notes",
 		],
-		"Logiciel" => [
-            "Pack Office",
-            "Dragon Naturaly Speaking",
-            "Lexibar",
-            "Pictop",
-            "Kurzwein",
-            "ZoomText",
-            "Antidote",
-            "Cabri",
-            "Geogebra",
-            "Calroread",
-            "Genex",
-            "Woody",
-            "Medialexie",
-            "Tap'Touche",
+		"Logiciel"     => [
+			"Pack Office",
+			"Dragon Naturaly Speaking",
+			"Lexibar",
+			"Pictop",
+			"Kurzwein",
+			"ZoomText",
+			"Antidote",
+			"Cabri",
+			"Geogebra",
+			"Calroread",
+			"Genex",
+			"Woody",
+			"Medialexie",
+			"Tap'Touche",
 		],
-        "GEMAH2" => [
-            "GEMAH2"
-        ],
+		"GEMAH2"       => [
+			"GEMAH2",
+		],
 	];
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        foreach ($this->types as $domaine => $types) {
-        	$domaine = \App\Models\DomaineMateriel::where("nom", "=", $domaine)->first();
-        	foreach ($types as $type) {
-        		\App\Models\TypeMateriel::create([
-        			"nom" => $type,
-			        "domaine_id" => $domaine->id
-		        ]);
-	        }
-        }
-    }
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		foreach ($this->types as $domaine => $types) {
+			$domaine = \App\Models\DomaineMateriel::where("libelle", "=", $domaine)->first();
+			foreach ($types as $type) {
+				\App\Models\TypeMateriel::create([
+					"libelle"    => $type,
+					"domaine_id" => $domaine->id,
+				]);
+			}
+		}
+	}
 }

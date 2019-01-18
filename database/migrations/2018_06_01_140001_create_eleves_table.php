@@ -13,21 +13,21 @@ class CreateElevesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('eleves', function(Blueprint $table) {
+		Schema::create('eleves', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->string('etablissement_id')->nullable();
-            $table->string('departement_id');
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('code_ine', 11)->nullable();
-            $table->string('classe');
-            $table->integer('joker')->default(0);
-            $table->float('prix_global')->default(0);
-            $table->date('date_naissance');
-            $table->date('date_rendu_definitive')->nullable();
+			$table->string('departement_id');
+			$table->string('nom');
+			$table->string('prenom');
+			$table->string('code_ine', 11)->nullable();
+			$table->string('classe')->nullable();
+			$table->integer('joker')->default(0);
+			$table->float('prix_global')->default(0);
+			$table->date('date_naissance');
+			$table->date('date_rendu_definitive')->nullable();
 
-            $table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements');
 			$table->foreign('etablissement_id')->references('id')->on('etablissements');
 
 			$table->timestamps();

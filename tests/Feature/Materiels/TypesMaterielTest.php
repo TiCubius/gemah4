@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\DomaineMateriel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TypesMaterielTest extends TestCase
 {
@@ -147,7 +145,7 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Types[0]->id}", [
 			"_token"  => csrf_token(),
-			"libelle"     => $Types[1]->libelle,
+			"libelle" => $Types[1]->libelle,
 			"domaine" => $Domaine->id,
 		]);
 
@@ -167,7 +165,7 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Type->id}", [
 			"_token"  => csrf_token(),
-			"libelle"     => $Type->libelle,
+			"libelle" => $Type->libelle,
 			"domaine" => $Type->domaine_id,
 		]);
 
@@ -187,7 +185,7 @@ class TypesMaterielTest extends TestCase
 
 		$request = $this->put("/materiels/types/{$Type->id}", [
 			"_token"  => csrf_token(),
-			"libelle"     => "unit.testing",
+			"libelle" => "unit.testing",
 			"domaine" => $Domaine->id,
 		]);
 

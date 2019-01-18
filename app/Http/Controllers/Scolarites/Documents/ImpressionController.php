@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Scolarite\Documents;
+namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
@@ -17,7 +17,7 @@ class ImpressionController extends Controller
 	 * @param Eleve $eleve
 	 * @return Response|RedirectResponse
 	 */
-	public function autorisations(Eleve $eleve): Response
+	public function autorisations(Eleve $eleve)
 	{
 		if ($eleve->responsables->isEmpty()) {
 			return back()->withErrors("Impossible de générer un PDF d'autorisation puisque l'élève n'est affecté à aucun responsable.");
@@ -55,7 +55,7 @@ class ImpressionController extends Controller
 		}
 
 		$decision = $eleve->decisions->sortBy("created_at")->last();
-//		return view("pdf.conventions", compact("eleve", "decision"));
+
 		return PDF::loadView('pdf.conventions', compact('eleve', 'decision'))->stream();
 	}
 
@@ -63,9 +63,9 @@ class ImpressionController extends Controller
 	 * Génération du PDF de récapitulatif élève
 	 *
 	 * @param Eleve $eleve
-	 * @return Response
+	 * @return Response|RedirectResponse
 	 */
-	public function recapitulatifs(Eleve $eleve): Response
+	public function recapitulatifs(Eleve $eleve)
 	{
 		if ($eleve->responsables->isEmpty()) {
 			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.");
@@ -84,10 +84,14 @@ class ImpressionController extends Controller
 	 * Génération du PDF de récépissé de récupération de matériel
 	 *
 	 * @param Eleve $eleve
-	 * @return Response
+	 * @return Response|RedirectResponse
 	 */
-	public function recuperations(Eleve $eleve): Response
+	public function recuperations(Eleve $eleve)
 	{
+		if ($eleve->decisions->isEmpty()) {
+			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
+		}
+
 		$decision = $eleve->decisions[0];
 
 		return PDF::loadView('pdf.recuperations', compact('eleve', 'decision'))->stream();

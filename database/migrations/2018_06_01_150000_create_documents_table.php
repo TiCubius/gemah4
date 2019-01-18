@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDocumentsTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateDocumentsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('documents', function(Blueprint $table) {
+		Schema::create('documents', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->string('nom')->nullable();
@@ -23,9 +23,9 @@ class CreateDocumentsTable extends Migration
 
 			$table->unsignedInteger('eleve_id');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
-            $table->foreign('type_document_id')->references('id')->on('types_documents');
+			$table->foreign('type_document_id')->references('id')->on('types_documents');
 
-            $table->timestamps();
+			$table->timestamps();
 		});
 	}
 

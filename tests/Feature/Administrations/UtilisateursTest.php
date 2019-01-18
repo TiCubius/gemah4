@@ -2,14 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Academie;
-use App\Models\Departement;
 use App\Models\Service;
 use App\Models\Utilisateur;
-use App\Models\Region;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UtilisateursTest extends TestCase
 {
@@ -153,15 +148,15 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurExistant()
 	{
-	    $Service = factory(Service::class)->create();
+		$Service = factory(Service::class)->create();
 		$Utilisateurs = factory(Utilisateur::class, 2)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateurs[0]->id}", [
-			"_token"   => csrf_token(),
-			"nom"      => "unit.testing",
-			"prenom"   => "unit.testing",
-			"email"    => $Utilisateurs[1]->email,
-			"service"  => $Service->id,
+			"_token"  => csrf_token(),
+			"nom"     => "unit.testing",
+			"prenom"  => "unit.testing",
+			"email"   => $Utilisateurs[1]->email,
+			"service" => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -178,11 +173,11 @@ class UtilisateursTest extends TestCase
 		$Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
-			"_token"   => csrf_token(),
-			"nom"      => $Utilisateur->nom,
-			"prenom"   => $Utilisateur->prenom,
-			"email"    => $Utilisateur->email,
-			"service"  => $Utilisateur->service_id,
+			"_token"  => csrf_token(),
+			"nom"     => $Utilisateur->nom,
+			"prenom"  => $Utilisateur->prenom,
+			"email"   => $Utilisateur->email,
+			"service" => $Utilisateur->service_id,
 		]);
 
 		$request->assertStatus(302);
@@ -200,11 +195,11 @@ class UtilisateursTest extends TestCase
 		$Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
-			"_token"   => csrf_token(),
-			"nom"      => "unit.testing",
-			"prenom"   => "unit.testing",
-			"email"    => "unit@testing.fr",
-			"service"  => $Service->id,
+			"_token"  => csrf_token(),
+			"nom"     => "unit.testing",
+			"prenom"  => "unit.testing",
+			"email"   => "unit@testing.fr",
+			"service" => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -239,7 +234,10 @@ class UtilisateursTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("utilisateurs", ["nom" => $Utilisateur->nom, "prenom" => $Utilisateur->prenom]);
+		$this->assertDatabaseMissing("utilisateurs", [
+			"nom"    => $Utilisateur->nom,
+			"prenom" => $Utilisateur->prenom,
+		]);
 	}
 
 

@@ -102,21 +102,20 @@ class AcademieController extends Controller
 		return redirect(route("web.administrations.academies.index"));
 	}
 
-    /**
-     * DELETE - Supprime l'Académie, sauf si elle est encore lié à au moins un département
-     *
-     * @param Academie $academy
-     * @return RedirectResponse
-     * @throws \Exception
-     */
+	/**
+	 * DELETE - Supprime l'Académie, sauf si elle est encore lié à au moins un département
+	 *
+	 * @param Academie $academy
+	 * @return RedirectResponse
+	 * @throws \Exception
+	 */
 	public function destroy(Academie $academy): RedirectResponse
 	{
-		if(!($academy->has("departements")) )
-		{
-            $academy->delete();
+		if (!($academy->has("departements"))) {
+			$academy->delete();
 
-            return redirect(route("web.administrations.academies.index"));
-        }
+			return redirect(route("web.administrations.academies.index"));
+		}
 
 		return redirect(route("web.administrations.academies.index"))->withErrors("Cette académie est lié à au moins un département");
 	}

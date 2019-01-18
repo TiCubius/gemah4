@@ -2,10 +2,10 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(\App\Models\Decision::class, function(Faker $faker) {
-    $typeDocument = factory(\App\Models\TypeDocument::class)->create([
-        "libelle" => "Décision"
-    ]);
+$factory->define(\App\Models\Decision::class, function (Faker $faker) {
+	$typeDocument = factory(\App\Models\TypeDocument::class)->create([
+		"libelle" => "Décision",
+	]);
 	$document = factory(\App\Models\Document::class)->create([
 		"type_document_id" => $typeDocument->id,
 	]);

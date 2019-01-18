@@ -1,20 +1,24 @@
 <div class="form-group">
-    <label class="optional" for="departement_id">Département</label>
+	@isset($optional)
+		<label class="optional" for="departement_id">Département</label>
+	@else
+		<label for="departement_id">Département</label>
+	@endisset
 
-    <select id="departement_id" class="form-control" name="departement_id">
-        <option value="" hidden>Sélectionner un Département</option>
+	<select id="departement_id" class="form-control" name="departement_id">
+		<option value="" hidden>Sélectionner un Département</option>
 
-        @foreach($academies as $academy)
-            <optgroup label="{{ $academy->nom }}">
-                @foreach($academy->departements as $departement)
-                    @if($departement->id == ($id ?? null))
-                        <option selected value="{{ $departement->id }}">{{ $departement->nom }}</option>
-                    @else
-                        <option value="{{ $departement->id }}">{{ $departement->nom }}</option>
-                    @endif
-                @endforeach
-            </optgroup>
-        @endforeach
+		@foreach($academies as $academy)
+			<optgroup label="{{ $academy->nom }}">
+				@foreach($academy->departements as $departement)
+					@if($departement->id == ($id ?? null))
+						<option selected value="{{ $departement->id }}">{{ $departement->nom }}</option>
+					@else
+						<option value="{{ $departement->id }}">{{ $departement->nom }}</option>
+					@endif
+				@endforeach
+			</optgroup>
+		@endforeach
 
-    </select>
+	</select>
 </div>

@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Eleve::class, function(Faker $faker) {
+$factory->define(App\Models\Eleve::class, function (Faker $faker) {
 	$departement = factory(App\Models\Departement::class)->create();
 
 	return [

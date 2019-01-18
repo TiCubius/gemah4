@@ -54,7 +54,9 @@
 		text-align: center;
 	}
 
-	tr:nth-child(even){background-color: #f2f2f2}
+	tr:nth-child(even) {
+		background-color: #f2f2f2
+	}
 
 	th {
 		background-color: #3A539B;

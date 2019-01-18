@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateEnseignantsTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateEnseignantsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('enseignants', function(Blueprint $table) {
+		Schema::create('enseignants', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->enum('civilite', ['M.', 'Mme']);

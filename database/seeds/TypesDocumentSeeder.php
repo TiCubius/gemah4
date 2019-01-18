@@ -5,17 +5,17 @@ use Illuminate\Database\Seeder;
 class TypesDocumentSeeder extends Seeder
 {
 
-    protected $types = [
-        "Décision",
-        "Autre"
-    ];
+	protected $types = [
+		"Décision",
+		"Autre",
+	];
 
-    public function run()
-    {
-        foreach($this->types as $type) {
-            \App\Models\TypeDocument::create([
-                'nom' => $type,
-            ]);
-        }
-    }
+	public function run()
+	{
+		foreach ($this->types as $type) {
+			\App\Models\TypeDocument::create([
+				'libelle' => $type,
+			]);
+		}
+	}
 }

@@ -35,7 +35,6 @@
 					</div>
 
 
-
 					<div class="form-group">
 						<label for="id">Code</label>
 						<input id="id" class="form-control" name="id" type="text" placeholder="Ex: ..." value="{{ $etablissement->id }}" required>

@@ -121,9 +121,9 @@
 									<option value="">Veuillez sélectionner l'état du matériel</option>
 									@foreach ($etats as $etat)
 										@if (old("etat_materiel_id") == $etat->id)
-											<option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
+											<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
 										@else
-											<option value="{{ $etat->id }}">{{ $etat->nom }}</option>
+											<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
 										@endif
 									@endforeach
 								</select>

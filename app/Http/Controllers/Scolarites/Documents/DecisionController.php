@@ -34,6 +34,16 @@ class DecisionController extends Controller
 		return $nom . '-' . $timestamp . '.' . $extension;
 	}
 
+	/**
+	 * PRIVATE - Supprime les accents
+	 *
+	 * @param $str
+	 * @return string
+	 */
+	private function stripAccents($str)
+	{
+		return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+	}
 
 	/**
 	 * GET - Affiche le formulaire de création d'une Décision
@@ -58,7 +68,7 @@ class DecisionController extends Controller
 	public function store(Request $request, Eleve $eleve): RedirectResponse
 	{
 		$request->validate([
-			'date_limite'       => 'nullable|date',
+			'date_limite'       => 'nullable|required_with:date_notification|date',
 			'date_cda'          => 'nullable|date',
 			'date_notification' => 'nullable|required_with:date_limite|date',
 			'date_convention'   => 'nullable|date',
@@ -119,7 +129,7 @@ class DecisionController extends Controller
 	public function update(Request $request, Eleve $eleve, Decision $decision): RedirectResponse
 	{
 		$request->validate([
-			'date_limite'       => 'required|date|nullable',
+			'date_limite'       => 'nullable|required_with:date_notification|date',
 			'date_cda'          => 'nullable|date',
 			'date_notification' => 'nullable|required_with:date_limite|date',
 			'date_convention'   => 'nullable|date',
@@ -129,19 +139,15 @@ class DecisionController extends Controller
 
 		if ($request->hasFile('file')) {
 			// On supprime l'ancien fichier
-			if ($decision->document !== null) {
-				Storage::delete('public/' . $decision->document->path);
-				$decision->document()->delete();
-			}
+			Storage::delete('public/' . $decision->document->path);
 
 			// On enregistre le fichier
 			$filename = $this->generateFilename($eleve, $request->file('file'));
 			$request->file('file')->storeAs('public/decisions/', $filename);
 
-			$document = Document::create([
-				'type_document_id' => TypeDocument::where('libelle', 'Décision')->first()->id,
-				'path'             => $filename,
-				'eleve_id'         => $eleve->id,
+			// Mise a jours du document
+			$decision->document->update([
+				'path' => $filename,
 			]);
 		}
 
@@ -185,10 +191,11 @@ class DecisionController extends Controller
 	 */
 	public function download(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->eleve_id == $eleve->id) {
-			return Storage::download('public/decisions/' . $decision->document->path);
+		if ($decision->document->eleve_id == $eleve->id) {
+			return Storage::download('public/decisions/' . $decision->document->path, $this->stripAccents($decision->document->path));
 		}
 
 		return back()->withErrors("Cette decision n'appartient pas cet élève");
 	}
+
 }

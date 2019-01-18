@@ -289,7 +289,7 @@ class ElevesTest extends TestCase
 		$request = $this->get("/scolarites/eleves/{$eleve->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'élève");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$eleve->nom} {$eleve->prenom}" . "</b>.");
 	}
 

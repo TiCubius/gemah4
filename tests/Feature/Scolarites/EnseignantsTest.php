@@ -120,8 +120,8 @@ class EnseignantsTest extends TestCase
 		$request->assertSee("Prénom");
 		$request->assertSee("Adresse E-Mail");
 		$request->assertSee("Téléphone");
-		$request->assertSee("Éditer l'enseignant");
-		$request->assertSee("Supprimer l'enseignant");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -225,7 +225,7 @@ class EnseignantsTest extends TestCase
 		$request = $this->get("/scolarites/enseignants/{$Enseignant->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'enseignant");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Enseignant->nom} {$Enseignant->prenom}" . "</b>.");
 	}
 

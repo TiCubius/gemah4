@@ -118,8 +118,8 @@ class DecisionsTest extends TestCase
 		$request->assertSee("Affaire suivie par");
 		$request->assertSee("Fichier");
 
-		$request->assertSee("Modifier la décision");
-		$request->assertSee("Supprimer la décision");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -199,7 +199,7 @@ class DecisionsTest extends TestCase
 		$request = $this->get("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->document->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer {$decision->document->nom}");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$decision->document->nom}" . "</b>.");
 	}
 

@@ -147,7 +147,7 @@ class StocksMaterielTest extends TestCase
 		$request->assertSee("Date de service fait");
 		$request->assertSee("Date de fin de garantie");
 		$request->assertSee("Acheté pour");
-		$request->assertSee("Modifier le matériel");
+		$request->assertSee("Modifier");
 	}
 
 
@@ -283,7 +283,7 @@ class StocksMaterielTest extends TestCase
 		$request = $this->get("/materiels/stocks/{$Stock->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le matériel");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Stock->marque} {$Stock->modele}" . "</b>.");
 	}
 

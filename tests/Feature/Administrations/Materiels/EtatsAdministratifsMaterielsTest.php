@@ -104,8 +104,8 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 		$request->assertSee("Édition de {$Etat->libelle}");
 		$request->assertSee("Libellé");
 		$request->assertSee("Couleur");
-		$request->assertSee("Éditer l'état administratif matériel");
-		$request->assertSee("Supprimer l'état administratif matériel");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -191,7 +191,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 		$request = $this->get("/administrations/materiels/etats/administratifs/{$EtatMateriel->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'état administratif matériel");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->libelle . "</b>.");
 	}
 

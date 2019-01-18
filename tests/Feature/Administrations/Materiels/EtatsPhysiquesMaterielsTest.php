@@ -99,8 +99,8 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Etat->libelle}");
 		$request->assertSee("Libellé");
-		$request->assertSee("Éditer l'état physique matériel");
-		$request->assertSee("Supprimer l'état physique matériel");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -183,7 +183,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request = $this->get("/administrations/materiels/etats/physiques/{$EtatMateriel->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'état physique matériel");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->libelle . "</b>.");
 	}
 

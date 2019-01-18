@@ -171,7 +171,7 @@ class ResponsablesTest extends TestCase
 		$request = $this->get("/responsables/{$responsable->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le responsable");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$responsable->nom} {$responsable->prenom}" . "</b>.");
 	}
 

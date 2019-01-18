@@ -12,7 +12,7 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex : Doe" value="{{ old("nom") }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex : SMITH" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="form-group">
@@ -23,7 +23,7 @@
 
 				<div class="form-group">
 					<label for="date_naissance">Date de naissance</label>
-					<input id="date_naissance" class="form-control" name="date_naissance" type="date" value="{{ old("date_naissance") }}" required>
+					<input id="date_naissance" class="form-control" name="date_naissance" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_naissance") }}" required>
 				</div>
 
 				<div class="form-group">

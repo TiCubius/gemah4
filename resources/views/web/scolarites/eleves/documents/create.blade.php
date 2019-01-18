@@ -15,8 +15,8 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-6">
 				<div class="form-group">
-					<label for="nom">Nom du document</label>
-					<input type="text" id="nom" name="nom" placeholder="Nom du Document" class="form-control" value="{{ Session::get('_old_input')['nom'] ?? '' }}">
+					<label for="nom">Nom</label>
+					<input type="text" id="nom" name="nom" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['nom'] ?? '' }}">
 				</div>
 			</div>
 
@@ -37,7 +37,7 @@
 			<div class="col-sm-12 col-md-6">
 				<div class="form-group">
 					<label for="description">Description</label>
-					<input type="text" id="description" name="description" placeholder="Description du Document" class="form-control" value="{{ Session::get('_old_input')['description'] ?? '' }}">
+					<input type="text" id="description" name="description" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['description'] ?? '' }}">
 				</div>
 			</div>
 

@@ -19,22 +19,22 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label class="optional" for="nom">Nom</label>
-							<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
+							<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="prenom">Prénom</label>
-							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ app("request")->input("prenom") }}">
+							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="email">Adresse E-Mail</label>
-							<input id="email" class="form-control" name="email" type="text" placeholder="E-Mail" value="{{ app("request")->input("email") }}">
+							<input id="email" class="form-control" name="email" type="text" placeholder="Ex: john.smith@exemple.fr" value="{{ app("request")->input("email") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="telephone">N° de Téléphone</label>
-							<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Téléphonne" value="{{ app("request")->input("telephone") }}">
+							<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 92 12 62" value="{{ app("request")->input("telephone") }}">
 						</div>
 
 						<div class="d-flex justify-content-between">
@@ -53,6 +53,7 @@
 						<div class="alert alert-warning">
 							Aucun enseignant n'a été trouvé avec ces critères
 						</div>
+
 					@else
 						<table class="table table-sm table-hover text-center">
 							<thead class="gemah-bg-primary">
@@ -63,6 +64,7 @@
 									<th>Actions</th>
 								</tr>
 							</thead>
+
 							<tbody>
 								@foreach($searchedEnseignants as $enseignant)
 									<tr>

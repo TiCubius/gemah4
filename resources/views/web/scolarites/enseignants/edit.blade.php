@@ -22,7 +22,7 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $enseignant->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ $enseignant->nom }}" required>
 				</div>
 
 				<div class="form-group">
@@ -38,7 +38,7 @@
 
 				<div class="form-group">
 					<label class="optional" for="telephone">Téléphone</label>
-					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ $enseignant->telephone }}">
+					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 92 12 62" value="{{ $enseignant->telephone }}">
 				</div>
 
 				<div class="d-flex justify-content-between">

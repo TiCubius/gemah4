@@ -46,7 +46,7 @@ class DecisionsTest extends TestCase
 
 		$request->assertSee("Date de la CDA");
 		$request->assertSee("Date de réception de la notification");
-		$request->assertSee("Date limite de la décision");
+		$request->assertSee("Date limite");
 		$request->assertSee("Date de la convention");
 		$request->assertSee("Numéro du dossier MDPH");
 		$request->assertSee("Nom/prénom de l'enseignant référent");
@@ -113,7 +113,7 @@ class DecisionsTest extends TestCase
 
 		$request->assertSee("Date de la CDA");
 		$request->assertSee("Date de réception de la notification");
-		$request->assertSee("Date limite de la décision");
+		$request->assertSee("Date limite");
 		$request->assertSee("Date de la convention");
 		$request->assertSee("Numéro du dossier MDPH");
 		$request->assertSee("Nom/prénom de l'enseignant référent");

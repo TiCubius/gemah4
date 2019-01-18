@@ -57,17 +57,17 @@
 
 						<div class="form-group">
 							<label class="optional" for="marque">Marque</label>
-							<input id="marque" class="form-control" name="marque" type="text" placeholder="E.g : Asus" value="{{ Request::get("marque") }}">
+							<input id="marque" class="form-control" name="marque" type="text" placeholder="Ex: Asus" value="{{ Request::get("marque") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="modele">Modèle</label>
-							<input id="modele" class="form-control" name="modele" type="text" placeholder="E.g : ProBook 650 G3" value="{{ Request::get("modele") }}">
+							<input id="modele" class="form-control" name="modele" type="text" placeholder="Ex: ProBook 650 G3" value="{{ Request::get("modele") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="numero_serie">N° de Série</label>
-							<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="E.g : 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
+							<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="Ex: 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
 						</div>
 
 						<div class="d-flex justify-content-between">

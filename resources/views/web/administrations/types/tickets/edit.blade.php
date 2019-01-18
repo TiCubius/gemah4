@@ -14,7 +14,7 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" value="{{ $ticket->libelle }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: ..." value="{{ $ticket->libelle }}" required>
 				</div>
 
 				<div class="d-flex justify-content-between">

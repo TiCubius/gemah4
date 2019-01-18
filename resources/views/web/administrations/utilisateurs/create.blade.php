@@ -12,28 +12,28 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: DOE" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="form-group">
 					<label for="prenom">Prénom</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ old("prenom") }}" required>
+					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ old("prenom") }}" required>
 				</div>
 
 
 				<div class="form-group">
 					<label for="email">Adresse E-Mail</label>
-					<input id="email" class="form-control" name="email" type="email" placeholder="Adresse E-Mail" value="{{ old("email") }}" required>
+					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ old("email") }}" required>
 				</div>
 
 
 				<div class="form-group">
 					<label for="password">Mot de passe</label>
-					<input id="password" class="form-control" name="password" type="password" placeholder="Mot de passe" minlength="8" required>
+					<input id="password" class="form-control" name="password" type="password" placeholder="Au moins 8 caractères" minlength="8" required>
 				</div>
 				<div class="form-group">
 					<label for="password_confirmation">Confirmation du mot de passe</label>
-					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Confirmation du mot de passe" required>
+					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Réentrer le même mot de passe" required>
 				</div>
 
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])

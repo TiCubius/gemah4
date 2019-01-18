@@ -13,7 +13,7 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" value="{{ old("libelle") }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: ..." value="{{ old("libelle") }}" required>
 				</div>
 
 				<div class="d-flex justify-content-center">

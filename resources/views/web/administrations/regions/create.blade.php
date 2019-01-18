@@ -13,7 +13,7 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ old("nom") }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Auvergne-Rhône-Alpes" value="{{ old("nom") }}" required>
 				</div>
 
 				<div class="d-flex justify-content-center">

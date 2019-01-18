@@ -13,18 +13,18 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ $utilisateur->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: DOE" value="{{ $utilisateur->nom }}" required>
 				</div>
 
 				<div class="form-group">
 					<label for="prenom">Prénom</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ $utilisateur->prenom }}" required>
+					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ $utilisateur->prenom }}" required>
 				</div>
 
 
 				<div class="form-group">
 					<label for="email">Adresse E-Mail</label>
-					<input id="email" class="form-control" name="email" type="email" placeholder="Adresse E-Mail" value="{{ $utilisateur->email }}" required>
+					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ $utilisateur->email }}" required>
 				</div>
 
 

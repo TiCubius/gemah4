@@ -37,27 +37,27 @@
 
 							<div class="form-group">
 								<label class="optional" for="date_ej">Date d'engagement juridique</label>
-								<input id="date_ej" class="form-control" name="date_ej" type="date" value="{{ old("date_ej") }}">
+								<input id="date_ej" class="form-control" name="date_ej" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_ej") }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_facture">Date de la facture</label>
-								<input id="date_facture" class="form-control" name="date_facture" type="date" value="{{ old("date_facture") }}">
+								<input id="date_facture" class="form-control" name="date_facture" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_facture") }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_service_fait">Date de service fait</label>
-								<input id="date_service_fait" class="form-control" name="date_service_fait" type="date" value="{{ old("date_service_fait") }}">
+								<input id="date_service_fait" class="form-control" name="date_service_fait" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_service_fait") }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_fin_garantie">Date de fin de garantie</label>
-								<input id="date_fin_garantie" class="form-control" name="date_fin_garantie" type="date" value="{{ old("date_fin_garantie") }}">
+								<input id="date_fin_garantie" class="form-control" name="date_fin_garantie" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_fin_garantie") }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="acheter_pour">Acheté pour</label>
-								<input id="acheter_pour" class="form-control" name="acheter_pour" type="text" placeholder="Ex: John Smith" value="{{ old("acheter_pour") }}">
+								<input id="acheter_pour" class="form-control" name="acheter_pour" type="text" placeholder="Ex: John SMITH" value="{{ old("acheter_pour") }}">
 							</div>
 
 							@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])

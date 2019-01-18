@@ -28,7 +28,6 @@ class TypesMaterielSeeder extends Seeder
 			"Imprimante",
 			"Iriscan",
 			"Lecteur DVD externe",
-			"Logiciel",
 			"Microphone",
 			"Ordinateur 12\"",
 			"Ordinateur 15\"",

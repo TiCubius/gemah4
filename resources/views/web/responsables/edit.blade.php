@@ -23,7 +23,7 @@
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Smith" value="{{ $responsable->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ $responsable->nom }}" required>
 				</div>
 
 				<div class="form-group">

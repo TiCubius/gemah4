@@ -25,22 +25,22 @@
 						@endcomponent
 						<div class="form-group">
 							<label class="optional" for="nom">Nom de l'élève</label>
-							<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
+							<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="prenom">Prénom de l'élève</label>
-							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Prénom" value="{{ app("request")->input("prenom") }}">
+							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="date_naissance">Date de naissance</label>
-							<input id="date_naissance" class="form-control" name="date_naissance" type="text" placeholder="Date de naissance" value="{{ app("request")->input("date_naissance") }}">
+							<input id="date_naissance" class="form-control" name="date_naissance" type="text" placeholder="Ex: 01/01/2019" value="{{ app("request")->input("date_naissance") }}">
 						</div>
 
 						<div class="form-group">
 							<label class="optional" for="code_ine">Code INE</label>
-							<input id="code_ine" class="form-control" name="code_ine" type="text" placeholder="Code INE" value="{{ app("request")->input("code_ine") }}">
+							<input id="code_ine" class="form-control" name="code_ine" type="text" placeholder="Ex : 0000000000X" value="{{ app("request")->input("code_ine") }}">
 						</div>
 
 						<div class="d-flex justify-content-between">

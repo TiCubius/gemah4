@@ -17,17 +17,17 @@
 
 					<div class="form-group">
 						<label class="optional" for="nom">Nom</label>
-						<input id="nom" class="form-control" name="nom" type="text" placeholder="Nom" value="{{ app("request")->input("nom") }}">
+						<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Lycée Simone Weil" value="{{ app("request")->input("nom") }}">
 					</div>
 
 					<div class="form-group">
 						<label class="optional" for="ville">Ville</label>
-						<input id="ville" class="form-control" name="ville" type="text" placeholder="Ville" value="{{ app("request")->input("ville") }}">
+						<input id="ville" class="form-control" name="ville" type="text" placeholder="Ex: Saint-Etienne" value="{{ app("request")->input("ville") }}">
 					</div>
 
 					<div class="form-group">
 						<label class="optional" for="telephone">N° de Téléphone</label>
-						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Téléphonne" value="{{ app("request")->input("telephone") }}">
+						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 92 12 62" value="{{ app("request")->input("telephone") }}">
 					</div>
 
 					<div class="d-flex justify-content-between">

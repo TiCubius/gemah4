@@ -13,7 +13,7 @@
 
 				<div class="form-group">
 					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Smith" value="{{ $type->libelle }}" required>
+					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Clavier" value="{{ $type->libelle }}" required>
 				</div>
 
 				<div class="form-group">

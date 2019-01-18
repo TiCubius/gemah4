@@ -61,10 +61,12 @@
 						<label for="ville">Ville</label>
 						<input id="ville" class="form-control" name="ville" type="text" placeholder="Ex: Paris, Saint-Etienne, ..." value="{{ old("ville") }}" required>
 					</div>
+
 					<div class="form-group">
 						<label for="code_postal">Code Postal</label>
 						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ old("code_postal") }}" required>
 					</div>
+
 					<div class="form-group">
 						<label for="adresse">Adresse</label>
 						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}" required>

@@ -15,22 +15,22 @@
 			<div class="col-6">
 				<div class="form-group">
 					<label class="optional" for="date_cda">Date de la CDA</label>
-					<input type="date" id="date_cda" name="date_cda" placeholder="Date de la CDA" class="form-control" value="{{ Session::get('_old_input')['date_cda'] ?? '' }}">
+					<input type="date" id="date_cda" name="date_cda" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_cda'] ?? '' }}">
 				</div>
 
 				<div class="form-group">
 					<label class="optional" for="date_notif">Date de réception de la notification</label>
-					<input type="date" id="date_notif" name="date_notif" placeholder="Date de réception de la notification" class="form-control" value="{{ Session::get('_old_input')['date_notif'] ?? '' }}">
+					<input type="date" id="date_notif" name="date_notif" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_notif'] ?? '' }}">
 				</div>
 
 				<div class="form-group">
 					<label class="optional" for="date_limite">Date limite</label>
-					<input type="date" id="date_limite" name="date_limite" placeholder="Date limite de la décision" class="form-control" value="{{ Session::get('_old_input')['date_limite'] ?? '' }}">
+					<input type="date" id="date_limite" name="date_limite" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_limite'] ?? '' }}">
 				</div>
 
 				<div class="form-group">
 					<label class="optional" for="date_convention">Date de la convention</label>
-					<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Date de la convention" class="form-control" value="{{ Session::get('_old_input')['date_lidate_conventionmite'] ?? '' }}">
+					<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_lidate_conventionmite'] ?? '' }}">
 				</div>
 			</div>
 
@@ -38,7 +38,7 @@
 				<div>
 					<div class="form-group">
 						<label for="numero_dossier">Numéro du dossier MDPH</label>
-						<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Numéro du dossier Mdph" class="form-control" value="{{ Session::get('_old_input')['numero_dossier'] ?? '' }}">
+						<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['numero_dossier'] ?? '' }}">
 					</div>
 				</div>
 
@@ -54,7 +54,7 @@
 
 				<div class="form-group">
 					<label for="nom_suivi">Affaire suivie par</label>
-					<input type="text" id="nom_suivi" name="nom_suivi" placeholder="Affaire suivie par" class="form-control" value="{{ Session::get('_old_input')['nom_suivi'] ?? '' }}">
+					<input type="text" id="nom_suivi" name="nom_suivi" placeholder="Ex: John SMITH" class="form-control" value="{{ Session::get('_old_input')['nom_suivi'] ?? '' }}">
 				</div>
 			</div>
 

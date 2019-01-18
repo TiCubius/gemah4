@@ -28,14 +28,14 @@
 			<div class="col-sm-12 col-md-6 js-other">
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input type="text" id="nom" name="nom" placeholder="Nom du Document" class="form-control" value="{{ $document->nom ?? '' }}">
+					<input type="text" id="nom" name="nom" placeholder="Ex: ..." class="form-control" value="{{ $document->nom ?? '' }}">
 				</div>
 			</div>
 
 			<div class="col-sm-12 col-md-6 js-other">
 				<div class="form-group">
 					<label for="description">Description</label>
-					<input type="text" id="description" name="description" placeholder="Description du Document" class="form-control" value="{{ $document->description ?? '' }}">
+					<input type="text" id="description" name="description" placeholder="Ex: ..." class="form-control" value="{{ $document->description ?? '' }}">
 				</div>
 			</div>
 

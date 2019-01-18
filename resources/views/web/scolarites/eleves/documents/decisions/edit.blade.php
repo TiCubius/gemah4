@@ -17,28 +17,28 @@
 				<div>
 					<div class="form-group">
 						<label for="date_cda">Date de la CDA</label>
-						<input type="date" id="date_cda" name="date_cda" placeholder="Date de la CDA" class="form-control" value="{{ $decision->date_cda ? $decision->date_cda->format('Y-m-d') : '' }}">
+						<input type="date" id="date_cda" name="date_cda" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_cda ? $decision->date_cda->format('Y-m-d') : '' }}">
 					</div>
 				</div>
 
 				<div>
 					<div class="form-group">
 						<label for="date_notification">Date de réception de la notification</label>
-						<input type="date" id="date_notification" name="date_notification" placeholder="Date de réception de la notification" class="form-control" value="{{ $decision->date_notification ? $decision->date_notification->format('Y-m-d') : '' }}">
+						<input type="date" id="date_notification" name="date_notification" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_notification ? $decision->date_notification->format('Y-m-d') : '' }}">
 					</div>
 				</div>
 
 				<div>
 					<div class="form-group">
 						<label for="date_limite">Date limite</label>
-						<input type="date" id="date_limite" name="date_limite" placeholder="Date limite de la décision" class="form-control" value="{{ $decision->date_limite ? $decision->date_limite->format('Y-m-d') : '' }}">
+						<input type="date" id="date_limite" name="date_limite" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_limite ? $decision->date_limite->format('Y-m-d') : '' }}">
 					</div>
 				</div>
 
 				<div>
 					<div class="form-group">
 						<label for="date_convention">Date de la convention</label>
-						<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Date de la convention" class="form-control" value="{{ $decision->date_convention ? $decision->date_convention->format('Y-m-d') : '' }}">
+						<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_convention ? $decision->date_convention->format('Y-m-d') : '' }}">
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 				<div>
 					<div class="form-group">
 						<label for="numero_dossier">Numéro du dossier MDPH</label>
-						<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Numéro du dossier Mdph" class="form-control" value="{{ $decision->numero_dossier ?? '' }}">
+						<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Ex: ..." class="form-control" value="{{ $decision->numero_dossier ?? '' }}">
 					</div>
 				</div>
 
@@ -70,7 +70,7 @@
 				<div>
 					<div class="form-group">
 						<label for="nom_suivi">Affaire suivie par</label>
-						<input type="text" id="nom_suivi" name="nom_suivi" placeholder="Affaire suivie par" class="form-control" value="{{ $decision->nom_suivi ?? '' }}">
+						<input type="text" id="nom_suivi" name="nom_suivi" placeholder="Ex: John SMITH" class="form-control" value="{{ $decision->nom_suivi ?? '' }}">
 					</div>
 				</div>
 			</div>

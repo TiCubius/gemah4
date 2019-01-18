@@ -35,6 +35,7 @@
 				Aucun document n'a été trouvé pour cet élève
 			</div>
 		</div>
+
 	@else
 		<div class="row">
 			<div class="col-12">
@@ -48,6 +49,7 @@
 					</select>
 				</div>
 			</div>
+
 			@foreach($eleve->documents as $document)
 				@if ($document->typeDocument->libelle == "Décision")
 					<div class="col-6 js-document js-document-{{ $document->type_document_id }}" style="display: none;">
@@ -69,6 +71,7 @@
 									<b>Date Convention</b>:
 									{!! $document->decision->date_convention ? $document->decision->date_convention->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
 								</p>
+
 								<hr>
 								<p class="mb-0">
 									<b>Numéro MDPH</b>:

@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Academie extends Model
 {
 
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
 	protected $fillable = [
-	    "nom",
-        "region_id"
-    ];
+		"nom",
+		"region_id",
+	];
 
 
 	/**
-	 * Une Académie est présente dans au plus une Région
+	 * Une académie appartient à une région
 	 *
 	 * @return BelongsTo
 	 */
@@ -26,13 +31,12 @@ class Academie extends Model
 	}
 
 	/**
-     * Une Académie est lié à plusieurs départements
-     *
-     * @return hasMany
-     */
+	 * Une académie possède plusieurs départements
+	 *
+	 * @return hasMany
+	 */
 	public function departements(): HasMany
-    {
-        return $this->hasMany(Departement::class);
-    }
-
+	{
+		return $this->hasMany(Departement::class);
+	}
 }

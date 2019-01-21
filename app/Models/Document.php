@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Document extends Model
 {
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
     protected $fillable = [
         "nom",
         "type_document_id",
@@ -16,7 +21,8 @@ class Document extends Model
         "eleve_id"
     ];
 
-    /***
+
+    /**
      * Un document possède une décision
      *
      * @return HasOne
@@ -27,7 +33,7 @@ class Document extends Model
     }
 
     /***
-     * Un Document appartient à un élève
+     * Un document appartient à un élève
      *
      * @return BelongsTo
      */
@@ -37,7 +43,7 @@ class Document extends Model
     }
 
     /**
-     * Un document est lié a un type de document
+     * Un document appartient à un type de document
      *
      * @return BelongsTo
      */

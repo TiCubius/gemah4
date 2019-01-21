@@ -7,22 +7,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Decision extends Model
 {
-    protected $fillable = [
-        "document_id",
-        "enseignant_id",
-        "date_cda",
-        "date_notification",
-        "date_limite",
-        "date_convention",
-        "numero_dossier",
-    ];
+	/**
+	 * Liste des attributs pouvant être converti par Carbon
+	 *
+	 * @var array
+	 */
+	protected $dates = [
+		"date_cda",
+		"date_notification",
+		"date_limite",
+		"date_convention",
+	];
 
-    protected $dates = [
-        "date_cda",
-        "date_notification",
-        "date_limite",
-        "date_convention",
-    ];
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"document_id",
+		"enseignant_id",
+		"date_cda",
+		"date_notification",
+		"date_limite",
+		"date_convention",
+		"numero_dossier",
+	];
 
 
 	/***
@@ -35,13 +45,13 @@ class Decision extends Model
 		return $this->belongsTo(Document::class);
 	}
 
-    /***
-     * Une décision est liée a un enseignant
-     *
-     * @return BelongsTo
-     */
-    public function enseignant(): BelongsTo
-    {
-        return $this->belongsTo(Enseignant::class);
-    }
+	/***
+	 * Une décision est liée a un enseignant
+	 *
+	 * @return BelongsTo
+	 */
+	public function enseignant(): BelongsTo
+	{
+		return $this->belongsTo(Enseignant::class);
+	}
 }

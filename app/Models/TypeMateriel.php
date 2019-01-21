@@ -8,8 +8,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TypeMateriel extends Model
 {
+	/**
+	 * Le nom de la table n'est pas celui attendu par défaut
+	 *
+	 * @var string
+	 */
 	public $table = "types_materiels";
-	protected $fillable = ["libelle", "domaine_id"];
+
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"libelle",
+		"domaine_id",
+	];
+
 
 	/**
 	 * Un type appartient à un domaine
@@ -22,7 +37,7 @@ class TypeMateriel extends Model
 	}
 
 	/**
-	 * Un type possède plusieurs matériels
+	 * Un type de matériel possède plusieurs matériels
 	 *
 	 * @return HasMany
 	 */

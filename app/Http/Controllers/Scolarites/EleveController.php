@@ -96,7 +96,7 @@ class EleveController extends Controller
 	public function show(Eleve $eleve): View
 	{
 		// Eager loading : charge les relations nécessaires avant l'affichage de la vue
-		$eleve->load("etablissement", "materiels.type", "responsables");
+		$eleve->load("etablissement.type", "materiels.type", "responsables");
 
 		return view("web.scolarites.eleves.show", compact("eleve"));
 	}

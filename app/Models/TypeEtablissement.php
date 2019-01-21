@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TypeEtablissement extends Model
 {
-	protected $table = "types_etablissements";
+	/**
+	 * Le nom de la table n'est pas celui attendu par défaut
+	 *
+	 * @var string
+	 */
+	public $table = "types_etablissements";
+
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
 	protected $fillable = [
 		"libelle",
 	];
+
 
 	/**
 	 * Un type d'établissement possède plusieurs établissements
@@ -21,5 +33,4 @@ class TypeEtablissement extends Model
 	{
 		return $this->hasMany(Etablissement::class);
 	}
-
 }

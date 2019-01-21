@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
 	protected $fillable = [
 	    "nom",
         "description",
@@ -16,7 +20,7 @@ class Service extends Model
 
 
 	/**
-	 * Un Service possède 0, 1, ou plusieurs Utilisateurs
+	 * Un service possède plusieurs utilisateurs
 	 *
 	 * @return HasMany
 	 */

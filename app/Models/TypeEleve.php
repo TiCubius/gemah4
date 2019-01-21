@@ -7,15 +7,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TypeEleve extends Model
 {
-    protected $table = "types_eleves";
-    protected $fillable = ["libelle"];
+	/**
+	 * Le nom de la table n'est pas celui attendu par défaut
+	 *
+	 * @var string
+	 */
+	public $table = "types_eleves";
 
-    /**
-     * Un type d'élève appartient à plusieurs élève
-     *
-     * @return BelongsToMany
-     */
-    public function eleves() : BelongsToMany{
-        return $this->belongsToMany(Eleve::class);
-    }
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"libelle",
+	];
+
+
+	/**
+	 * Un type d'élève possède plusieurs élève
+	 * [Utilisation d'une table PIVOT]
+	 *
+	 * @return BelongsToMany
+	 */
+	public function eleves(): BelongsToMany
+	{
+		return $this->belongsToMany(Eleve::class);
+	}
 }

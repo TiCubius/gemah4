@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Materiel extends Model
 {
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
 	protected $fillable = [
 		"domaine_id",
 		"eleve_id",
@@ -16,7 +21,7 @@ class Materiel extends Model
 		"marque",
 		"modele",
 		"numero_serie",
-        "cle_produit",
+		"cle_produit",
 		"nom_fournisseur",
 		"prix_ttc",
 		"etat_materiel_id",
@@ -31,6 +36,7 @@ class Materiel extends Model
 		"acheter_pour",
 	];
 
+
 	/**
 	 * Un matériel appartient à un élève
 	 *
@@ -39,6 +45,16 @@ class Materiel extends Model
 	public function eleve(): BelongsTo
 	{
 		return $this->belongsTo(Eleve::class);
+	}
+
+	/**
+	 * Un matériel possède un état matériel
+	 *
+	 * @return BelongsTo
+	 */
+	public function etat(): BelongsTo
+	{
+		return $this->belongsTo(EtatMateriel::class, "etat_materiel_id");
 	}
 
 	/**
@@ -51,15 +67,6 @@ class Materiel extends Model
 		return $this->belongsTo(TypeMateriel::class, "type_materiel_id");
 	}
 
-	/**
-	 * Un matériel possède un état
-	 *
-	 * @return BelongsTo
-	 */
-	public function etat(): BelongsTo
-	{
-		return $this->belongsTo(EtatMateriel::class, "etat_materiel_id");
-	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
@@ -86,57 +93,49 @@ class Materiel extends Model
 	/**
 	 * Effectue une recherce sur le matériel
 	 *
-	 * @param        $query
-	 * @param        $typeId
-	 * @param        $etatId
-	 * @param        $marque
-	 * @param        $modele
-	 * @param        $numeroSerie
+	 * @param             $query
+	 * @param string|null $departementId
+	 * @param int|null    $typeId
+	 * @param int|null    $etatId
+	 * @param string|null $marque
+	 * @param string|null $modele
+	 * @param string|null $numeroSerie
+	 * @param string|null $cleProduit
 	 * @return Builder
 	 */
-	public function scopeSearch($query, $departementId, $typeId, $etatId, $marque, $modele, $numeroSerie, $cleProduit): Builder
+	public function scopeSearch($query, ?string $departementId, ?int $typeId, ?int $etatId, ?string $marque, ?string $modele, ?string $numeroSerie, ?string $cleProduit): Builder
 	{
-		// Dans le cas où la variable "type", "marque", "numero_serie" est vide, on souhaite ignorer le champs
-		// dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
-		$departementId = $departementId ?? "--";
-		$typeId = $typeId ?? "--";
-		$etatId = $etatId ?? "--";
-		$marque = $marque ?? "--";
-		$modele = $modele ?? "--";
-		$numeroSerie = $numeroSerie ?? "--";
-
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
 
 		$search = $query->select('materiels.*')->where(function ($query) use ($typeId, $marque, $modele, $numeroSerie, $cleProduit) {
-			if ($marque != "--") {
+			if ($marque) {
 				$query = $query->orWhere("marque", "LIKE", "%{$marque}%");
 			}
-			if ($modele != "--") {
+			if ($modele) {
 				$query = $query->orWhere("modele", "LIKE", "%{$modele}%");
 			}
-			if ($numeroSerie != "--") {
+			if ($numeroSerie) {
 				$query = $query->orWhere("numero_serie", "LIKE", "%{$numeroSerie}%");
 			}
-            if ($cleProduit != "--") {
-                $query = $query->orWhere("numero_serie", "LIKE", "%{$cleProduit}%");
-            }
+			if ($cleProduit) {
+				$query = $query->orWhere("numero_serie", "LIKE", "%{$cleProduit}%");
+			}
 		});
 
-		if ($departementId != "--") {
+		if ($departementId) {
 			$search = $search->where("departement_id", $departementId);
 		}
 
-		if ($typeId != "--") {
+		if ($typeId) {
 			$search = $search->where("type_materiel_id", $typeId);
 		}
 
-		if ($etatId != "--") {
+		if ($etatId) {
 			$search = $search->where("etat_materiel_id", $etatId);
 		}
 
 		return $search;
 	}
-
 }

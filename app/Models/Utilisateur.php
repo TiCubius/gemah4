@@ -7,18 +7,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Utilisateur extends Model
 {
-
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
 	protected $fillable = [
-	    "nom",
-        "prenom",
-        "email",
-        "password",
-        "service_id"
-    ];
+		"nom",
+		"prenom",
+		"email",
+		"password",
+		"service_id",
+	];
 
 
 	/**
-	 * Un Utilisateur appartient à au plus un Service
+	 * Un utilisateur appartient à un service
 	 *
 	 * @return BelongsTo
 	 */
@@ -26,5 +30,4 @@ class Utilisateur extends Model
 	{
 		return $this->belongsTo(Service::class);
 	}
-
 }

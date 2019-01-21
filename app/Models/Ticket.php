@@ -9,8 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ticket extends Model
 {
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"eleve_id",
+		"type_ticket_id",
+		"libelle",
+		"description",
+	];
 
-	protected $fillable = ["eleve_id", "type_ticket_id", "libelle", "description"];
 
 	/**
 	 * Un ticket appartient à un élève
@@ -23,7 +33,7 @@ class Ticket extends Model
 	}
 
 	/**
-	 * Un ticket à plusieurs messages
+	 * Un ticket possède plusieurs messages
 	 *
 	 * @return HasMany
 	 */
@@ -42,6 +52,7 @@ class Ticket extends Model
 		return $this->belongsTo(TypeTicket::class, "type_ticket_id");
 	}
 
+
 	/**
 	 * Rechercher pour un élève précis
 	 *
@@ -53,5 +64,4 @@ class Ticket extends Model
 	{
 		return $query->where('eleve_id', $eleve->id);
 	}
-
 }

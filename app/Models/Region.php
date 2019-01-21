@@ -7,12 +7,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Region extends Model
 {
-
-	protected $fillable = ["nom"];
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"nom",
+	];
 
 
 	/**
-	 * Une Région possède 0, 1, ou plusieurs Departement
+	 * Une région possède plusieurs départements
 	 *
 	 * @return HasMany
 	 */
@@ -20,5 +26,4 @@ class Region extends Model
 	{
 		return $this->hasMany(Departement::class);
 	}
-
 }

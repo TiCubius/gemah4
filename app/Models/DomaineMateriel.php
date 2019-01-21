@@ -7,13 +7,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DomaineMateriel extends Model
 {
+	/**
+	 * Le nom de la table n'est pas celui attendu par défaut
+	 *
+	 * @var string
+	 */
 	public $table = "domaines_materiels";
-	protected $fillable = [
-	    "libelle"
-    ];
 
 	/**
-	 * Un Domaine Matériel possède plusieurs types
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"libelle",
+	];
+
+
+	/**
+	 * Un domaine matériel possède plusieurs types de matériel
 	 *
 	 * @return HasMany
 	 */

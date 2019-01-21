@@ -7,9 +7,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TicketMessage extends Model
 {
-    protected $table = "messages_tickets";
+	/**
+	 * Le nom de la table n'est pas celui attendu par défaut
+	 *
+	 * @var string
+	 */
+	public $table = "messages_tickets";
 
-	protected $fillable = ["ticket_id", "contenu"];
+	/**
+	 * Liste des attributs remplissables
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		"ticket_id",
+		"contenu",
+	];
+
 
 	/**
 	 * Un message appartient à un ticket

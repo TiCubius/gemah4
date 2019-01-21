@@ -105,7 +105,7 @@ class ConventionController extends Controller
 
             //->where("departement_id", "=", $departement->id)
 
-        //return view('pdf.conventions', compact('eleves'));
+//        return view('pdf.conventions', compact('eleves'));
 
         return PDF::loadView('pdf.conventions', compact('eleves'))->stream();
     }

@@ -12,10 +12,10 @@
 
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
 					<a class="dropdown-item" href="{{ route("web.conventions.signatures_effectues") }}">Liste des responsables ayant signé</a>
-					<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Liste des responsables n'aynt pas signé</a>
+					<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Liste des responsables n'ayant pas signé</a>
 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}">Impression de toutes les signatures non signé</a>
+					<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}">Impression de toutes les conventions non signé</a>
 
 					<div class="dropdown-divider"></div>
 					<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>

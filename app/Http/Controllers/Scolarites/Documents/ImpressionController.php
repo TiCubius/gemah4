@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
+use App\Models\Parametre;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -48,8 +49,8 @@ class ImpressionController extends Controller
 			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.");
 		}
 		if (!$eleve->etablissement) {
-		    return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun établissement.");
-        }
+			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun établissement.");
+		}
 		if ($eleve->decisions->isEmpty()) {
 			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
 		}
@@ -57,9 +58,17 @@ class ImpressionController extends Controller
 			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucun matériel.");
 		}
 
-        $eleves = $eleve->with("responsables", "etablissement", "decisions", "materiels")->where('id', $eleve->id)->get();
+		// On recherche les données de l'élève
+		$eleves = $eleve->with("responsables", "etablissement", "decisions", "materiels")->where('id', $eleve->id)->get();
 
-		return PDF::loadView('pdf.conventions', compact('eleves'))->stream();
+		// Récupération de tout les paramètres pour imprimer la convention
+		$allParametres = Parametre::conventions(42)->get();
+		$parametres = [];
+		foreach ($allParametres as $parametre) {
+			$parametres[$parametre->key] = $parametre->value;
+		}
+
+		return PDF::loadView('pdf.conventions', compact('eleves', 'parametres'))->stream();
 	}
 
 	/**

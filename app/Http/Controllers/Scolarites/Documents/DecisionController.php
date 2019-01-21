@@ -77,8 +77,10 @@ class DecisionController extends Controller
 			'file'              => 'required',
 		]);
 
-		// On enregistre le fichier
+		// On génère un nom de fichier
 		$filename = $this->generateFilename($eleve, $request->file('file'));
+
+		// On enregistre le fichier
 		$request->file('file')->storeAs('public/decisions/', $filename);
 
 		$document = Document::create([
@@ -88,7 +90,6 @@ class DecisionController extends Controller
 			'path'             => $filename,
 			'eleve_id'         => $eleve->id,
 		]);
-
 
 		Decision::create([
 			'date_cda'          => $request->input('date_cda'),
@@ -109,13 +110,17 @@ class DecisionController extends Controller
 	 *
 	 * @param Eleve    $eleve
 	 * @param Decision $decision
-	 * @return \Illuminate\Http\Response
+	 * @return View|RedirectResponse
 	 */
 	public function edit(Eleve $eleve, Decision $decision)
 	{
-		$enseignants = Enseignant::all();
+		if ($decision->document->eleve_id == $eleve->id) {
+			$enseignants = Enseignant::all();
 
-		return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'decision', 'enseignants'));
+			return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'decision', 'enseignants'));
+		}
+
+		return back()->withErrors("Cette décision n'appartient pas à cet élève");
 	}
 
 	/**
@@ -128,41 +133,45 @@ class DecisionController extends Controller
 	 */
 	public function update(Request $request, Eleve $eleve, Decision $decision): RedirectResponse
 	{
-		$request->validate([
-			'date_limite'       => 'nullable|date',
-			'date_cda'          => 'nullable|date',
-			'date_notification' => 'nullable|date',
-			'date_convention'   => 'nullable|date',
-			'numero_dossier'    => 'nullable|max:191',
-			'enseignant_id'     => 'nullable|integer',
-		]);
-
-		if ($request->hasFile('file')) {
-			// On supprime l'ancien fichier
-			Storage::delete('public/' . $decision->document->path);
-
-			// On enregistre le fichier
-			$filename = $this->generateFilename($eleve, $request->file('file'));
-			$request->file('file')->storeAs('public/decisions/', $filename);
-
-			// Mise a jours du document
-			$decision->document->update([
-				'path' => $filename,
+		if ($decision->document->eleve_id == $eleve->id) {
+			$request->validate([
+				'date_limite'       => 'nullable|date',
+				'date_cda'          => 'nullable|date',
+				'date_notification' => 'nullable|date',
+				'date_convention'   => 'nullable|date',
+				'numero_dossier'    => 'nullable|max:191',
+				'enseignant_id'     => 'nullable|integer',
 			]);
+
+			if ($request->hasFile('file')) {
+				// On supprime l'ancien fichier
+				Storage::delete('public/' . $decision->document->path);
+
+				// On enregistre le fichier
+				$filename = $this->generateFilename($eleve, $request->file('file'));
+				$request->file('file')->storeAs('public/decisions/', $filename);
+
+				// Mise a jours du document
+				$decision->document->update([
+					'path' => $filename,
+				]);
+			}
+
+			$decision->update([
+				'date_cda'          => $request->input('date_cda'),
+				'date_notification' => $request->input('date_notification'),
+				'date_limite'       => $request->input('date_limite'),
+				'date_convention'   => $request->input('date_convention'),
+				'numero_dossier'    => $request->input('numero_dossier'),
+
+				'enseignant_id' => $request->input('enseignant_id'),
+				'document_id'   => isset($document) ? $document->id : $decision->document_id,
+			]);
+
+			return redirect(route('web.scolarites.eleves.documents.index', [$eleve]));
 		}
 
-		$decision->update([
-			'date_cda'          => $request->input('date_cda'),
-			'date_notification' => $request->input('date_notification'),
-			'date_limite'       => $request->input('date_limite'),
-			'date_convention'   => $request->input('date_convention'),
-			'numero_dossier'    => $request->input('numero_dossier'),
-
-			'enseignant_id' => $request->input('enseignant_id'),
-			'document_id'   => isset($document) ? $document->id : $decision->document_id,
-		]);
-
-		return redirect(route('web.scolarites.eleves.documents.index', [$eleve]));
+		return back()->withErrors("Cette décision n'appartient pas à cet élève");
 	}
 
 	/**
@@ -175,11 +184,20 @@ class DecisionController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Decision $decision): RedirectResponse
 	{
-		Storage::delete('public/documents/' . $decision->document->path);
-		$decision->document()->delete();
-		$decision->delete();
+		if ($decision->document->eleve_id == $eleve->id) {
+			// On supprime le fichier
+			Storage::delete('public/decisions/' . $decision->document->path);
 
-		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+			// On supprime la décision dans la BDD
+			$decision->delete();
+
+			// On supprime le document associé dans la BDD
+			$decision->document()->delete();
+
+			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+		}
+
+		return back()->withErrors("Cette décision n'appartient pas à cet élève");
 	}
 
 	/**

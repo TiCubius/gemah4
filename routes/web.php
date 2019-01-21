@@ -52,15 +52,9 @@ Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function ()
 	Route::resource("enseignants", "Scolarites\EnseignantController");
 	Route::resource("etablissements", "Scolarites\EtablissementController");
 
-	Route::group([
-		"prefix" => "eleves/{eleve}/affectations",
-		"as"     => "eleves.affectations.",
-	], function () {
+	Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
 		//Affectation d'un établissement
-		Route::group([
-			"prefix" => "etablissements",
-			"as"     => "etablissements.",
-		], function () {
+		Route::group(["prefix" => "etablissements", "as" => "etablissements."], function () {
 			Route::get("/", "Scolarites\Affectations\EtablissementController@index")->name("index");
 			Route::post("/{etablissement}", "Scolarites\Affectations\EtablissementController@attach")->name("attach");
 			Route::delete("/{etablissement}", "Scolarites\Affectations\EtablissementController@detach")->name("detach");
@@ -94,15 +88,14 @@ Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function () {
 	Route::resource("stocks", "Materiels\StockMaterielController");
 });
 
-Route::group([
-	"prefix" => "/administrations",
-	"as"     => "web.administrations.",
-], function () {
+Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function () {
 	Route::resource("/", "Administrations\AdministrationController")->only("index");
 
 	Route::resource("departements", "Administrations\DepartementController");
 	Route::resource("academies", "Administrations\AcademieController");
 	Route::resource("regions", "Administrations\RegionController");
+
+	Route::patch("parametres", "Administrations\ParametreController@update")->name("parametres.update");
 
 	Route::resource("services", "Administrations\ServiceController");
 	Route::resource("utilisateurs", "Administrations\UtilisateurController");

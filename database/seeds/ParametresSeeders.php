@@ -6,16 +6,76 @@ class ParametresSeeders extends Seeder
 {
 	private $departements = [
 		"42" => [
-			"conventions/affaire/nom"            => "BELMIRO Virginie",
-			"conventions/affaire/telephone"      => "04 77 81 41 13",
-			"conventions/informatique/nom"       => "GOUNON Jean-Jacques",
-			"conventions/informatique/telephone" => "04 77 81 79 47",
-			"conventions/audio/nom"              => "GAVILLET Annick",
-			"conventions/audio/telephone"        => "04 77 81 41 38",
-			"conventions/adresse"                => "11, rue des Docteurs Charcot",
-			"conventions/secretaire"             => "Jean-Luc POUMAREDES",
-			"conventions/code_postal"            => "42023",
-			"conventions/ville"                  => "Saint-Etienne",
+			[
+				"libelle" => "Affaire suivie par",
+				"key"     => "conventions/affaire/nom",
+				"value"   => "BELMIRO Virginie",
+			],
+			[
+				"libelle" => "Téléphone",
+				"key"     => "conventions/affaire/telephone",
+				"value"   => "04 77 81 41 13",
+			],
+			[
+				"libelle" => "E-Mail",
+				"key"     => "conventions/affaire/email",
+				"value"   => "",
+			],
+			[
+				"libelle" => "Affaire suivie par",
+				"key"     => "conventions/informatique/nom",
+				"value"   => "GOUNON Jean-Jacques",
+			],
+			[
+				"libelle" => "Téléphone",
+				"key"     => "conventions/informatique/telephone",
+				"value"   => "04 77 81 79 47",
+			],
+			[
+				"libelle" => "E-Mail",
+				"key"     => "conventions/informatique/email",
+				"value"   => "",
+			],
+			[
+				"libelle" => "Affaire suivie par",
+				"key"     => "conventions/audio/nom",
+				"value"   => "GAVILLET Annick",
+			],
+			[
+				"libelle" => "Téléphone",
+				"key"     => "conventions/audio/telephone",
+				"value"   => "04 77 81 41 38",
+			],
+			[
+				"libelle" => "E-Mail",
+				"key"     => "conventions/audio/email",
+				"value"   => "",
+			],
+			[
+				"libelle" => "Secrétaire général",
+				"key"     => "conventions/secretaire",
+				"value"   => "Jean-Luc POUMAREDES",
+			],
+			[
+				"libelle" => "Adresse",
+				"key"     => "conventions/adresse",
+				"value"   => "11, rue des Docteurs Charcot",
+			],
+			[
+				"libelle" => "Code Postal",
+				"key"     => "conventions/code_postal",
+				"value"   => "42023",
+			],
+			[
+				"libelle" => "Ville",
+				"key"     => "conventions/ville",
+				"value"   => "Saint-Etienne",
+			],
+			[
+				"libelle" => "Année scolaire",
+				"key"     => "conventions/annee",
+				"value"   => "2018 / 2019",
+			],
 		],
 	];
 
@@ -27,11 +87,12 @@ class ParametresSeeders extends Seeder
 	public function run()
 	{
 		foreach ($this->departements as $departement => $keys) {
-			foreach ($keys as $key => $value) {
+			foreach ($keys as $data) {
 				\App\Models\Parametre::create([
 					"departement_id" => $departement,
-					"key"            => $key,
-					"value"          => $value,
+					"libelle"        => $data["libelle"],
+					"key"            => $data["key"],
+					"value"          => $data["value"],
 				]);
 			}
 		}

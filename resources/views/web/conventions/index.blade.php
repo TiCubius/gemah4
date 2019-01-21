@@ -115,57 +115,72 @@
 
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="conventions/affaire/nom">Affaire suivi par</label>
-						<input id="conventions/affaire/nom" class="form-control" name="conventions/affaire/nom" type="text" placeholder="Ex: BELMIRO Virginie" value="{{ $parametres["conventions/affaire/nom"] }}">
+						<label for="conventions/affaire/nom">{{ $parametres["conventions/audio/nom"]["libelle"] }}</label>
+						<input id="conventions/affaire/nom" class="form-control" name="conventions/affaire/nom" type="text" value="{{ $parametres["conventions/affaire/nom"]["value"] }}">
 					</div>
 
 					<div class="form-group">
-						<label for="conventions/affaire/telephone">Téléphone</label>
-						<input id="conventions/affaire/telephone" class="form-control" name="conventions/affaire/telephone" type="text" placeholder="Ex: 04 77 81 41 13" value="{{ $parametres["conventions/affaire/telephone"] }}">
-					</div>
-
-
-					<div class="form-group">
-						<label for="conventions/informatique/nom">Matériel Informatique par</label>
-						<input id="conventions/informatique/nom" class="form-control" name="conventions/informatique/nom" type="text" placeholder="Ex: GOUNON Jean-Jacques" value="{{ $parametres["conventions/informatique/nom"] }}">
+						<label for="conventions/affaire/telephone">{{ $parametres["conventions/audio/telephone"]["libelle"] }}</label>
+						<input id="conventions/affaire/telephone" class="form-control" name="conventions/affaire/telephone" type="text" value="{{ $parametres["conventions/affaire/telephone"]["value"] }}">
 					</div>
 
 					<div class="form-group">
-						<label for="conventions/informatique/telephone">Téléphone</label>
-						<input id="conventions/informatique/telephone" class="form-control" name="conventions/informatique/telephone" type="text" placeholder="Ex: 04 77 81 79 47" value="{{ $parametres["conventions/informatique/telephone"] }}">
+						<label for="conventions/affaire/email">{{ $parametres["conventions/audio/email"]["libelle"] }}</label>
+						<input id="conventions/affaire/email" class="form-control" name="conventions/affaire/email" type="text" value="{{ $parametres["conventions/affaire/email"]["value"] }}">
 					</div>
 
 
 					<div class="form-group">
-						<label for="conventions/audio/nom">Matériel Audio par</label>
-						<input id="conventions/audio/nom" class="form-control" name="conventions/audio/nom" type="text" placeholder="Ex: GAVILLET Annick" value="{{ $parametres["conventions/audio/nom"] }}">
+						<label for="conventions/informatique/nom">{{ $parametres["conventions/audio/nom"]["libelle"] }}</label>
+						<input id="conventions/informatique/nom" class="form-control" name="conventions/informatique/nom" type="text" value="{{ $parametres["conventions/informatique/nom"]["value"] }}">
 					</div>
 
 					<div class="form-group">
-						<label for="conventions/audio/telephone">Téléphone</label>
-						<input id="conventions/audio/telephone" class="form-control" name="conventions/audio/telephone" type="text" placeholder="Ex: 04 77 81 41 38" value="{{ $parametres["conventions/audio/telephone"] }}">
-					</div>
-
-
-					<div class="form-group">
-						<label for="conventions/adresse">Adrese</label>
-						<input id="conventions/adresse" class="form-control" name="conventions/adresse" type="text" placeholder="Ex: 11, rue des Docteurs Charcot" value="{{ $parametres["conventions/adresse"] }}">
+						<label for="conventions/informatique/telephone">{{ $parametres["conventions/audio/telephone"]["libelle"] }}</label>
+						<input id="conventions/informatique/telephone" class="form-control" name="conventions/informatique/telephone" type="text" value="{{ $parametres["conventions/informatique/telephone"]["value"] }}">
 					</div>
 
 					<div class="form-group">
-						<label for="conventions/code_postal">Code Postal</label>
-						<input id="conventions/code_postal" class="form-control" name="conventions/code_postal" type="text" placeholder="Ex: 42023" value="{{ $parametres["conventions/code_postal"] }}">
-					</div>
-
-					<div class="form-group">
-						<label for="conventions/ville">Ville</label>
-						<input id="conventions/ville" class="form-control" name="conventions/ville" type="text" placeholder="Ex: Saint-Etienne" value="{{ $parametres["conventions/ville"] }}">
+						<label for="conventions/informatique/email">{{ $parametres["conventions/audio/email"]["libelle"] }}</label>
+						<input id="conventions/informatique/email" class="form-control" name="conventions/informatique/email" type="text" value="{{ $parametres["conventions/informatique/email"]["value"] }}">
 					</div>
 
 
 					<div class="form-group">
-						<label for="conventions/secretaire">Secrétaire</label>
-						<input id="conventions/secretaire" class="form-control" name="conventions/secretaire" type="text" placeholder="Ex: Jean-Luc POUMAREDES" value="{{ $parametres["conventions/secretaire"] }}">
+						<label for="conventions/audio/nom">{{ $parametres["conventions/audio/nom"]["libelle"] }}</label>
+						<input id="conventions/audio/nom" class="form-control" name="conventions/audio/nom" type="text" value="{{ $parametres["conventions/audio/nom"]["value"] }}">
+					</div>
+
+					<div class="form-group">
+						<label for="conventions/audio/telephone">{{ $parametres["conventions/audio/telephone"]["libelle"] }}</label>
+						<input id="conventions/audio/telephone" class="form-control" name="conventions/audio/telephone" type="text" value="{{ $parametres["conventions/audio/telephone"]["value"] }}">
+					</div>
+
+					<div class="form-group">
+						<label for="conventions/audio/email">{{ $parametres["conventions/audio/email"]["libelle"] }}</label>
+						<input id="conventions/audio/email" class="form-control" name="conventions/audio/email" type="text" value="{{ $parametres["conventions/audio/email"]["value"] }}">
+					</div>
+
+
+					<div class="form-group">
+						<label for="conventions/adresse">{{ $parametres["conventions/adresse"]["libelle"] }}</label>
+						<input id="conventions/adresse" class="form-control" name="conventions/adresse" type="text" value="{{ $parametres["conventions/adresse"]["value"] }}">
+					</div>
+
+					<div class="form-group">
+						<label for="conventions/code_postal">{{ $parametres["conventions/code_postal"]["libelle"] }}</label>
+						<input id="conventions/code_postal" class="form-control" name="conventions/code_postal" type="text" value="{{ $parametres["conventions/code_postal"]["value"] }}">
+					</div>
+
+					<div class="form-group">
+						<label for="conventions/ville">{{ $parametres["conventions/ville"]["libelle"] }}</label>
+						<input id="conventions/ville" class="form-control" name="conventions/ville" type="text" value="{{ $parametres["conventions/ville"]["value"] }}">
+					</div>
+
+
+					<div class="form-group">
+						<label for="conventions/secretaire">{{ $parametres["conventions/secretaire"]["libelle"] }}</label>
+						<input id="conventions/secretaire" class="form-control" name="conventions/secretaire" type="text" value="{{ $parametres["conventions/secretaire"]["value"] }}">
 					</div>
 				</div>
 

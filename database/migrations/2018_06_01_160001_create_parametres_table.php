@@ -15,8 +15,9 @@ class CreateParametresTable extends Migration
 	{
 		Schema::create('parametres', function (Blueprint $table) {
 			$table->string('departement_id');
+			$table->string('libelle');
 			$table->string('key');
-			$table->string('value');
+			$table->string('value')->nullable();
 
 			$table->primary(["departement_id", "key"]);
 			$table->foreign("departement_id")->references("id")->on("departements");

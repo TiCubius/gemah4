@@ -25,11 +25,11 @@ class ConventionController extends Controller
 	{
 		$eleves = Eleve::has("responsables")->with("responsables")->orderBy("nom")->orderBy("prenom")->get();
 
-		$allParametres = Parametre::conventions(42)->get();
+		$allParametres = Parametre::conventions(42)->orderBy("key")->get();
 
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
-			$parametres[$parametre->key] = $parametre->value;
+			$parametres[$parametre->key] = ["libelle" => $parametre->libelle, "value" => $parametre->value];
 		}
 
 

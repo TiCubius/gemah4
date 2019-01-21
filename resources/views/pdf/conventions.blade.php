@@ -40,6 +40,7 @@
 							Affaire suivie par : <br>
 							{{ $parametres["conventions/affaire/nom"] }} <br>
 							{{ $parametres["conventions/affaire/telephone"] }} <br>
+							{{ $parametres["conventions/affaire/email"] }} <br>
 						</p>
 
 						<p>
@@ -47,6 +48,7 @@
 							Affaire suivie par : <br>
 							{{ $parametres["conventions/informatique/nom"] }} <br>
 							{{ $parametres["conventions/informatique/telephone"] }} <br>
+							{{ $parametres["conventions/informatique/email"] }} <br>
 						</p>
 
 						<p>
@@ -54,6 +56,7 @@
 							Affaire suivie par : <br>
 							{{ $parametres["conventions/audio/nom"] }} <br>
 							{{ $parametres["conventions/audio/telephone"] }} <br>
+							{{ $parametres["conventions/audio/email"] }} <br>
 						</p>
 
 						<p>

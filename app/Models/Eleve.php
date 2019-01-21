@@ -206,6 +206,74 @@ class Eleve extends Model
     }
 
     /**
+     * Retourne un Query Builder triant les résultats par date de création des documents
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeLatestDocumentCreated($query, $state): Builder
+    {
+        $query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+
+        if($state) {
+            return $query->orderBy("documents.created_at", "ASC");
+        } elseif (!$state) {
+            return $query->orderBy("documents.created_at", "DESC");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder triant les résultats par date de mise à jours des documents
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeLatestDocumentModified($query, $state): Builder
+    {
+        $query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+
+        if($state) {
+            return $query->orderBy("documents.updated_at", "ASC");
+        } elseif (!$state) {
+            return $query->orderBy("documents.updated_at", "DESC");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder triant les résultats par date de création des tickets
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeLatestTicketCreated($query, $state): Builder
+    {
+        $query = $query->join("tickets", "eleve.id", "=", "tickets.eleve_id");
+
+        if($state) {
+            return $query->orderBy("tickets.created_at", "ASC");
+        } elseif (!$state) {
+            return $query->orderBy("tickets.created_at", "DESC");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder triant les résultats par date de mise à jours des tickets
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeLatestTicketModified($query, $state): Builder
+    {
+        $query = $query->join("tickets", "eleve.id", "=", "tickets.eleve_id");
+
+        if($state) {
+            return $query->orderBy("tickets.updated_at", "ASC");
+        } elseif (!$state) {
+            return $query->orderBy("tickets.updated_at", "DESC");
+        }
+    }
+
+    /**
      * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas du matériels
      *
      * @param $query

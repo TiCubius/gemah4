@@ -131,3 +131,8 @@ Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function 
 	Route::get("signatures_manquantes", "Responsables\ConventionController@signatures_manquantes")->name("signatures_manquantes");
 	Route::get("impressions_toutes_conventions", "Responsables\ConventionController@impressions_toutes_conventions")->name("impressions_toutes_conventions");
 });
+
+Route::group(["prefix" => "/statistiques", "as" => "web.statistiques."], function (){
+    Route::get("/", "Statistiques\StatistiquesController@index")->name("index");
+    Route::get("/generale", "Statistiques\StatistiquesController@generale")->name("generale");
+});

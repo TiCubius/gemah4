@@ -27,7 +27,7 @@
 				</button>
 			</a>
 
-			<a href="#">
+			<a href="{{ route("web.statistiques.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					Statistiques
 				</button>

@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Eleve extends Model
 {
@@ -117,16 +119,17 @@ class Eleve extends Model
     /**
      * Effectue une recherce sur le département, type ET (nom, prénom, email ou téléphone sur élève)
      *
-     * @param        $query
-     * @param $departement_id
-     * @param $type_eleve_id
+     * @param         $query
+     * @param string $departement_id
+     * @param integer $type_eleve_id
      * @param string $nom
      * @param string $prenom
-     * @param        $date_naissance
-     * @param        $code_ine
+     * @param integer $date_naissance
+     * @param string $code_ine
+     * @param integer $id
      * @return Builder
      */
-    public function scopeSearch($query, $departement_id, $type_eleve_id, $nom, $prenom, $date_naissance, $code_ine): Builder
+    public function scopeSearch($query, $departement_id, $type_eleve_id, $nom, $prenom, $date_naissance, $code_ine, $id): Builder
     {
         // Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
         // dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
@@ -136,6 +139,7 @@ class Eleve extends Model
         $prenom = $prenom ?? "--";
         $date_naissance = $date_naissance ?? "--";
         $code_ine = $code_ine ?? "--";
+        $id = $id ?? "--";
 
 
         // On souhaite une requête SQL du type:
@@ -164,6 +168,10 @@ class Eleve extends Model
             $search->type($type_eleve_id);
         }
 
+        if ($id !== "--") {
+            $search->where("id", $id);
+        }
+
         return $search;
     }
 
@@ -181,4 +189,67 @@ class Eleve extends Model
         });
     }
 
+    /**
+     * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas des documents
+     *
+     * @param $query
+     * @param $state
+     * @return Builder
+     */
+    public function scopeHaveDocuments($query, $state): Builder
+    {
+        if ($state) {
+            return $query->has("documents");
+        } elseif (!$state) {
+            return $query->doesntHave("documents");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas du matériels
+     *
+     * @param $query
+     * @param $state
+     * @return Builder
+     */
+    public function scopeHaveMateriels($query, $state): Builder
+    {
+        if ($state) {
+            return $query->has("materiels");
+        } elseif (!$state) {
+            return $query->doesntHave("materiels");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas des responsables
+     *
+     * @param $query
+     * @param $state
+     * @return Builder
+     */
+    public function scopeHaveResponsables($query, $state): Builder
+    {
+        if ($state) {
+            return $query->has("responsables");
+        } elseif (!$state) {
+            return $query->doesntHave("responsables");
+        }
+    }
+
+    /**
+     * Retourne un Query Builder avec uniquement les élèves étant/n'étant pas dans un établissement
+     *
+     * @param $query
+     * @param $state
+     * @return Builder
+     */
+    public function scopeHaveEtablissement($query, $state): Builder
+    {
+        if ($state) {
+            return $query->has("etablissement");
+        } elseif (!$state) {
+            return $query->doesntHave("etablissement");
+        }
+    }
 }

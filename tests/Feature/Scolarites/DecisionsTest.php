@@ -218,7 +218,7 @@ class DecisionsTest extends TestCase
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que la decision à bien été supprimé
 	 */
-	public function testTraitementSuppressionEleve()
+	public function testTraitementSuppressionDecision()
 	{
 		$eleve = factory(Eleve::class)->create();
 		$decision = factory(Decision::class)->create();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Responsables;
 use App\Http\Controllers\Controller;
 use App\Models\Departement;
 use App\Models\Eleve;
+use App\Models\Parametre;
 use App\Models\Responsable;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -22,9 +23,17 @@ class ConventionController extends Controller
 	 */
 	public function index(): View
 	{
-		$eleves = Eleve::with("responsables")->has("responsables")->get();
+		$eleves = Eleve::has("responsables")->with("responsables")->orderBy("nom")->orderBy("prenom")->get();
 
-		return view("web.conventions.index", compact("eleves"));
+		$allParametres = Parametre::conventions(42)->get();
+
+		$parametres = [];
+		foreach ($allParametres as $parametre) {
+			$parametres[$parametre->key] = $parametre->value;
+		}
+
+
+		return view("web.conventions.index", compact("eleves", "parametres"));
 	}
 
 	/**
@@ -87,26 +96,23 @@ class ConventionController extends Controller
 		return PDF::loadView('pdf.signatures', compact('titre', 'responsables', 'etatAttendu'))->stream();
 	}
 
-    /***
-     * Génération des PDF de conventions pour tous les élèves ayant au moins un responsable, un matériel, une décision et étant lié à un établissement
-     * Et où le responsable n'a pas signé
-     *
-     * @return Response
-     */
+	/***
+	 * Génération des PDF de conventions pour tous les élèves ayant au moins un responsable, un matériel, une décision et étant lié à un établissement
+	 * Et où le responsable n'a pas signé
+	 *
+	 * @return Response
+	 */
 	public function impressions_toutes_conventions()
-    {
-        $departement = Departement::find(42);
+	{
+		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->get();
 
-        $eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")
-            ->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")
-            ->has("etablissement")->has("decisions")->has("materiels")->has("responsables")
-            ->where("eleve_responsable.etat_signature", "=", 0)
-            ->get();
+		// Récupération de tout les paramètres pour imprimer les conventions
+		$allParametres = Parametre::conventions(42)->get();
+		$parametres = [];
+		foreach ($allParametres as $parametre) {
+			$parametres[$parametre->key] = $parametre->value;
+		}
 
-            //->where("departement_id", "=", $departement->id)
-
-//        return view('pdf.conventions', compact('eleves'));
-
-        return PDF::loadView('pdf.conventions', compact('eleves'))->stream();
-    }
+		return PDF::loadView('pdf.conventions', compact('eleves', 'parametres'))->stream();
+	}
 }

@@ -16,7 +16,7 @@ class CreateResponsablesTable extends Migration
 		Schema::create('responsables', function (Blueprint $table) {
 			$table->increments('id');
 
-			$table->enum('civilite', ['M.', 'Mme', 'M/Mme']);
+			$table->enum('civilite', ['M.', 'Mme', 'M./Mme']);
 			$table->string('nom');
 			$table->string('prenom');
 			$table->string('email')->nullable();

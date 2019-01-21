@@ -77,8 +77,10 @@ class DecisionController extends Controller
 			'file'              => 'required',
 		]);
 
-		// On enregistre le fichier
+		// On génère un nom de fichier
 		$filename = $this->generateFilename($eleve, $request->file('file'));
+
+		// On enregistre le fichier
 		$request->file('file')->storeAs('public/decisions/', $filename);
 
 		$document = Document::create([
@@ -88,7 +90,6 @@ class DecisionController extends Controller
 			'path'             => $filename,
 			'eleve_id'         => $eleve->id,
 		]);
-
 
 		Decision::create([
 			'date_cda'          => $request->input('date_cda'),
@@ -175,11 +176,20 @@ class DecisionController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Decision $decision): RedirectResponse
 	{
-		Storage::delete('public/documents/' . $decision->document->path);
-		$decision->document()->delete();
-		$decision->delete();
+		if ($decision->document->eleve_id == $eleve->id) {
+			// On supprime le fichier
+			Storage::delete('public/decisions/' . $decision->document->path);
 
-		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+			// On supprime la décision dans la BDD
+			$decision->delete();
+
+			// On supprime le document associé dans la BDD
+			$decision->document()->delete();
+
+			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+		}
+
+		return back()->withErrors("Cette décision n'appartient pas à cet élève");
 	}
 
 	/**

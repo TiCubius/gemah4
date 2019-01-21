@@ -163,9 +163,9 @@ class DecisionsTest extends TestCase
 		$path = $decision->document->path;
 		$date = \Carbon\Carbon::now();
 
-		$request = $this->patch("/scolarites/eleves/{$decision->document->eleve_id}/documents/decisions/{$decision->id}", [
+		$request = $this->patch("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->id}", [
 			"_token"            => csrf_token(),
-			"enseignant_id"     => $decision->document->eleve->enseignant_id,
+			"enseignant_id"     => $decision->enseignant_id,
 			"date_cda"          => $date,
 			"date_notification" => $date,
 			"date_limite"       => $date,
@@ -177,7 +177,7 @@ class DecisionsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("decisions", [
-			"enseignant_id"     => $decision->document->eleve->enseignant_id,
+			"enseignant_id"     => $decision->enseignant_id,
 			"date_cda"          => $date,
 			"date_notification" => $date,
 			"date_limite"       => $date,

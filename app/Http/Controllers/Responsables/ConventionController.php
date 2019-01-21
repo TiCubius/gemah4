@@ -29,9 +29,8 @@ class ConventionController extends Controller
 
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
-			$parametres[$parametre->key] = $parametre->value;
+			$parametres[$parametre->key] = ["libelle" => $parametre->libelle, "value" => $parametre->value];
 		}
-
 
 		return view("web.conventions.index", compact("eleves", "parametres"));
 	}

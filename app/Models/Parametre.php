@@ -12,7 +12,7 @@ class Parametre extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
-	protected $fillable = ["departement_id", "key", "value"];
+	protected $fillable = ["departement_id", "libelle", "key", "value"];
 
 
 	/**

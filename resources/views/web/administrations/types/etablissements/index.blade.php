@@ -2,14 +2,14 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.eleves.types.create", "back" => "web.administrations.index"])
-			Gestion des types d'élèves
+		@component("web._includes.components.title", ["add" => "web.administrations.etablissements.types.create", "back" => "web.administrations.index"])
+			Gestion des types d'établissements
 		@endcomponent
 
 		<div class="col-12">
-			@if($typeEleves->isEmpty())
+			@if($types_etablissements->isEmpty())
 				<div class="alert alert-warning">
-					Aucun type d'élève n'est enregistré sur l'application
+					Aucun type d'établissement n'est enregistré sur l'application
 				</div>
 
 			@else
@@ -22,11 +22,11 @@
 					</thead>
 
 					<tbody>
-						@foreach($typeEleves as $typeEleve)
+						@foreach($types_etablissements as $types_etablissement)
 							<tr>
-								<td>{{ $typeEleve->libelle }}</td>
+								<td>{{ $types_etablissement->libelle }}</td>
 								<td>
-									<a href="{{ route("web.administrations.eleves.types.edit", [$typeEleve]) }}">
+									<a href="{{ route("web.administrations.etablissements.types.edit", [$types_etablissement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

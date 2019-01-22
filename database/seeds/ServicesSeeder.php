@@ -6,7 +6,11 @@ class ServicesSeeder extends Seeder
 {
 
 	protected $services = [
-		"Administrateur" => "Possède tout les droits sur l'application",
+		"Administrateur" => "Gestion de GEMAH",
+        "ASH" => "Gestion des élèves en situation de handicap",
+        "DAF" => "Division des affaires financiaires",
+        "DIDEL" => "Division des élèves",
+        "Service informatique" => "Gestion du système informatique",
 	];
 
 	public function run()

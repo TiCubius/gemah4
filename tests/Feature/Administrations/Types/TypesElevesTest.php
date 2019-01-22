@@ -16,7 +16,7 @@ class TypeEleveTest extends TestCase
 	{
 		$types = factory(TypeEleve::class, 3)->create();
 
-		$request = $this->get("/administrations/eleves/types");
+		$request = $this->get("/administrations/types/eleves");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des types d'élèves");
@@ -32,7 +32,7 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationType()
 	{
-		$request = $this->get("/administrations/eleves/types/create");
+		$request = $this->get("/administrations/types/eleves/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type d'élève");
@@ -46,7 +46,7 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeIncomplet()
 	{
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/eleves", [
 			"_token" => csrf_token(),
 		]);
 
@@ -62,7 +62,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class, 5)->create();
 
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/eleves", [
 			"_token"  => csrf_token(),
 			"libelle" => $type->random()->libelle,
 		]);
@@ -77,7 +77,7 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/eleves", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
 		]);
@@ -95,7 +95,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/eleves/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$type->libelle}");
@@ -111,7 +111,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/eleves/{$type->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -127,7 +127,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class, 2)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type[0]->id}", [
+		$request = $this->put("/administrations/types/eleves/{$type[0]->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $type[1]->libelle,
 		]);
@@ -145,7 +145,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/eleves/{$type->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $type->libelle,
 		]);
@@ -163,7 +163,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/eleves/{$type->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
 		]);
@@ -181,7 +181,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/eleves/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer " . $type->libelle);
@@ -198,7 +198,7 @@ class TypeEleveTest extends TestCase
 		$eleve = factory(Eleve::class)->create();
 		$eleve->types()->attach($type);
 
-		$request = $this->delete("/administrations/eleves/types/{$type->id}");
+		$request = $this->delete("/administrations/types/eleves/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
@@ -213,7 +213,7 @@ class TypeEleveTest extends TestCase
 	{
 		$type = factory(TypeEleve::class)->create();
 
-		$request = $this->delete("/administrations/eleves/types/{$type->id}");
+		$request = $this->delete("/administrations/types/eleves/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();

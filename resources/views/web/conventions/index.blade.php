@@ -186,7 +186,7 @@
 
 				<div class="modal-footer d-flex justify-content-between">
 					<button class="btn btn-dark" type="button" data-dismiss="modal">Annuler</button>
-					<button class="btn btn-primary">Mettre à jours</button>
+					<button class="btn btn-primary">Mettre à jour</button>
 				</div>
 			</div>
 		</div>

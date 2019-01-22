@@ -9,7 +9,7 @@ class ParametresSeeders extends Seeder
 			[
 				"libelle" => "Affaire suivie par",
 				"key"     => "conventions/affaire/nom",
-				"value"   => "BELMIRO Virginie",
+				"value"   => "DECHAVANNE Béatrice",
 			],
 			[
 				"libelle" => "Téléphone",

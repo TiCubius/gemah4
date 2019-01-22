@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
-use App\Models\Departement;
+use App\Models\Permission;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,8 +32,14 @@ class ServiceController extends Controller
 	public function create(): View
 	{
 		$academies = Academie::with("departements")->get();
+		$permissions = Permission::all();
 
-		return view("web.administrations.services.create", compact("academies"));
+		$groupedPermissions = $permissions->mapToGroups(function ($item, $key) {
+			$permissionStart = implode('/', explode('/', $item->id, -1));
+			return [$permissionStart => $item];
+		})->sortKeys();
+
+		return view("web.administrations.services.create", compact("academies", "groupedPermissions"));
 	}
 
 	/**
@@ -44,29 +50,26 @@ class ServiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$departement = Departement::find($request->input("departements_id"));
-
 		$request->validate([
-			"nom"            => "required|max:191|unique_with:services,id",
+			"nom"            => "required|max:191|unique_with:departements,id",
 			"description"    => "required|max:191",
-			"departement_id" => "required|max:191",
+			"departement_id" => "required|max:191|exists:departements,id",
 		]);
 
-		Service::create($request->only(["nom", "description", "departement_id"]));
+		$service = Service::create($request->only(["nom", "description", "departement_id"]));
+
+		// On récupère toutes les permissions
+		$permissions = Permission::all();
+
+		// On affecte les nouvelles permissions
+		foreach ($request->input("permissions") as $key => $value) {
+			$permission = $permissions->find("id", $key);
+			$service->permissions()->attach($permission);
+		}
 
 		return redirect(route("web.administrations.services.index"));
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param Service $service
-	 * @return void
-	 */
-	public function show(Service $service)
-	{
-		//
-	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'un service
@@ -77,8 +80,15 @@ class ServiceController extends Controller
 	public function edit(Service $service): View
 	{
 		$academies = Academie::with("departements")->get();
+		$permissions = Permission::all();
 
-		return view("web.administrations.services.edit", compact("service", "academies"));
+		$groupedPermissions = $permissions->mapToGroups(function ($item, $key) {
+			$permissionStart = implode('/', explode('/', $item->id, -1));
+			return [$permissionStart => $item];
+		})->sortKeys();
+
+
+		return view("web.administrations.services.edit", compact("academies", "groupedPermissions", "service"));
 	}
 
 	/**
@@ -93,10 +103,22 @@ class ServiceController extends Controller
 		$request->validate([
 			"nom"            => "required|max:191|unique_with:services,departement_id,{$service->id}",
 			"description"    => "required|max:191",
-			"departement_id" => "required|max:191",
+			"departement_id" => "required|max:191|exists:departements,id",
 		]);
 
 		$service->update($request->only(["nom", "description", "departement_id"]));
+
+		// On récupère les permissions
+		$permissions = Permission::all();
+
+		// On supprime toutes les permissions du service
+		$service->permissions()->detach();
+
+		// On réaffecte les nouvelles permissions
+		foreach ($request->input("permissions") as $key => $value) {
+			$permission = $permissions->find("id", $key);
+			$service->permissions()->attach($permission);
+		}
 
 		return redirect(route("web.administrations.services.index"));
 	}
@@ -114,6 +136,7 @@ class ServiceController extends Controller
 			return back()->withErrors("Impossible de supprimer un service associé à des utilisateurs");
 		}
 
+		$service->permissions()->detach();
 		$service->delete();
 
 		return redirect(route("web.administrations.services.index"));

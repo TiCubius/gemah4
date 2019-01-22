@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.administrations.services.index"])
+		@component("web._includes.components.title", ["back" => "web.administrations.eleves.types.index"])
 			Création d'un type d'élève
 		@endcomponent
 

@@ -15,7 +15,7 @@ Route::get('/connexion', 'ConnexionController@index')->name('web.connexion');
 Route::post('/connexion', 'ConnexionController@login');
 Route::get('/deconnexion', 'ConnexionController@logout')->name('web.logout');
 
-Route::group(["middleware" => "authentification"], function () {
+Route::group(["middleware" => ["authentification", "permissions"]], function () {
     Route::get('/', 'GemahController@index')->name('web.index');
 
     Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {

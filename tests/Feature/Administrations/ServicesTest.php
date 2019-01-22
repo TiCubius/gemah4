@@ -15,15 +15,15 @@ class ServicesTest extends TestCase
 	 */
 	public function testAffichageIndexServices()
 	{
-		$Services = factory(Service::class, 5)->create();
+		$services = factory(Service::class, 5)->create();
 
 		$request = $this->get("/administrations/services");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des services");
 
-		foreach ($Services as $Service) {
-			$request->assertSee($Service->nom);
+		foreach ($services as $service) {
+			$request->assertSee($service->nom);
 		}
 	}
 
@@ -63,11 +63,11 @@ class ServicesTest extends TestCase
 	public function testTraitementFormulaireCreationServiceExistant()
 	{
 		$departement = factory(Departement::class)->create();
-		$Services = factory(Service::class, 5)->create();
+		$services = factory(Service::class, 5)->create();
 
 		$request = $this->post("/administrations/services", [
 			"_token"         => csrf_token(),
-			"nom"            => $Services->random()->nom,
+			"nom"            => $services->random()->nom,
 			"departement_id" => $departement->id,
 		]);
 
@@ -101,12 +101,12 @@ class ServicesTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionService()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->get("/administrations/services/{$Service->id}/edit");
+		$request = $this->get("/administrations/services/{$service->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Service->nom}");
+		$request->assertSee("Édition de {$service->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Éditer");
 		$request->assertSee("Département");
@@ -118,9 +118,9 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionServiceIncomplet()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->put("/administrations/services/{$Service->id}", [
+		$request = $this->put("/administrations/services/{$service->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -134,18 +134,18 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionServiceExistant()
 	{
-		$Services = factory(Service::class, 2)->create();
+		$services = factory(Service::class, 2)->create();
 
-		$request = $this->put("/administrations/services/{$Services[0]->id}", [
+		$request = $this->put("/administrations/services/{$services[0]->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $Services[1]->nom,
+			"nom"         => $services[1]->nom,
 			"description" => "unit.testing",
-			"departement" => $Services[0]->departement_id,
+			"departement" => $services[0]->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("services", ["nom" => $Services[0]->nom]);
+		$this->assertDatabaseHas("services", ["nom" => $services[0]->nom]);
 	}
 
 	/**
@@ -154,18 +154,18 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionServiceCompletSansModification()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->put("/administrations/services/{$Service->id}", [
+		$request = $this->put("/administrations/services/{$service->id}", [
 			"_token"         => csrf_token(),
-			"nom"            => $Service->nom,
-			"description"    => $Service->description,
-			"departement_id" => $Service->departement_id,
+			"nom"            => $service->nom,
+			"description"    => $service->description,
+			"departement_id" => $service->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("services", ["nom" => $Service->nom]);
+		$this->assertDatabaseHas("services", ["nom" => $service->nom]);
 	}
 
 	/**
@@ -175,9 +175,9 @@ class ServicesTest extends TestCase
 	public function testTraitementFormulaireEditionServiceCompletAvecModification()
 	{
 		$departement = factory(Departement::class)->create();
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->put("/administrations/services/{$Service->id}", [
+		$request = $this->put("/administrations/services/{$service->id}", [
 			"_token"         => csrf_token(),
 			"nom"            => "unit.testing",
 			"description"    => "unit.testing",
@@ -195,13 +195,13 @@ class ServicesTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionService()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->get("/administrations/services/{$Service->id}/edit");
+		$request = $this->get("/administrations/services/{$service->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le service");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Service->nom . "</b>.");
+		$request->assertSee("Supprimer");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $service->nom . "</b>.");
 	}
 
 	/**
@@ -209,16 +209,16 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementSuppressionServiceAssocie()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateur = factory(Utilisateur::class)->create([
-			"service_id" => $Service->id,
+		$service = factory(Service::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create([
+			"service_id" => $service->id,
 		]);
 
-		$request = $this->delete("/administrations/services/{$Service->id}");
+		$request = $this->delete("/administrations/services/{$service->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("services", ["nom" => $Service->nom]);
+		$this->assertDatabaseHas("services", ["nom" => $service->nom]);
 	}
 
 	/**
@@ -227,13 +227,13 @@ class ServicesTest extends TestCase
 	 */
 	public function testTraitementSuppressionServiceNonAssocie()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
-		$request = $this->delete("/administrations/services/{$Service->id}");
+		$request = $this->delete("/administrations/services/{$service->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("services", ["nom" => $Service->nom]);
+		$this->assertDatabaseMissing("services", ["nom" => $service->nom]);
 	}
 
 }

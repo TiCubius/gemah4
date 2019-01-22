@@ -13,12 +13,11 @@ class CreatePermissionServiceTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('permissions_services', function (Blueprint $table) {
-			$table->primary(['service_id', 'permission_id']);
-
+		Schema::create('permission_service', function (Blueprint $table) {
 			$table->unsignedInteger('service_id');
-			$table->unsignedInteger('permission_id');
+			$table->string('permission_id');
 
+			$table->primary(['service_id', 'permission_id']);
 			$table->foreign('service_id')->references('id')->on('services');
 			$table->foreign('permission_id')->references('id')->on('permissions');
 		});

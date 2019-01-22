@@ -23,6 +23,30 @@
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("department_id")])
 				@endcomponent
 
+				<div class="row">
+					@foreach($groupedPermissions as $key => $group)
+						<div class="col-12 col-xl-6">
+							<div class="card my-3">
+								<div class="card-header gemah-bg-primary">{{ $key }}</div>
+								<div class="card-body">
+									@foreach($group as $permission)
+										<td>
+											<div class="custom-control custom-checkbox">
+												@if(old("permissions[{$permission->id}]"))
+													<input id="permissions[{{ $permission->id }}]" class="custom-control-input" name="permissions[{{ $permission->id }}]" type="checkbox" checked>
+												@else
+													<input id="permissions[{{ $permission->id }}]" class="custom-control-input" name="permissions[{{ $permission->id }}]" type="checkbox">
+												@endif
+												<label class="custom-control-label" for="permissions[{{ $permission->id }}]"> {{ $permission->libelle }} </label>
+											</div>
+										</td>
+									@endforeach
+								</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer le service</button>
 				</div>

@@ -24,9 +24,32 @@
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $service->departement_id])
 				@endcomponent
 
+				<div class="row">
+					@foreach($groupedPermissions as $key => $group)
+						<div class="col-12 col-xl-6">
+							<div class="card my-3">
+								<div class="card-header gemah-bg-primary">{{ $key }}</div>
+								<div class="card-body">
+									@foreach($group as $permission)
+										<td>
+											<div class="custom-control custom-checkbox">
+												@if($service->permissions->contains('id', $permission->id))
+													<input id="permissions[{{ $permission->id }}]" class="custom-control-input" name="permissions[{{ $permission->id }}]" type="checkbox" checked>
+												@else
+													<input id="permissions[{{ $permission->id }}]" class="custom-control-input" name="permissions[{{ $permission->id }}]" type="checkbox">
+												@endif
+												<label class="custom-control-label" for="permissions[{{ $permission->id }}]"> {{ $permission->libelle }} </label>
+											</div>
+										</td>
+									@endforeach
+								</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+
 				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le service
-					</button>
+					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer</button>
 					<button class="btn btn-sm btn-outline-success">Éditer</button>
 				</div>
 			</form>

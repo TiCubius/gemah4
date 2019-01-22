@@ -18,7 +18,7 @@ class CreateHistoriquesTable extends Migration
 
 			$table->unsignedInteger('from_id')->nullable();
 			$table->unsignedInteger('academie_id')->nullable();
-			$table->unsignedInteger('permission_id')->nullable();
+			$table->string('permission_id')->nullable();
 			$table->unsignedInteger('service_id')->nullable();
 			$table->unsignedInteger('utilisateur_id')->nullable();
 			$table->unsignedInteger('enseignant_id')->nullable();

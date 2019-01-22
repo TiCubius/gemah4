@@ -11,13 +11,19 @@ class ServicesSeeder extends Seeder
 
 	public function run()
 	{
+		$permissions = \App\Models\Permission::all();
+
 		foreach (\App\Models\Departement::all() as $departement) {
 			foreach ($this->services as $service => $description) {
-				\App\Models\Service::create([
+				$service = \App\Models\Service::create([
 					"nom"            => $service,
 					"description"    => $description,
 					"departement_id" => $departement->id,
 				]);
+
+				foreach ($permissions as $permission) {
+					$service->permissions()->attach($permission);
+				}
 			}
 		}
 	}

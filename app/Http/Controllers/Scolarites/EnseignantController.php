@@ -19,7 +19,7 @@ class EnseignantController extends Controller
 	 */
 	public function index(Request $request): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 		$latestCreatedEnseignants = Enseignant::latestCreated()->take(10)->get();
 		$latestUpdatedEnseignants = Enseignant::latestUpdated()->take(10)->get();
 
@@ -37,7 +37,7 @@ class EnseignantController extends Controller
 	 */
 	public function create(): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 
 		return view("web.scolarites.enseignants.create", compact("academies"));
 	}
@@ -56,7 +56,7 @@ class EnseignantController extends Controller
 			"prenom"         => "required|max:191",
 			"email"          => "required|email|max:191|unique:enseignants,email",
 			"telephone"      => "nullable|max:191",
-            "departement_id" => "required",
+			"departement_id" => "required",
 		]);
 
 		Enseignant::create($request->only([
@@ -65,7 +65,7 @@ class EnseignantController extends Controller
 			"prenom",
 			"email",
 			"telephone",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.scolarites.enseignants.index"));
@@ -79,7 +79,7 @@ class EnseignantController extends Controller
 	 */
 	public function edit(Enseignant $enseignant): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 
 		return view("web.scolarites.enseignants.edit", compact("enseignant", "academies"));
 	}
@@ -94,12 +94,12 @@ class EnseignantController extends Controller
 	public function update(Request $request, Enseignant $enseignant): RedirectResponse
 	{
 		$request->validate([
-			"civilite"  => "required",
-			"nom"       => "required|max:191",
-			"prenom"    => "required|max:191",
-			"email"     => "required|email|max:191|unique:enseignants,email,{$enseignant->id}",
-			"telephone" => "nullable|max:191",
-            "departement_id" => "required",
+			"civilite"       => "required",
+			"nom"            => "required|max:191",
+			"prenom"         => "required|max:191",
+			"email"          => "required|email|max:191|unique:enseignants,email,{$enseignant->id}",
+			"telephone"      => "nullable|max:191",
+			"departement_id" => "required",
 		]);
 
 		$enseignant->update($request->only([
@@ -108,7 +108,7 @@ class EnseignantController extends Controller
 			"prenom",
 			"email",
 			"telephone",
-            "departement_id",
+			"departement_id",
 		]));
 
 		return redirect(route("web.scolarites.enseignants.index"));
@@ -123,6 +123,11 @@ class EnseignantController extends Controller
 	 */
 	public function destroy(Enseignant $enseignant): RedirectResponse
 	{
+		// On enlève le liens avec toutes les décisions
+		foreach ($enseignant->decisions as $decision) {
+			$decision->update(["enseignant_id" => null]);
+		}
+
 		$enseignant->delete();
 
 		return redirect(route("web.scolarites.enseignants.index"));

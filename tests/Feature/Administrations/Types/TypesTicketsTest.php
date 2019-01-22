@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Administrations\Types;
 
 use App\Models\TypeTicket;
 use Tests\TestCase;

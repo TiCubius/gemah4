@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Administrations\Materiels;
 
 use App\Models\EtatMateriel;
 use Tests\TestCase;

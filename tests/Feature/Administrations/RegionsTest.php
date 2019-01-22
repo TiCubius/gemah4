@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Administrations;
 
 use App\Models\Region;
 use Tests\TestCase;

@@ -79,8 +79,8 @@
 								</p>
 								<p class="mb-0">
 									<b>Enseignant Référent</b>:
-									@if ($document->decision->enseignant_id !== NULL)
-										{{ $document->decision->enseignant->nom }} {{ $document->decision->enseignant->prenom }}
+									@if ($document->decision->enseignant)
+										{{ "{$document->decision->enseignant->nom} {$document->decision->enseignant->prenom}" }}
 									@else
 										<span class="text-muted">Non défini</span>
 									@endif
@@ -90,17 +90,19 @@
 									{!! $document->decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
 							</div>
-							<div class="card-footer d-flex justify-content-between">
-								<a class="btn btn-sm btn-outline-secondary" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve, $document->decision]) }}">
+							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
+								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve->id, $document->id]) }}">
 									<i class="far fa-edit"></i>
 									Modifier
 								</a>
+
 								<div class="btn-group">
-									<a class="btn btn-sm btn-outline-success" target="_blank" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document->decision]) }}">
+									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document]) }}">
 										<i class="fas fa-download"></i>
 										Télécharger
 									</a>
-									<a class="btn btn-sm btn-outline-success" target="_blank" href="{{ asset('storage/decisions/' . $document->path) }}">
+
+									<a class="btn btn-sm btn-primary" href="{{ asset("storage/decisions/{$document->path}") }}">
 										<i class="far fa-eye"></i>
 										Visualiser
 									</a>
@@ -127,24 +129,18 @@
 									<i class="far fa-edit"></i>
 									Modifier
 								</a>
-								@if($document->path)
-									<div class="btn-group">
-										<a class="btn btn-sm btn-primary" target="_blank" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
-											<i class="fas fa-download"></i>
-											Télécharger
-										</a>
-										<a class="btn btn-sm btn-primary" href="{{ asset('storage/documents/' . $document->path) }}">
-											<i class="far fa-eye"></i>
-											Visualiser
-										</a>
-									</div>
-								@else
-									<div class="btn-group" data-toggle="tooltip" data-placement="top" title="Aucun fichier n'a été envoyé lors de la création du document">
-										<a class="btn btn-sm btn-outline-danger" href="#">
-											<i class="far fa-question-circle"></i>
-										</a>
-									</div>
-								@endif
+
+								<div class="btn-group">
+									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
+										<i class="fas fa-download"></i>
+										Télécharger
+									</a>
+
+									<a class="btn btn-sm btn-primary" href="{{ asset("storage/documents/{$document->path}") }}">
+										<i class="far fa-eye"></i>
+										Visualiser
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

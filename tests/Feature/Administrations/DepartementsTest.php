@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Administrations;
 
 use App\Models\Academie;
 use App\Models\Departement;

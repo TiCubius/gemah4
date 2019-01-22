@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Scolarites;
 
 use Tests\TestCase;
 

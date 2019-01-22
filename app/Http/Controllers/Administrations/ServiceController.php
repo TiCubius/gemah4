@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -109,6 +110,7 @@ class ServiceController extends Controller
 		]);
 
 		$service->update($request->only(["nom", "description", "departement_id"]));
+		$service->utilisateurs()->touch();
 
 		if ($request->has("permissions")) {
 			// On récupère les permissions

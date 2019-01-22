@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Responsables;
 
 use App\Models\Eleve;
 use App\Models\Responsable;

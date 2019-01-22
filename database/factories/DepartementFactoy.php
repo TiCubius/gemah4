@@ -6,7 +6,7 @@ $factory->define(\App\Models\Departement::class, function (Faker $faker) {
 	$academie = factory(\App\Models\Academie::class)->create();
 
 	return [
-		"id"          => $faker->name,
+		"id"          => $faker->randomNumber(5),
 		"nom"         => $faker->word,
 		"academie_id" => $academie->id,
 	];

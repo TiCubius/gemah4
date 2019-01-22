@@ -77,11 +77,43 @@ class PermissionsSeeder extends Seeder
 		"affectations/responsables/detach"   => "Peut désaffecter un élève d'un responsable",
 
 
+		"conventions/index" => "Peut afficher la liste des états signature des conventions",
+		"conventions/edit"  => "Peut modifier l'état signature des conventions",
+
+
 		"eleves/index"   => "Peut afficher la liste des élèves",
 		"eleves/create"  => "Peut créer un élève",
 		"eleves/show"    => "Peut afficher les informations sur un élève",
 		"eleves/edit"    => "Peut modifier un élève",
 		"eleves/destroy" => "Peut supprimer un élève",
+
+		"eleves/documents/index"    => "Peut afficher la liste des documents",
+		"eleves/documents/create"   => "Peut créer un document",
+		"eleves/documents/edit"     => "Peut modifier un document",
+		"eleves/documents/destroy"  => "Peut supprimer un document",
+		"eleves/documents/download" => "Peut télécharger un document",
+
+		"eleves/decisions/index"    => "Peut afficher la liste des décisions",
+		"eleves/decisions/create"   => "Peut créer une décision",
+		"eleves/decisions/edit"     => "Peut modifier une décision",
+		"eleves/decisions/destroy"  => "Peut supprimer une décision",
+		"eleves/decisions/download" => "Peut télécharger une décision",
+
+		"eleves/impressions/autorisations"  => "Peut générer un PDF d'autorisations CNIL",
+		"eleves/impressions/consignes"      => "Peut générer un PDF de consignes de prêt",
+		"eleves/impressions/conventions"    => "Peut générer un PDF de convention élève",
+		"eleves/impressions/recapitulatifs" => "Peut générer un PDF de récapitulatif élève",
+		"eleves/impressions/recuperations"  => "Peut générer un PDF de récépissé de récupération de matériel",
+
+		"eleves/tickets/index"   => "Peut afficher la liste des tickets",
+		"eleves/tickets/create"  => "Peut créer un ticket",
+		"eleves/tickets/show"    => "Peut afficher les informations d'un ticket",
+		"eleves/tickets/edit"    => "Peut modifier un ticket",
+		"eleves/tickets/destroy" => "Peut supprimer un ticket",
+
+		"eleves/tickets/messages/create"  => "Peut ajouter un message a un ticket",
+		"eleves/tickets/messages/edit"    => "Peut modifier un message d'un ticket",
+		"eleves/tickets/messages/destroy" => "Peut supprimer un message d'un ticket",
 
 		"enseignants/index"   => "Peut afficher la liste des enseignants",
 		"enseignants/create"  => "Peut créer un enseignant",
@@ -122,6 +154,8 @@ class PermissionsSeeder extends Seeder
 		"responsables/show"    => "Peut afficher les informations sur un responsable",
 		"responsables/edit"    => "Peut modifier un responsable",
 		"responsables/destroy" => "Peut supprimer un responsable",
+
+		"scolarites/index" => "Peut afficher le menu gestion de la scolarité",
 	];
 
 	/**

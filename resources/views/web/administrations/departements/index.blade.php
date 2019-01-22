@@ -11,40 +11,32 @@
 				<div class="alert alert-warning">
 					Aucun département n'est enregistré sur l'application
 				</div>
-
 			@else
 				<table class="table table-sm table-hover text-center">
 					<thead class="gemah-bg-primary">
 						<tr>
-							<th>Académie</th>
-							<th>Nom</th>
 							<th>Code</th>
-							<th>Actions</th>
+							<th>Nom</th>
+							<th>Académie</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						@foreach($departements as $departement)
 							<tr>
-								<td>{{ $departement->academie->nom }}</td>
-								<td>{{ $departement->nom }}</td>
 								<td>{{ $departement->id }}</td>
+								<td>{{ $departement->nom }}</td>
+								<td>{{ $departement->academie->nom }}</td>
 								<td>
 									<a href="{{ route("web.administrations.departements.edit", [$departement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
-
-									<form action="{{ route("web.administrations.departements.destroy", [$departement]) }}" method="POST">
-										{{ csrf_field() }}
-										{{ method_field("DELETE") }}
-										<button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-									</form>
 								</td>
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
-
 			@endif
 		</div>
 	</div>

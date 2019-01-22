@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Enseignant extends Model
 {
@@ -20,6 +21,17 @@ class Enseignant extends Model
 		"telephone",
 		"departement_id",
 	];
+
+
+	/**
+	 * Un enseignant possède plusieurs décisions
+	 *
+	 * @return HasMany
+	 */
+	public function decisions(): HasMany
+	{
+		return $this->hasMany(Decision::class);
+	}
 
 
 	/**

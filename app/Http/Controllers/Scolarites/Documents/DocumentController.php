@@ -52,7 +52,7 @@ class DocumentController extends Controller
 	public function index(Eleve $eleve): View
 	{
 		$typesDocument = TypeDocument::all();
-		$eleve->load("documents", "documents.decision");
+		$eleve->load("documents.typeDocument", "documents.decision.enseignant");
 
 		return view('web.scolarites.eleves.documents.index', compact('eleve', 'typesDocument'));
 	}
@@ -97,18 +97,8 @@ class DocumentController extends Controller
 			'path'             => $filename,
 			'eleve_id'         => $eleve->id,
 		]);
-		return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));
-	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id)
-	{
-		//
+		return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Materiels;
 
 use App\Models\DomaineMateriel;
 use App\Models\TypeMateriel;

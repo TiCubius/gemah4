@@ -66,19 +66,22 @@ class PermissionsSeeder extends Seeder
 		"administrations/types/tickets/destroy" => "Peut supprimer un type de ticket",
 
 
+		"affectations/etablissements/index"  => "Peut rechercher un établissement à affecter",
+		"affectations/etablissements/attach" => "Peut affecter un élève à un établissement",
+		"affectations/etablissements/detach" => "Peut désaffecter un élève d'un établissement",
+		"affectations/materiels/index"       => "Peut rechercher un materiel à affecter",
+		"affectations/materiels/attach"      => "Peut affecter du matériel à un élève",
+		"affectations/materiels/detach"      => "Peut désaffecter un matériel d'un élève",
+		"affectations/responsables/index"    => "Peut rechercher un responsable à affecter",
+		"affectations/responsables/attach"   => "Peut affecter un élève à un responsable",
+		"affectations/responsables/detach"   => "Peut désaffecter un élève d'un responsable",
+
+
 		"eleves/index"   => "Peut afficher la liste des élèves",
 		"eleves/create"  => "Peut créer un élève",
 		"eleves/show"    => "Peut afficher les informations sur un élève",
 		"eleves/edit"    => "Peut modifier un élève",
 		"eleves/destroy" => "Peut supprimer un élève",
-
-		"affectations/etablissements/attach" => "Peut affecter un élève à un établissement",
-		"affectations/etablissements/detach" => "Peut désaffecter un élève d'un établissement",
-		"affectations/materiels/attach"      => "Peut affecter du matériel à un élève",
-		"affectations/materiels/detach"      => "Peut désaffecter un matériel d'un élève",
-		"affectations/responsables/attach"   => "Peut affecter un élève à un responsable",
-		"affectations/responsables/detach"   => "Peut désaffecter un élève d'un responsable",
-
 
 		"enseignants/index"   => "Peut afficher la liste des enseignants",
 		"enseignants/create"  => "Peut créer un enseignant",

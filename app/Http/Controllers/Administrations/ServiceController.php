@@ -58,13 +58,15 @@ class ServiceController extends Controller
 
 		$service = Service::create($request->only(["nom", "description", "departement_id"]));
 
-		// On récupère toutes les permissions
-		$permissions = Permission::all();
+		if ($request->has("permissions")) {
+			// On récupère toutes les permissions
+			$permissions = Permission::all();
 
-		// On affecte les nouvelles permissions
-		foreach ($request->input("permissions") as $key => $value) {
-			$permission = $permissions->find("id", $key);
-			$service->permissions()->attach($permission);
+			// On affecte les nouvelles permissions
+			foreach ($request->input("permissions") as $key => $value) {
+				$permission = $permissions->find("id", $key);
+				$service->permissions()->attach($permission);
+			}
 		}
 
 		return redirect(route("web.administrations.services.index"));
@@ -108,16 +110,18 @@ class ServiceController extends Controller
 
 		$service->update($request->only(["nom", "description", "departement_id"]));
 
-		// On récupère les permissions
-		$permissions = Permission::all();
+		if ($request->has("permissions")) {
+			// On récupère les permissions
+			$permissions = Permission::all();
 
-		// On supprime toutes les permissions du service
-		$service->permissions()->detach();
+			// On supprime toutes les permissions du service
+			$service->permissions()->detach();
 
-		// On réaffecte les nouvelles permissions
-		foreach ($request->input("permissions") as $key => $value) {
-			$permission = $permissions->find("id", $key);
-			$service->permissions()->attach($permission);
+			// On réaffecte les nouvelles permissions
+			foreach ($request->input("permissions") as $key => $value) {
+				$permission = $permissions->find("id", $key);
+				$service->permissions()->attach($permission);
+			}
 		}
 
 		return redirect(route("web.administrations.services.index"));

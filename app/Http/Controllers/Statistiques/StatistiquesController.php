@@ -34,84 +34,99 @@ class StatistiquesController extends Controller
         if ($request->exists(["departement_id", "type_eleve_id", "nom", "prenom", "date_naissance", "code_ine", "eleve_id",])) {
             $searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), $request->input("eleve_id"));
 
+            /** Tri par liaison entre élèves et établissements **/
             if ($request->input("etablissement") == "with") {
                 $searchedEleves = $searchedEleves->haveEtablissement(true);
             } elseif ($request->input("etablissement" == "without")) {
                 $searchedEleves = $searchedEleves->haveEtablissement(false);
             }
 
+            /** Tri par liaison entre élèves et documents **/
             if ($request->input("document") == "with") {
                 $searchedEleves = $searchedEleves->haveDocuments(true);
             } elseif ($request->input("document") == "without") {
                 $searchedEleves = $searchedEleves->haveDocuments(false);
             }
 
+            /** Tri par liaison entre élèves et matériels **/
             if ($request->input("materiel") == "with") {
                 $searchedEleves = $searchedEleves->haveMateriels(true);
             } elseif ($request->input("materiel") == "without") {
                 $searchedEleves = $searchedEleves->haveMateriels(false);
             }
 
+            /** Tri par liaison entre élèves et responsables **/
             if ($request->input("responsable") == "with") {
                 $searchedEleves = $searchedEleves->haveResponsables(true);
             } elseif ($request->input("responsable") == "without") {
                 $searchedEleves = $searchedEleves->haveResponsables(false);
             }
 
-
+            /** Tri par dernière création de l'élève **/
             if ($request->input("creation_eleve") == "normal"){
                 $searchedEleves = $searchedEleves->orderBy("created_at", "DESC");
             } elseif ($request->input("creation_eleve") == "inverted") {
                 $searchedEleves = $searchedEleves->orderBy("created_at", "DESC");
             }
 
+            /** Tri par dernière modification de l'élève **/
             if ($request->input("modification_eleve") == "normal"){
                 $searchedEleves = $searchedEleves->orderBy("updated_at", "ASC");
             } elseif ($request->input("modification_eleve") == "inverted") {
                 $searchedEleves = $searchedEleves->orderBy("updated_at", "DESC");
             }
 
+            /** Tri par dernière création d'un document **/
             if ($request->input("creation_document") == "normal"){
                 $searchedEleves = $searchedEleves->latestDocumentCreated(true);
             } elseif ($request->input("creation_document") == "inverted") {
                 $searchedEleves = $searchedEleves->latestDocumentCreated(false);
             }
 
+            /** Tri par dernière modification d'un document **/
             if ($request->input("modification_document") == "normal"){
                 $searchedEleves = $searchedEleves->latestDocumentModified(true);
             } elseif ($request->input("modification_document") == "inverted") {
                 $searchedEleves = $searchedEleves->latestDocumentModified(false);
             }
 
+            /** Tri par dernier ajout d'un ticket **/
             if ($request->input("creation_ticket") == "normal"){
-                $searchedEleves = $searchedEleves->(true);
+                $searchedEleves = $searchedEleves->latestTicketCreated(true);
             } elseif ($request->input("creation_ticket") == "inverted") {
-                $searchedEleves = $searchedEleves->(false);
+                $searchedEleves = $searchedEleves->latestTicketCreated(false);
             }
 
+            /** Tri par dernière modification d'un ticket **/
             if ($request->input("modification_ticket") == "normal"){
-                $searchedEleves = $searchedEleves->(true);
+                $searchedEleves = $searchedEleves->latestTicketModified(true);
             } elseif ($request->input("modification_ticket") == "inverted") {
-                $searchedEleves = $searchedEleves->(false);
+                $searchedEleves = $searchedEleves->latestTicketModified(false);
+            }
+
+            /** Tri par nom **/
+            if ($request->input("alphabetique_nom") == "normal"){
+                $searchedEleves = $searchedEleves->orderBy("nom", "ASC");
+            } elseif ($request->input("alphabetique_nom") == "inverted") {
+                $searchedEleves = $searchedEleves->orderBy("nom", "DESC");
+            }
+
+            /** Tri par prenom **/
+            if ($request->input("alphabetique_prenom") == "normal"){
+                $searchedEleves = $searchedEleves->orderBy("prenom", "ASC");
+            } elseif ($request->input("alphabetique_prenom") == "inverted") {
+                $searchedEleves = $searchedEleves->orderBy("prenom", "DESC");
+            }
+
+            /** Tri par date de naissance **/
+            if ($request->input("ordre_naissance") == "normal"){
+                $searchedEleves = $searchedEleves->orderBy("date_naissance", "ASC");
+            } elseif ($request->input("ordre_naissance") == "inverted") {
+                $searchedEleves = $searchedEleves->orderBy("date_naissance", "DESC");
             }
 
             $searchedEleves = $searchedEleves->get();
         }
-
-        /**
-         * Filtre via controller :
-                    * Création élève
-                    * Modification élève
-                    * Création document
-                    * Modification document
-                    * Création ticket     \ Gérer les
-                    * Modification ticket / messages à travers ces derniers
-         *
-         * Filtre via JS (pas à traiter normalement):
-                    * Ordre alphabétique par nom
-                    *                        prénom
-                    * Ordre chronologique par date de naissance
-         */
 
         //dd($request);
 

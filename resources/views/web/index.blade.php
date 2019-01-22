@@ -41,7 +41,7 @@
 
 			<a href="{{ route('web.administrations.index') }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Administrations
+					Administration
 				</button>
 			</a>
 		</div>

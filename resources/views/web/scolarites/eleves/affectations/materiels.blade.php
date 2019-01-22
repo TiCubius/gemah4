@@ -96,7 +96,7 @@
                             Nombres de matériel : {{ count($searchedMateriels) }}
                             <ul class="mb-0">
                                 @foreach($searchedMateriels->groupBy("etat_materiel_id") as $materiels)
-                                    <li>{{ count($materiels) }} {{ $materiels[0]->etat->libelle }}</li>
+                                    <li>{{ count($materiels) }} {{ $materiels[0]->etat_administratif->libelle }}</li>
                                 @endforeach
                                 <li>
                                     {{ count($searchedMateriels->where("eleve_id", "!=", null)) }} Affectés
@@ -129,8 +129,8 @@
                         @foreach($searchedMateriels as $materiel)
                             <tr>
                                 <td class="couleur" data-toggle="tooltip" data-placement="bottom"
-                                    title="{{ $materiel->etat->libelle }}"
-                                    style="width: 57px; background:{{ $materiel->etat->couleur }}"></td>
+                                    title="{{ $materiel->etat_administratif->libelle }}"
+                                    style="width: 57px; background:{{ $materiel->etat_administratif->couleur }}"></td>
                                 <td>{{ $materiel->type->libelle }}</td>
                                 <td>{{ $materiel->marque }}</td>
                                 <td>{{ $materiel->modele }}</td>

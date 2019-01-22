@@ -22,7 +22,7 @@ class IndexTest extends TestCase
 		$request->assertSee('Gestion du matériel');
 		$request->assertSee("Conventions");
 		$request->assertSee('Statistiques');
-		$request->assertSee('Administrations');
+		$request->assertSee('Administration');
 	}
 
 }

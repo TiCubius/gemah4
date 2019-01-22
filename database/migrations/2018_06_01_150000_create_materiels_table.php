@@ -17,7 +17,8 @@ class CreateMaterielsTable extends Migration
 			$table->increments('id');
 
 			$table->string('departement_id');
-			$table->unsignedInteger('etat_materiel_id');
+			$table->unsignedInteger('etat_administratif_materiel_id');
+            $table->unsignedInteger('etat_physique_materiel_id');
 			$table->unsignedInteger('eleve_id')->nullable();
 			$table->unsignedInteger('type_materiel_id');
 			$table->string('numero_serie')->nullable();
@@ -38,7 +39,8 @@ class CreateMaterielsTable extends Migration
 			$table->string('achat_pour')->nullable();
 
 			$table->foreign('departement_id')->references('id')->on('departements');
-			$table->foreign('etat_materiel_id')->references('id')->on('etats_materiels');
+			$table->foreign('etat_administratif_materiel_id')->references('id')->on('etats_administratifs_materiels');
+            $table->foreign('etat_physique_materiel_id')->references('id')->on('etats_physiques_materiels');
 			$table->foreign('eleve_id')->references('id')->on('eleves');
 			$table->foreign('type_materiel_id')->references('id')->on('types_materiels');
 

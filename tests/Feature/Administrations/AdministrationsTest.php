@@ -23,10 +23,11 @@ class AdministrationsTest extends TestCase
 		$request->assertSee('Gestion des services');
 		$request->assertSee('Gestion des utilisateurs');
 
-		$request->assertSee("Gestion des états matériel");
-		$request->assertSee('Gestion des types de tickets');
+		$request->assertSee("Gestion des états administratifs matériel");
+        $request->assertSee("Gestion des états physiques matériel");
+		$request->assertSee('Gestion des types de ticket');
 		$request->assertSee('Gestion des types d\'élève');
-		$request->assertSee('Gestion des types d\'établissements');
+		$request->assertSee('Gestion des types d\'établissement');
 		$request->assertSee('Historique des actions');
 		$request->assertSee('Liste des permissions');
 	}

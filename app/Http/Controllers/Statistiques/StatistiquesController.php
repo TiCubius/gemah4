@@ -35,30 +35,30 @@ class StatistiquesController extends Controller
             $searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), $request->input("eleve_id"));
 
             /** Tri par liaison entre élèves et établissements **/
-            if ($request->input("etablissement") == "with") {
+            if ($request->input("etablissement") == "normal") {
                 $searchedEleves = $searchedEleves->haveEtablissement(true);
-            } elseif ($request->input("etablissement" == "without")) {
+            } elseif ($request->input("etablissement" == "inverted")) {
                 $searchedEleves = $searchedEleves->haveEtablissement(false);
             }
 
             /** Tri par liaison entre élèves et documents **/
-            if ($request->input("document") == "with") {
+            if ($request->input("document") == "normal") {
                 $searchedEleves = $searchedEleves->haveDocuments(true);
-            } elseif ($request->input("document") == "without") {
+            } elseif ($request->input("document") == "inverted") {
                 $searchedEleves = $searchedEleves->haveDocuments(false);
             }
 
             /** Tri par liaison entre élèves et matériels **/
-            if ($request->input("materiel") == "with") {
+            if ($request->input("materiel") == "normal") {
                 $searchedEleves = $searchedEleves->haveMateriels(true);
-            } elseif ($request->input("materiel") == "without") {
+            } elseif ($request->input("materiel") == "inverted") {
                 $searchedEleves = $searchedEleves->haveMateriels(false);
             }
 
             /** Tri par liaison entre élèves et responsables **/
-            if ($request->input("responsable") == "with") {
+            if ($request->input("responsable") == "normal") {
                 $searchedEleves = $searchedEleves->haveResponsables(true);
-            } elseif ($request->input("responsable") == "without") {
+            } elseif ($request->input("responsable") == "inverted") {
                 $searchedEleves = $searchedEleves->haveResponsables(false);
             }
 

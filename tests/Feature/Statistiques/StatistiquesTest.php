@@ -22,7 +22,11 @@ class StatistiquesTest extends TestCase
         $request->assertSee("Statistiques générales");
     }
 
-    /**/
+    /**
+     * Test l'index de l'onglet statistiques générales
+     *
+     * @return void
+     */
     public function testStatistiqueGeneralAffichage()
     {
         $eleves = factory(Eleve::class, 5)->create();
@@ -37,6 +41,7 @@ class StatistiquesTest extends TestCase
         $request->assertSee("Nom");
         $request->assertSee("Prénom");
         $request->assertSee("Date de naissance");
+        $request->assertSee("Action");
         foreach ($eleves as $eleve)
         {
             $request->assertSee($eleve->id);

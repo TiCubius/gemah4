@@ -120,16 +120,16 @@ class Eleve extends Model
      * Effectue une recherce sur le département, type ET (nom, prénom, email ou téléphone sur élève)
      *
      * @param         $query
-     * @param string $departement_id
+     * @param string  $departement_id
      * @param integer $type_eleve_id
-     * @param string $nom
-     * @param string $prenom
+     * @param string  $nom
+     * @param string  $prenom
      * @param integer $date_naissance
-     * @param string $code_ine
-     * @param integer $id
+     * @param string  $code_ine
+     * @param integer $eleve_id
      * @return Builder
      */
-    public function scopeSearch($query, $departement_id, $type_eleve_id, $nom, $prenom, $date_naissance, $code_ine, $id): Builder
+    public function scopeSearch($query, $departement_id, $type_eleve_id, $nom, $prenom, $date_naissance, $code_ine, $eleve_id): Builder
     {
         // Dans le cas où la variable "nom", "prenom", "email" ou "telephone" est vide, on souhaite ignorer le champs
         // dans notre requête SQL. Il est extremement peu probable que %--% retourne quoi que ce soit pour ces champs.
@@ -139,7 +139,7 @@ class Eleve extends Model
         $prenom = $prenom ?? "--";
         $date_naissance = $date_naissance ?? "--";
         $code_ine = $code_ine ?? "--";
-        $id = $id ?? "--";
+        $eleve_id = $eleve_id ?? "--";
 
 
         // On souhaite une requête SQL du type:
@@ -168,8 +168,8 @@ class Eleve extends Model
             $search->type($type_eleve_id);
         }
 
-        if ($id !== "--") {
-            $search->where("id", $id);
+        if ($eleve_id !== "--") {
+            $search->where("id", "LIKE", "%".$eleve_id."%");
         }
 
         return $search;

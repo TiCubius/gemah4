@@ -101,17 +101,6 @@ class DocumentController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'un document
 	 *
 	 * @param Eleve    $eleve

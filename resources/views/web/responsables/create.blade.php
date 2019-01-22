@@ -19,7 +19,7 @@
 						<option hidden value="">Veuillez sélectionner la civilité</option>
 						<option value="M.">M</option>
 						<option value="Mme">Mme</option>
-						<option value="M / Mme">M / Mme</option>
+						<option value="M./Mme">M./Mme</option>
 					</select>
 				</div>
 

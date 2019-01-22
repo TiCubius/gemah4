@@ -28,15 +28,7 @@ class MaterielController extends Controller
 		$domaines = DomaineMateriel::with("types")->orderBy("libelle")->get();
 		$etats = EtatMateriel::orderBy("libelle")->get();
 
-		if ($request->exists([
-			"departement_id",
-			"type_materiel_id",
-			"etat_materiel_id",
-			"marque",
-			"modele",
-			"numero_serie",
-            "cle_produit",
-		])) {
+		if ($request->exists(["departement_id", "type_materiel_id", "etat_materiel_id", "marque", "modele", "numero_serie", "cle_produit"])) {
 			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->where("eleve_id", null)->with("type", "etat")->get();
 		}
 

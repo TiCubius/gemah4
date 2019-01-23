@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.types.documents.index"])
-			Création d'un type d'élève
+			Création d'un type de document
 		@endcomponent
 
 		<div class="col-12">
@@ -16,7 +16,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer le type d'élève</button>
+					<button class="btn btn-sm btn-outline-success">Créer le type de document</button>
 				</div>
 			</form>
 		</div>

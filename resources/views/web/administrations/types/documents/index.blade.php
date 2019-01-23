@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["add" => "web.administrations.types.documents.create", "back" => "web.administrations.index"])
-			Gestion des types d'élèves
+			Gestion des types de document
 		@endcomponent
 
 		<div class="col-12">

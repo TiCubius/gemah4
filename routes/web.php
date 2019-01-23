@@ -118,7 +118,9 @@ Route::group(["middleware" => "authentification"], function () {
         Route::group(["prefix" => "/types", "as" => "types."], function () {
             Route::resource("tickets", "Administrations\Types\TypeTicketController");
             Route::resource("etablissements", "Administrations\Types\TypeEtablissementController");
-            Route::resource("eleves", "Administrations\Types\TypeEleveController");
+            Route::resource("eleves", "Administrations\Types\TypeEleveController")->parameters([
+                'eleves' => 'eleve',
+            ]);
             Route::resource("documents", "Administrations\Types\TypeDocumentController");
         });
     });

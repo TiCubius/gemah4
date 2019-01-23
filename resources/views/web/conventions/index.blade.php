@@ -110,7 +110,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					Mettre à jours les données de la convention
+					Modifier les données de la convention
 				</div>
 
 				<div class="modal-body">
@@ -186,7 +186,7 @@
 
 				<div class="modal-footer d-flex justify-content-between">
 					<button class="btn btn-dark" type="button" data-dismiss="modal">Annuler</button>
-					<button class="btn btn-primary">Mettre à jour</button>
+					<button class="btn btn-primary">Edtier</button>
 				</div>
 			</div>
 		</div>

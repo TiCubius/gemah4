@@ -23,7 +23,7 @@ class UtilisateursSeeder extends Seeder
             "nom" => "CHADUC",
             "prenom" => "Pierre-henri",
             "pseudo" => "pchaduc",
-            "email" => "pierre-henri.chaduc@ac-lyon.fr\" \"ASH",
+            "email" => "pierre-henri.chaduc@ac-lyon.fr",
             "password" => "password",
             "service" => "ASH",
         ], [

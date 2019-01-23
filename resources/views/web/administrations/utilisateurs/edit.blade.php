@@ -31,8 +31,18 @@
 					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ $utilisateur->email }}" required>
 				</div>
 
+				<div class="form-group">
+					<label class="optional" for="password">Nouveau mot de passe</label>
+					<input id="password" class="form-control" name="password" type="password" placeholder="Au moins 8 caractères" minlength="8">
+				</div>
 
-				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $utilisateur->service->departement_id])
+				<div class="form-group">
+					<label class="optional" for="password_confirmation">Confirmation du nouveau mot de passe</label>
+					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Réentrer le même mot de passe">
+				</div>
+
+
+			@component('web._includes.components.departement', ['academies' => $academies, 'id' => $utilisateur->service->departement_id])
 				@endcomponent
 
 				<div class="form-group">

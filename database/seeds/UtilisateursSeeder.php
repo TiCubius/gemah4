@@ -8,28 +8,28 @@ class UtilisateursSeeder extends Seeder
         [
             "nom" => "Admin",
             "prenom" => "Admin",
-            "login" => "Admin",
+            "pseudo" => "admin",
             "email" => "root@root.root",
             "password" => "goddess",
             "service" => "Administrateur",
         ], [
             "nom" => "GOUNON",
             "prenom" => "Jean-jacques",
-            "login" => "jgounon",
+            "pseudo" => "jgounon",
             "email" => "jean-jacques.gounon@ac-lyon.fr",
             "password" => "password",
             "service" => "Service informatique",
         ], [
             "nom" => "CHADUC",
             "prenom" => "Pierre-henri",
-            "login" => "pchaduc",
+            "pseudo" => "pchaduc",
             "email" => "pierre-henri.chaduc@ac-lyon.fr\" \"ASH",
             "password" => "password",
             "service" => "ASH",
         ], [
             "nom" => "GAVILLET",
             "prenom" => "Annick",
-            "login" => "agavillet",
+            "pseudo" => "agavillet",
             "email" => "Annick.Gavillet@ac-lyon.fr",
             "password" => "password",
             "service" => "DAF",
@@ -44,15 +44,15 @@ class UtilisateursSeeder extends Seeder
     {
         foreach ($this->users as $user)
         {
-            $service = \App\Models\Service::where("departement_id", "42")->where("nom", $user->service)->first();
+            $service = \App\Models\Service::where("departement_id", "42")->where("nom", $user["service"])->first();
 
             \App\Models\Utilisateur::create([
-                "nom" => $user->nom,
-                "prenom" => $user->prenom,
-                "login" => $user->login,
-                "email" => $user->email,
-                "password" => $user->password,
-                "service_id" => $service->id,
+                "nom" => $user["nom"],
+                "prenom" => $user["prenom"],
+                "pseudo" => $user["pseudo"],
+                "email" => $user["email"],
+                "password" => \Illuminate\Support\Facades\Hash::make($user["password"]),
+                "service_id" => $service["id"],
             ]);
         }
     }

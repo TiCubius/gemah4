@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(TypesEleveSeeder::class);
 
 		$this->call(ServicesSeeder::class);
+		$this->call(UtilisateursSeeder::class);
 
 		$this->call(DomainesMaterielSeeder::class);
 		$this->call(TypesMaterielSeeder::class);

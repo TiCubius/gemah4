@@ -198,7 +198,7 @@ class TypesDocumentsTest extends TestCase
 		$document = factory(Document::class)->create();
 		$document->typeDocument()->associate($type);
 		$document->save();
-		
+
 		$request = $this->delete("/administrations/types/documents/{$type->id}");
 
 		$request->assertStatus(302);

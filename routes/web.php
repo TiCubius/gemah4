@@ -105,13 +105,6 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("services", "Administrations\ServiceController");
 		Route::resource("utilisateurs", "Administrations\UtilisateurController");
 
-		Route::group(["prefix" => "/eleves", "as" => "eleves."], function () {
-			Route::resource("types", "Administrations\Types\TypeEleveController");
-		});
-
-		Route::group(["prefix" => "/etablissements", "as" => "etablissements."], function () {
-			Route::resource("types", "Administrations\Types\TypeEtablissementController");
-		});
 
 		Route::group(["prefix" => "/materiels", "as" => "materiels."], function () {
 			Route::group(["prefix" => "/etats", "as" => "etats."], function () {
@@ -122,6 +115,11 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 
 		Route::group(["prefix" => "/types", "as" => "types."], function () {
 			Route::resource("tickets", "Administrations\Types\TypeTicketController");
+			Route::resource("etablissements", "Administrations\Types\TypeEtablissementController");
+			Route::resource("eleves", "Administrations\Types\TypeEleveController")->parameters([
+				'eleves' => 'eleve',
+			]);
+			Route::resource("documents", "Administrations\Types\TypeDocumentController");
 		});
 	});
 

@@ -106,10 +106,24 @@ class UtilisateurController extends Controller
 			"prenom"  => "required|max:191",
 			"pseudo"  => "required|max:191",
 			"email"   => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
+            "password"=> "nullable|min:8|confirmed",
 			"service" => "required|exists:services,id",
 		]);
 
-		$utilisateur->update($request->all());
+		$utilisateur->update([
+		    "nom"        => $request->input("nom"),
+			"prenom"     => $request->input("prenom"),
+			"pseudo"     => $request->input("pseudo"),
+			"email"      => $request->input("email"),
+			"service_id" => $request->input("service"),
+        ]);
+
+		if($request->input("password"))
+		{
+		    $utilisateur->update([
+                "password"   => Hash::make($request->input("password"))
+            ]);
+        }
 
 		return redirect(route("web.administrations.utilisateurs.index"));
 	}

@@ -190,14 +190,14 @@ class UtilisateursTest extends TestCase
 		$this->assertDatabaseHas("utilisateurs", ["email" => $Utilisateur->email]);
 	}
 
-	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
-	 * d'un formulaire d'édition complet avec modification
-	 */
-	public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
-	{
-		$Service = factory(Service::class)->create();
-		$Utilisateur = factory(Utilisateur::class)->create();
+    /**
+     * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet avec modification
+     */
+    public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
+    {
+        $Service = factory(Service::class)->create();
+        $Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
 			"_token"  => csrf_token(),
@@ -208,11 +208,35 @@ class UtilisateursTest extends TestCase
 			"service" => $Service->id,
 		]);
 
-		$request->assertStatus(302);
-		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("utilisateurs", ["email" => "unit@testing.fr"]);
-	}
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseHas("utilisateurs", ["email" => "unit@testing.fr"]);
+    }
 
+    /**
+     * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+     * d'un formulaire d'édition complet avec modification
+     */
+    public function testTraitementFormulaireModificationMotDePasse()
+    {
+        $utilisateur = factory(Utilisateur::class)->create();
+
+        $request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
+            "_token"  => csrf_token(),
+            "nom"     => $utilisateur->nom,
+            "prenom"  => $utilisateur->prenom,
+            "pseudo"  => $utilisateur->pseudo,
+            "email"   => $utilisateur->email,
+            "service" => $utilisateur->service_id,
+            'password' => 'unit.testing',
+            'password_confirmation' => 'unit.testing',
+        ]);
+
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseHas("utilisateurs", ["email" => $utilisateur->email]);
+        $this->assertDatabaseMissing("utilisateurs", ["password" => $utilisateur->password]);
+    }
 
 	/**
 	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues

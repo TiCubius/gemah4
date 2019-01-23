@@ -13,6 +13,9 @@ class Permission
 		"App\Http\Controllers\Administrations\Materiels\EtatAdministratifMaterielController" => "administrations/etats/materiels/administratifs/",
 		"App\Http\Controllers\Administrations\Materiels\EtatPhysiqueMaterielController"      => "administrations/etats/materiels/physiques/",
 
+		"App\Http\Controllers\Administrations\ParametreController" => "administrations/parametres/",
+
+		"App\Http\Controllers\Administrations\Types\TypeDocumentController"      => "administrations/types/documents/",
 		"App\Http\Controllers\Administrations\Types\TypeEleveController"         => "administrations/types/eleves/",
 		"App\Http\Controllers\Administrations\Types\TypeEtablissementController" => "administrations/types/etablissements/",
 		"App\Http\Controllers\Administrations\Types\TypeTicketController"        => "administrations/types/tickets/",

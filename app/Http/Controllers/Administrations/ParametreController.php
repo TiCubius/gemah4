@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ParametreController extends Controller
 {
-
 	/**
 	 * PATCH - Met à jours les paramètres
 	 *
@@ -25,5 +24,4 @@ class ParametreController extends Controller
 
 		return back()->with("success", "Les paramètres ont bien été modifiés");
 	}
-
 }

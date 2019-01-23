@@ -6,22 +6,12 @@ class ServicesSeeder extends Seeder
 {
 
 	protected $services = [
-		"Administrateur"       => "Possède tout les droits sur l'application",
-//		"ASH"                  => "Gestion des élèves en situation de handicap",
-//		"DAF"                  => "Division des Affaires Financières",
-//		"DIVEL"                => "Division des élèves",
-//		"Service Informatique" => "",
+		"Administrateur"       => "Gestion de GEMAH",
+		"ASH"                  => "Gestion des élèves en situation de handicap",
+		"DAF"                  => "Division des affaires financiaires",
+		"DIDEL"                => "Division des élèves",
+		"Service informatique" => "Gestion du système informatique",
 	];
-
-	/**
-	 *
-	 * Utilisateurs :
-	 * - ADMIN: Admin                | admin             | goddess
-	 * - ASH : CHADUC Pierre-Henri   | pchaduc           | ?chaduc
-	 * - DAF : GAVILLET Annick       | agavillet         | agavillet
-	 * - DIVEL : DECHAVANNE Béatrice | bdechavanne | bdechavanne
-	 *
-	 */
 
 	public function run()
 	{
@@ -35,8 +25,10 @@ class ServicesSeeder extends Seeder
 					"departement_id" => $departement->id,
 				]);
 
-				foreach ($permissions as $permission) {
-					$service->permissions()->attach($permission);
+				if ($service == "Administrateur") {
+					foreach ($permissions as $permission) {
+						$service->permissions()->attach($permission);
+					}
 				}
 			}
 		}

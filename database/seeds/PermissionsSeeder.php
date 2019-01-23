@@ -53,6 +53,14 @@ class PermissionsSeeder extends Seeder
 
 		"administrations/historiques/show" => "Peut afficher l'historique des actions",
 
+		"administrations/parametres/edit" => "Peut modifier les paramètres généraux (ex: informations sur les conventions)",
+
+		"administrations/types/documents/index"   => "Peut afficher la liste des types de documen",
+		"administrations/types/documents/create"  => "Peut créer un type de document",
+		"administrations/types/documents/show"    => "Peut afficher les informations sur un type de document",
+		"administrations/types/documents/edit"    => "Peut modifier un type de document",
+		"administrations/types/documents/destroy" => "Peut supprimer un type de document",
+
 		"administrations/types/eleves/index"   => "Peut afficher la liste des types d'élève",
 		"administrations/types/eleves/create"  => "Peut créer un type d'élève",
 		"administrations/types/eleves/show"    => "Peut afficher les informations sur un type d'élève",

@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Administrations;
+namespace Tests\Feature;
 
-use App\Models\Eleve;
-use App\Models\TypeEleve;
+use App\Models\Document;
+use App\Models\TypeDocument;
 use Tests\TestCase;
 
-class TypeEleveTest extends TestCase
+class TypesDocumentsTest extends TestCase
 {
 
 	/**
@@ -14,12 +14,12 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageIndexTypesEleves()
 	{
-		$types = factory(TypeEleve::class, 3)->create();
+		$types = factory(TypeDocument::class, 3)->create();
 
-		$request = $this->get("/administrations/eleves/types");
+		$request = $this->get("/administrations/types/documents");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des types d'élèves");
+		$request->assertSee("Gestion des types de document");
 
 		foreach ($types as $type) {
 			$request->assertSee($type->libelle);
@@ -32,12 +32,12 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationType()
 	{
-		$request = $this->get("/administrations/eleves/types/create");
+		$request = $this->get("/administrations/types/documents/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un type d'élève");
+		$request->assertSee("Création d'un type de document");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer le type d'élève");
+		$request->assertSee("Créer le type de document");
 	}
 
 	/**
@@ -46,7 +46,7 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeIncomplet()
 	{
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/documents", [
 			"_token" => csrf_token(),
 		]);
 
@@ -60,9 +60,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeExistant()
 	{
-		$type = factory(TypeEleve::class, 5)->create();
+		$type = factory(TypeDocument::class, 5)->create();
 
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/documents", [
 			"_token"  => csrf_token(),
 			"libelle" => $type->random()->libelle,
 		]);
@@ -77,14 +77,14 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
-		$request = $this->post("/administrations/eleves/types", [
+		$request = $this->post("/administrations/types/documents", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("types_documents", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -93,9 +93,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionType()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/documents/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$type->libelle}");
@@ -109,9 +109,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeIncomplet()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/documents/{$type->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -125,16 +125,16 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeExistant()
 	{
-		$type = factory(TypeEleve::class, 2)->create();
+		$type = factory(TypeDocument::class, 2)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type[0]->id}", [
+		$request = $this->put("/administrations/types/documents/{$type[0]->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $type[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type[0]->libelle]);
+		$this->assertDatabaseHas("types_documents", ["libelle" => $type[0]->libelle]);
 	}
 
 	/**
@@ -143,16 +143,16 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionServiceTypeSansModification()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/documents/{$type->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $type->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseHas("types_documents", ["libelle" => $type->libelle]);
 	}
 
 	/**
@@ -161,16 +161,16 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeCompletAvecModification()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->put("/administrations/eleves/types/{$type->id}", [
+		$request = $this->put("/administrations/types/documents/{$type->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("types_documents", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -179,9 +179,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionType()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->get("/administrations/eleves/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/documents/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer " . $type->libelle);
@@ -194,15 +194,16 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementSuppressionTypeAssocie()
 	{
-		$type = factory(TypeEleve::class)->create();
-		$eleve = factory(Eleve::class)->create();
-		$eleve->types()->attach($type);
+		$type = factory(TypeDocument::class)->create();
+		$document = factory(Document::class)->create();
+		$document->typeDocument()->associate($type);
+		$document->save();
 
-		$request = $this->delete("/administrations/eleves/types/{$type->id}");
+		$request = $this->delete("/administrations/types/documents/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseHas("types_documents", ["libelle" => $type->libelle]);
 	}
 
 	/**
@@ -211,13 +212,13 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementSuppressionTypeNonAssocie()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDocument::class)->create();
 
-		$request = $this->delete("/administrations/eleves/types/{$type->id}");
+		$request = $this->delete("/administrations/types/documents/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseMissing("types_documents", ["libelle" => $type->libelle]);
 	}
 
 }

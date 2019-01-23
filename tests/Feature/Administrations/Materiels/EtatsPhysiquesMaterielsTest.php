@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class EtatsPhysiquesMaterielsTest extends TestCase
 {
-
 	/**
 	 * Vérifie que les données présentes sur l'index sont bien celles attendues.
 	 */

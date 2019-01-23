@@ -35,6 +35,7 @@
 					<label for="password">Mot de passe</label>
 					<input id="password" class="form-control" name="password" type="password" placeholder="Au moins 8 caractères" minlength="8" required>
 				</div>
+
 				<div class="form-group">
 					<label for="password_confirmation">Confirmation du mot de passe</label>
 					<input id="password_confirmation" class="form-control" name="password_confirmation" type="password" minlength="8" placeholder="Réentrer le même mot de passe" required>

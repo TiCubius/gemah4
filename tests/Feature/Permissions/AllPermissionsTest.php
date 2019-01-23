@@ -204,14 +204,18 @@ class AllPermissionsTest extends TestCase
 			"/administrations/services/create",
 			// "/administrations/services/{$service->id}", // ERROR 404
 			"/administrations/services/{$service->id}/edit",
-			"/administrations/eleves/types",
-			"/administrations/eleves/types/create",
-			// "/administrations/eleves/types/{$typeEleve->id}", // ERROR 404
-			"/administrations/eleves/types/{$typeEleve->id}/edit",
-			"/administrations/etablissements/types",
-			"/administrations/etablissements/types/create",
-			// "/administrations/etablissements/types/{$typeEtablissement->id}", // ERROR 404
-			"/administrations/etablissements/types/{$typeEtablissement->id}/edit",
+			"/administrations/types/documents",
+			"/administrations/types/documents/create",
+			// "/administrations/types/documents/{$typeDocument->id}", // ERROR 404
+			"/administrations/types/documents/{$typeEleve->id}/edit",
+			"/administrations/types/eleves",
+			"/administrations/types/eleves/create",
+			// "/administrations/types/eleves/{$typeEleve->id}", // ERROR 404
+			"/administrations/types/eleves/{$typeEleve->id}/edit",
+			"/administrations/types/etablissements",
+			"/administrations/types/etablissements/create",
+			// "/administrations/types/etablissements/$typeEtablissement->id}", // ERROR 404
+			"/administrations/types/etablissements/{$typeEtablissement->id}/edit",
 			"/administrations/types/tickets",
 			"/administrations/types/tickets/create",
 			// "/administrations/types/tickets/{$typeTicket->id}", // ERROR 404
@@ -245,8 +249,9 @@ class AllPermissionsTest extends TestCase
 			"/administrations/academies",
 			"/administrations/regions",
 			"/administrations/services",
-			"/administrations/eleves/types",
-			"/administrations/etablissements/types",
+			"/administrations/types/documents",
+			"/administrations/types/eleves",
+			"/administrations/types/etablissements",
 			"/administrations/types/tickets",
 			"/administrations/materiels/etats/administratifs",
 			"/administrations/materiels/etats/physiques",
@@ -266,12 +271,14 @@ class AllPermissionsTest extends TestCase
 
 			"/conventions",
 
+			"/administrations/parametres",
 			"/administrations/departements/{$departement->id}",
 			"/administrations/academies/{$academie->id}",
 			"/administrations/regions/{$region->id}",
 			"/administrations/services/{$service->id}",
-			"/administrations/eleves/types/{$typeEleve->id}",
-			"/administrations/etablissements/types/{$typeEtablissement->id}",
+			"/administrations/types/documents/{$typeDocument->id}",
+			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/etablissements/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
 			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
 			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}",
@@ -298,8 +305,9 @@ class AllPermissionsTest extends TestCase
 			"/administrations/academies/{$academie->id}",
 			"/administrations/regions/{$region->id}",
 			"/administrations/services/{$service->id}",
-			"/administrations/eleves/types/{$typeEleve->id}",
-			"/administrations/etablissements/types/{$typeEtablissement->id}",
+			"/administrations/types/documents/{$typeDocument->id}",
+			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/etablissements/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
 			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
 			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}",

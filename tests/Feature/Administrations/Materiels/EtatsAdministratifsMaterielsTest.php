@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class EtatsAdministratifsMaterielsTest extends TestCase
 {
-
 	/**
 	 * Vérifie que les données présentes sur l'index sont bien celles attendues.
 	 */
@@ -25,7 +24,6 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 			$request->assertSee($Etat->couleur);
 		}
 	}
-
 
 	/**
 	 * Vérifie que le formulaire de création contient bien les champs nécessaires

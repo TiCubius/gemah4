@@ -17,9 +17,9 @@ class TypeEtablissementController extends Controller
 	 */
 	public function index(): View
 	{
-		$typeEtablissements = TypeEtablissement::orderBy("libelle")->get();
+		$types_etablissements = TypeEtablissement::orderBy("libelle")->get();
 
-		return view("web.administrations.etablissements.types.index", compact("typeEtablissements"));
+		return view("web.administrations.types.etablissements.index", compact("types_etablissements"));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class TypeEtablissementController extends Controller
 	 */
 	public function create(): View
 	{
-		return view("web.administrations.etablissements.types.create");
+		return view("web.administrations.types.etablissements.create");
 	}
 
 	/**
@@ -46,18 +46,18 @@ class TypeEtablissementController extends Controller
 
 		TypeEtablissement::create($request->only(["libelle"]));
 
-		return redirect(route("web.administrations.etablissements.types.index"));
+		return redirect(route("web.administrations.types.etablissements.index"));
 	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'un type établissement
 	 *
-	 * @param TypeEtablissement $type
+	 * @param TypeEtablissement $etablissement
 	 * @return View
 	 */
-	public function edit(TypeEtablissement $type): View
+	public function edit(TypeEtablissement $etablissement): View
 	{
-		return view("web.administrations.etablissements.types.edit", compact("type"));
+		return view("web.administrations.types.etablissements.edit", compact("etablissement"));
 	}
 
 	/**
@@ -67,15 +67,15 @@ class TypeEtablissementController extends Controller
 	 * @param TypeEtablissement         $type
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, TypeEtablissement $type): RedirectResponse
+	public function update(Request $request, TypeEtablissement $etablissement): RedirectResponse
 	{
 		$request->validate([
-			"libelle" => "required|max:191|unique:types_etablissements,libelle,{$type->id}",
+			"libelle" => "required|max:191|unique:types_etablissements,libelle,{$etablissement->id}",
 		]);
 
-		$type->update($request->only(["libelle"]));
+		$etablissement->update($request->only(["libelle"]));
 
-		return redirect(route("web.administrations.etablissements.types.index"));
+		return redirect(route("web.administrations.types.etablissements.index"));
 	}
 
 	/**
@@ -85,14 +85,14 @@ class TypeEtablissementController extends Controller
 	 * @return RedirectResponse
 	 * @throws \Exception
 	 */
-	public function destroy(TypeEtablissement $type): RedirectResponse
+	public function destroy(TypeEtablissement $etablissement): RedirectResponse
 	{
-		if ($type->etablissements->isNotEmpty()) {
+		if ($etablissement->etablissements->isNotEmpty()) {
 			return back()->withErrors("Impossible de supprimer un type d'établissement tant qu'il a des établissements affectés");
 		}
 
-		$type->delete();
+		$etablissement->delete();
 
-		return redirect(route("web.administrations.etablissements.types.index"));
+		return redirect(route("web.administrations.types.etablissements.index"));
 	}
 }

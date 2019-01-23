@@ -2,12 +2,12 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.eleves.types.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.types.eleves.create", "back" => "web.administrations.index"])
 			Gestion des types d'élèves
 		@endcomponent
 
 		<div class="col-12">
-			@if($typeEleves->isEmpty())
+			@if($types_eleves->isEmpty())
 				<div class="alert alert-warning">
 					Aucun type d'élève n'est enregistré sur l'application
 				</div>
@@ -22,11 +22,11 @@
 					</thead>
 
 					<tbody>
-						@foreach($typeEleves as $typeEleve)
+						@foreach($types_eleves as $type_eleves)
 							<tr>
-								<td>{{ $typeEleve->libelle }}</td>
+								<td>{{ $type_eleves->libelle }}</td>
 								<td>
-									<a href="{{ route("web.administrations.eleves.types.edit", [$typeEleve]) }}">
+									<a href="{{ route("web.administrations.types.eleves.edit", [$type_eleves]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

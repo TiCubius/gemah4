@@ -2,12 +2,12 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.administrations.etablissements.types.index"])
+		@component("web._includes.components.title", ["back" => "web.administrations.types.etablissements.index"])
 			Création d'un type d'établissement
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.etablissements.types.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.types.etablissements.index") }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="form-group">

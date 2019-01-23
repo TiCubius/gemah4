@@ -17,7 +17,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$types = factory(TypeEtablissement::class, 5)->create();
 
-		$request = $this->get("/administrations/etablissements/types");
+		$request = $this->get("/administrations/types/etablissements");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des types d'établissements");
@@ -33,7 +33,7 @@ class TypeEtablissementTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationTypeEtablissement()
 	{
-		$request = $this->get("/administrations/etablissements/types/create");
+		$request = $this->get("/administrations/types/etablissements/create");
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type d'établissement");
@@ -47,7 +47,7 @@ class TypeEtablissementTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeEtablissementIncomplet()
 	{
-		$request = $this->post("/administrations/etablissements/types", [
+		$request = $this->post("/administrations/types/etablissements", [
 			"_token" => csrf_token(),
 		]);
 
@@ -63,7 +63,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$types = factory(TypeEtablissement::class, 5)->create();
 
-		$request = $this->post("/administrations/etablissements/types", [
+		$request = $this->post("/administrations/types/etablissements", [
 			"_token"  => csrf_token(),
 			"libelle" => $types->random()->libelle,
 		]);
@@ -78,7 +78,7 @@ class TypeEtablissementTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeEtablissementComplet()
 	{
-		$request = $this->post("/administrations/etablissements/types", [
+		$request = $this->post("/administrations/types/etablissements", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
 		]);
@@ -96,7 +96,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->get("/administrations/etablissements/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/etablissements/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$type->libelle}");
@@ -112,7 +112,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
+		$request = $this->put("/administrations/types/etablissements/{$type->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -128,7 +128,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$types = factory(TypeEtablissement::class, 2)->create();
 
-		$request = $this->put("/administrations/etablissements/types/{$types[0]->id}", [
+		$request = $this->put("/administrations/types/etablissements/{$types[0]->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $types[1]->libelle,
 		]);
@@ -146,7 +146,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
+		$request = $this->put("/administrations/types/etablissements/{$type->id}", [
 			"_token"         => csrf_token(),
 			"libelle"        => $type->libelle,
 			"description"    => $type->description,
@@ -167,7 +167,7 @@ class TypeEtablissementTest extends TestCase
 		$departement = factory(Departement::class)->create();
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->put("/administrations/etablissements/types/{$type->id}", [
+		$request = $this->put("/administrations/types/etablissements/{$type->id}", [
 			"_token"         => csrf_token(),
 			"libelle"        => "unit.testing",
 			"description"    => "unit.testing",
@@ -187,7 +187,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->get("/administrations/etablissements/types/{$type->id}/edit");
+		$request = $this->get("/administrations/types/etablissements/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
@@ -204,7 +204,7 @@ class TypeEtablissementTest extends TestCase
 			"type_etablissement_id" => $type->id,
 		]);
 
-		$request = $this->delete("/administrations/etablissements/types/{$type->id}");
+		$request = $this->delete("/administrations/types/etablissements/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
@@ -219,7 +219,7 @@ class TypeEtablissementTest extends TestCase
 	{
 		$type = factory(TypeEtablissement::class)->create();
 
-		$request = $this->delete("/administrations/etablissements/types/{$type->id}");
+		$request = $this->delete("/administrations/types/etablissements/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();

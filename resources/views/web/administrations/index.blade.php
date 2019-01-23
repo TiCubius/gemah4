@@ -43,15 +43,19 @@
 					<i class="fas fa-tools"></i>  Outils
 				</div>
 
-				<a href="{{ route("web.administrations.eleves.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+				<a href="{{ route("web.administrations.types.eleves.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types d'élèves
 				</a>
-				<a href="{{ route("web.administrations.etablissements.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+				<a href="{{ route("web.administrations.types.etablissements.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types d'établissement
 				</a>
 
 				<a href="{{ route("web.administrations.types.tickets.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types de ticket
+				</a>
+
+				<a href="{{ route("web.administrations.types.documents.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des types de document
 				</a>
 
 				<a href="{{ route("web.administrations.materiels.etats.administratifs.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">

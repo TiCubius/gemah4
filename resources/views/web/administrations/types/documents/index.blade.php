@@ -26,7 +26,7 @@
 							<tr>
 								<td>{{ $type_documents->libelle }}</td>
 								<td>
-									<a href="{{ route("web.administrations.eleves.types.edit", [$type_documents]) }}">
+									<a href="{{ route("web.administrations.types.documents.edit", [$type_documents]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

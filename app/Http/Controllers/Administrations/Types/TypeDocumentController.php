@@ -58,7 +58,7 @@ class TypeDocumentController extends Controller
      */
     public function edit(TypeDocument $document): View
     {
-        return view("web.administrations.types.document.edit", compact("document"));
+        return view("web.administrations.types.documents.edit", compact("document"));
     }
 
     /**

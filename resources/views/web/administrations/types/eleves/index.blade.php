@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.eleves.types.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.types.eleves.create", "back" => "web.administrations.index"])
 			Gestion des types d'élèves
 		@endcomponent
 
@@ -26,7 +26,7 @@
 							<tr>
 								<td>{{ $type_eleves->libelle }}</td>
 								<td>
-									<a href="{{ route("web.administrations.eleves.types.edit", [$type_eleves]) }}">
+									<a href="{{ route("web.administrations.types.eleves.edit", [$type_eleves]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 								</td>

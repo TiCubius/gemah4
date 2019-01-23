@@ -100,8 +100,8 @@ class DomainesMaterielTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Domaine->libelle}");
 		$request->assertSee("Libellé");
-		$request->assertSee("Éditer le domaine");
-		$request->assertSee("Supprimer le domaine");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -184,7 +184,7 @@ class DomainesMaterielTest extends TestCase
 		$request = $this->get("/materiels/domaines/{$Domaine->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le domaine");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Domaine->libelle . "</b>.");
 	}
 

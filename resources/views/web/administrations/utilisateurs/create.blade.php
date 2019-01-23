@@ -20,6 +20,10 @@
 					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ old("prenom") }}" required>
 				</div>
 
+				<div class="form-group">
+					<label for="pseudo">Pseudo</label>
+					<input id="pseudo" class="form-control" name="pseudo" type="text" placeholder="Ex: djohn" value="{{ old("pseudo") }}" required>
+				</div>
 
 				<div class="form-group">
 					<label for="email">Adresse E-Mail</label>

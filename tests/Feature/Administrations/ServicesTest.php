@@ -200,7 +200,7 @@ class ServicesTest extends TestCase
 		$request = $this->get("/administrations/services/{$Service->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le service");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Service->nom . "</b>.");
 	}
 

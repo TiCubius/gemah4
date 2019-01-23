@@ -192,7 +192,7 @@ class TicketsTest extends TestCase
 		$request = $this->get("/scolarites/eleves/{$ticketMessage->ticket->eleve->id}/tickets/{$ticketMessage->ticket->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le ticket");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . str_limit($ticketMessage->ticket->libelle, 15) . "</b>.");
 	}
 

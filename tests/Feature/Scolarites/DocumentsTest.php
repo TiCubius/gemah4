@@ -108,8 +108,8 @@ class DocumentsTest extends TestCase
 		$request->assertSee("Description");
 		$request->assertSee("Fichier");
 
-		$request->assertSee("Modifier le document");
-		$request->assertSee("Supprimer {$document->nom}");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -197,7 +197,7 @@ class DocumentsTest extends TestCase
 		$request = $this->get("/scolarites/eleves/{$eleve->id}/documents/{$document->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer {$document->nom}");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$document->nom}" . "</b>.");
 	}
 

@@ -114,8 +114,8 @@ class TypesMaterielTest extends TestCase
 		$request->assertSee("Édition de {$Type->libelle}");
 		$request->assertSee("Libellé");
 		$request->assertSee("Domaine");
-		$request->assertSee("Éditer le type");
-		$request->assertSee("Supprimer le type");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -206,7 +206,7 @@ class TypesMaterielTest extends TestCase
 		$request = $this->get("/materiels/types/{$Type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le type");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Type->libelle . "</b>.");
 	}
 

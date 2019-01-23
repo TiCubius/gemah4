@@ -95,8 +95,8 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$type->libelle}");
 		$request->assertSee("Libellé");
-		$request->assertSee("Éditer le type de ticket");
-		$request->assertSee("Supprimer le type de ticket");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer ");
 	}
 
 	/***
@@ -178,7 +178,7 @@ class TypesTicketsTest extends TestCase
 		$request = $this->get("/administrations/types/tickets/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le type de ticket");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->libelle . "</b>.");
 	}
 

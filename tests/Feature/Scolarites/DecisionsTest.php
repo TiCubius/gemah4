@@ -3,7 +3,6 @@
 namespace Tests\Feature\Scolarites;
 
 use App\Models\Decision;
-use App\Models\Document;
 use App\Models\Eleve;
 use App\Models\TypeDocument;
 use Illuminate\Http\UploadedFile;
@@ -102,10 +101,9 @@ class DecisionsTest extends TestCase
 
 	public function testAffichageFormulaireEditionDecision()
 	{
-		$eleve = factory(Eleve::class)->create();
 		$decision = factory(Decision::class)->create();
 
-		$request = $this->get("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}/edit");
+		$request = $this->get("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$decision->document->nom}");
@@ -119,8 +117,8 @@ class DecisionsTest extends TestCase
 		$request->assertSee("Affaire suivie par");
 		$request->assertSee("Fichier");
 
-		$request->assertSee("Modifier la décision");
-		$request->assertSee("Supprimer la décision");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -129,12 +127,9 @@ class DecisionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionDecisionCompleteSansModification()
 	{
-		$document = factory(Document::class)->create();
-		$decision = factory(Decision::class)->create([
-			'document_id' => $document->id,
-		]);
+		$decision = factory(Decision::class)->create();
 
-		$request = $this->put("/scolarites/eleves/{$document->eleve_id}/documents/decisions/{$decision->id}", [
+		$request = $this->put("/scolarites/eleves/{$decision->document->eleve_id}/documents/decisions/{$decision->id}", [
 			"_token"            => csrf_token(),
 			"enseignant_id"     => $decision->enseignant_id,
 			"date_cda"          => $decision->date_cda,
@@ -162,20 +157,14 @@ class DecisionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionDecisionCompletAvecModification()
 	{
-		$eleve = factory(Eleve::class)->create();
-		$document = factory(Document::class)->create([
-			"eleve_id" => $eleve->id,
-		]);
-		$decision = factory(Decision::class)->create([
-			'document_id' => $document->id,
-		]);
+		$decision = factory(Decision::class)->create();
 
 		$path = $decision->document->path;
 		$date = \Carbon\Carbon::now();
 
-		$request = $this->patch("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}", [
+		$request = $this->patch("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->id}", [
 			"_token"            => csrf_token(),
-			"enseignant_id"     => $eleve->enseignant_id,
+			"enseignant_id"     => $decision->enseignant_id,
 			"date_cda"          => $date,
 			"date_notification" => $date,
 			"date_limite"       => $date,
@@ -187,7 +176,7 @@ class DecisionsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("decisions", [
-			"enseignant_id"     => $eleve->enseignant_id,
+			"enseignant_id"     => $decision->enseignant_id,
 			"date_cda"          => $date,
 			"date_notification" => $date,
 			"date_limite"       => $date,
@@ -203,14 +192,13 @@ class DecisionsTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionDecision()
 	{
-		$eleve = factory(Eleve::class)->create();
 		$decision = factory(Decision::class)->create();
 
 
-		$request = $this->get("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->document->id}/edit");
+		$request = $this->get("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->document->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer {$decision->document->nom}");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$decision->document->nom}" . "</b>.");
 	}
 
@@ -218,13 +206,11 @@ class DecisionsTest extends TestCase
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que la decision à bien été supprimé
 	 */
-	public function testTraitementSuppressionEleve()
+	public function testTraitementSuppressionDecision()
 	{
-		$eleve = factory(Eleve::class)->create();
 		$decision = factory(Decision::class)->create();
 
-
-		$request = $this->delete("/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->document->id}");
+		$request = $this->delete("/scolarites/eleves/{$decision->document->eleve->id}/documents/decisions/{$decision->document->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();

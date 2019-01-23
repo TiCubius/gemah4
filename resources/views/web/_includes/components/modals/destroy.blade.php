@@ -21,7 +21,7 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-between">
 				<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-				<button type="submit" class="btn btn-danger">Supprimer {{ $name }}</button>
+				<button type="submit" class="btn btn-danger"><i class="fas fa-times-circle"></i> Supprimer {{ $name }}</button>
 			</div>
 		</div>
 	</div>

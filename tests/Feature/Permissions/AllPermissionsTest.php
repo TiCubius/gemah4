@@ -10,7 +10,8 @@ use App\Models\DomaineMateriel;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
-use App\Models\EtatMateriel;
+use App\Models\EtatAdministratifMateriel;
+use App\Models\EtatPhysiqueMateriel;
 use App\Models\Materiel;
 use App\Models\Permission;
 use App\Models\Region;
@@ -73,13 +74,19 @@ class AllPermissionsTest extends TestCase
 		foreach ($getRoutes as $route) {
 			$request = $this->get($route);
 
-			$request->assertSessionHasNoErrors();
+			// Vérification de la présence de l'erreur dans la session
+			if (session("errors")) {
+				$this->assertNotContains("Vous n'avez pas la permission requise pour accéder à cette ressource.", session("errors")->get(0));
+			}
 		}
 
 		foreach ($postRoutes as $route => $data) {
 			$request = $this->post($route, $data);
 
-			$request->assertSessionHasNoErrors();
+			// Vérification de la présence de l'erreur dans la session
+			if (session("errors")) {
+				$this->assertNotContains("Vous n'avez pas la permission requise pour accéder à cette ressource.", session("errors")->get(0));
+			}
 		}
 	}
 
@@ -94,7 +101,8 @@ class AllPermissionsTest extends TestCase
 		$eleve = factory(Eleve::class)->create();
 		$enseignant = factory(Enseignant::class)->create();
 		$etablissement = factory(Etablissement::class)->create();
-		$etatMateriel = factory(EtatMateriel::class)->create();
+		$etatAdministratifMateriel = factory(EtatAdministratifMateriel::class)->create();
+		$etatPhysiqueMateriel = factory(EtatPhysiqueMateriel::class)->create();
 		$materiel = factory(Materiel::class)->create();
 		$responsable = factory(Responsable::class)->create();
 		$region = factory(Region::class)->create();
@@ -123,6 +131,7 @@ class AllPermissionsTest extends TestCase
 		$eleve->etablissement()->associate($etablissement);
 		$eleve->materiels()->save($materiel);
 		$eleve->responsables()->save($responsable);
+
 
 		$getRoutes = [
 			"/scolarites",
@@ -207,10 +216,14 @@ class AllPermissionsTest extends TestCase
 			"/administrations/types/tickets/create",
 			// "/administrations/types/tickets/{$typeTicket->id}", // ERROR 404
 			"/administrations/types/tickets/{$typeTicket->id}/edit",
-			"/administrations/materiels/etats",
-			"/administrations/materiels/etats/create",
-			// "/administrations/materiels/etats/{$etatMateriel->id}", // ERROR 404
-			"/administrations/materiels/etats/{$etatMateriel->id}/edit",
+			"/administrations/materiels/etats/administratifs",
+			"/administrations/materiels/etats/administratifs/create",
+			// "/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}", // ERROR 404
+			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}/edit",
+			"/administrations/materiels/etats/physiques",
+			"/administrations/materiels/etats/physiques/create",
+			// "/administrations/materiels/etats/physiques/{$etatAdministratifMateriel->id}", // ERROR 404
+			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}/edit",
 		];
 
 		$postRoutes = [
@@ -235,7 +248,8 @@ class AllPermissionsTest extends TestCase
 			"/administrations/eleves/types",
 			"/administrations/etablissements/types",
 			"/administrations/types/tickets",
-			"/administrations/materiels/etats",
+			"/administrations/materiels/etats/administratifs",
+			"/administrations/materiels/etats/physiques",
 		];
 
 		$patchRoutes = [
@@ -259,7 +273,8 @@ class AllPermissionsTest extends TestCase
 			"/administrations/eleves/types/{$typeEleve->id}",
 			"/administrations/etablissements/types/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
-			"/administrations/materiels/etats/{$etatMateriel->id}",
+			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
+			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}",
 		];
 
 		$deleteRoutes = [
@@ -286,7 +301,8 @@ class AllPermissionsTest extends TestCase
 			"/administrations/eleves/types/{$typeEleve->id}",
 			"/administrations/etablissements/types/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
-			"/administrations/materiels/etats/{$etatMateriel->id}",
+			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
+			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}",
 		];
 
 

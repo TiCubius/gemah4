@@ -7,10 +7,10 @@ class ServicesSeeder extends Seeder
 
 	protected $services = [
 		"Administrateur"       => "Possède tout les droits sur l'application",
-		"ASH"                  => "Gestion des élèves en situation de handicap",
-		"DAF"                  => "Division des Affaires Financières",
-		"DIVEL"                => "Division des élèves",
-		"Service Informatique" => "",
+//		"ASH"                  => "Gestion des élèves en situation de handicap",
+//		"DAF"                  => "Division des Affaires Financières",
+//		"DIVEL"                => "Division des élèves",
+//		"Service Informatique" => "",
 	];
 
 	/**

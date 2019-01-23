@@ -15,16 +15,15 @@ class DatabaseSeeder extends Seeder
 //		$this->call(AcademiesSeeder::class);
 //		$this->call(DepartementsSeeder::class);
 //
-//        $this->call(EtablissementSeeder::class);
-//
-//		$this->call(TypesDocumentSeeder::class);
-//		$this->call(TypesEleveSeeder::class);
+//		$this->call(EtablissementSeeder::class);
 
 		$this->call(PermissionsSeeder::class);
 		$this->call(ServicesSeeder::class);
 
 //		$this->call(DomainesMaterielSeeder::class);
 //		$this->call(TypesMaterielSeeder::class);
-//		$this->call(EtatsMaterielSeeder::class);
+//		$this->call(EtatsAdministratifsMaterielSeeder::class);
+//		$this->call(EtatsPhysiquesMaterielSeeder::class);
+//		$this->call(ParametresSeeders::class);
 	}
 }

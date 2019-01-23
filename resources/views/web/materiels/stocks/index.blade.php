@@ -42,11 +42,11 @@
 						</div>
 
 						<div class="form-group">
-							<label class="optional" for="etat_materiel_id">État</label>
-							<select id="etat_materiel_id" class="form-control" name="etat_materiel_id">
+							<label class="optional" for="etat_administratif_materiel_id">État</label>
+							<select id="etat_administratif_materiel_id" class="form-control" name="etat_administratif_materiel_id">
 								<option value>Sélectionnez un état</option>
-								@foreach($etats as $etat)
-									@if(Request::get("etat_materiel_id") == $etat->id)
+								@foreach($etatsAdministratifs as $etat)
+									@if(Request::get("etat_administratif_materiel_id") == $etat->id)
 										<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
 									@else
 										<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
@@ -54,6 +54,20 @@
 								@endforeach
 							</select>
 						</div>
+
+							<div class="form-group">
+								<label class="optional" for="etat_physique_materiel_id">État</label>
+								<select id="etat_physique_materiel_id" class="form-control" name="etat_physique_materiel_id">
+									<option value>Sélectionnez un état</option>
+									@foreach($etatsPhysiques as $etat)
+										@if(Request::get("etat_physique_materiel_id") == $etat->id)
+											<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+										@else
+											<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+										@endif
+									@endforeach
+								</select>
+							</div>
 
 						<div class="form-group">
 							<label class="optional" for="marque">Marque</label>
@@ -99,7 +113,7 @@
 								Nombres de matériel : {{ count($searchedMateriels) }}
 								<ul class="mb-0">
 									@foreach($searchedMateriels->groupBy("etat_materiel_id") as $materiels)
-										<li>{{ count($materiels) }} {{ $materiels[0]->etat->libelle }}</li>
+										<li>{{ count($materiels) }} {{ $materiels[0]->etatAdministratif->libelle }}</li>
 									@endforeach
 									<li>
 										{{ count($searchedMateriels->where("eleve_id", "!=", null)) }} Affectés
@@ -131,7 +145,7 @@
 							<tbody>
 								@foreach($searchedMateriels as $materiel)
 									<tr>
-										<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etat->libelle }}" style="width: 57px; background:{{ $materiel->etat->couleur }}"></td>
+										<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etatAdministratif->libelle }}" style="width: 57px; background:{{ $materiel->etatAdministratif->couleur }}"></td>
 										<td>{{ $materiel->type->libelle }}</td>
 										<td>{{ $materiel->marque }}</td>
 										<td>{{ $materiel->modele }}</td>
@@ -168,7 +182,7 @@
 							<ul class="list-group list-group-flush">
 								@foreach($latestCreatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
-										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
+										<div class="couleur" style="width: 31px; background:{{ $materiel->etatAdministratif->couleur }}"></div>
 
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<div class="actions">
@@ -189,7 +203,7 @@
 							<ul class="list-group list-group-flush">
 								@foreach($latestUpdatedMateriels as $materiel)
 									<li class="list-group-item d-flex justify-content-between">
-										<div class="couleur" style="width: 31px; background:{{ $materiel->etat->couleur }}"></div>
+										<div class="couleur" style="width: 31px; background:{{ $materiel->etatAdministratif->couleur }}"></div>
 
 										<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 										<div class="actions">

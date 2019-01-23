@@ -23,7 +23,12 @@ class Authentification
 
 		// Reload user in session
 		$currentUser = Session::get("user");
-		$newUser = Utilisateur::findOrFail($currentUser->id);
+		$newUser = Utilisateur::find($currentUser->id);
+
+		if (!$newUser) {
+			Session::put("user", null);
+			return redirect(route("web.connexion"))->withErrors("Veuillez vous reconnecter");
+		}
 
 		if ($newUser->updated_at != $currentUser->updated_at) {
 			$newUser->load("service.permissions");

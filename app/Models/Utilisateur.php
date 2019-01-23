@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Utilisateur extends Model
 {
@@ -16,6 +15,7 @@ class Utilisateur extends Model
 	protected $fillable = [
 		"nom",
 		"prenom",
+		"pseudo",
 		"email",
 		"password",
 		"service_id",

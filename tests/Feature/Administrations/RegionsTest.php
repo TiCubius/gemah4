@@ -99,7 +99,7 @@ class RegionsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Region->nom}");
 		$request->assertSee("Nom");
-		$request->assertSee("Éditer la région");
+		$request->assertSee("Éditer");
 	}
 
 	/**

@@ -37,11 +37,15 @@
 					</select>
 				</div>
 
-				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Éditer</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 
 		</div>
 	</div>
+	@component("web._includes.components.modals.destroy", ["route" => "web.administrations.departements.destroy", "id" => $departement])
+		@slot("name")
+			{{ "{$departement->nom}" }}
+		@endslot
+	@endcomponent
 @endsection

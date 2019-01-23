@@ -53,8 +53,13 @@
 							</p>
 
 							<p class="mb-0">
-								<strong>Etat du matériel</strong>:
-								{!!  $stock->etat->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								<strong>Etat administratif</strong>:
+								{!!  $stock->etatAdministratif->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
+							</p>
+
+							<p class="mb-0">
+								<strong>Etat physique</strong>:
+								{!!  $stock->etatPhysique->libelle ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
@@ -147,7 +152,7 @@
 
 			<div class="actions d-flex justify-content-center">
 				<a href="{{ route('web.materiels.stocks.edit', [$stock]) }}" class="btn btn-sm btn-outline-primary">
-					Modifier le matériel
+					<i class="far fa-edit"></i> Modifier
 				</a>
 			</div>
 

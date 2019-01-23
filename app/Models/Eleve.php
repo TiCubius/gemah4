@@ -140,6 +140,138 @@ class Eleve extends Model
 
 
 	/**
+	 * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas des documents
+	 *
+	 * @param $query
+	 * @param $state
+	 * @return Builder
+	 */
+	public function scopeHaveDocuments($query, $state): Builder
+	{
+		if ($state) {
+			return $query->has("documents");
+		} elseif (!$state) {
+			return $query->doesntHave("documents");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder triant les résultats par date de création des documents
+	 *
+	 * @param $query
+	 * @return Builder
+	 */
+	public function scopeLatestDocumentCreated($query, $state): Builder
+	{
+		$query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+
+		if ($state) {
+			return $query->orderBy("documents.created_at", "ASC");
+		} elseif (!$state) {
+			return $query->orderBy("documents.created_at", "DESC");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder triant les résultats par date de mise à jours des documents
+	 *
+	 * @param $query
+	 * @return Builder
+	 */
+	public function scopeLatestDocumentModified($query, $state): Builder
+	{
+		$query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+
+		if ($state) {
+			return $query->orderBy("documents.updated_at", "ASC");
+		} elseif (!$state) {
+			return $query->orderBy("documents.updated_at", "DESC");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder triant les résultats par date de création des tickets
+	 *
+	 * @param $query
+	 * @return Builder
+	 */
+	public function scopeLatestTicketCreated($query, $state): Builder
+	{
+		$query = $query->join("tickets", "eleve.id", "=", "tickets.eleve_id");
+
+		if ($state) {
+			return $query->orderBy("tickets.created_at", "ASC");
+		} elseif (!$state) {
+			return $query->orderBy("tickets.created_at", "DESC");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder triant les résultats par date de mise à jours des tickets
+	 *
+	 * @param $query
+	 * @return Builder
+	 */
+	public function scopeLatestTicketModified($query, $state): Builder
+	{
+		$query = $query->join("tickets", "eleve.id", "=", "tickets.eleve_id");
+
+		if ($state) {
+			return $query->orderBy("tickets.updated_at", "ASC");
+		} elseif (!$state) {
+			return $query->orderBy("tickets.updated_at", "DESC");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas du matériels
+	 *
+	 * @param $query
+	 * @param $state
+	 * @return Builder
+	 */
+	public function scopeHaveMateriels($query, $state): Builder
+	{
+		if ($state) {
+			return $query->has("materiels");
+		} elseif (!$state) {
+			return $query->doesntHave("materiels");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas des responsables
+	 *
+	 * @param $query
+	 * @param $state
+	 * @return Builder
+	 */
+	public function scopeHaveResponsables($query, $state): Builder
+	{
+		if ($state) {
+			return $query->has("responsables");
+		} elseif (!$state) {
+			return $query->doesntHave("responsables");
+		}
+	}
+
+	/**
+	 * Retourne un Query Builder avec uniquement les élèves étant/n'étant pas dans un établissement
+	 *
+	 * @param $query
+	 * @param $state
+	 * @return Builder
+	 */
+	public function scopeHaveEtablissement($query, $state): Builder
+	{
+		if ($state) {
+			return $query->has("etablissement");
+		} elseif (!$state) {
+			return $query->doesntHave("etablissement");
+		}
+	}
+
+	/**
 	 * Effectue une recherce sur le département, type ET (nom, prénom, email ou téléphone sur élève)
 	 *
 	 * @param             $query
@@ -149,9 +281,10 @@ class Eleve extends Model
 	 * @param string      $prenom
 	 * @param string|null $date_naissance
 	 * @param string      $code_ine
+	 * @param int|null    $eleve_id
 	 * @return Builder
 	 */
-	public function scopeSearch($query, ?string $departement_id, ?int $type_eleve_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine): Builder
+	public function scopeSearch($query, ?string $departement_id, ?int $type_eleve_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine, ?int $eleve_id): Builder
 	{
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM eleves WHERE (nom LIKE "%$...%" OR prenom LIKE "%...%" (...))
@@ -177,6 +310,10 @@ class Eleve extends Model
 
 		if ($type_eleve_id) {
 			$search->type($type_eleve_id);
+		}
+
+		if ($eleve_id) {
+			$search->where("id", "LIKE", "%" . $eleve_id . "%");
 		}
 
 		return $search;

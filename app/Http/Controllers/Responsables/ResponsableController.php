@@ -19,7 +19,7 @@ class ResponsableController extends Controller
 	 */
 	public function index(Request $request): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 		$latestCreatedResponsables = Responsable::latestCreated()->take(10)->get();
 		$latestUpdatedResponsables = Responsable::latestUpdated()->take(10)->get();
 
@@ -59,7 +59,7 @@ class ResponsableController extends Controller
 			"code_postal"    => "nullable|max:191",
 			"ville"          => "nullable|max:191",
 			"adresse"        => "nullable|max:191",
-			"departement_id" => "required",
+			"departement_id" => "required|exists:departements,id",
 		]);
 
 		Responsable::create($request->only([
@@ -108,7 +108,7 @@ class ResponsableController extends Controller
 			"code_postal"    => "nullable|max:191",
 			"ville"          => "nullable|max:191",
 			"adresse"        => "nullable|max:191",
-			"departement_id" => "required",
+			"departement_id" => "required|exists:departements,id",
 		]);
 
 		$responsable->update($request->only([

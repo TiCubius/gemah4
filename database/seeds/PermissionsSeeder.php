@@ -39,13 +39,19 @@ class PermissionsSeeder extends Seeder
 		"administrations/utilisateurs/destroy" => "Peut supprimer un utilisateur",
 
 
-		"administrations/etats/materiels/index"   => "Peut afficher la liste des états matériel",
-		"administrations/etats/materiels/create"  => "Peut créer un état matériel",
-		"administrations/etats/materiels/show"    => "Peut afficher les informations sur un état matériel",
-		"administrations/etats/materiels/edit"    => "Peut modifier un état matériel",
-		"administrations/etats/materiels/destroy" => "Peut supprimer un état matériel",
+		"administrations/etats/materiels/administratifs/index"   => "Peut afficher la liste des états administratifs du matériel",
+		"administrations/etats/materiels/administratifs/create"  => "Peut créer un état administratif du matériel",
+		"administrations/etats/materiels/administratifs/show"    => "Peut afficher les informations sur un état administratif d'un matériel",
+		"administrations/etats/materiels/administratifs/edit"    => "Peut modifier un état administratif du matériel",
+		"administrations/etats/materiels/administratifs/destroy" => "Peut supprimer un état administratif du matériel",
 
-		"administrations/historique/show" => "Peut afficher l'historique des actions",
+		"administrations/etats/materiels/physiques/index"   => "Peut afficher la liste des états physiques du matériel",
+		"administrations/etats/materiels/physiques/create"  => "Peut créer un état physique d'un matériel",
+		"administrations/etats/materiels/physiques/show"    => "Peut afficher les informations sur un état physique d'un matériel",
+		"administrations/etats/materiels/physiques/edit"    => "Peut modifier un état physique d'un matériel",
+		"administrations/etats/materiels/physiques/destroy" => "Peut supprimer un état physique d'un matériel",
+
+		"administrations/historiques/show" => "Peut afficher l'historique des actions",
 
 		"administrations/types/eleves/index"   => "Peut afficher la liste des types d'élève",
 		"administrations/types/eleves/create"  => "Peut créer un type d'élève",
@@ -77,8 +83,11 @@ class PermissionsSeeder extends Seeder
 		"affectations/responsables/detach"   => "Peut désaffecter un élève d'un responsable",
 
 
-		"conventions/index" => "Peut afficher la liste des états signature des conventions",
-		"conventions/edit"  => "Peut modifier l'état signature des conventions",
+		"conventions/index"                        => "Peut afficher la liste des états signature des conventions",
+		"conventions/edit"                         => "Peut modifier l'état signature des conventions",
+		"conventions/signaturesEffectuees"         => "Peut générer la liste des signatures effecutées",
+		"conventions/signaturesManquantes"         => "Peut générer la liste des signatures manquantes",
+		"conventions/impressionsToutesConventions" => "Peut générer les conventions",
 
 
 		"eleves/index"   => "Peut afficher la liste des élèves",
@@ -156,6 +165,9 @@ class PermissionsSeeder extends Seeder
 		"responsables/destroy" => "Peut supprimer un responsable",
 
 		"scolarites/index" => "Peut afficher le menu gestion de la scolarité",
+
+		"statistiques/index"    => "Peut afficher le menu des statistiques",
+		"statistiques/generale" => "Peut afficher les statistiques générales",
 	];
 
 	/**

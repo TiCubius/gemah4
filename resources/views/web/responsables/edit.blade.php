@@ -20,7 +20,7 @@
 						<option hidden value="">Veuillez sélectionner la civilité</option>
 						<option value="M.">M</option>
 						<option value="Mme">Mme</option>
-						<option value="M / Mme">M / Mme</option>
+						<option value="M./Mme">M/Mme</option>
 					</select>
 				</div>
 
@@ -61,10 +61,8 @@
 					<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ $responsable->adresse }}">
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le responsable</button>
-					<button class="btn btn-sm btn-outline-success">Éditer</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

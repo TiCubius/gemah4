@@ -24,6 +24,10 @@ abstract class TestCase extends BaseTestCase
 		// - Générer un utilisateur possédant ce service
 
 		$this->seed(\PermissionsSeeder::class);
+		$this->seed(\RegionsSeeder::class);
+		$this->seed(\AcademiesSeeder::class);
+		$this->seed(\DepartementsSeeder::class);
+		$this->seed(\ParametresSeeders::class);
 		$service = factory(Service::class)->create();
 
 		foreach (Permission::all() as $permission) {

@@ -19,7 +19,8 @@ class CreateUtilisateursTable extends Migration
 			$table->unsignedInteger('service_id');
 			$table->string('nom');
 			$table->string('prenom');
-			$table->string('email');
+            $table->string('pseudo');
+            $table->string('email');
 			$table->string('password');
 			//			$table->boolean('reception_email');
 

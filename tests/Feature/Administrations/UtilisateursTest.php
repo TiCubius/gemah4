@@ -41,6 +41,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Création d'un utilisateur");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
+		$request->assertSee("Pseudo");
 		$request->assertSee("Adresse");
 		$request->assertSee("Mot");
 		$request->assertSee("Confirmation du mot de passe");
@@ -93,6 +94,7 @@ class UtilisateursTest extends TestCase
 			"_token"                => csrf_token(),
 			"nom"                   => "unit.testing",
 			"prenom"                => "unit.testing",
+			"pseudo"                => "unit.testing",
 			"email"                 => "unit@testing.fr",
 			"password"              => "unit.testing",
 			"password_confirmation" => "unit.testing",
@@ -119,6 +121,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Édition de {$Utilisateur->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
+		$request->assertSee("Pseudo");
 		$request->assertSee("Adresse E-Mail");
 		$request->assertSee("Département");
 		$request->assertSee("Service");
@@ -155,6 +158,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => "unit.testing",
 			"prenom"  => "unit.testing",
+			"pseudo"  => "unit.testing",
 			"email"   => $Utilisateurs[1]->email,
 			"service" => $Service->id,
 		]);
@@ -176,6 +180,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => $Utilisateur->nom,
 			"prenom"  => $Utilisateur->prenom,
+			"pseudo"  => $Utilisateur->pseudo,
 			"email"   => $Utilisateur->email,
 			"service" => $Utilisateur->service_id,
 		]);
@@ -198,6 +203,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => "unit.testing",
 			"prenom"  => "unit.testing",
+			"pseudo"  => "unit.testing",
 			"email"   => "unit@testing.fr",
 			"service" => $Service->id,
 		]);
@@ -218,7 +224,7 @@ class UtilisateursTest extends TestCase
 		$request = $this->get("/administrations/utilisateurs/{$Utilisateur->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'utilisateur");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Utilisateur->nom} {$Utilisateur->prenom}" . "</b>.");
 	}
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Administrations\Materiels;
+namespace Tests\Feature;
 
-use App\Models\EtatMateriel;
+use App\Models\EtatPhysiqueMateriel;
 use Tests\TestCase;
 
-class EtatsMaterielsTest extends TestCase
+class EtatsPhysiquesMaterielsTest extends TestCase
 {
 
 	/**
@@ -13,16 +13,15 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testAffichageIndexEtatMateriels()
 	{
-		$Etats = factory(EtatMateriel::class, 5)->create();
+		$Etats = factory(EtatPhysiqueMateriel::class, 5)->create();
 
-		$request = $this->get("/administrations/materiels/etats");
+		$request = $this->get("/administrations/materiels/etats/physiques");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des états matériel");
+		$request->assertSee("Gestion des états physiques matériel");
 
 		foreach ($Etats as $Etat) {
 			$request->assertSee($Etat->libelle);
-			$request->assertSee($Etat->couleur);
 		}
 	}
 
@@ -32,13 +31,12 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationEtatMateriel()
 	{
-		$request = $this->get("/administrations/materiels/etats/create");
+		$request = $this->get("/administrations/materiels/etats/physiques/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un état matériel");
+		$request->assertSee("Création d'un état physique matériel");
 		$request->assertSee("Libellé");
-		$request->assertSee("Couleur");
-		$request->assertSee("Créer l'état matériel");
+		$request->assertSee("Créer l'état physique matériel");
 	}
 
 	/**
@@ -47,7 +45,7 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEtatMaterielIncomplet()
 	{
-		$request = $this->post("/administrations/materiels/etats", [
+		$request = $this->post("/administrations/materiels/etats/physiques", [
 			"_token" => csrf_token(),
 		]);
 
@@ -61,12 +59,11 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEtatMaterielExistant()
 	{
-		$Etats = factory(EtatMateriel::class, 5)->create();
+		$Etats = factory(EtatPhysiqueMateriel::class, 5)->create();
 
-		$request = $this->post("/administrations/materiels/etats", [
+		$request = $this->post("/administrations/materiels/etats/physiques", [
 			"_token"  => csrf_token(),
 			"libelle" => $Etats->random()->libelle,
-			"couleur" => $Etats->random()->couleur,
 		]);
 
 		$request->assertStatus(302);
@@ -74,20 +71,19 @@ class EtatsMaterielsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et qu'un état matériel à bien été créé lors de la soumissions d'un
+	 * Vérifie qu'aucune erreur n'est présente et qu'un état physique matériel à bien été créé lors de la soumissions d'un
 	 * formulaire de création complet
 	 */
 	public function testTraitementFormulaireCreationEtatMaterielComplet()
 	{
-		$request = $this->post("/administrations/materiels/etats", [
+		$request = $this->post("/administrations/materiels/etats/physiques", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
-			"couleur" => "112233",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiels", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -96,16 +92,15 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionEtatMateriel()
 	{
-		$Etat = factory(EtatMateriel::class)->create();
+		$Etat = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->get("/administrations/materiels/etats/{$Etat->id}/edit");
+		$request = $this->get("/administrations/materiels/etats/physiques/{$Etat->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$Etat->libelle}");
 		$request->assertSee("Libellé");
-		$request->assertSee("Couleur");
-		$request->assertSee("Éditer l'état matériel");
-		$request->assertSee("Supprimer l'état matériel");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -113,9 +108,9 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielIncomplet()
 	{
-		$Etat = factory(EtatMateriel::class)->create();
+		$Etat = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->put("/administrations/materiels/etats/{$Etat->id}", [
+		$request = $this->put("/administrations/materiels/etats/physiques/{$Etat->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -125,59 +120,56 @@ class EtatsMaterielsTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un EtatMateriel déjà existante
+	 * d'un EtatAdministratifMateriel déjà existante
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielExistant()
 	{
-		$Etats = factory(EtatMateriel::class, 2)->create();
+		$Etats = factory(EtatPhysiqueMateriel::class, 2)->create();
 
-		$request = $this->put("/administrations/materiels/etats/{$Etats[0]->id}", [
+		$request = $this->put("/administrations/materiels/etats/physiques/{$Etats[0]->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $Etats[1]->libelle,
-			"couleur" => "112233",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("etats_materiels", ["libelle" => $Etats[0]->libelle]);
+		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => $Etats[0]->libelle]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été éditée lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que l'état physique matériel à bien été éditée lors de la soumission
 	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielCompletSansModification()
 	{
-		$Etat = factory(EtatMateriel::class)->create();
+		$Etat = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->put("/administrations/materiels/etats/{$Etat->id}", [
+		$request = $this->put("/administrations/materiels/etats/physiques/{$Etat->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => $Etat->libelle,
-			"couleur" => $Etat->couleur,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiels", ["libelle" => $Etat->libelle]);
+		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => $Etat->libelle]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été édité lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que l'état physique matériel à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionEtatMaterielCompletAvecModification()
 	{
-		$Etat = factory(EtatMateriel::class)->create();
+		$Etat = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->put("/administrations/materiels/etats/{$Etat->id}", [
+		$request = $this->put("/administrations/materiels/etats/physiques/{$Etat->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
-			"couleur" => "556677",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("etats_materiels", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -186,30 +178,29 @@ class EtatsMaterielsTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionEtatMateriel()
 	{
-		$EtatMateriel = factory(EtatMateriel::class)->create();
+		$EtatMateriel = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->get("/administrations/materiels/etats/{$EtatMateriel->id}/edit");
+		$request = $this->get("/administrations/materiels/etats/physiques/{$EtatMateriel->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'état matériel");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $EtatMateriel->libelle . "</b>.");
 	}
 
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'état matériel à bien été supprimé
+	 * Vérifie qu'aucune erreur n'est présente et que l'état physique matériel à bien été supprimé
 	 */
 	public function testTraitementSuppressionEtatMateriel()
 	{
-		$EtatMateriel = factory(EtatMateriel::class)->create();
+		$EtatMateriel = factory(EtatPhysiqueMateriel::class)->create();
 
-		$request = $this->delete("/administrations/materiels/etats/{$EtatMateriel->id}");
+		$request = $this->delete("/administrations/materiels/etats/physiques/{$EtatMateriel->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("etats_materiels", [
+		$this->assertDatabaseMissing("etats_physiques_materiels", [
 			"libelle" => $EtatMateriel->libelle,
-			"couleur" => $EtatMateriel->couleur,
 		]);
 	}
 

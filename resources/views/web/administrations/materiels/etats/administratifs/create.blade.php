@@ -2,13 +2,13 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.administrations.materiels.etats.index"])
-			Création d'un état matériel
+		@component("web._includes.components.title", ["back" => "web.administrations.materiels.etats.administratifs.index"])
+			Création d'un état administratif matériel
 		@endcomponent
 
 		<div class="col-12">
 
-			<form class="mb-3" action="{{ route("web.administrations.materiels.etats.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.materiels.etats.administratifs.index") }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="form-group">
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer l'état matériel</button>
+					<button class="btn btn-sm btn-outline-success">Créer l'état administratif matériel</button>
 				</div>
 			</form>
 

@@ -71,7 +71,4 @@ class ConventionsTest extends TestCase
 			"date_signature" => null,
 		]);
 	}
-
 }
-
-?>

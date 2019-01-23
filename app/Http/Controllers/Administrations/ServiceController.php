@@ -8,7 +8,6 @@ use App\Models\Permission;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -52,7 +51,7 @@ class ServiceController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			"nom"            => "required|max:191|unique_with:departements,id",
+			"nom"            => "required|max:191|unique_with:services,departement_id",
 			"description"    => "required|max:191",
 			"departement_id" => "required|max:191|exists:departements,id",
 		]);

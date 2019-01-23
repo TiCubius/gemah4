@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class AcademiesTest extends TestCase
 {
-
 	/**
 	 * Vérifie que les données présentes sur l'index sont bien celles attendues.
 	 */
@@ -107,9 +106,9 @@ class AcademiesTest extends TestCase
 		$request = $this->get("/administrations/academies/{$Academie->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Academie->nom}");
+		$request->assertSee("Édition de l'{$Academie->nom}");
 		$request->assertSee("Nom");
-		$request->assertSee("Éditer l'académie");
+		$request->assertSee("Éditer");
 	}
 
 	/**

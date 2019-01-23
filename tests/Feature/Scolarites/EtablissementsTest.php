@@ -278,7 +278,7 @@ class EtablissementsTest extends TestCase
 		$request = $this->get("/scolarites/etablissements/{$etablissement->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'établissement");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$etablissement->nom}" . "</b>.");
 	}
 

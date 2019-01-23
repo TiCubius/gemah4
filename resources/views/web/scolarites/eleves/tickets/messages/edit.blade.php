@@ -17,10 +17,8 @@
 					<textarea id="contenu" name="contenu" rows="5" class="form-control">{{ $message->contenu }}</textarea>
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le message</button>
-					<button class="btn btn-sm btn-outline-primary">Modifier le message</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 
 		</div>

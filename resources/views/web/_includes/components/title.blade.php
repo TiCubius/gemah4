@@ -8,12 +8,12 @@
 				@endisset
 				@isset($add)
 					<a class="btn btn-outline-primary" href="{{ route($add, $id ?? null) }}">
-						Ajouter
+						<i class="fas fa-plus-circle"></i> Ajouter
 					</a>
 				@endisset
 				@isset($back)
 					<a class="btn btn-outline-primary" href="{{ route($back, $id ?? null) }}">
-						Retour
+						<i class="fas fa-arrow-alt-circle-left"></i> Retour
 					</a>
 				@endisset
 			</div>

@@ -16,10 +16,14 @@
 					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Auvergne-Rhône-Alpes" value="{{ $region->nom }}" required>
 				</div>
 
-				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Éditer la région</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>
+	@component("web._includes.components.modals.destroy", ["route" => "web.administrations.regions.destroy", "id" => $region])
+		@slot("name")
+			{{ "{$region->nom}" }}
+		@endslot
+	@endcomponent
 @endsection

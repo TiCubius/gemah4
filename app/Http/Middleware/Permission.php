@@ -4,14 +4,14 @@ namespace App\Http\Middleware;
 
 use App\Models\Utilisateur;
 use Closure;
-use Hamcrest\Util;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class Permission
 {
 	private $permissions = [
-		"App\Http\Controllers\Administrations\Materiels\EtatMaterielController" => "administrations/etats/materiels/",
+		"App\Http\Controllers\Administrations\Materiels\EtatAdministratifMaterielController" => "administrations/etats/materiels/administratifs/",
+		"App\Http\Controllers\Administrations\Materiels\EtatPhysiqueMaterielController"      => "administrations/etats/materiels/physiques/",
 
 		"App\Http\Controllers\Administrations\Types\TypeEleveController"         => "administrations/types/eleves/",
 		"App\Http\Controllers\Administrations\Types\TypeEtablissementController" => "administrations/types/etablissements/",
@@ -52,6 +52,8 @@ class Permission
 		"App\Http\Controllers\Scolarites\TicketController"        => "eleves/tickets/",
 		"App\Http\Controllers\Scolarites\TicketMessageController" => "eleves/tickets/messages/",
 
+		"App\Http\Controllers\Statistiques\StatistiquesController" => "statistiques/",
+
 		"App\Http\Controllers\ConnexionController" => null,
 		"App\Http\Controllers\GemahController"     => null,
 	];
@@ -85,7 +87,8 @@ class Permission
 	 * @param string      $permission
 	 * @return bool
 	 */
-	private function userHasPermission(Utilisateur $user, string $permission): bool {
+	private function userHasPermission(Utilisateur $user, string $permission): bool
+	{
 		return $user->service->permissions->contains("id", $permission);
 	}
 
@@ -112,6 +115,8 @@ class Permission
 		// - Que la permission nécessaire pour le contrôleur est différent de null
 		// - Que l'utilisateur possède la permission pour la méthode de ce contrôleur
 		if (!$this->permissionExistsForController($controller)) {
+			debug("[PERM] - AUCUNE PERMISSION !");
+			debug("[PERM] - controller: {$controller}");
 			return back()->withErrors("Aucune permission n'existe pour cette page !");
 		}
 

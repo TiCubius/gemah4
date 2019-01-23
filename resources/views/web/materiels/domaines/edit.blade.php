@@ -16,10 +16,8 @@
 					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Informatique" value="{{ $domaine->libelle }}" required>
 				</div>
 
-				<div class="d-flex justify-content-between">
-					<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#modal">Supprimer le domaine</button>
-					<button class="btn btn-sm btn-outline-success">Éditer le domaine</button>
-				</div>
+				@component("web._includes.components.form_edit")
+				@endcomponent
 			</form>
 		</div>
 	</div>

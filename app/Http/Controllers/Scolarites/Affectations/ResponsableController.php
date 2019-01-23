@@ -21,7 +21,7 @@ class ResponsableController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request): View
 	{
-        $academies = Academie::with("departements")->get();
+		$academies = Academie::with("departements")->get();
 		$responsables = Responsable::notRelated($eleve);
 
 		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {

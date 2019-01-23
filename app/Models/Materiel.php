@@ -24,7 +24,8 @@ class Materiel extends Model
 		"cle_produit",
 		"nom_fournisseur",
 		"prix_ttc",
-		"etat_materiel_id",
+		"etat_administratif_materiel_id",
+		"etat_physique_materiel_id",
 		"numero_devis",
 		"numero_formulaire_chorus",
 		"numero_facture_chorus",
@@ -48,16 +49,6 @@ class Materiel extends Model
 	}
 
 	/**
-	 * Un matériel possède un état matériel
-	 *
-	 * @return BelongsTo
-	 */
-	public function etat(): BelongsTo
-	{
-		return $this->belongsTo(EtatMateriel::class, "etat_materiel_id");
-	}
-
-	/**
 	 * Un matériel appartient à un type de matériel
 	 *
 	 * @return BelongsTo
@@ -67,6 +58,25 @@ class Materiel extends Model
 		return $this->belongsTo(TypeMateriel::class, "type_materiel_id");
 	}
 
+	/**
+	 * Un matériel possède un état administratif
+	 *
+	 * @return BelongsTo
+	 */
+	public function etatAdministratif(): BelongsTo
+	{
+		return $this->belongsTo(EtatAdministratifMateriel::class, "etat_administratif_materiel_id");
+	}
+
+	/**
+	 * Un matériel possède un état physique
+	 *
+	 * @return BelongsTo
+	 */
+	public function etatPhysique(): BelongsTo
+	{
+		return $this->belongsTo(EtatPhysiqueMateriel::class, "etat_physique_materiel_id");
+	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante
@@ -76,7 +86,7 @@ class Materiel extends Model
 	 */
 	public function scopeLatestCreated($query): Builder
 	{
-		return $query->orderBy("created_at", "DESC")->with("etat");
+		return $query->orderBy("created_at", "DESC")->with("etatAdministratif", "etatPhysique");
 	}
 
 	/**
@@ -87,7 +97,7 @@ class Materiel extends Model
 	 */
 	public function scopeLatestUpdated($query): Builder
 	{
-		return $query->orderBy("updated_at", "DESC")->with("etat");
+		return $query->orderBy("updated_at", "DESC")->with("etatAdministratif", "etatPhysique");
 	}
 
 	/**
@@ -96,14 +106,15 @@ class Materiel extends Model
 	 * @param             $query
 	 * @param string|null $departementId
 	 * @param int|null    $typeId
-	 * @param int|null    $etatId
+	 * @param int|null    $etatAdministratifId
+	 * @param int|null    $etatPhysiqueId
 	 * @param string|null $marque
 	 * @param string|null $modele
 	 * @param string|null $numeroSerie
 	 * @param string|null $cleProduit
 	 * @return Builder
 	 */
-	public function scopeSearch($query, ?string $departementId, ?int $typeId, ?int $etatId, ?string $marque, ?string $modele, ?string $numeroSerie, ?string $cleProduit): Builder
+	public function scopeSearch($query, ?string $departementId, ?int $typeId, ?int $etatAdministratifId, ?int $etatPhysiqueId, ?string $marque, ?string $modele, ?string $numeroSerie, ?string $cleProduit): Builder
 	{
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
@@ -132,8 +143,12 @@ class Materiel extends Model
 			$search = $search->where("type_materiel_id", $typeId);
 		}
 
-		if ($etatId) {
-			$search = $search->where("etat_materiel_id", $etatId);
+		if ($etatAdministratifId) {
+			$search = $search->where("etat_administratif_materiel_id", $etatAdministratifId);
+		}
+
+		if ($etatPhysiqueId) {
+			$search = $search->where("etat_physique_materiel_id", $etatPhysiqueId);
 		}
 
 		return $search;

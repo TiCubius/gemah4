@@ -37,7 +37,7 @@ class EnseignantsTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un enseignant");
-        $request->assertSee("Département");
+		$request->assertSee("Département");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
 		$request->assertSee("Adresse E-Mail");
@@ -68,13 +68,13 @@ class EnseignantsTest extends TestCase
 		$Enseignant = factory(Enseignant::class)->create();
 
 		$request = $this->post("/scolarites/enseignants", [
-			"_token"    => csrf_token(),
-			"civilite"  => "Mme",
-			"nom"       => $Enseignant->nom,
-			"prenom"    => $Enseignant->prenom,
-			"email"     => $Enseignant->email,
-			"telephone" => $Enseignant->telephone,
-            "departement_id" => $Enseignant->departement_id
+			"_token"         => csrf_token(),
+			"civilite"       => "Mme",
+			"nom"            => $Enseignant->nom,
+			"prenom"         => $Enseignant->prenom,
+			"email"          => $Enseignant->email,
+			"telephone"      => $Enseignant->telephone,
+			"departement_id" => $Enseignant->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -87,15 +87,15 @@ class EnseignantsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationEnseignantComplet()
 	{
-	    $departement = factory(Departement::class)->create();
+		$departement = factory(Departement::class)->create();
 		$request = $this->post("/scolarites/enseignants", [
-			"_token"    => csrf_token(),
-			"civilite"  => "Mme",
-			"nom"       => "unit.testing",
-			"prenom"    => "unit.testing",
-			"email"     => "unit@testing.fr",
-			"telephone" => "0123456789",
-            "departement_id" => $departement->id,
+			"_token"         => csrf_token(),
+			"civilite"       => "Mme",
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"email"          => "unit@testing.fr",
+			"telephone"      => "0123456789",
+			"departement_id" => $departement->id,
 		]);
 
 		$request->assertStatus(302);
@@ -120,8 +120,8 @@ class EnseignantsTest extends TestCase
 		$request->assertSee("Prénom");
 		$request->assertSee("Adresse E-Mail");
 		$request->assertSee("Téléphone");
-		$request->assertSee("Éditer l'enseignant");
-		$request->assertSee("Supprimer l'enseignant");
+		$request->assertSee("Éditer");
+		$request->assertSee("Supprimer");
 	}
 
 	/**
@@ -148,13 +148,13 @@ class EnseignantsTest extends TestCase
 		$Enseignants = factory(Enseignant::class, 2)->create();
 
 		$request = $this->put("/scolarites/enseignants/{$Enseignants[0]->id}", [
-			"_token"    => csrf_token(),
-			"civilite"  => $Enseignants[1]->civilite,
-			"nom"       => $Enseignants[1]->nom,
-			"prenom"    => $Enseignants[1]->prenom,
-			"email"     => $Enseignants[1]->email,
-			"telephone" => $Enseignants[1]->telephone,
-            "departement_id" => $Enseignants[1]->departement_id,
+			"_token"         => csrf_token(),
+			"civilite"       => $Enseignants[1]->civilite,
+			"nom"            => $Enseignants[1]->nom,
+			"prenom"         => $Enseignants[1]->prenom,
+			"email"          => $Enseignants[1]->email,
+			"telephone"      => $Enseignants[1]->telephone,
+			"departement_id" => $Enseignants[1]->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -174,13 +174,13 @@ class EnseignantsTest extends TestCase
 		$Enseignant = factory(Enseignant::class)->create();
 
 		$request = $this->put("/scolarites/enseignants/{$Enseignant->id}", [
-			"_token"    => csrf_token(),
-			"civilite"  => $Enseignant->civilite,
-			"nom"       => $Enseignant->nom,
-			"prenom"    => $Enseignant->prenom,
-			"email"     => $Enseignant->email,
-			"telephone" => $Enseignant->telephone,
-            "departement_id" => $Enseignant->departement_id
+			"_token"         => csrf_token(),
+			"civilite"       => $Enseignant->civilite,
+			"nom"            => $Enseignant->nom,
+			"prenom"         => $Enseignant->prenom,
+			"email"          => $Enseignant->email,
+			"telephone"      => $Enseignant->telephone,
+			"departement_id" => $Enseignant->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -200,13 +200,13 @@ class EnseignantsTest extends TestCase
 		$Enseignant = factory(Enseignant::class)->create();
 
 		$request = $this->put("/scolarites/enseignants/{$Enseignant->id}", [
-			"_token"    => csrf_token(),
-			"civilite"  => "M.",
-			"nom"       => "unit.testing",
-			"prenom"    => "unit.testing",
-			"email"     => "unit@testing.fr",
-			"telephone" => "0123456789",
-            "departement_id" => $Enseignant->departement_id
+			"_token"         => csrf_token(),
+			"civilite"       => "M.",
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"email"          => "unit@testing.fr",
+			"telephone"      => "0123456789",
+			"departement_id" => $Enseignant->departement_id,
 		]);
 
 		$request->assertStatus(302);
@@ -225,7 +225,7 @@ class EnseignantsTest extends TestCase
 		$request = $this->get("/scolarites/enseignants/{$Enseignant->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer l'enseignant");
+		$request->assertSee("Supprimer");
 		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Enseignant->nom} {$Enseignant->prenom}" . "</b>.");
 	}
 

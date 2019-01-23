@@ -15,16 +15,16 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testAffichageIndexResponsables()
 	{
-		$Responsables = factory(Responsable::class, 5)->create();
+		$responsables = factory(Responsable::class, 5)->create();
 
 		$request = $this->get("/responsables");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des responsables");
 
-		foreach ($Responsables as $Responsable) {
-			$request->assertSee($Responsable->nom);
-			$request->assertSee($Responsable->prenom);
+		foreach ($responsables as $responsable) {
+			$request->assertSee($responsable->nom);
+			$request->assertSee($responsable->prenom);
 		}
 	}
 
@@ -84,13 +84,13 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionResponsable()
 	{
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->get("/responsables/{$Responsable->id}/edit");
+		$request = $this->get("/responsables/{$responsable->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Responsable->nom}");
-        $request->assertSee("Département");
+		$request->assertSee("Édition de {$responsable->nom}");
+		$request->assertSee("Département");
 		$request->assertSee("Nom");
 		$request->assertSee("Éditer");
 		$request->assertSee("Supprimer");
@@ -101,9 +101,9 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionResponsableIncomplet()
 	{
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->put("/responsables/{$Responsable->id}", [
+		$request = $this->put("/responsables/{$responsable->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -117,21 +117,21 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionResponsableCompletSansModification()
 	{
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->put("/responsables/{$Responsable->id}", [
+		$request = $this->put("/responsables/{$responsable->id}", [
 			"_token"         => csrf_token(),
-			"civilite"       => $Responsable->civilite,
-			"nom"            => $Responsable->nom,
-			"prenom"         => $Responsable->prenom,
-			"departement_id" => $Responsable->departement_id,
+			"civilite"       => $responsable->civilite,
+			"nom"            => $responsable->nom,
+			"prenom"         => $responsable->prenom,
+			"departement_id" => $responsable->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("responsables", [
-			"nom"    => $Responsable->nom,
-			"prenom" => $Responsable->prenom,
+			"nom"    => $responsable->nom,
+			"prenom" => $responsable->prenom,
 		]);
 	}
 
@@ -142,9 +142,9 @@ class ResponsablesTest extends TestCase
 	public function testTraitementFormulaireEditionResponsableCompletAvecModification()
 	{
 		$departement = factory(Departement::class)->create();
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->put("/responsables/{$Responsable->id}", [
+		$request = $this->put("/responsables/{$responsable->id}", [
 			"_token"         => csrf_token(),
 			"civilite"       => "M.",
 			"nom"            => "unit.testing",
@@ -166,13 +166,13 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionResponsable()
 	{
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->get("/responsables/{$Responsable->id}/edit");
+		$request = $this->get("/responsables/{$responsable->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Supprimer le responsable");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Responsable->nom} {$Responsable->prenom}" . "</b>.");
+		$request->assertSee("Supprimer");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$responsable->nom} {$responsable->prenom}" . "</b>.");
 	}
 
 
@@ -181,15 +181,15 @@ class ResponsablesTest extends TestCase
 	 */
 	public function testTraitementSuppressionResponsableNonAssocie()
 	{
-		$Responsable = factory(Responsable::class)->create();
+		$responsable = factory(Responsable::class)->create();
 
-		$request = $this->delete("/responsables/{$Responsable->id}");
+		$request = $this->delete("/responsables/{$responsable->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("responsables", [
-			"nom"    => $Responsable->nom,
-			"prenom" => $Responsable->prenom,
+			"nom"    => $responsable->nom,
+			"prenom" => $responsable->prenom,
 		]);
 	}
 

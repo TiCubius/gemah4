@@ -23,7 +23,8 @@ class CreateHistoriquesTable extends Migration
 			$table->unsignedInteger('utilisateur_id')->nullable();
 			$table->unsignedInteger('enseignant_id')->nullable();
 			$table->unsignedInteger('responsable_id')->nullable();
-			$table->unsignedInteger('etat_materiel_id')->nullable();
+			$table->unsignedInteger('etat_administratif_materiel_id')->nullable();
+            $table->unsignedInteger('etat_physique_materiel_id')->nullable();
 			$table->unsignedInteger('domaine_id')->nullable();
 			$table->unsignedInteger('type_ticket_id')->nullable();
 			$table->string('etablissement_id')->nullable();
@@ -42,7 +43,8 @@ class CreateHistoriquesTable extends Migration
 			$table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('set null');
 			$table->foreign('decision_id')->references('id')->on('decisions')->onDelete('set null');
 			$table->foreign('materiel_id')->references('id')->on('materiels')->onDelete('set null');
-			$table->foreign('etat_materiel_id')->references('id')->on('etats_materiels')->onDelete('set null');
+            $table->foreign('etat_administratif_materiel_id')->references('id')->on('etats_administratifs_materiels')->onDelete('set null');
+			$table->foreign('etat_physique_materiel_id')->references('id')->on('etats_physiques_materiels')->onDelete('set null');
 			$table->foreign('type_materiel_id')->references('id')->on('types_materiels')->onDelete('set null');
 			$table->foreign('type_ticket_id')->references('id')->on('types_tickets')->onDelete('set null');
 			$table->foreign('domaine_id')->references('id')->on('domaines_materiels')->onDelete('set null');

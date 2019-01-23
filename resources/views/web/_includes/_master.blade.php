@@ -8,7 +8,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 		@yield('css')
 
 		<title>{{ $title ?? 'GEMAH' }}</title>
@@ -16,9 +16,11 @@
 
 	<body>
 		<div class="navbar_message">
-			ATTENTION: Toutes modifications sur cette version de GEMAH ne seront pas sauvegardées !
+			ATTENTION: Aucune modification sur cette version de GEMAH ne sera sauvegardée !
 		</div>
+
 		@include("web._includes.navbar")
+
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xl-2 d-none d-xl-block text-center">

@@ -22,7 +22,7 @@ class EtablissementController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request)
 	{
-        $types = TypeEtablissement::all();
+		$types = TypeEtablissement::all();
 
 		if ($eleve->etablissement_id === null) {
 			$academies = Academie::with("departements")->get();

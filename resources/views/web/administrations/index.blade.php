@@ -9,7 +9,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Départements, Académies et Régions
+					<i class="fas fa-map-marker-alt"></i>  Départements, Académies et Régions
 				</div>
 
 				<a href="{{ route("web.administrations.departements.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -26,7 +26,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Services et Utilisateurs
+					<i class="fas fa-users-cog"></i>  Services et Utilisateurs
 				</div>
 
 				<a href="{{ route("web.administrations.services.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -40,22 +40,26 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					Outils
+					<i class="fas fa-tools"></i>  Outils
 				</div>
 
 				<a href="{{ route("web.administrations.eleves.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types d'élèves
 				</a>
 				<a href="{{ route("web.administrations.etablissements.types.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des types d'établissements
+					Gestion des types d'établissement
 				</a>
 
 				<a href="{{ route("web.administrations.types.tickets.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des types de tickets
+					Gestion des types de ticket
 				</a>
 
-				<a href="{{ route("web.administrations.materiels.etats.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des états matériel
+				<a href="{{ route("web.administrations.materiels.etats.administratifs.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des états administratifs matériel
+				</a>
+
+				<a href="{{ route("web.administrations.materiels.etats.physiques.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des états physiques matériel
 				</a>
 
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
 		$this->call(DomainesMaterielSeeder::class);
 		$this->call(TypesMaterielSeeder::class);
+        $this->call(TypesDocumentSeeder::class)
 		$this->call(EtatsAdministratifsMaterielSeeder::class);
 		$this->call(EtatsPhysiquesMaterielSeeder::class);
 		$this->call(ParametresSeeders::class);

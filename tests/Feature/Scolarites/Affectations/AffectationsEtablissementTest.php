@@ -6,7 +6,7 @@ use App\Models\Eleve;
 use App\Models\Etablissement;
 use Tests\TestCase;
 
-class AffectationsEtablissementlTest extends TestCase
+class AffectationsEtablissementTest extends TestCase
 {
 	/**
 	 * Vérifie que l'affichage de la recherche de établissement fonctionne

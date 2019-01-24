@@ -44,9 +44,7 @@ class AllPermissionsTest extends TestCase
 		$permissions = Permission::all();
 
 		$this->service = factory(Service::class)->create();
-		foreach ($permissions as $permission) {
-			$this->service->permissions()->attach($permission);
-		}
+        $this->service->permissions()->sync($permissions->pluck('id'));
 
 		$this->user = factory(Utilisateur::class)->create([
 			"service_id" => $this->service->id,
@@ -107,6 +105,7 @@ class AllPermissionsTest extends TestCase
 		$responsable = factory(Responsable::class)->create();
 		$region = factory(Region::class)->create();
 		$service = factory(Service::class)->create();
+        $utilisateur = factory(Utilisateur::class)->create();
 		$type = factory(TypeMateriel::class)->create();
 		$typeEleve = factory(TypeEleve::class)->create();
 		$typeEtablissement = factory(TypeEtablissement::class)->create();
@@ -199,15 +198,19 @@ class AllPermissionsTest extends TestCase
 			"/administrations/regions",
 			"/administrations/regions/create",
 			// "/administrations/regions/{$region->id}", // ERROR 404
-			"/administrations/regions/{$responsable->id}/edit",
+			"/administrations/regions/{$region->id}/edit",
 			"/administrations/services",
 			"/administrations/services/create",
 			// "/administrations/services/{$service->id}", // ERROR 404
 			"/administrations/services/{$service->id}/edit",
+            "/administrations/utilisateurs",
+            "/administrations/utilisateurs/create",
+            // "/administrations/utilisateurs/{$utilisateur->id}", // ERROR 404
+            "/administrations/utilisateurs/{$utilisateur->id}/edit",
 			"/administrations/types/documents",
 			"/administrations/types/documents/create",
 			// "/administrations/types/documents/{$typeDocument->id}", // ERROR 404
-			"/administrations/types/documents/{$typeEleve->id}/edit",
+			"/administrations/types/documents/{$typeDocument->id}/edit",
 			"/administrations/types/eleves",
 			"/administrations/types/eleves/create",
 			// "/administrations/types/eleves/{$typeEleve->id}", // ERROR 404
@@ -228,14 +231,20 @@ class AllPermissionsTest extends TestCase
 			"/administrations/materiels/etats/physiques/create",
 			// "/administrations/materiels/etats/physiques/{$etatAdministratifMateriel->id}", // ERROR 404
 			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}/edit",
+
+            "/statistiques",
+            "/statistiques/generale",
 		];
 
 		$postRoutes = [
+            "/scolarites/eleves",
 			"/scolarites/eleves/{$eleve->id}/affectations/etablissements/{$etablissement->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/materiels/{$materiel->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}",
 			"/scolarites/eleves/{$eleve->id}/documents",
 			"/scolarites/eleves/{$eleve->id}/documents/decisions",
+            "/scolarites/eleves/{$eleve->id}/tickets",
+            "/scolarites/eleves/{$eleve->id}/tickets/{$ticket->id}/messages",
 			"/scolarites/etablissements",
 			"/scolarites/enseignants",
 
@@ -249,6 +258,7 @@ class AllPermissionsTest extends TestCase
 			"/administrations/academies",
 			"/administrations/regions",
 			"/administrations/services",
+            "/administrations/utilisateurs",
 			"/administrations/types/documents",
 			"/administrations/types/eleves",
 			"/administrations/types/etablissements",
@@ -258,8 +268,11 @@ class AllPermissionsTest extends TestCase
 		];
 
 		$patchRoutes = [
+            "/scolarites/eleves/{$eleve->id}",
 			"/scolarites/eleves/{$eleve->id}/documents/{$documents[0]->id}",
 			"/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}",
+            "/scolarites/eleves/{$eleve->id}/tickets/{$ticket->id}",
+            "/scolarites/eleves/{$eleve->id}/tickets/{$ticket->id}/messages/{$message->id}",
 			"/scolarites/etablissements/{$etablissement->id}",
 			"/scolarites/enseignants/{$enseignant->id}",
 
@@ -276,6 +289,7 @@ class AllPermissionsTest extends TestCase
 			"/administrations/academies/{$academie->id}",
 			"/administrations/regions/{$region->id}",
 			"/administrations/services/{$service->id}",
+            "/administrations/utilisateurs/{$utilisateur->id}",
 			"/administrations/types/documents/{$typeDocument->id}",
 			"/administrations/types/eleves/{$typeEleve->id}",
 			"/administrations/types/etablissements/{$typeEtablissement->id}",
@@ -285,6 +299,7 @@ class AllPermissionsTest extends TestCase
 		];
 
 		$deleteRoutes = [
+            "/scolarites/eleves/{$eleve->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/etablissements/{$etablissement->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/materiels/{$materiel->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}",
@@ -305,6 +320,7 @@ class AllPermissionsTest extends TestCase
 			"/administrations/academies/{$academie->id}",
 			"/administrations/regions/{$region->id}",
 			"/administrations/services/{$service->id}",
+            "/administrations/utilisateurs/{$utilisateur->id}",
 			"/administrations/types/documents/{$typeDocument->id}",
 			"/administrations/types/eleves/{$typeEleve->id}",
 			"/administrations/types/etablissements/{$typeEtablissement->id}",

@@ -7,7 +7,7 @@ use App\Models\Etablissement;
 use App\Models\TypeEtablissement;
 use Tests\TestCase;
 
-class TypeEtablissementTest extends TestCase
+class TypesEtablissementsTest extends TestCase
 {
 
 	/**

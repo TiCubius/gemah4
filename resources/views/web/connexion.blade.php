@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-label-group">
-                <input id="pseudo" class="form-control" name="identifiant" type="identifiant" placeholder="Adresse mail"
+                <input id="identifiant" class="form-control" name="identifiant" type="identifiant" placeholder="Adresse mail"
                        required autofocus>
                 <label for="identifiant">Identifiant</label>
             </div>

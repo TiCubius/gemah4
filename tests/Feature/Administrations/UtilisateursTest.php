@@ -41,7 +41,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Création d'un utilisateur");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
-		$request->assertSee("Pseudo");
+		$request->assertSee("Identifiant");
 		$request->assertSee("Adresse");
 		$request->assertSee("Mot");
 		$request->assertSee("Confirmation du mot de passe");
@@ -94,7 +94,7 @@ class UtilisateursTest extends TestCase
 			"_token"                => csrf_token(),
 			"nom"                   => "unit.testing",
 			"prenom"                => "unit.testing",
-			"pseudo"                => "unit.testing",
+			"identifiant"           => "unit.testing",
 			"email"                 => "unit@testing.fr",
 			"password"              => "unit.testing",
 			"password_confirmation" => "unit.testing",
@@ -121,7 +121,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Édition de {$Utilisateur->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
-		$request->assertSee("Pseudo");
+		$request->assertSee("Identifiant");
 		$request->assertSee("Adresse E-Mail");
 		$request->assertSee("Département");
 		$request->assertSee("Service");
@@ -158,7 +158,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => "unit.testing",
 			"prenom"  => "unit.testing",
-			"pseudo"  => "unit.testing",
+			"identifiant"  => "unit.testing",
 			"email"   => $Utilisateurs[1]->email,
 			"service" => $Service->id,
 		]);
@@ -180,7 +180,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => $Utilisateur->nom,
 			"prenom"  => $Utilisateur->prenom,
-			"pseudo"  => $Utilisateur->pseudo,
+			"identifiant"  => $Utilisateur->identifiant,
 			"email"   => $Utilisateur->email,
 			"service" => $Utilisateur->service_id,
 		]);
@@ -203,7 +203,7 @@ class UtilisateursTest extends TestCase
 			"_token"  => csrf_token(),
 			"nom"     => "unit.testing",
 			"prenom"  => "unit.testing",
-			"pseudo"  => "unit.testing",
+			"identifiant"  => "unit.testing",
 			"email"   => "unit@testing.fr",
 			"service" => $Service->id,
 		]);
@@ -225,7 +225,7 @@ class UtilisateursTest extends TestCase
             "_token"  => csrf_token(),
             "nom"     => $utilisateur->nom,
             "prenom"  => $utilisateur->prenom,
-            "pseudo"  => $utilisateur->pseudo,
+            "identifiant"  => $utilisateur->identifiant,
             "email"   => $utilisateur->email,
             "service" => $utilisateur->service_id,
             'password' => 'unit.testing',

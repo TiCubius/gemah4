@@ -18,7 +18,7 @@ class ConnexionTest extends TestCase
 	{
 		$request = $this->get("/connexion");
 
-		$request->assertSee("Pseudo");
+		$request->assertSee("Identifiant");
 		$request->assertSee("Mot de passe");
 
 		$request->assertSee("Connexion");
@@ -36,7 +36,7 @@ class ConnexionTest extends TestCase
 
 		factory(Utilisateur::class)->create();
 		$request = $this->post("/connexion", [
-			"pseudo"   => "testing@unit.fr",
+			"identifiant"   => "testing@unit.fr",
 			"password" => "testing.unit",
 		]);
 
@@ -58,7 +58,7 @@ class ConnexionTest extends TestCase
 			"password" => Hash::make("admin"),
 		]);
 		$request = $this->post("/connexion", [
-			"pseudo"   => $utilisateur->pseudo,
+			"identifiant"   => $utilisateur->identifiant,
 			"password" => "admin",
 		]);
 

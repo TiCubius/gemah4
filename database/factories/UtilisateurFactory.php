@@ -8,7 +8,7 @@ $factory->define(\App\Models\Utilisateur::class, function (Faker $faker) {
 	return [
 		"nom"        => $faker->word,
 		"prenom"     => $faker->word,
-		"pseudo"     => $faker->name,
+		"identifiant"=> $faker->name,
 		"email"      => $faker->safeEmail,
 		"password"   => \Illuminate\Support\Facades\Hash::make($faker->password),
 		"service_id" => $service->id,

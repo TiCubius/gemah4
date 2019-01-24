@@ -110,7 +110,7 @@
 										Télécharger
 									</a>
 
-									<a class="btn btn-sm btn-primary" href="{{ asset("storage/decisions/{$document->path}") }}">
+									<a class="btn btn-sm btn-primary" href="{{ asset("storage/decisions/{$document->path}") }}" target="_blank">
 										<i class="far fa-eye"></i>
 										Visualiser
 									</a>
@@ -144,7 +144,7 @@
 										Télécharger
 									</a>
 
-									<a class="btn btn-sm btn-primary" href="{{ asset("storage/documents/{$document->path}") }}">
+									<a class="btn btn-sm btn-primary" href="{{ asset("storage/documents/{$document->path}") }}" target="_blank">
 										<i class="far fa-eye"></i>
 										Visualiser
 									</a>

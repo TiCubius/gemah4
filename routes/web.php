@@ -136,3 +136,15 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::get("/generale", "Statistiques\StatistiquesController@generale")->name("generale");
 	});
 });
+
+Route::get("/test", function () {
+	$academies = \App\Models\Academie::with("departements");
+	$typesEleve = \App\Models\TypeEleve::all();
+
+	$latestCreated = \App\Models\Eleve::latestCreated()->take(5)->get();
+	$latestUpdated = \App\Models\Eleve::latestUpdated()->take(5)->get();
+
+	//	$eleves = \App\Models\Eleve::inRandomOrder()->take(4)->get();
+
+	return view("test", compact("academies", "latestCreated", "latestUpdated", "typesEleve"));
+});

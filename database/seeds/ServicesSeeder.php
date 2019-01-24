@@ -25,10 +25,8 @@ class ServicesSeeder extends Seeder
 					"departement_id" => $departement->id,
 				]);
 
-				if ($service == "Administrateur") {
-					foreach ($permissions as $permission) {
-						$service->permissions()->attach($permission);
-					}
+				if ($service->nom == "Administrateur") {
+					$service->permissions()->sync($permissions->pluck('id'));
 				}
 			}
 		}

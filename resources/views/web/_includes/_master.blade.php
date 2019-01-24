@@ -7,6 +7,7 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 		@yield('css')
@@ -41,8 +42,15 @@
 		</div>
 
 		<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
 		<script src="{{ asset('assets/js/poppers.min.js') }}"></script>
+		<script src="{{ asset('assets/js/dataTables.bootstrap4.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+		<script>
+			$(function () {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
 		@yield("scripts")
 	</body>
 </html>

@@ -1,168 +1,231 @@
 @extends("web._includes._master")
 @section("content")
 
-    <div class="row">
-        @component("web._includes.components.title", ["back" => "web.scolarites.eleves.show", "id" => [$eleve]])
-            Affectation d'un matériel
-        @endcomponent
+	<div class="row">
+		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "back" => "web.materiels.index"])
+			Affectation d'un matériel à {{ "{$eleve->nom} {$eleve->prenom}" }}
+		@endcomponent
 
-        <div class="col-12">
-            <form class="card mb-3">
-                <div class="card-header gemah-bg-primary">Rechercher un matériel</div>
 
-                <div class="card-body">
-                    @component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
-                    @endcomponent
+		<div class="col-12 mb-3">
+			@if($latestCreated->isEmpty())
+				{{-- Aucun matériel n'est présent dans la BDD --}}
 
-                    <div class="form-group">
-                        <label class="optional" for="type_materiel_id">Type</label>
+				@component("web._includes.components.alert", ["type" => "warning"])
+					Aucun matériel n'est enregistré sur l'application
+				@endcomponent
+			@else
+				<div class="row">
+					{{-- Des matériels existent sur l'application --}}
 
-                        <select id="type_materiel_id" class="form-control" name="type_materiel_id">
-                            <option value>Sélectionnez un type</option>
-                            @foreach ($domaines as $domaine)
-                                <optgroup label="{{ $domaine->libelle }}">
-                                    @foreach($domaine->types as $type)
-                                        @if(Request::get("type_materiel_id") == $type->id)
-                                            <option selected value="{{ $type->id }}">{{ $type->libelle }}</option>
-                                        @else
-                                            <option value="{{ $type->id }}">{{ $type->libelle }}</option>
-                                        @endif
-                                    @endforeach
-                                </optgroup>
-                            @endforeach
-                        </select>
-                    </div>
+					<div class="col-12 @empty($materiels) col-lg-6 @endempty">
+						<form class="card" method="GET">
+							{{-- Formulaire de recherche --}}
 
-                    <div class="form-group">
-                        <label class="optional" for="etat_materiel_id">État</label>
-                        <select id="etat_materiel_id" class="form-control" name="etat_materiel_id">
-                            <option value>Sélectionnez un état</option>
-                            @foreach($etats as $etat)
-                                @if(Request::get("etat_materiel_id") == $etat->id)
-                                    <option selected value="{{ $etat->id }}">{{ $etat->nom }}</option>
-                                @else
-                                    <option value="{{ $etat->id }}">{{ $etat->nom }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+							<div class="card-header gemah-bg-primary">Rechercher du matériel</div>
+							<div class="card-body">
+								@component("web._includes.components.departement",["academies" => $academies, "id" => app("request")->input("departement_id"), "optional" => true])
+								@endcomponent
 
-                    <div class="form-group">
-                        <label class="optional" for="marque">Marque</label>
-                        <input id="marque" class="form-control" name="marque" type="text" placeholder="Ex: Asus"
-                               value="{{ Request::get("marque") }}">
-                    </div>
+								<div class="form-group">
+									<label class="optional" for="type_materiel_id">Type</label>
 
-                    <div class="form-group">
-                        <label class="optional" for="modele">Modèle</label>
-                        <input id="modele" class="form-control" name="modele" type="text"
-                               placeholder="Ex: ProBook 650 G3" value="{{ Request::get("modele") }}">
-                    </div>
+									<select id="type_materiel_id" class="form-control" name="type_materiel_id">
+										<option value>Sélectionnez un type</option>
+										@foreach ($domaines as $domaine)
+											<optgroup label="{{ $domaine->libelle }}">
+												@foreach($domaine->types as $type)
+													@if(request("type_materiel_id") == $type->id)
+														<option selected value="{{ $type->id }}">{{ $type->libelle }}</option>
+													@else
+														<option value="{{ $type->id }}">{{ $type->libelle }}</option>
+													@endif
+												@endforeach
+											</optgroup>
+										@endforeach
+									</select>
+								</div>
 
-                    <div class="form-group">
-                        <label class="optional" for="numero_serie">N° de Série</label>
-                        <input id="numero_serie" class="form-control" name="numero_serie" type="text"
-                               placeholder="Ex: 754W-8574-1456" value="{{ Request::get("numero_serie") }}">
-                    </div>
+								<div class="form-group">
+									<label class="optional" for="etat_administratif_materiel_id">Etat administratif</label>
+									<select id="etat_administratif_materiel_id" class="form-control" name="etat_administratif_materiel_id">
+										<option value>Sélectionnez un état</option>
+										@foreach($etatsAdministratifs as $etat)
+											@if(request("etat_administratif_materiel_id") == $etat->id)
+												<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+											@else
+												<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
 
-                    <div class="form-group">
-                        <label class="optional" for="cle_produit">Clé de produit</label>
-                        <input id="cle_produit" class="form-control" name="cle_produit" type="text"
-                               placeholder="Ex: 754W-8574-1456" value="{{ Request::get("cle_produit") }}">
-                    </div>
+								<div class="form-group">
+									<label class="optional" for="etat_physique_materiel_id">Etat physique</label>
+									<select id="etat_physique_materiel_id" class="form-control" name="etat_physique_materiel_id">
+										<option value>Sélectionnez un état</option>
+										@foreach($etatsPhysiques as $etat)
+											@if(request("etat_physique_materiel_id") == $etat->id)
+												<option selected value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+											@else
+												<option value="{{ $etat->id }}">{{ $etat->libelle }}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
 
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route("web.scolarites.eleves.affectations.materiels.index", [$eleve->id]) }}">
-                            <button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
-                        </a>
-                        <button class="btn btn-outline-dark">Rechercher</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "marque", "placeholder" => "Ex: HP"])
+									Marque
+								@endcomponent
 
-        @isset($searchedMateriels)
-            @if($searchedMateriels->isEmpty())
-                <div class="col-12">
-                    @component("web._includes.components.alert", ["type" => "warning"])
-                        Aucun matériel non lié à l'élève {{ $eleve->prenom }} {{ $eleve->nom }} n'a été trouvé avec ces
-                        critères
-                    @endcomponent
-                </div>
-            @else
-                <div class="col-12 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            Nombres de matériel : {{ count($searchedMateriels) }}
-                            <ul class="mb-0">
-                                @foreach($searchedMateriels->groupBy("etat_materiel_id") as $materiels)
-                                    <li>{{ count($materiels) }} {{ $materiels[0]->etatAdministratif->libelle }}</li>
-                                @endforeach
-                                <li>
-                                    {{ count($searchedMateriels->where("eleve_id", "!=", null)) }} Affectés
-                                </li>
-                                <li>
-                                    {{ count($searchedMateriels->where("eleve_id", null)) }} Non affectés
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "modele", "placeholder" => "Ex: ProBook 650 G3"])
+									Modèle
+								@endcomponent
 
-                <div class="col-12 table-responsive">
-                    <table class="table table-hover text-center">
-                        <thead class="gemah-bg-primary">
-                        <tr class="text-center">
-                            <th class="align-middle">État</th>
-                            <th class="align-middle">Type</th>
-                            <th class="align-middle">Marque</th>
-                            <th class="align-middle">Modèle</th>
-                            <th class="align-middle">N° de Série</th>
-                            <th class="align-middle">Prix</th>
-                            <th class="align-middle">Assigné à</th>
-                            <th class="align-middle">Date de prêt</th>
-                            <th class="align-middle">Actions</th>
-                        </tr>
-                        </thead>
+								@component("web._includes.components.input", ["optional" => true, "name" => "numero_serie", "placeholder" => "Ex: XXXX-XXXX-XXXX-XXXX"])
+									Numéro de série
+								@endcomponent
 
-                        <tbody>
-                        @foreach($searchedMateriels as $materiel)
-                            <tr>
-                                <td class="couleur" data-toggle="tooltip" data-placement="bottom"
-                                    title="{{ $materiel->etatAdministratif->libelle }}"
-                                    style="width: 57px; background:{{ $materiel->etatAdministratif->couleur }}"></td>
-                                <td>{{ $materiel->type->libelle }}</td>
-                                <td>{{ $materiel->marque }}</td>
-                                <td>{{ $materiel->modele }}</td>
-                                <td>{{ $materiel->numero_serie }}</td>
-                                <td>{{ $materiel->prix }}</td>
-                                @if ($materiel->eleve)
-                                    <td>
-                                        <a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">
-                                            {{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}
-                                        </a>
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($materiel->date_pret)->format("d/m/Y") }}</td>
-                                @else
-                                    <td></td>
-                                    <td></td>
-                                @endif
-                                <td>
-                                    <form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}"
-                                          method="POST">
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-        @endif
-    </div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "cle_produit", "placeholder" => "Ex: XXXX-XXXX-XXXX-XXXX"])
+									Clé de produit
+								@endcomponent
+
+								<div class="d-flex justify-content-between">
+									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler la recherche</a>
+									<button class="btn btn-outline-dark">Rechercher</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					@empty($materiels)
+						<div class="col-6">
+							{{-- Liste des derrniers matériels créés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestCreated as $materiel)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
+											<div class="btn-group">
+												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
+													{{ csrf_field() }}
+
+													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+												</form>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+
+
+							{{-- Liste des derrniers matériels modifiés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestUpdated as $materiel)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
+											<div class="btn-group">
+												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
+													{{ csrf_field() }}
+
+													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+												</form>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+						</div>
+					@else
+						{{-- Il s'agit d'une recherche de matériels --}}
+
+						<div class="col-12 mt-3">
+							@component("web._includes.components.alert", ["type" => "success"])
+								<b>Information(s) sur la recherche</b> <br>
+								<ul class="mb-0">
+									<li>
+										Nombre de matériels: {{ count($materiels) }}
+									</li>
+									@foreach($materiels->groupBy("etat_materiel_id") as $materiel)
+										<li>{{ count($materiel) }} {{ $materiel[0]->etatAdministratif->libelle }}</li>
+									@endforeach
+								</ul>
+							@endcomponent
+						</div>
+
+						@if(count($materiels) > 0)
+							<div class="col-12 mt-3">
+								<div class="table-responsive">
+									<table id="table" class="table table-stripped">
+										<thead class="gemah-bg-primary">
+											<tr class="align-middle">
+												<th class="align-middle">Etat</th>
+												<th class="align-middle">Type</th>
+												<th class="align-middle">Marque</th>
+												<th class="align-middle">Modèle</th>
+												<th class="align-middle">Numéro de Série</th>
+												<th class="align-middle">Prix TTC</th>
+												<th class="align-middle">Assigné à</th>
+												<th class="align-middle">Date de prêt</th>
+												<th class="align-middle">Etat physique</th>
+												<th class="align-middle" width="116px">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($materiels as $materiel)
+												<tr>
+													<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etatAdministratif->libelle }}" style="width: 57px; background:{{ $materiel->etatAdministratif->couleur }}"></td>
+													<td>{{ $materiel->type->libelle }}</td>
+													<td>{{ $materiel->marque }}</td>
+													<td>{{ $materiel->modele }}</td>
+													<td>{{ $materiel->numero_serie }}</td>
+													<td>{{ $materiel->prix_ttc }}</td>
+													@isset($materiel->eleve)
+														<td>
+															<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}</a>
+														</td>
+													@else
+														<td></td>
+													@endisset
+													<td>{{ $materiel->date_pret ? $materiel->date_pret->format("d/m/Y") : null }}</td>
+													<td>{{ $materiel->etatPhysique->libelle }}</td>
+													<td>
+														<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
+															{{ csrf_field() }}
+
+															<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+														</form>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						@endif
+					@endempty
+				</div>
+			@endif
+		</div>
+	</div>
 
 @endsection
 
-@include("web._includes.sidebars.eleve")
+@section("scripts")
+	<script>
+		$(document).ready(function () {
+			$('#table').DataTable({
+				"info": false,
+				"columnDefs": [
+					{"orderable": false, "targets": 9},
+				],
+				"pageLength": 50,
+			})
+		})
+	</script>
+@endsection

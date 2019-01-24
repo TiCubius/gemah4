@@ -22,13 +22,15 @@ class ResponsableController extends Controller
 	public function index(Eleve $eleve, Request $request): View
 	{
 		$academies = Academie::with("departements")->get();
-		$responsables = Responsable::notRelated($eleve);
+
+		$latestCreated = Responsable::latestCreated()->notRelated($eleve)->take(5)->get();
+		$latestUpdated = Responsable::latestUpdated()->notRelated($eleve)->take(5)->get();
 
 		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
-			$searchedResponsables = $responsables->search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
+			$responsables = Responsable::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->notRelated($eleve)->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.responsables", compact("eleve", "latestCreatedResponsables", "latestUpdatedResponsables", "searchedResponsables", "academies"));
+		return view("web.scolarites.eleves.affectations.responsables", compact('academies', 'eleve', 'latestCreated', 'latestUpdated', 'responsables'));
 	}
 
 	/***

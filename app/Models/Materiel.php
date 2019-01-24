@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Materiel extends Model
 {
 	/**
+	 * Liste des attributs pouvant être converti par Carbon
+	 *
+	 * @var array
+	 */
+	protected $dates = [
+		"date_ej",
+		"date_pret",
+		"date_facture",
+		"date_service_fait",
+		"date_fin_garantie",
+	];
+
+	/**
 	 * Liste des attributs remplissables
 	 *
 	 * @var array
@@ -32,6 +45,7 @@ class Materiel extends Model
 		"numero_ej",
 		"date_ej",
 		"date_facture",
+		"date_pret",
 		"date_service_fait",
 		"date_fin_garantie",
 		"acheter_pour",

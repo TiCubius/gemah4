@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Mail;
+
 Route::get('/connexion', 'ConnexionController@index')->name('web.connexion');
 Route::post('/connexion', 'ConnexionController@login');
 Route::get('/deconnexion', 'ConnexionController@logout')->name('web.logout');
@@ -137,14 +139,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 	});
 });
 
-Route::get("/test", function () {
-	$academies = \App\Models\Academie::with("departements");
-	$typesEleve = \App\Models\TypeEleve::all();
 
-	$latestCreated = \App\Models\Eleve::latestCreated()->take(5)->get();
-	$latestUpdated = \App\Models\Eleve::latestUpdated()->take(5)->get();
+Route::get('/email', function () {
+	Mail::to("test@test.test")->send(new \App\Mail\TestMail());
 
-	//	$eleves = \App\Models\Eleve::inRandomOrder()->take(4)->get();
-
-	return view("test", compact("academies", "latestCreated", "latestUpdated", "typesEleve"));
+	return "DEBUG: sent";
 });

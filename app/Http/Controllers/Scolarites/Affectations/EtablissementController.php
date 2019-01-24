@@ -22,16 +22,18 @@ class EtablissementController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request)
 	{
-		$types = TypeEtablissement::all();
-
 		if ($eleve->etablissement_id === null) {
 			$academies = Academie::with("departements")->get();
+			$types = TypeEtablissement::all();
 
-			if ($request->exists(["nom", "ville", "telephone"])) {
-				$searchedEtablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
+			$latestCreated = Etablissement::latestCreated()->take(5)->get();
+			$latestUpdated = Etablissement::latestUpdated()->take(5)->get();
+
+			if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
+				$etablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
 			}
 
-			return view("web.scolarites.eleves.affectations.etablissements", compact("eleve", "academies", "types", "searchedEtablissements"));
+			return view("web.scolarites.eleves.affectations.etablissements", compact("academies", "eleve", "etablissements", "latestCreated", "latestUpdated", "types"));
 		}
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("L'élève est déjà affecté à un établissement.");

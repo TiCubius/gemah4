@@ -17,7 +17,7 @@
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>
 						<option hidden value="">Veuillez sélectionner la civilité</option>
-						<option value="M">M</option>
+						<option value="M.">M</option>
 						<option value="Mme">Mme</option>
 					</select>
 				</div>

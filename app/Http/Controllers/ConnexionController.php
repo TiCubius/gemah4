@@ -29,11 +29,11 @@ class ConnexionController extends Controller
 	 */
 	public function login(Request $request): RedirectResponse
 	{
-		$user = Utilisateur::where('pseudo', $request->input('pseudo'))->first();
+		$user = Utilisateur::where('identifiant', $request->input('identifiant'))->first();
 
 		// On vérifie si l'utilisateur n'existe pas ou si son mot de passe est incorrect
 		if ((!$user) || !Hash::check($request->input('password'), $user->password)) {
-			return redirect(route('web.connexion'))->withErrors('E-Mail ou mot de passe incorrect');
+			return redirect(route('web.connexion'))->withErrors('Identifiant ou mot de passe incorrect');
 		}
 
 		// L'utilisateur existe et son mot de passe est correct

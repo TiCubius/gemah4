@@ -45,7 +45,7 @@
 				<div class="card-body">
 					<strong>Nom</strong>: {{ $eleve->nom }} <br>
 					<strong>Prénom</strong>: {{ $eleve->prenom }} <br>
-					<strong>Date de naissance</strong>: {{ $eleve->date_naissance }} <br>
+					<strong>Date de naissance</strong>: {{ $eleve->date_naissance->format("d/m/Y") }} <br>
 					<strong>Joker</strong>: {{ $eleve->joker }} <br>
 				</div>
 			</div>

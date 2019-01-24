@@ -50,9 +50,9 @@ class EleveCreatedMail extends Mailable
 	public function build()
 	{
 		$types = join(" / ", $this->eleve->types->pluck("libelle")->toArray());
-		$subject = "DEBUG - 3.00 - [{$types}] - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
+		$subject = "GEMAH - 3.00 - [{$types}] - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
 
-		return $this->from("no-reply@gemah.fr")->to($this->emails)->subject($subject)->view('emails.scolarites.eleves.create')->with([
+		return $this->from("dsi-bureautique42@ac-lyon.fr")->to($this->emails)->subject($subject)->view('emails.scolarites.eleves.create')->with([
 			"eleve" => $this->eleve,
 		]);
 	}

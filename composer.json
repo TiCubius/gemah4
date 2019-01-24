@@ -9,6 +9,7 @@
         "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-dompdf": "^0.8.3",
         "barryvdh/laravel-snappy": "^0.4.3",
+        "fedeisas/laravel-mail-css-inliner": "^2.2",
         "felixkiss/uniquewith-validator": "^3.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",

@@ -16,7 +16,7 @@ class TicketsTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des tickets
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
@@ -37,7 +37,7 @@ class TicketsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que toutes les autres routes soient refusées
+	 * Vérifie que toutes les routes de la gestion des tickets soient fonctionnelles
 	 */
 	public function testAccessAutorise()
 	{

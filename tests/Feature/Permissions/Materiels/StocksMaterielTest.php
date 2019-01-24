@@ -15,7 +15,7 @@ class StocksMaterielTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des stocks de matériel
 	 * et simulation de la connexion.
 	 */
 	public function setUp()

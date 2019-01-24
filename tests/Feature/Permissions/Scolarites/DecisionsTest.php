@@ -17,7 +17,7 @@ class DecisionsTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des décisions
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
@@ -38,7 +38,7 @@ class DecisionsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que toutes les autres routes soient refusées
+	 * Vérifie que toutes les routes de la gestion des décisions soient fonctionnelles
 	 */
 	public function testAccessAutorise()
 	{

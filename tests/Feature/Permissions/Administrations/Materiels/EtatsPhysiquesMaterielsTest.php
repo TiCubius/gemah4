@@ -15,7 +15,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions des états matériel physiques
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
@@ -37,7 +37,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 
 
 	/**
-	 * Vérifie que toutes les autres routes soient refusées
+	 * Vérifie que toutes les routes des états matériel physiques soient fonctionnelle
 	 */
 	public function testAccessAutorise()
 	{

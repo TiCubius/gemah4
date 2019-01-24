@@ -15,7 +15,7 @@ class TypesDocumentsTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types de document
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
@@ -36,7 +36,7 @@ class TypesDocumentsTest extends TestCase
 	}
 
 	/**
-	 * Vérifie que toutes les autres routes soient refusées
+	 * Vérifie que toutes les routes de la gestion des types de document soient fonctionnelles
 	 */
 	public function testAccessAutorise()
 	{

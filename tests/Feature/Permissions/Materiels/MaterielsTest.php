@@ -14,7 +14,7 @@ class MaterielsTest extends TestCase
     private $user;
 
     /**
-     * Création d'un utilisateur possèdant un service sans permissions
+     * Création d'un utilisateur possèdant un service avec uniquement les permissions de l'affichage de l'index matériel
      * et simulation de la connexion.
      */
     public function setUp()
@@ -36,7 +36,7 @@ class MaterielsTest extends TestCase
 
 
     /**
-     * Vérifie que toutes les autres routes soient refusées
+     * Vérifie que l'index matériel est fonctionnel
      */
     public function testAccessAutorise()
     {

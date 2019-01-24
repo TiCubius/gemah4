@@ -14,7 +14,7 @@ class ScolariteTest extends TestCase
     private $user;
 
     /**
-     * Création d'un utilisateur possèdant un service sans permissions
+     * Création d'un utilisateur possèdant un service avec uniquement les permissions de l'affichage de l'index scolarité
      * et simulation de la connexion.
      */
     public function setUp()
@@ -35,7 +35,7 @@ class ScolariteTest extends TestCase
     }
 
     /**
-     * Vérifie que toutes les autres routes soient refusées
+     * Vérifie que l'index de scolarité soit fonctionnel
      */
     public function testAccessAutorise()
     {

@@ -15,7 +15,7 @@ class AcademiesTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des académies
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
@@ -37,7 +37,7 @@ class AcademiesTest extends TestCase
 
 
 	/**
-	 * Vérifie que toutes les autres routes soient refusées
+	 * Vérifie que toutes les routes de la gestion des académies soient fonctionnelles
 	 */
 	public function testAccessAutorise()
 	{

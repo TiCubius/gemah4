@@ -4,7 +4,8 @@
     <div class="d-flex flex-column">
         <div class="alert alert-info">
             <h4 class="alert-heading">Information : Nouvelle décision !</h4>
-            <p>Une nouvelle décision vient d'être ajoutée pour <b>{{ $eleve->nom . ' ' . $eleve->prenom }}</b></p>
+            <p>Une nouvelle décision vient d'être ajoutée pour <b>{{ $eleve->nom . ' ' . $eleve->prenom }}</b></br>
+            Il s'agit d'une decision concernant un élève de type {{ join(" / ",$eleve->types->pluck("libelle")->toArray()) }}</p>
             <hr>
             <p class="small text-muted mb-0">Ceci est un message automatique, merci de ne pas y répondre</p>
         </div>
@@ -15,7 +16,13 @@
         <div class="col-md-6">
 
             <div class="card mb-3">
-                <div class="card-header gemah-bg-primary">Informations sur l'élève</div>
+                <div class="card-header gemah-bg-primary d-flex justify-content-between">
+                    Informations sur l'élève
+                    <div>
+                        @foreach($eleve->types as $type)
+                            <div class="badge badge-success m-0">{{ $type->libelle }}</div>
+                        @endforeach
+                    </div></div>
                 <div class="card-body">
                     <strong>Nom</strong>: {{ $eleve->nom }} <br>
                     <strong>Prénom</strong>: {{ $eleve->prenom }} <br>

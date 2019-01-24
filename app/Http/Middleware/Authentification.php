@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Utilisateur;
 use Closure;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Session;
 
 class Authentification
@@ -18,7 +19,17 @@ class Authentification
 	public function handle($request, Closure $next)
 	{
 		if (!Session::has("user")) {
+			if ($request->path() !== "/") {
+				Session::put("redirect_uri", $request->path());
+			}
 			return redirect(route('web.connexion'));
+		}
+
+		if (Session::has("redirect_uri")) {
+			$uri = Session::get("redirect_uri");
+			Session::remove("redirect_uri");;
+
+			return redirect($uri);
 		}
 
 		// Reload user in session

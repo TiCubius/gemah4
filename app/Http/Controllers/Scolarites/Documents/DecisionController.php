@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
 use App\Models\Document;
 use App\Models\Eleve;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -93,7 +95,7 @@ class DecisionController extends Controller
 			"eleve_id"         => $eleve->id,
 		]);
 
-		Decision::create([
+		$decision = Decision::create([
 			"date_cda"          => $request->input("date_cda"),
 			"date_notification" => $request->input("date_notification"),
 			"date_limite"       => $request->input("date_limite"),
@@ -103,6 +105,8 @@ class DecisionController extends Controller
 			"document_id"   => $document->id,
 			"enseignant_id" => $request->input("enseignant_id"),
 		]);
+
+		Mail::send(new DecisionCreatedMail($eleve, $decision));
 
 		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 	}

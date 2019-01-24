@@ -1,131 +1,157 @@
-@extends('web._includes._master')
-@section('content')
-	<div class="row">
+@extends("web._includes._master")
+@section("content")
 
+	<div class="row">
 		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
 			Gestion des responsables
 		@endcomponent
 
-		@if ($latestCreatedResponsables->isEmpty())
-			<div class="col-12 mb-3">
-				<div class="alert alert-warning">
+
+		<div class="col-12 mb-3">
+			@if($latestCreated->isEmpty())
+				{{-- Aucun responsable n'est présent dans la BDD --}}
+
+				@component("web._includes.components.alert", ["type" => "warning"])
 					Aucun responsable n'est enregistré sur l'application
-				</div>
-			</div>
-		@else
-			@isset($searchedResponsables)
-				<div class="col-12 mb-3">
-					@else
-						<div class="col-12 col-lg-6 mb-3">
-							@endisset
-							<form class="card" method="GET">
-								<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
-								<div class="card-body">
+				@endcomponent
+			@else
+				<div class="row">
+					{{-- Des responsables existent sur l'application --}}
 
-									@component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
-									@endcomponent
+					<div class="col-12 @empty($responsables) col-lg-6 @endempty">
+						<form class="card" method="GET">
+							{{-- Formulaire de recherche --}}
 
-									<div class="form-group">
-										<label class="optional" for="nom">Nom</label>
-										<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
-									</div>
+							<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
+							<div class="card-body">
+								@component("web._includes.components.departement", ["optional" => true, "academies" => $academies, "id" => request("departement_id")])
+								@endcomponent
 
-									<div class="form-group">
-										<label class="optional" for="prenom">Prénom</label>
-										<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
-									</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH"])
+									Nom
+								@endcomponent
 
-									<div class="form-group">
-										<label class="optional" for="email">Adresse E-Mail</label>
-										<input id="email" class="form-control" name="email" type="text" placeholder="Ex: john.smith@exemple.fr" value="{{ app("request")->input("email") }}">
-									</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "prenom", "placeholder" => "Ex: John"])
+									Prénom
+								@endcomponent
 
-									<div class="form-group">
-										<label class="optional" for="telephone">N° de Téléphone</label>
-										<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ app("request")->input("telephone") }}">
-									</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "email", "placeholder" => "Ex: john.smith@exemple.fr"])
+									Adresse E-Mail
+								@endcomponent
 
-									<div class="d-flex justify-content-between">
-										<a href="{{ route("web.responsables.index") }}">
-											<button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
-										</a>
-										<button class="btn btn-outline-dark">Rechercher</button>
-									</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 01 23 45 67 89"])
+								Téléphone
+								@endcomponent
+
+								<div class="d-flex justify-content-between">
+									<a class="btn btn-outline-dark" href="{{ route("web.responsables.index") }}">Annuler la recherche</a>
+									<button class="btn btn-outline-dark">Rechercher</button>
 								</div>
-							</form>
+							</div>
+						</form>
+					</div>
+
+					@empty($responsables)
+						<div class="col-6">
+							{{-- Liste des derrniers responsables créés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestCreated as $responsable)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
+													Editer
+												</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+
+
+							{{-- Liste des derrniers élèves modifiés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestUpdated as $responsable)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
+													Editer
+												</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+						</div>
+					@else
+						{{-- Il s'agit d'une recherche de responsables --}}
+
+						<div class="col-12 mt-3">
+							@component("web._includes.components.alert", ["type" => "success"])
+								<b>Information(s) sur la recherche</b> <br>
+								<ul class="mb-0">
+									<li>
+										Nombre de responsables: {{ count($responsables) }}
+									</li>
+								</ul>
+							@endcomponent
 						</div>
 
-						@isset($searchedResponsables)
-							<div class="col-12 mb-3">
-								@if($searchedResponsables->isEmpty())
-									<div class="alert alert-warning">
-										Aucun responsable n'a été trouvé avec ces critères
-									</div>
-								@else
-									<table class="table table-sm table-hover text-center">
+						@if(count($responsables) > 0)
+							<div class="col-12 mt-3">
+								<div class="table-responsive">
+									<table id="table" class="table table-stripped">
 										<thead class="gemah-bg-primary">
-											<tr>
-												<th>Nom</th>
-												<th>Email</th>
-												<th>Téléphone</th>
-												<th>Actions</th>
+											<tr class="align-middle">
+												<th class="align-middle">Nom</th>
+												<th class="align-middle">Prénom</th>
+												<th class="align-middle">Adresse E-Mail</th>
+												<th class="align-middle">Téléphone</th>
+												<th class="align-middle" width="116px">Actions</th>
 											</tr>
 										</thead>
 										<tbody>
-											@foreach($searchedResponsables as $responsable)
+											@foreach($responsables as $responsable)
 												<tr>
-													<th>{{ "{$responsable->nom} {$responsable->prenom}" }}</th>
-													<td>{{ $responsable->email }}</td>
+													<td>{{ $responsable->nom }}</td>
+													<td>{{ $responsable->prenom }}</td>
+													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
 													<td>
-														<a href="{{ route("web.responsables.edit", [$responsable]) }}">
-															<button class="btn btn-sm btn-outline-primary">Editer</button>
-														</a>
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">Editer</a>
 													</td>
 												</tr>
 											@endforeach
 										</tbody>
 									</table>
-								@endif
+								</div>
 							</div>
-						@else
-							@if($latestCreatedResponsables->isNotEmpty())
-								<div class="col-12 col-md-6 col-lg-3 mb-3">
-									<div class="card">
-										<div class="card-header gemah-bg-primary text-white">Derniers ajoutés</div>
-										<ul class="list-group list-group-flush">
-											@foreach($latestCreatedResponsables as $responsable)
-												<li class="list-group-item d-flex justify-content-between">
-													<span class="text-truncate">{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-													<a href="{{ route("web.responsables.edit", [$responsable]) }}">
-														<button class="btn btn-sm btn-outline-primary">Editer</button>
-													</a>
-												</li>
-											@endforeach
-										</ul>
-									</div>
-								</div>
-							@endif
-
-							@if($latestUpdatedResponsables->isNotEmpty())
-								<div class="col-12 col-md-6 col-lg-3 mb-3">
-									<div class="card">
-										<div class="card-header gemah-bg-primary text-white">Derniers modifiés</div>
-										<ul class="list-group list-group-flush">
-											@foreach($latestUpdatedResponsables as $responsable)
-												<li class="list-group-item d-flex justify-content-between ">
-													<span class="text-truncate">{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
-													<a href="{{ route("web.responsables.edit", [$responsable]) }}">
-														<button class="btn btn-sm btn-outline-primary">Editer</button>
-													</a>
-												</li>
-											@endforeach
-										</ul>
-									</div>
-								</div>
-							@endif
 						@endif
-					@endif
-
+					@endempty
 				</div>
+			@endif
+		</div>
+	</div>
+
+@endsection
+
+@section("scripts")
+	<script>
+		$(document).ready(function () {
+			$('#table').DataTable({
+				"info": false,
+				"columnDefs": [
+					{"orderable": false, "targets": 4},
+				],
+				"pageLength": 50,
+			})
+		})
+	</script>
 @endsection

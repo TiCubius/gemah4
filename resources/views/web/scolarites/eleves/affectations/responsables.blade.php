@@ -1,86 +1,164 @@
-@extends('web._includes._master')
-@section('content')
-	<div class="row">
+@extends("web._includes._master")
+@section("content")
 
-		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.show", "id" => [$eleve]])
-			Affectation d'un responsable
+	<div class="row">
+		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
+			Affectation d'un responsable à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 
+
 		<div class="col-12 mb-3">
-			<form class="card" method="GET">
-				<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
-				<div class="card-body">
+			@if($latestCreated->isEmpty())
+				{{-- Aucun responsable n'est présent dans la BDD --}}
 
-					@component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
-					@endcomponent
+				@component("web._includes.components.alert", ["type" => "warning"])
+					Aucun responsable n'est enregistré sur l'application
+				@endcomponent
+			@else
+				<div class="row">
+					{{-- Des responsables existent sur l'application --}}
 
-					<div class="form-group">
-						<label class="optional" for="nom">Nom</label>
-						<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
+					<div class="col-12 @empty($responsables) col-lg-6 @endempty">
+						<form class="card" method="GET">
+							{{-- Formulaire de recherche --}}
+
+							<div class="card-header gemah-bg-primary">Rechercher un responsable</div>
+							<div class="card-body">
+								@component("web._includes.components.departement", ["optional" => true, "academies" => $academies, "id" => request("departement_id")])
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH"])
+									Nom
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "prenom", "placeholder" => "Ex: John"])
+									Prénom
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "email", "placeholder" => "Ex: john.smith@exemple.fr"])
+									Adresse E-Mail
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 01 23 45 67 89"])
+									Téléphone
+								@endcomponent
+
+								<div class="d-flex justify-content-between">
+									<a class="btn btn-outline-dark" href="{{ route("web.responsables.index") }}">Annuler la recherche</a>
+									<button class="btn btn-outline-dark">Rechercher</button>
+								</div>
+							</div>
+						</form>
 					</div>
 
-					<div class="form-group">
-						<label class="optional" for="prenom">Prénom</label>
-						<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
-					</div>
+					@empty($responsables)
+						<div class="col-6">
+							{{-- Liste des derrniers responsables créés --}}
 
-					<div class="form-group">
-						<label class="optional" for="email">Adresse E-Mail</label>
-						<input id="email" class="form-control" name="email" type="text" placeholder="Ex: john.smith@exemple.fr" value="{{ app("request")->input("email") }}">
-					</div>
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestCreated as $responsable)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+											<div class="btn-group">
+												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+													{{ csrf_field() }}
+													<button class="btn btn-sm btn-outline-primary">Affecter</button>
+												</form>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
 
-					<div class="form-group">
-						<label class="optional" for="telephone">N° de Téléphone</label>
-						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ app("request")->input("telephone") }}">
-					</div>
 
-					<div class="d-flex justify-content-between">
-						<a href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve->id]) }}">
-							<button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
-						</a>
-						<button class="btn btn-outline-dark">Rechercher</button>
-					</div>
+							{{-- Liste des derrniers élèves modifiés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestUpdated as $responsable)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
+											<div class="btn-group">
+												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+													{{ csrf_field() }}
+
+													<button class="btn btn-sm btn-outline-primary">Affecter</button>
+												</form>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+						</div>
+					@else
+						{{-- Il s'agit d'une recherche de responsables --}}
+
+						<div class="col-12 mt-3">
+							@component("web._includes.components.alert", ["type" => "success"])
+								<b>Information(s) sur la recherche</b> <br>
+								<ul class="mb-0">
+									<li>
+										Nombre de responsables: {{ count($responsables) }}
+									</li>
+								</ul>
+							@endcomponent
+						</div>
+
+						@if(count($responsables) > 0)
+							<div class="col-12 mt-3">
+								<div class="table-responsive">
+									<table id="table" class="table table-stripped">
+										<thead class="gemah-bg-primary">
+											<tr class="align-middle">
+												<th class="align-middle">Nom</th>
+												<th class="align-middle">Prénom</th>
+												<th class="align-middle">Adresse E-Mail</th>
+												<th class="align-middle">Téléphone</th>
+												<th class="align-middle" width="116px">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($responsables as $responsable)
+												<tr>
+													<td>{{ $responsable->nom }}</td>
+													<td>{{ $responsable->prenom }}</td>
+													<td>{{ $responsable->email}}</td>
+													<td>{{ $responsable->telephone }}</td>
+													<td>
+														<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
+															{{ csrf_field() }}
+
+															<button class="btn btn-sm btn-outline-primary">Affecter</button>
+														</form>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						@endif
+					@endempty
 				</div>
-			</form>
+			@endif
 		</div>
-
-		@isset($searchedResponsables)
-			<div class="col-12 mb-3">
-				@if($searchedResponsables->isEmpty())
-					<div class="alert alert-warning">
-						Aucun responsable non lié à l'élève n'a été trouvé avec ces critères
-					</div>
-				@else
-					<table class="table table-sm table-hover text-center">
-						<thead class="gemah-bg-primary">
-							<tr>
-								<th>Nom</th>
-								<th>Email</th>
-								<th>Téléphone</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($searchedResponsables as $responsable)
-								<tr>
-									<th>{{ "{$responsable->nom} {$responsable->prenom}" }}</th>
-									<td>{{ $responsable->email }}</td>
-									<td>{{ $responsable->telephone }}</td>
-									<td>
-										<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
-											{{ csrf_field() }}
-											<button class="btn btn-sm btn-outline-primary">Affecter</button>
-										</form>
-									</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-				@endif
-			</div>
-		@endisset
 	</div>
 
 @endsection
 
-@include("web._includes.sidebars.eleve")
+@section("scripts")
+	<script>
+		$(document).ready(function () {
+			$('#table').DataTable({
+				"info": false,
+				"columnDefs": [
+					{"orderable": false, "targets": 4},
+				],
+				"pageLength": 50,
+			})
+		})
+	</script>
+@endsection

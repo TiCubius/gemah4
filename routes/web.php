@@ -137,14 +137,16 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 	});
 });
 
-Route::get("/test", function () {
-	$academies = \App\Models\Academie::with("departements");
+Route::get("/test", function (\Illuminate\Http\Request $request) {
+	$academies = \App\Models\Academie::with("departements")->get();
 	$typesEleve = \App\Models\TypeEleve::all();
 
 	$latestCreated = \App\Models\Eleve::latestCreated()->take(5)->get();
 	$latestUpdated = \App\Models\Eleve::latestUpdated()->take(5)->get();
 
-	//	$eleves = \App\Models\Eleve::inRandomOrder()->take(4)->get();
+	if ($request->exists(["departement_id", "type_eleve_id", "nom", "prenom", "date_naissance", "code_ine",])) {
+		$eleves = App\Models\Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), null)->get();
+	}
 
-	return view("test", compact("academies", "latestCreated", "latestUpdated", "typesEleve"));
+	return view("test", compact("academies", "eleves", "latestCreated", "latestUpdated", "typesEleve"));
 });

@@ -28,14 +28,14 @@ class StockMaterielController extends Controller
 		$etatsAdministratifs = EtatAdministratifMateriel::orderBy("libelle")->get();
 		$etatsPhysiques = EtatPhysiqueMateriel::orderBy("libelle")->get();
 
+		$latestCreated = Materiel::latestCreated()->take(5)->get();
+		$latestUpdated = Materiel::latestUpdated()->take(5)->get();
+
 		if ($request->exists(["type_materiel_id", "etat_administratif_materiel_id", "etat_physique_materiel_id", "marque", "modele", "numero_serie", "cle_produit",])) {
-			$searchedMateriels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_administratif_materiel_id"), $request->input("etat_physique_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->with("eleve", "etatAdministratif", "etatPhysique", "type", "type.domaine")->get();
-		} else {
-			$latestCreatedMateriels = Materiel::latestCreated()->take(10)->get();
-			$latestUpdatedMateriels = Materiel::latestUpdated()->take(10)->get();
+			$materiels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_administratif_materiel_id"), $request->input("etat_physique_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->with("eleve", "etatAdministratif", "etatPhysique", "type", "type.domaine")->get();
 		}
 
-		return view("web.materiels.stocks.index", compact("academies", "domaines", "etatsAdministratifs", "etatsPhysiques", "latestCreatedMateriels", "latestUpdatedMateriels", "searchedMateriels"));
+		return view("web.materiels.stocks.index", compact("academies", "domaines", "etatsAdministratifs", "etatsPhysiques", "latestCreated", "latestUpdated", "materiels"));
 	}
 
 	/**

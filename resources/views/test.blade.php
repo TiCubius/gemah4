@@ -19,10 +19,11 @@
 				<div class="row">
 					{{-- Des élèves existent sur l'application --}}
 
-					<div class="col-12 col-lg-6">
+					<div class="col-12 @empty($eleves) col-lg-6 @endempty">
 						<form class="card" method="GET">
 							{{-- Formulaire de recherche --}}
-							<div class="card-header">Rechercher un élève</div>
+
+							<div class="card-header gemah-bg-primary">Rechercher un élève</div>
 							<div class="card-body">
 								@component("web._includes.components.departement",["academies" => $academies, "id" => app("request")->input("departement_id"), "optional" => true])
 								@endcomponent
@@ -30,25 +31,21 @@
 								@component("web._includes.components.types_eleves",["types" => $typesEleve, "id" => app("request")->input("type_eleve_id")])
 								@endcomponent
 
-								<div class="form-group">
-									<label class="optional" for="nom">Nom de l'élève</label>
-									<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
-								</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH", "value" => request("nom")])
+									Nom de l'élève
+								@endcomponent
 
-								<div class="form-group">
-									<label class="optional" for="prenom">Prénom de l'élève</label>
-									<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
-								</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "prenom", "placeholder" => "Ex: John", "value" => request("prenom")])
+									Prénom de l'élève
+								@endcomponent
 
-								<div class="form-group">
-									<label class="optional" for="date_naissance">Date de naissance</label>
-									<input id="date_naissance" class="form-control" name="date_naissance" type="text" placeholder="Ex: 01/01/2019" value="{{ app("request")->input("date_naissance") }}">
-								</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "date_naissance", "type" => "date", "value" => request("date_naissance")])
+									Date de naissance
+								@endcomponent
 
-								<div class="form-group">
-									<label class="optional" for="code_ine">Code INE</label>
-									<input id="code_ine" class="form-control" name="code_ine" type="text" placeholder="Ex : 0000000000X" value="{{ app("request")->input("code_ine") }}">
-								</div>
+								@component("web._includes.components.input", ["optional" => true, "name" => "code_ine", "placeholder" => "Ex: 0000000000X", "value" => request("code_ine")])
+									Code INE
+								@endcomponent
 
 								<div class="d-flex justify-content-between">
 									<a class="btn btn-outline-dark" href="{{ route("web.scolarites.eleves.index") }}">Annuler la recherche</a>
@@ -59,59 +56,93 @@
 					</div>
 
 					@empty($eleves)
-						<div class="row col-12 col-lg-6">
-							<div class="col-12 mb-3">
-								<div class="card">
-									{{-- Liste des derrniers élèves créés --}}
-									<div class="card-header">Derniers ajoutés</div>
-									<ul class="list-group list-group-flush">
-										@foreach($latestCreated as $eleve)
-											<li class="list-group-item d-flex justify-content-between">
-												<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-												<div class="btn-group">
-													<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-														Voir le profil
-													</a>
-													<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-														Editer
-													</a>
-												</div>
-											</li>
-										@endforeach
-									</ul>
-								</div>
+						<div class="col-6">
+							{{-- Liste des derrniers élèves créés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestCreated as $eleve)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+													Voir le profil
+												</a>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
+													Editer
+												</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
 							</div>
-							<div class="col-12">
-								<div class="card">
-									{{-- Liste des derrniers élèves modifiés --}}
-									<div class="card-header">Derniers modifiés</div>
-									<ul class="list-group list-group-flush">
-										@foreach($latestUpdated as $eleve)
-											<li class="list-group-item d-flex justify-content-between">
-												<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
-												<div class="btn-group">
-													<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-														Voir le profil
-													</a>
-													<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-														Editer
-													</a>
-												</div>
-											</li>
-										@endforeach
-									</ul>
-								</div>
+
+
+							{{-- Liste des derrniers élèves modifiés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestUpdated as $eleve)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+													Voir le profil
+												</a>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
+													Editer
+												</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
 							</div>
 						</div>
-					@endunless
-
-
-					@isset($eleves)
+					@else
 						{{-- Il s'agit d'une recherche d'élève --}}
-					@endisset
+
+						<div class="col-12 mt-3">
+							@component("web._includes.components.alert", ["type" => "success"])
+								<b>Information(s) sur la recherche</b> <br>
+								<ul class="mb-0">
+									<li>
+										Nombre d'élève: {{ count($eleves) }}
+									</li>
+								</ul>
+							@endcomponent
+						</div>
+
+						<div class="col-12 mt-3">
+							<div class="table-responsive">
+								<table class="table table-stripped">
+									<thead class="gemah-bg-primary">
+										<tr class="align-middle">
+											<th class="align-middle">Nom</th>
+											<th class="align-middle">Prénom</th>
+											<th class="align-middle">Date de naissance</th>
+											<th class="align-middle" width="116px">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($eleves as $eleve)
+											<tr>
+												<td>{{ $eleve->nom }}</td>
+												<td>{{ $eleve->prenom }}</td>
+												<td>{{ $eleve->date_naissance->format("d/m/Y") }}</td>
+												<td>
+													<a class="btn btn-sm btn-outline-primary" href="#">Voir le profil</a>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+					@endempty
 				</div>
 			@endif
-
 		</div>
 	</div>
 

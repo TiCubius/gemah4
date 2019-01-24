@@ -20,14 +20,14 @@ class EnseignantController extends Controller
 	public function index(Request $request): View
 	{
 		$academies = Academie::with("departements")->get();
-		$latestCreatedEnseignants = Enseignant::latestCreated()->take(10)->get();
-		$latestUpdatedEnseignants = Enseignant::latestUpdated()->take(10)->get();
+		$latestCreated = Enseignant::latestCreated()->take(5)->get();
+		$latestUpdated = Enseignant::latestUpdated()->take(5)->get();
 
 		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
-			$searchedEnseignants = Enseignant::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
+			$enseignants = Enseignant::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
 		}
 
-		return view("web.scolarites.enseignants.index", compact('latestCreatedEnseignants', 'latestUpdatedEnseignants', 'searchedEnseignants', 'academies'));
+		return view("web.scolarites.enseignants.index", compact('academies', 'enseignants', 'latestCreated', 'latestUpdated'));
 	}
 
 	/**

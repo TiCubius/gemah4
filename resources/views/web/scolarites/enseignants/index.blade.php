@@ -1,129 +1,153 @@
-@extends('web._includes._master')
-@section('content')
-	<div class="row">
+@extends("web._includes._master")
+@section("content")
 
+	<div class="row">
 		@component("web._includes.components.title", ["add" => "web.scolarites.enseignants.create", "back" => "web.scolarites.index"])
 			Gestion des enseignants
 		@endcomponent
 
-		@if ($latestCreatedEnseignants->isEmpty())
-			<div class="col-12 mb-3">
-				<div class="alert alert-warning">
+
+		<div class="col-12 mb-3">
+			@if($latestCreated->isEmpty())
+				{{-- Aucun enseignant n'est présent dans la BDD --}}
+
+				@component("web._includes.components.alert", ["type" => "warning"])
 					Aucun enseignant n'est enregistré sur l'application
-				</div>
-			</div>
-		@else
-			<div class="col-12 mb-3">
-				<form class="card" method="GET">
-					<div class="card-header gemah-bg-primary">Rechercher un enseignant</div>
-					<div class="card-body">
-
-						@component("web._includes.components.departement", ["academies" => $academies, "optional" => true])
-						@endcomponent
-
-						<div class="form-group">
-							<label class="optional" for="nom">Nom</label>
-							<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ app("request")->input("nom") }}">
-						</div>
-
-						<div class="form-group">
-							<label class="optional" for="prenom">Prénom</label>
-							<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ app("request")->input("prenom") }}">
-						</div>
-
-						<div class="form-group">
-							<label class="optional" for="email">Adresse E-Mail</label>
-							<input id="email" class="form-control" name="email" type="text" placeholder="Ex: john.smith@exemple.fr" value="{{ app("request")->input("email") }}">
-						</div>
-
-						<div class="form-group">
-							<label class="optional" for="telephone">N° de Téléphone</label>
-							<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 92 12 62" value="{{ app("request")->input("telephone") }}">
-						</div>
-
-						<div class="d-flex justify-content-between">
-							<a href="{{ route("web.scolarites.enseignants.index") }}">
-								<button class="btn btn-outline-dark" type="button">Annuler la recherche</button>
-							</a>
-							<button class="btn btn-outline-dark">Rechercher</button>
-						</div>
-					</div>
-				</form>
-			</div>
-
-			@isset($searchedEnseignants)
-				<div class="col-12 mb-3">
-					@if($searchedEnseignants->isEmpty())
-						<div class="alert alert-warning">
-							Aucun enseignant n'a été trouvé avec ces critères
-						</div>
-
-					@else
-						<table class="table table-sm table-hover text-center">
-							<thead class="gemah-bg-primary">
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-									<th>Téléphone</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								@foreach($searchedEnseignants as $enseignant)
-									<tr>
-										<th>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</th>
-										<td>{{ $enseignant->email }}</td>
-										<td>{{ $enseignant->telephone }}</td>
-										<td>
-											<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
-												<button class="btn btn-sm btn-outline-primary">Editer</button>
-											</a>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					@endif
-				</div>
+				@endcomponent
 			@else
-				@if($latestCreatedEnseignants->isNotEmpty())
-					<div class="col-12 col-lg-6 mb-3">
-						<div class="card">
-							<div class="card-header gemah-bg-primary text-white">Derniers ajoutés</div>
-							<ul class="list-group list-group-flush">
-								@foreach($latestCreatedEnseignants as $enseignant)
-									<li class="list-group-item d-flex justify-content-between">
-										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
-											<button class="btn btn-sm btn-outline-primary">Editer</button>
-										</a>
-									</li>
-								@endforeach
-							</ul>
-						</div>
-					</div>
-				@endif
+				<div class="row">
+					{{-- Des enseignants existent sur l'application --}}
 
-				@if($latestUpdatedEnseignants->isNotEmpty())
-					<div class="col-12 col-lg-6 mb-3">
-						<div class="card">
-							<div class="card-header gemah-bg-primary text-white">Derniers modifiés</div>
-							<ul class="list-group list-group-flush">
-								@foreach($latestUpdatedEnseignants as $enseignant)
-									<li class="list-group-item d-flex justify-content-between ">
-										<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
-										<a href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
-											<button class="btn btn-sm btn-outline-primary">Editer</button>
-										</a>
-									</li>
-								@endforeach
-							</ul>
-						</div>
+					<div class="col-12 @empty($enseignants) col-lg-6 @endempty">
+						<form class="card" method="GET">
+							{{-- Formulaire de recherche --}}
+
+							<div class="card-header gemah-bg-primary">Rechercher un enseignant</div>
+							<div class="card-body">
+								@component("web._includes.components.departement", ["optional" => true, "academies" => $academies, "id" => request("departement_id")])
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH"])
+									Nom
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "prenom", "placeholder" => "Ex: John"])
+									Prénom
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "email", "placeholder" => "Ex: john.smith@exemple.fr"])
+									Adresse E-Mail
+								@endcomponent
+
+								@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 01 23 45 67 89"])
+									Téléphone
+								@endcomponent
+
+								<div class="d-flex justify-content-between">
+									<a class="btn btn-outline-dark" href="{{ route("web.scolarites.enseignants.index") }}">Annuler la recherche</a>
+									<button class="btn btn-outline-dark">Rechercher</button>
+								</div>
+							</div>
+						</form>
 					</div>
-				@endif
+
+					@empty($enseignants)
+						<div class="col-6">
+							{{-- Liste des derrniers enseignants créés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers ajoutés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestCreated as $enseignant)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">Editer</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+
+
+							{{-- Liste des derrniers enseignants modifiés --}}
+
+							<div class="card mb-3">
+								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
+								<ul class="list-group list-group-flush">
+									@foreach($latestUpdated as $etablissement)
+										<li class="list-group-item d-flex justify-content-between">
+											<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">Editer</a>
+											</div>
+										</li>
+									@endforeach
+								</ul>
+							</div>
+						</div>
+					@else
+						{{-- Il s'agit d'une recherche d'enseignants --}}
+
+						<div class="col-12 mt-3">
+							@component("web._includes.components.alert", ["type" => "success"])
+								<b>Information(s) sur la recherche</b> <br>
+								<ul class="mb-0">
+									<li>
+										Nombre d'enseignants: {{ count($enseignants) }}
+									</li>
+								</ul>
+							@endcomponent
+						</div>
+
+						@if(count($enseignants) > 0)
+							<div class="col-12 mt-3">
+								<div class="table-responsive">
+									<table id="table" class="table table-stripped">
+										<thead class="gemah-bg-primary">
+											<tr class="align-middle">
+												<th class="align-middle">Nom</th>
+												<th class="align-middle">Prénom</th>
+												<th class="align-middle">Adresse E-Mail</th>
+												<th class="align-middle">Telephone</th>
+												<th class="align-middle" width="116px">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($enseignants as $enseignant)
+												<tr>
+													<td>{{ $enseignant->nom }}</td>
+													<td>{{ $enseignant->prenom }}</td>
+													<td>{{ $enseignant->email }}</td>
+													<td>{{ $enseignant->telephone }}</td>
+													<td>
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">Editer</a>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						@endif
+					@endempty
+				</div>
 			@endif
-		@endif
-
+		</div>
 	</div>
+
+@endsection
+
+@section("scripts")
+	<script>
+		$(document).ready(function () {
+			$('#table').DataTable({
+				"info": false,
+				"columnDefs": [
+					{"orderable": false, "targets": 4},
+				],
+				"pageLength": 50,
+			})
+		})
+	</script>
 @endsection

@@ -6,7 +6,9 @@ use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Materiel;
 use App\Models\Responsable;
+use App\Models\Service;
 use App\Models\TypeEleve;
+use App\Models\Utilisateur;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -138,6 +140,31 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("eleves", ["code_ine" => "unit.testin"]);
+	}
+
+	/**
+	 * Vérfiie l'envoi d'E-Mail [MANUEL]
+	 */
+	public function testEmail()
+	{
+		$departement = factory(Departement::class)->create();
+		$service = factory(Service::class)->create(["departement_id" => $departement->id]);
+		$utilisateur = factory(Utilisateur::class)->create(["service_id" => $service->id]);
+		$type = factory(TypeEleve::class)->create();
+
+		$request = $this->post("/scolarites/eleves", [
+			"_token"         => csrf_token(),
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"date_naissance" => Carbon::now(),
+			"classe"         => "unit.testing",
+			"departement_id" => $departement->id,
+			"code_ine"       => "unit.testin",
+			"types"          => [$type->id],
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
 	}
 
 	public function testAffichageProfilEleve()

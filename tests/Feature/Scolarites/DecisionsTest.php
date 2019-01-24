@@ -3,8 +3,12 @@
 namespace Tests\Feature\Scolarites;
 
 use App\Models\Decision;
+use App\Models\Departement;
 use App\Models\Eleve;
+use App\Models\Service;
 use App\Models\TypeDocument;
+use App\Models\TypeEleve;
+use App\Models\Utilisateur;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
@@ -91,6 +95,40 @@ class DecisionsTest extends TestCase
 			"numero_dossier"    => "unit.testing",
 			"file"              => UploadedFile::fake()->create("avatar.jpg"),
 		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+	}
+
+	/**
+	 * Vérfiie l'envoi d'E-Mail [MANUEL]
+	 */
+	public function testEmail()
+	{
+		$departement = factory(Departement::class)->create();
+		$service = factory(Service::class)->create(["departement_id" => $departement->id]);
+		$utilisateur = factory(Utilisateur::class)->create(["service_id" => $service->id]);
+		$type = factory(TypeEleve::class)->create();
+
+		$eleve = factory(Eleve::class)->create([
+			"departement_id" => $departement->id
+		]);
+
+		factory(TypeDocument::class)->create([
+			"libelle" => 'Décision',
+		]);
+
+		$request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
+			"_token"            => csrf_token(),
+			"enseignant_id"     => $eleve->enseignant_id,
+			"date_cda"          => \Carbon\Carbon::now(),
+			"date_notification" => \Carbon\Carbon::now(),
+			"date_limite"       => \Carbon\Carbon::now(),
+			"date_convention"   => \Carbon\Carbon::now(),
+			"numero_dossier"    => "unit.testing",
+			"file"              => UploadedFile::fake()->create("avatar.jpg"),
+		]);
+
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 	}

@@ -4,7 +4,7 @@ namespace App\Mail;
 
 use App\Models\Decision;
 use App\Models\Eleve;
-use App\Models\Utilisateur;
+use App\Models\Service;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -39,7 +39,12 @@ class DecisionCreatedMail extends Mailable
 	{
 		$this->eleve = $eleve;
 		$this->decision = $decision;
-		$this->emails = Utilisateur::all()->pluck("email");
+		$this->emails = collect();
+
+		$services = Service::where("departement_id", $eleve->departement_id)->get();
+		foreach ($services as $service) {
+			$this->emails = $this->emails->merge($service->utilisateurs->pluck('email'));
+		}
 	}
 
 
@@ -50,7 +55,10 @@ class DecisionCreatedMail extends Mailable
 	 */
 	public function build()
 	{
-		return $this->from("no-reply@gemah.fr")->to($this->emails)->view('emails.scolarites.eleves.decisions.create')->with([
+		$types = join(" / ", $this->eleve->types->pluck("libelle")->toArray());
+		$subject = "DEBUG - 3.00 - [{$types}] - Nouvelle décision pour {$this->eleve->nom} {$this->eleve->prenom}";
+
+		return $this->from("no-reply@gemah.fr")->to($this->emails)->subject($subject)->view('emails.scolarites.eleves.decisions.create')->with([
 			"eleve"    => $this->eleve,
 			"decision" => $this->decision,
 		]);

@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Eleve;
+use App\Models\Service;
 use App\Models\Utilisateur;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -31,7 +32,13 @@ class EleveCreatedMail extends Mailable
 	public function __construct(Eleve $eleve)
 	{
 		$this->eleve = $eleve;
-		$this->emails = Utilisateur::all()->pluck("email");
+		$this->emails = collect();
+
+		$services = Service::where("departement_id", $eleve->departement_id)->get();
+		foreach ($services as $service) {
+			$this->emails = $this->emails->merge($service->utilisateurs->pluck('email'));
+		}
+
 	}
 
 
@@ -42,8 +49,11 @@ class EleveCreatedMail extends Mailable
 	 */
 	public function build()
 	{
-		return $this->from("no-reply@gemah.fr")->to($this->emails)->view('emails.scolarites.eleves.create')->with([
-				"eleve" => $this->eleve,
-			]);
+		$types = join(" / ", $this->eleve->types->pluck("libelle")->toArray());
+		$subject = "DEBUG - 3.00 - [{$types}] - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
+
+		return $this->from("no-reply@gemah.fr")->to($this->emails)->subject($subject)->view('emails.scolarites.eleves.create')->with([
+			"eleve" => $this->eleve,
+		]);
 	}
 }

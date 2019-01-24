@@ -138,10 +138,3 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::get("/generale", "Statistiques\StatistiquesController@generale")->name("generale");
 	});
 });
-
-
-Route::get('/email', function () {
-	Mail::to("test@test.test")->send(new \App\Mail\TestMail());
-
-	return "DEBUG: sent";
-});

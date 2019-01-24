@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Scolarites;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EleveCreatedMail;
 use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\TypeEleve;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -77,6 +79,8 @@ class EleveController extends Controller
 		foreach ($request->input("types") as $type) {
 			TypeEleve::findOrFail($type)->eleves()->attach($eleve);
 		}
+
+		Mail::send(new EleveCreatedMail($eleve));
 
 		return redirect(route("web.scolarites.eleves.index"));
 	}

@@ -40,24 +40,6 @@
 					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ old("code_ine") }}" placeholder="Ex : 0000000000X">
 				</div>
 
-				<div class="row">
-
-					<div class="form-group col-12 col-lg-3">
-						Type d'élève
-						<div class="border border rounded pt-0 pl-2 pt-1 mt-1">
-							@foreach($types as $type)
-								<div class="custom-control custom-checkbox mb-1  ">
-									@if((old("types") !== null) && (in_array($type->id, old("types"))))
-										<input checked id="type-{{ $type->id }}" class="custom-control-input " name="types[]" value="{{ $type->id }}" type="checkbox">
-									@else
-										<input id="type-{{ $type->id }}" class="custom-control-input" name="types[] " value="{{ $type->id }}" type="checkbox">
-									@endif
-									<label class="custom-control-label" for="type-{{ $type->id }}">{{ $type->libelle }}</label>
-								</div>
-							@endforeach
-						</div>
-					</div>
-				</div>
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer l'élève</button>
 				</div>

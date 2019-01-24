@@ -29,6 +29,5 @@ class AdministrationsTest extends TestCase
 		$request->assertSee('Gestion des types d\'élève');
 		$request->assertSee('Gestion des types d\'établissement');
 		$request->assertSee('Historique des actions');
-		$request->assertSee('Liste des permissions');
 	}
 }

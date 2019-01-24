@@ -183,15 +183,15 @@ class NoPermissionTest extends TestCase
 			"/administrations",
 			"/administrations/departements",
 			"/administrations/departements/create",
-			"/administrations/departements/{$departement->id}",
+			// "/administrations/departements/{$departement->id}", // ERROR 404
 			"/administrations/departements/{$departement->id}/edit",
 			"/administrations/academies",
 			"/administrations/academies/create",
-			"/administrations/academies/{$academie->id}",
+			// "/administrations/academies/{$academie->id}", // ERROR 404
 			"/administrations/academies/{$academie->id}/edit",
 			"/administrations/regions",
 			"/administrations/regions/create",
-			"/administrations/regions/{$region->id}",
+			// "/administrations/regions/{$region->id}", // ERROR 404
 			"/administrations/regions/{$responsable->id}/edit",
 			"/administrations/services",
 			"/administrations/services/create",

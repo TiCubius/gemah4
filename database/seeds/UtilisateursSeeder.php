@@ -18,7 +18,7 @@ class UtilisateursSeeder extends Seeder
             "pseudo" => "jgounon",
             "email" => "jean-jacques.gounon@ac-lyon.fr",
             "password" => "password",
-            "service" => "Service informatique",
+            "service" => "DSI",
         ], [
             "nom" => "CHADUC",
             "prenom" => "Pierre-henri",

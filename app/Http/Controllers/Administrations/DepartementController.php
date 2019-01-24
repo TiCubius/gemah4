@@ -59,17 +59,6 @@ class DepartementController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param Departement $departement
-	 * @return void
-	 */
-	public function show(Departement $departement)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'un Départements
 	 *
 	 * @param Departement $departement

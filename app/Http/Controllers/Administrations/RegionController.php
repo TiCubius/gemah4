@@ -50,17 +50,6 @@ class RegionController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param Region $region
-	 * @return void
-	 */
-	public function show(Region $region)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'une région
 	 *
 	 * @param Region $region

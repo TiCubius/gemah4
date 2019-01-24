@@ -57,17 +57,6 @@ class AcademieController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param Academie $academy
-	 * @return void
-	 */
-	public function show(Academie $academy)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'une académie
 	 *
 	 * @param Academie $academy

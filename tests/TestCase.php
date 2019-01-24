@@ -30,9 +30,7 @@ abstract class TestCase extends BaseTestCase
 		$this->seed(\ParametresSeeders::class);
 		$service = factory(Service::class)->create();
 
-		foreach (Permission::all() as $permission) {
-			$service->permissions()->attach($permission);
-		}
+		$service->permissions()->sync(Permission::all()->pluck('id'));
 
 		$user = factory(Utilisateur::class)->create([
 			"service_id" => $service->id,

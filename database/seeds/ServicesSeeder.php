@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class ServicesSeeder extends Seeder
 {
@@ -15,20 +17,31 @@ class ServicesSeeder extends Seeder
 
 	public function run()
 	{
+		$services = $this->services;
+		$departements = \App\Models\Departement::all();
 		$permissions = \App\Models\Permission::all();
 
-		foreach (\App\Models\Departement::all() as $departement) {
-			foreach ($this->services as $service => $description) {
+		$output = new ConsoleOutput();
+		$progress = new ProgressBar($output, count($services) * count($departements));
+		$progress->setFormat("<fg=white> %current%/%max% [%bar%] %percent:3s%%\n  TIME: %elapsed:6s%\n  EST: %estimated:-6s% / ETA: %remaining:-6s%");
+		$progress->start();
+
+		foreach ($departements as $departement) {
+			foreach ($services as $service => $description) {
 				$service = \App\Models\Service::create([
 					"nom"            => $service,
 					"description"    => $description,
 					"departement_id" => $departement->id,
 				]);
 
+				$progress->advance();
+
 				if ($service->nom == "Administrateur") {
 					$service->permissions()->sync($permissions->pluck('id'));
 				}
 			}
 		}
+
+		$progress->finish();
 	}
 }

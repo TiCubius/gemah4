@@ -84,6 +84,7 @@ class DecisionsTest extends TestCase
 		factory(TypeDocument::class)->create([
 			"libelle" => 'Décision',
 		]);
+		$type = factory(TypeEleve::class)->create();
 
 		$request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
 			"_token"            => csrf_token(),
@@ -93,6 +94,7 @@ class DecisionsTest extends TestCase
 			"date_limite"       => \Carbon\Carbon::now(),
 			"date_convention"   => \Carbon\Carbon::now(),
 			"numero_dossier"    => "unit.testing",
+            "types"             => [$type->id],
 			"file"              => UploadedFile::fake()->create("avatar.jpg"),
 		]);
 
@@ -126,6 +128,7 @@ class DecisionsTest extends TestCase
 			"date_limite"       => \Carbon\Carbon::now(),
 			"date_convention"   => \Carbon\Carbon::now(),
 			"numero_dossier"    => "unit.testing",
+            "types"             => [$type->id],
 			"file"              => UploadedFile::fake()->create("avatar.jpg"),
 		]);
 

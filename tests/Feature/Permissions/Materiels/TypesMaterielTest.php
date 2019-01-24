@@ -15,7 +15,7 @@ class TypesMaterielTest extends TestCase
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service sans permissions
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types de matériel
 	 * et simulation de la connexion.
 	 */
 	public function setUp()

@@ -16,7 +16,7 @@ class AffectationsEtablissementTest extends TestCase
     private $user;
 
     /**
-     * Création d'un utilisateur possèdant un service sans permissions
+     * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des affectations d'établissment
      * et simulation de la connexion.
      */
     public function setUp()

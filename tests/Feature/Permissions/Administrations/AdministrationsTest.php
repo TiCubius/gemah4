@@ -14,7 +14,7 @@ class AdministrationsTest extends TestCase
     private $user;
 
     /**
-     * Création d'un utilisateur possèdant un service sans permissions
+     * Création d'un utilisateur possèdant un service avec uniquement la permission de visualitation de l'index d'administration
      * et simulation de la connexion.
      */
     public function setUp()
@@ -36,7 +36,7 @@ class AdministrationsTest extends TestCase
 
 
     /**
-     * Vérifie que l'index d'administration est autorisé
+     * Vérifie que l'index d'administration est fonctionel
      */
     public function testAccessAutorise()
     {

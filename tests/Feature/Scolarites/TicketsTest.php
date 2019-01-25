@@ -98,6 +98,33 @@ class TicketsTest extends TestCase
 		]);
 	}
 
+	/**
+	 * Vérifie que le ticket est bien créé lorsque le formulaire est complet
+	 */
+	public function testTraitementFormulaireCreationTicketCompletAvecMessage()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$typeTicket = factory(TypeTicket::class)->create();
+
+		$request = $this->post("/scolarites/eleves/{$eleve->id}/tickets", [
+			"_token"         => csrf_token(),
+			"libelle"        => "unit.testing",
+			"type_ticket_id" => $typeTicket->id,
+			"message"        => "unit.testing",
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("tickets", [
+			"eleve_id"       => $eleve->id,
+			"type_ticket_id" => $typeTicket->id,
+		]);
+		$this->assertDatabaseHas("messages_tickets", [
+			"ticket_id" => Ticket::where("libelle", "unit.testing")->first()->id,
+			"contenu"   => "unit.testing",
+		]);
+	}
+
 	public function testAffichageTicket()
 	{
 		$eleve = factory(Eleve::class)->create();

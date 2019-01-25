@@ -64,7 +64,6 @@ class EleveController extends Controller
 			"classe"         => "required",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves",
-			"types"          => "required",
 		]);
 
 		$eleve = Eleve::create($request->only([
@@ -76,9 +75,6 @@ class EleveController extends Controller
 			"code_ine",
 		]));
 
-		foreach ($request->input("types") as $type) {
-			TypeEleve::findOrFail($type)->eleves()->attach($eleve);
-		}
 
 		Mail::send(new EleveCreatedMail($eleve));
 
@@ -143,7 +139,6 @@ class EleveController extends Controller
 			"classe"         => "required",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
-			"types"          => "required",
 		]);
 
 		$eleve->update($request->only([
@@ -154,12 +149,6 @@ class EleveController extends Controller
 			"departement_id",
 			"code_ine",
 		]));
-
-		$eleve->types()->detach();
-
-		foreach ($request->input("types") as $type) {
-			TypeEleve::findOrFail($type)->eleves()->attach($eleve);
-		}
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
@@ -186,7 +175,6 @@ class EleveController extends Controller
 		}
 
 		$eleve->documents()->delete();
-		$eleve->types()->detach();
 		$eleve->delete();
 
 		return redirect(route("web.scolarites.eleves.index"));

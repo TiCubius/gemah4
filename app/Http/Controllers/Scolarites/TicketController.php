@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scolarites;
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
 use App\Models\Ticket;
+use App\Models\TicketMessage;
 use App\Models\TypeTicket;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -53,14 +54,21 @@ class TicketController extends Controller
 			"type_ticket_id" => "required|exists:types_tickets,id",
 		]);
 
-		Ticket::create([
+		$ticket = Ticket::create([
 			"eleve_id"       => $eleve->id,
 			"type_ticket_id" => $request->input("type_ticket_id"),
 
 			"libelle" => $request->input("libelle"),
 		]);
 
-		return redirect(route("web.scolarites.eleves.tickets.index", [$eleve]));
+		if ($request->has("message")) {
+			TicketMessage::create([
+				"ticket_id" => $ticket->id,
+				"contenu"   => $request->input("message"),
+			]);
+		}
+
+		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]));
 	}
 
 	/**

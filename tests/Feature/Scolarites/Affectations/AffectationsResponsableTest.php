@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Scolarites\Affectations;
 
+use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use Tests\TestCase;
@@ -32,7 +33,7 @@ class AffectationsResponsableTest extends TestCase
 
 		$responsable->eleves()->attach($eleve);
 
-		$request = $this->post("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
+		$request = $this->patch("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
@@ -46,13 +47,37 @@ class AffectationsResponsableTest extends TestCase
 		$responsable = factory(Responsable::class)->create();
 		$eleve = factory(Eleve::class)->create();
 
-		$request = $this->post("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
+		$request = $this->patch("/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("eleve_responsable", [
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
+		]);
+	}
+
+	/**
+	 * Vérifie que l'affectation d'un responsable fonctionne
+	 */
+	public function testAffectationResponsableAutoAffectation()
+	{
+		$departement = factory(Departement::class)->create();
+		$eleve = factory(Eleve::class)->create();
+
+		$request = $this->post("/scolarites/eleves/{$eleve->id}/affectations/responsables/", [
+			"_token"         => csrf_token(),
+			"civilite"       => "M.",
+			"nom"            => "unit.testing",
+			"prenom"         => "unit.testing",
+			"departement_id" => $departement->id,
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("eleve_responsable", [
+			"eleve_id"       => $eleve->id,
+			"responsable_id" => Responsable::where('nom', 'unit.testing')->first()->id,
 		]);
 	}
 

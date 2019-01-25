@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Scolarites\Documents;
 
+use App\Http\Controllers\Administrations\Types\TypeEleveController;
 use App\Http\Controllers\Controller;
 use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
@@ -9,6 +10,7 @@ use App\Models\Document;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\TypeDocument;
+use App\Models\TypeEleve;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,7 +34,7 @@ class DecisionController extends Controller
 		$timestamp = Carbon::now()->timestamp;
 		$extension = $file->getClientOriginalExtension();
 
-		return $nom . "-" . $timestamp . "." . $extension;
+		return $nom . "-"  . $timestamp . "." . $extension;
 	}
 
 	/**
@@ -55,8 +57,9 @@ class DecisionController extends Controller
 	public function create(Eleve $eleve): View
 	{
 		$enseignants = Enseignant::all();
+		$types = TypeEleve::all();
 
-		return view("web.scolarites.eleves.documents.decisions.create", compact("eleve", "enseignants"));
+		return view("web.scolarites.eleves.documents.decisions.create", compact("eleve", "enseignants", 'types'));
 	}
 
 	/**
@@ -78,6 +81,7 @@ class DecisionController extends Controller
 			"date_convention"   => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
 			"numero_dossier"    => "nullable|max:191",
 			"enseignant_id"     => "nullable|exists:enseignants,id",
+            "types"              => "required|exists:types_eleves,id",
 			"file"              => "required",
 		]);
 
@@ -88,7 +92,7 @@ class DecisionController extends Controller
 		$request->file('file')->storeAs('public/decisions/', $filename);
 
 		$document = Document::create([
-			"nom"              => "Décision du " . Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
+			"nom"              => "Décision ".TypeEleve::find($request->input("types")[0])->libelle ." ²du ". Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
 			"description"      => $request->input("description"),
 			"type_document_id" => TypeDocument::where("libelle", "Décision")->first()->id,
 			"path"             => $filename,
@@ -105,6 +109,10 @@ class DecisionController extends Controller
 			"document_id"   => $document->id,
 			"enseignant_id" => $request->input("enseignant_id"),
 		]);
+
+		$typesEleves = $eleve->types->pluck('id');
+        $typesEleves->push($request->input("types")[0]);
+        $eleve->types()->sync($typesEleves->toArray());
 
 		Mail::send(new DecisionCreatedMail($eleve, $decision));
 

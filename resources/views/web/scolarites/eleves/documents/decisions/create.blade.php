@@ -30,26 +30,38 @@
 
 				<div class="form-group">
 					<label class="optional" for="date_convention">Date de la convention</label>
-					<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_lidate_conventionmite'] ?? '' }}">
+					<input type="date" id="date_convention" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_convention'] ?? '' }}">
 				</div>
 			</div>
 
 			<div class="col-6">
 				<div>
 					<div class="form-group">
-						<label for="numero_dossier">Numéro du dossier MDPH</label>
+						<label class="optional" for="numero_dossier">Numéro du dossier MDPH</label>
 						<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['numero_dossier'] ?? '' }}">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="enseignant_id">Nom/prénom de l'enseignant référent</label>
+					<label class="optional" for="enseignant_id">Nom/prénom de l'enseignant référent</label>
 					<select name="enseignant_id" id="enseignant_id" class="form-control">
 						<option value="">Choisissez l'enseignant référent</option>
 						@foreach ($enseignants as $enseignant)
 							<option value="{{ $enseignant->id }}">{{ $enseignant->nom }} {{ $enseignant->prenom }}</option>
 						@endforeach
 					</select>
+				</div>
+
+				<div class="form-group">
+					Type d'élève
+					<div class="border border rounded pt-0 pl-2 pt-1 mt-1">
+						@foreach($types as $type)
+							<div class="custom-control custom-radio mb-1  ">
+								<input id="type-{{ $type->id }}" class="custom-control-input" name="types[] " value="{{ $type->id }}" type="radio">
+								<label class="custom-control-label" for="type-{{ $type->id }}">{{ $type->libelle }}</label>
+							</div>
+						@endforeach
+					</div>
 				</div>
 			</div>
 

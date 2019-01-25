@@ -21,7 +21,7 @@
 
 			<a href="{{ route("web.scolarites.enseignants.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Gestion des enseignants
+					Gestion des enseignants référents
 				</button>
 			</a>
 		</div>

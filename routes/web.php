@@ -77,7 +77,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 			// Affectation d'un responsable
 			Route::group(["prefix" => "responsables", "as" => "responsables."], function () {
 				Route::get("/", "Scolarites\Affectations\ResponsableController@index")->name("index");
-				Route::post("{responsable}", "Scolarites\Affectations\ResponsableController@attach")->name("attach");
+				Route::get("/create", "Scolarites\Affectations\ResponsableController@create")->name("create");
+				Route::post("/", "Scolarites\Affectations\ResponsableController@store")->name("store");
+				Route::patch("{responsable}", "Scolarites\Affectations\ResponsableController@attach")->name("attach");
 				Route::delete("{responsable}", "Scolarites\Affectations\ResponsableController@detach")->name("detach");
 			});
 		});
@@ -102,6 +104,7 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("academies", "Administrations\AcademieController");
 		Route::resource("regions", "Administrations\RegionController");
 
+		Route::get("parametres/edit", "Administrations\ParametreController@edit")->name("parametres.edit");
 		Route::patch("parametres", "Administrations\ParametreController@update")->name("parametres.update");
 
 		Route::resource("services", "Administrations\ServiceController");

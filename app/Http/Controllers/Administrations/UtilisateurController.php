@@ -47,21 +47,21 @@ class UtilisateurController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"nom"      => "required|max:191",
-			"prenom"   => "required|max:191",
-			"identifiant"   => "required|max:191",
-			"email"    => "required|max:191|email|unique:utilisateurs",
-			"password" => "required|min:8|confirmed",
-			"service"  => "required|exists:services,id",
+			"nom"         => "required|max:191",
+			"prenom"      => "required|max:191",
+			"identifiant" => "required|max:191",
+			"email"       => "required|max:191|email|unique:utilisateurs",
+			"password"    => "required|min:8|confirmed",
+			"service_id"  => "required|exists:services,id",
 		]);
 
 		Utilisateur::create([
-			"nom"        => $request->input("nom"),
-			"prenom"     => $request->input("prenom"),
-			"identifiant"     => $request->input("identifiant"),
-			"email"      => $request->input("email"),
-			"password"   => Hash::make($request->input("password")),
-			"service_id" => $request->input("service"),
+			"nom"         => $request->input("nom"),
+			"prenom"      => $request->input("prenom"),
+			"identifiant" => $request->input("identifiant"),
+			"email"       => $request->input("email"),
+			"password"    => Hash::make($request->input("password")),
+			"service_id"  => $request->input("service_id"),
 		]);
 
 		return redirect(route("web.administrations.utilisateurs.index"));
@@ -102,28 +102,21 @@ class UtilisateurController extends Controller
 	public function update(Request $request, Utilisateur $utilisateur): RedirectResponse
 	{
 		$request->validate([
-			"nom"     => "required|max:191",
-			"prenom"  => "required|max:191",
-			"identifiant"  => "required|max:191",
-			"email"   => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
-            "password"=> "nullable|min:8|confirmed",
-			"service" => "required|exists:services,id",
+			"nom"         => "required|max:191",
+			"prenom"      => "required|max:191",
+			"identifiant" => "required|max:191",
+			"email"       => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
+			"password"    => "nullable|min:8|confirmed",
+			"service_id"  => "required|exists:services,id",
 		]);
 
-		$utilisateur->update([
-		    "nom"        => $request->input("nom"),
-			"prenom"     => $request->input("prenom"),
-			"identifiant"     => $request->input("identifiant"),
-			"email"      => $request->input("email"),
-			"service_id" => $request->input("service"),
-        ]);
+		$utilisateur->update($request->only(["nom", "prenom", "identifiant", "email", "service_id"]));
 
-		if($request->input("password"))
-		{
-		    $utilisateur->update([
-                "password"   => Hash::make($request->input("password"))
-            ]);
-        }
+		if ($request->input("password")) {
+			$utilisateur->update([
+				"password" => Hash::make($request->input("password")),
+			]);
+		}
 
 		return redirect(route("web.administrations.utilisateurs.index"));
 	}

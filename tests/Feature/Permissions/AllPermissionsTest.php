@@ -140,6 +140,7 @@ class AllPermissionsTest extends TestCase
 			"/scolarites/eleves/{$eleve->id}/affectations/etablissements",
 			"/scolarites/eleves/{$eleve->id}/affectations/materiels",
 			"/scolarites/eleves/{$eleve->id}/affectations/responsables",
+			"/scolarites/eleves/{$eleve->id}/affectations/responsables/create",
 			"/scolarites/eleves/{$eleve->id}/edit",
 			// "/scolarites/eleves/{$eleve->id}/impressions/autorisations", // libpng warning: iCCP: known incorrect sRGB profil
 			// "/scolarites/eleves/{$eleve->id}/impressions/consignes",     // libpng warning: iCCP: known incorrect sRGB profil
@@ -237,10 +238,10 @@ class AllPermissionsTest extends TestCase
 		];
 
 		$postRoutes = [
+			"/scolarites/eleves/{$eleve->id}/affectations/responsables",
             "/scolarites/eleves",
 			"/scolarites/eleves/{$eleve->id}/affectations/etablissements/{$etablissement->id}",
 			"/scolarites/eleves/{$eleve->id}/affectations/materiels/{$materiel->id}",
-			"/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}",
 			"/scolarites/eleves/{$eleve->id}/documents",
 			"/scolarites/eleves/{$eleve->id}/documents/decisions",
             "/scolarites/eleves/{$eleve->id}/tickets",
@@ -268,6 +269,7 @@ class AllPermissionsTest extends TestCase
 		];
 
 		$patchRoutes = [
+			"/scolarites/eleves/{$eleve->id}/affectations/responsables/{$responsable->id}",
             "/scolarites/eleves/{$eleve->id}",
 			"/scolarites/eleves/{$eleve->id}/documents/{$documents[0]->id}",
 			"/scolarites/eleves/{$eleve->id}/documents/decisions/{$decision->id}",

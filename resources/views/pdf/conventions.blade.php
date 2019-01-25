@@ -38,25 +38,25 @@
 						<p>
 							CONVENTIONS <br>
 							Affaire suivie par : <br>
-							{{ $parametres["conventions/affaire/nom"] }} <br>
-							{{ $parametres["conventions/affaire/telephone"] }} <br>
-							{{ $parametres["conventions/affaire/email"] }} <br>
+							{{ $parametres["conventions/affaire/convention/nom"] }} <br>
+							{{ $parametres["conventions/affaire/convention/telephone"] }} <br>
+							{{ $parametres["conventions/affaire/convention/email"] }} <br>
 						</p>
 
 						<p>
 							MATERIEL INFORMATIQUE <br>
 							Affaire suivie par : <br>
-							{{ $parametres["conventions/informatique/nom"] }} <br>
-							{{ $parametres["conventions/informatique/telephone"] }} <br>
-							{{ $parametres["conventions/informatique/email"] }} <br>
+							{{ $parametres["conventions/affaire/informatique/nom"] }} <br>
+							{{ $parametres["conventions/affaire/informatique/telephone"] }} <br>
+							{{ $parametres["conventions/affaire/informatique/email"] }} <br>
 						</p>
 
 						<p>
 							MATERIEL AUDIO <br>
 							Affaire suivie par : <br>
-							{{ $parametres["conventions/audio/nom"] }} <br>
-							{{ $parametres["conventions/audio/telephone"] }} <br>
-							{{ $parametres["conventions/audio/email"] }} <br>
+							{{ $parametres["conventions/affaire/audio/nom"] }} <br>
+							{{ $parametres["conventions/affaire/audio/telephone"] }} <br>
+							{{ $parametres["conventions/affaire/audio/email"] }} <br>
 						</p>
 
 						<p>

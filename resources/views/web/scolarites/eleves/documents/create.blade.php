@@ -9,16 +9,16 @@
 	</div>
 
 	<!-- enctype="multipart/form-data" permet l'envoie de fichiers -->
-	<form action="{{ route('web.scolarites.eleves.documents.store', $eleve->id) }}" method="POST" enctype="multipart/form-data">
+	<form action="{{ route('web.scolarites.eleves.documents.store', [$eleve]) }}" method="POST" enctype="multipart/form-data">
 		{{ csrf_field() }}
 
 		<div class="row">
 			<div class="col-sm-12 col-md-6">
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input type="text" id="nom" name="nom" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['nom'] ?? '' }}">
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex : Plainte du 01/01/2019"])
+					Nom
+				@endcomponent
 			</div>
+
 
 			<div class="col-sm-12 col-md-6">
 				<div class="form-group">
@@ -26,8 +26,12 @@
 					<select id="type_document_id" class="form-control" name="type_document_id" required>
 						<option selected value="" hidden>Sélectionnez un type</option>
 						@foreach($types as $type)
-							@if($type->libelle !== "Décision"))
-							<option value="{{ $type->id }}">{{ $type->libelle }}</option>
+							@if($type->libelle !== "Décision")
+								@if(old("type_document_id") == $type->id || request("type_document_id") == $type->id)
+									<option selected value="{{ $type->id }}">{{ $type->libelle }}</option>
+								@else
+									<option value="{{ $type->id }}">{{ $type->libelle }}</option>
+								@endif
 							@endif
 						@endforeach
 					</select>
@@ -35,17 +39,16 @@
 			</div>
 
 			<div class="col-sm-12 col-md-6">
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input type="text" id="description" name="description" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['description'] ?? '' }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "description", "placeholder" => "Ex : Suite au vol de matériel"])
+					Description
+				@endcomponent
 			</div>
 
 			<div class="col-sm-12">
 				<label for="file">Fichier</label>
 				<div class="form-group">
 					<div class="custom-file">
-						<input id="file" name="file" type="file" class="custom-file-input">
+						<input id="file" name="file" type="file" class="custom-file-input" required>
 						<label class="custom-file-label" for="file">Choisissez un fichier</label>
 					</div>
 				</div>

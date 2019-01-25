@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\DomaineMaterielObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -22,6 +23,12 @@ class DomaineMateriel extends Model
 	protected $fillable = [
 		"libelle",
 	];
+
+    protected $dispatchesEvents = [
+        "created" => DomaineMaterielObserver::class,
+        "updated" => DomaineMaterielObserver::class,
+        "deleted" => DomaineMaterielObserver::class
+    ];
 
 
 	/**

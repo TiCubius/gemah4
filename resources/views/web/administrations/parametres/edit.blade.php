@@ -1,0 +1,35 @@
+@extends('web._includes._master')
+@section('content')
+	<div class="row">
+
+		@component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
+			Édition des paramètres
+		@endcomponent
+
+		<div class="col-12">
+			<form action="{{ route("web.administrations.parametres.update") }}" method="POST">
+				{{ csrf_field() }}
+				{{ method_field("PATCH") }}
+
+				@foreach($groupedParametres as $key => $group)
+					<div class="card mb-3">
+						<div class="card-header gemah-bg-primary">Paramètres : {{ $key }}</div>
+						<div class="card-body">
+							@foreach($group as $parametre)
+								@component("web._includes.components.input", ["optional" => true, "name" => $parametre->key, "value" => $parametre->value])
+									{{ $parametre->libelle }}
+								@endcomponent
+							@endforeach
+						</div>
+					</div>
+				@endforeach
+
+				<div class="float-right mb-3">
+					<button class="btn btn-sm btn-outline-primary">Editer</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+@endsection
+

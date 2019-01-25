@@ -143,6 +143,7 @@
 
 					let inputs = document.querySelectorAll(".js-checkbox")
 					inputs.forEach((input) => {
+						input.checked = false
 						let checkbox = data.find((d) => {
 							return d.id === input.id
 						})

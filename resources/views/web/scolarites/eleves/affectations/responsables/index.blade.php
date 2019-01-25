@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
+		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.affectations.responsables.create", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Affectation d'un responsable à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 
@@ -64,6 +64,8 @@
 											<div class="btn-group">
 												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 													{{ csrf_field() }}
+													{{ method_field("PATCH") }}
+
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
 											</div>
@@ -84,6 +86,7 @@
 											<div class="btn-group">
 												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 													{{ csrf_field() }}
+													{{ method_field("PATCH") }}
 
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
@@ -130,6 +133,7 @@
 													<td>
 														<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 															{{ csrf_field() }}
+															{{ method_field("PATCH") }}
 
 															<button class="btn btn-sm btn-outline-primary">Affecter</button>
 														</form>

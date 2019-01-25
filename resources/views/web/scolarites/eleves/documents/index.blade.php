@@ -40,9 +40,9 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="form-group">
-					<label for="type">Type de Document</label>
-					<select name="type" id="type" class="form-control" required>
-						<option selected value="" hidden>Choisissez un Type de Document</option>
+					<label for="type">Trier par type de document :</label>
+					<select selected name="type" id="type" class="form-control" required>
+						<option selected value="">Tout les types de documents</option>
 						@foreach($typesDocument as $typeDocument)
 							<option value="{{ $typeDocument->id }}">{{ $typeDocument->libelle }}</option>
 						@endforeach
@@ -160,8 +160,12 @@
 
 			let type = $("#type")
 
-			$(`.js-document`).hide()
-			$(`.js-document-${type.val()}`).show()
+			if (type.val() === "") {
+				$(`.js-document`).show()
+			} else {
+				$(`.js-document`).hide()
+				$(`.js-document-${type.val()}`).show()
+			}
 
 		}).trigger("change")
 

@@ -83,6 +83,11 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etat/physique/materiel/created",
+            "contenue" => "L'état physique matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -133,6 +138,11 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => $Etats[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etat/physique/materiel/modified",
+            "contenue" => "L'état physique matériel {$Etats[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -151,6 +161,11 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => $Etat->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etat/physique/materiel/modified",
+            "contenue" => "L'état physique matériel {$Etat->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -169,6 +184,11 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("etats_physiques_materiels", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etat/physique/materiel/modified",
+            "contenue" => "L'état physique matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -201,6 +221,11 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$this->assertDatabaseMissing("etats_physiques_materiels", [
 			"libelle" => $EtatMateriel->libelle,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etat/physique/materiel/deleted",
+            "contenue" => "L'état physique matériel {$EtatMateriel->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

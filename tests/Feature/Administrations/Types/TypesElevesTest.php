@@ -85,6 +85,11 @@ class TypeEleveTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/eleve/created",
+            "contenue" => "Le type d'élève unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -135,6 +140,11 @@ class TypeEleveTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_eleves", ["libelle" => $type[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/eleve/modified",
+            "contenue" => "Le type d'élève {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -153,6 +163,11 @@ class TypeEleveTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/eleve/modified",
+            "contenue" => "Le type d'élève {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -171,6 +186,11 @@ class TypeEleveTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/eleve/modified",
+            "contenue" => "Le type d'élève unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -218,6 +238,11 @@ class TypeEleveTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/eleve/deleted",
+            "contenue" => "Le type d'élève {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

@@ -19,15 +19,15 @@ class DepartementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $departement->id,
-                "type" => "departement_created",
-                "contenue" => "Le domaine {$departement->libelle} à été créé par {$user->nom}"
+                "departement_id" => $departement->id,
+                "type" => "departement/created",
+                "contenue" => "Le département {$departement->nom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un département est modifié
      *
      * @param Departement $departement
      */
@@ -37,15 +37,15 @@ class DepartementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $departement->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$departement->libelle} à été modifié par {$user->nom}"
+                "departement_id" => $departement->id,
+                "type" => "departement/modified",
+                "contenue" => "Le département {$departement->nom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un département est supprimé
      *
      * @param Departement $departement
      */
@@ -55,8 +55,8 @@ class DepartementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$departement->libelle} à été supprimé par {$user->nom}"
+                "type" => "departement/deleted",
+                "contenue" => "Le département {$departement->nom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

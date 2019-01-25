@@ -19,15 +19,15 @@ class AcademieObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $academie->id,
-                "type" => "academie_created",
-                "contenue" => "L'académie {$academie->libelle} à été créée par {$user->nom}"
+                "academie_id" => $academie->id,
+                "type" => "academie/created",
+                "contenue" => "L'académie {$academie->nom} à été créée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu'une académie est créée
+     * Ajoute une ligne à l'historique dès qu'une académie est modifiée
      *
      * @param Academie $academie
      */
@@ -37,15 +37,15 @@ class AcademieObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $academie->id,
-                "type" => "academie_updated",
-                "contenue" => "L'académie {$academie->libelle} à été modifiée par {$user->nom}"
+                "academie_id" => $academie->id,
+                "type" => "academie/modified",
+                "contenue" => "L'académie {$academie->nom} à été modifiée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu'une académie est créée
+     * Ajoute une ligne à l'historique dès qu'une académie est supprimée
      *
      * @param Academie $academie
      */
@@ -55,8 +55,8 @@ class AcademieObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "academie_deleted",
-                "contenue" => "L'académie {$academie->libelle} à été supprimée par {$user->nom}"
+                "type" => "academie/deleted",
+                "contenue" => "L'académie {$academie->nom} à été supprimée par {$user->nom} {$user->prenom}"
             ]);
         }
     }

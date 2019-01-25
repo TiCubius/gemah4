@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class RegionObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'une région est créée
      *
      * @param Region $region
      */
@@ -19,15 +19,15 @@ class RegionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $region->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$region->libelle} à été créé par {$user->nom}"
+                "region_id" => $region->id,
+                "type" => "region/created",
+                "contenue" => "La région {$region->nom} à été créée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'une région est modifiée
      *
      * @param Region $region
      */
@@ -37,15 +37,15 @@ class RegionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $region->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$region->libelle} à été modifié par {$user->nom}"
+                "region_id" => $region->id,
+                "type" => "region/modified",
+                "contenue" => "La région {$region->nom} à été modifiée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'une région est supprimée
      *
      * @param Region $region
      */
@@ -55,8 +55,8 @@ class RegionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$region->libelle} à été supprimé par {$user->nom}"
+                "type" => "region/deleted",
+                "contenue" => "La région {$region->nom} à été supprimée par {$user->nom} {$user->prenom}"
             ]);
         }
     }

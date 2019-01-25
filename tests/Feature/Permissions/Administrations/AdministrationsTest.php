@@ -11,7 +11,7 @@ use Tests\TestCase;
 class AdministrationsTest extends TestCase
 {
     private $service;
-    private $user;
+    protected $user;
 
     /**
      * Création d'un utilisateur possèdant un service avec uniquement la permission de visualitation de l'index d'administration

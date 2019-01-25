@@ -25,7 +25,9 @@ class CreateHistoriquesTable extends Migration
             $table->unsignedInteger('responsable_id')->nullable();
             $table->unsignedInteger('enseignant_id')->nullable();
             $table->string('etablissement_id')->nullable();
+            $table->unsignedInteger('type_etablissement_id')->nullable();
             $table->unsignedInteger('eleve_id')->nullable();
+            $table->unsignedInteger('type_eleve_id')->nullable();
 
             $table->unsignedInteger('ticket_id')->nullable();
             $table->unsignedInteger('message_ticket_id')->nullable();

@@ -19,15 +19,15 @@ class DecisionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $decision->id,
-                "type" => "decision_created",
-                "contenue" => "La décision {$decision->libelle} à été créée par {$user->nom}"
+                "decision_id" => $decision->id,
+                "type" => "decision/created",
+                "contenue" => "La décision {$decision->libelle} à été créée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'une décision est modifiée
      *
      * @param Decision $decision
      */
@@ -37,15 +37,15 @@ class DecisionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $decision->id,
-                "type" => "decision_updated",
-                "contenue" => "La décision {$decision->libelle} à été modifiée par {$user->nom}"
+                "decision_id" => $decision->id,
+                "type" => "decision/modified",
+                "contenue" => "La décision {$decision->libelle} à été modifiée par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'une décision est supprimée
      *
      * @param Decision $decision
      */
@@ -55,8 +55,8 @@ class DecisionObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "decision_deleted",
-                "contenue" => "La décision {$decision->libelle} à été supprimée par {$user->nom}"
+                "type" => "decision/deleted",
+                "contenue" => "La décision {$decision->libelle} à été supprimée par {$user->nom} {$user->prenom}"
             ]);
         }
     }

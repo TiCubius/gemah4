@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Session;
 class DocumentObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un document est créé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Document $document
      */
     public function created(Document $document)
     {
@@ -19,17 +19,17 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $document->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$document->libelle} à été créé par {$user->nom}"
+                "document_id" => $document->id,
+                "type" => "document/created",
+                "contenue" => "Le document {$document->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un document est modifié
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Document $document
      */
     public function updated(Document $document)
     {
@@ -37,17 +37,17 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $document->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$document->libelle} à été modifié par {$user->nom}"
+                "document_id" => $document->id,
+                "type" => "document/modified",
+                "contenue" => "Le document {$document->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un document est supprimé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Document $document
      */
     public function deleted(Document $document)
     {
@@ -55,8 +55,8 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$document->libelle} à été supprimé par {$user->nom}"
+                "type" => "document/deleted",
+                "contenue" => "Le document {$document->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

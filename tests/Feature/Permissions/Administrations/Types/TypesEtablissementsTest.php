@@ -12,7 +12,7 @@ use Tests\TestCase;
 class TypesEtablissementsTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types d'établissement

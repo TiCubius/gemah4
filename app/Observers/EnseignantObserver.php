@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class EnseignantObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un enseignant est créé
      *
      * @param Enseignant $enseignant
      */
@@ -19,15 +19,15 @@ class EnseignantObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $enseignant->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$enseignant->libelle} à été créé par {$user->nom}"
+                "enseignant_id" => $enseignant->id,
+                "type" => "enseignant/created",
+                "contenue" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un enseignant est modifié
      *
      * @param Enseignant $enseignant
      */
@@ -37,15 +37,15 @@ class EnseignantObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $enseignant->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$enseignant->libelle} à été modifié par {$user->nom}"
+                "enseignant_id" => $enseignant->id,
+                "type" => "enseignant/modified",
+                "contenue" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un enseignant est supprimé
      *
      * @param Enseignant $enseignant
      */
@@ -55,8 +55,8 @@ class EnseignantObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$enseignant->libelle} à été supprimé par {$user->nom}"
+                "type" => "enseignant/deleted",
+                "contenue" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

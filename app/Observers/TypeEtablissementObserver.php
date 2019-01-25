@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class TypeEtablissementObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type d'établissement est créé
      *
      * @param TypeEtablissement $domaineMateriel
      */
-    public function created(TypeEtablissement $domaineMateriel)
+    public function created(TypeEtablissement $typeEtablissement)
     {
         if(Session::has("user")){
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $domaineMateriel->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$domaineMateriel->libelle} à été créé par {$user->nom}"
+                "type_etablissement_id" => $typeEtablissement->id,
+                "type" => "type/etablissement/created",
+                "contenue" => "Le type d'établissement {$typeEtablissement->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type d'établissement est modifié
      *
      * @param TypeEtablissement $domaineMateriel
      */
-    public function updated(TypeEtablissement $domaineMateriel)
+    public function updated(TypeEtablissement $typeEtablissement)
     {
         if(Session::has("user")){
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $domaineMateriel->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$domaineMateriel->libelle} à été modifié par {$user->nom}"
+                "type_etablissement_id" => $typeEtablissement->id,
+                "type" => "type/etablissement/modified",
+                "contenue" => "Le type d'établissement {$typeEtablissement->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type d'établissement est supprimé
      *
      * @param TypeEtablissement $domaineMateriel
      */
-    public function deleted(TypeEtablissement $domaineMateriel)
+    public function deleted(TypeEtablissement $typeEtablissement)
     {
         if(Session::has("user")){
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$domaineMateriel->libelle} à été supprimé par {$user->nom}"
+                "type" => "type/etablissement/deleted",
+                "contenue" => "Le type d'établissement {$typeEtablissement->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

@@ -3,16 +3,15 @@
 namespace App\Observers;
 
 use App\Historique;
-use App\Models\DomaineMateriel;
 use App\Models\Etablissement;
 use Illuminate\Support\Facades\Session;
 
 class EtablissementObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un établissement est créé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Etablissement $etablissement
      */
     public function created(Etablissement $etablissement)
     {
@@ -20,17 +19,17 @@ class EtablissementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $etablissement->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$etablissement->nom} à été créé par {$user->nom}"
+                "etablissement_id" => $etablissement->id,
+                "type" => "etablissement/created",
+                "contenue" => "L'établissement {$etablissement->nom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un établissement est modifié
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Etablissement $etablissement
      */
     public function updated(Etablissement $etablissement)
     {
@@ -38,17 +37,17 @@ class EtablissementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $etablissement->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$etablissement->nom} à été modifié par {$user->nom}"
+                "etablissement_id" => $etablissement->id,
+                "type" => "etablissement/modified",
+                "contenue" => "L'établissement {$etablissement->nom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un établissement est supprimé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param Etablissement $etablissement
      */
     public function deleted(Etablissement $etablissement)
     {
@@ -56,8 +55,8 @@ class EtablissementObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$etablissement->nom} à été supprimé par {$user->nom}"
+                "type" => "etablissement/deleted",
+                "contenue" => "L'établissement {$etablissement->nom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

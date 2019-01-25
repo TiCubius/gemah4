@@ -12,7 +12,7 @@ use Tests\TestCase;
 class StocksMaterielTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des stocks de matériel

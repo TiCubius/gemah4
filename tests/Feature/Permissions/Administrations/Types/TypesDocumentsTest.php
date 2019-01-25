@@ -12,7 +12,7 @@ use Tests\TestCase;
 class TypesDocumentsTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types de document

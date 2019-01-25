@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class TypeMaterielObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type de matériel est créé
      *
      * @param TypeMateriel $typeMateriel
      */
@@ -19,15 +19,15 @@ class TypeMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $typeMateriel->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$typeMateriel->libelle} à été créé par {$user->nom}"
+                "type_materiel_id" => $typeMateriel->id,
+                "type" => "type/materiel/created",
+                "contenue" => "Le type de matériel {$typeMateriel->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type de matériel est modifié
      *
      * @param TypeMateriel $typeMateriel
      */
@@ -37,15 +37,15 @@ class TypeMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $typeMateriel->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$typeMateriel->libelle} à été modifié par {$user->nom}"
+                "type_materiel_id" => $typeMateriel->id,
+                "type" => "type/materiel/modified",
+                "contenue" => "Le type de matériel {$typeMateriel->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un type de matériel est supprimé
      *
      * @param TypeMateriel $typeMateriel
      */
@@ -55,8 +55,8 @@ class TypeMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$typeMateriel->libelle} à été supprimé par {$user->nom}"
+                "type" => "type/materiel/deleted",
+                "contenue" => "Le type de matériel {$typeMateriel->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

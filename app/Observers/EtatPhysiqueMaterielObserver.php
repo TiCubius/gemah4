@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class EtatPhysiqueMaterielObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un état physique de matériel est créé
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -20,15 +20,15 @@ class EtatPhysiqueMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $etatPhysiqueMateriel->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$etatPhysiqueMateriel->libelle} à été créé par {$user->nom}"
+                "etat_physique_materiel_id" => $etatPhysiqueMateriel->id,
+                "type" => "etat/physique/materiel/created",
+                "contenue" => "L'état physique matériel {$etatPhysiqueMateriel->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un état physique de matériel est modifié
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -38,15 +38,15 @@ class EtatPhysiqueMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $etatPhysiqueMateriel->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$etatPhysiqueMateriel->libelle} à été modifié par {$user->nom}"
+                "etat_physique_materiel_id" => $etatPhysiqueMateriel->id,
+                "type" => "etat/physique/materiel/modified",
+                "contenue" => "L'état physique matériel {$etatPhysiqueMateriel->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un état physique de matériel est supprimé
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -56,8 +56,8 @@ class EtatPhysiqueMaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$etatPhysiqueMateriel->libelle} à été supprimé par {$user->nom}"
+                "type" => "etat/physique/materiel/deleted",
+                "contenue" => "L'état physique matériel {$etatPhysiqueMateriel->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

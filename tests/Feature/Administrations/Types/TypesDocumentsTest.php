@@ -85,6 +85,11 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_documents", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/document/created",
+            "contenue" => "Le type de document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -135,6 +140,11 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_documents", ["libelle" => $type[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/document/modified",
+            "contenue" => "Le type de document {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -153,6 +163,11 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_documents", ["libelle" => $type->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/document/modified",
+            "contenue" => "Le type de document {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -171,6 +186,11 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_documents", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/document/modified",
+            "contenue" => "Le type de document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -219,6 +239,11 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("types_documents", ["libelle" => $type->libelle]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/document/deleted",
+            "contenue" => "Le type de document {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

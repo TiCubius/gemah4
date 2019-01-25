@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class ServiceObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un service est créé
      *
      * @param Service $service
      */
@@ -19,15 +19,15 @@ class ServiceObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $service->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$service->libelle} à été créé par {$user->nom}"
+                "service_id" => $service->id,
+                "type" => "service/created",
+                "contenue" => "Le service {$service->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un service est modifié
      *
      * @param Service $service
      */
@@ -37,15 +37,15 @@ class ServiceObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $service->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$service->libelle} à été modifié par {$user->nom}"
+                "service_id" => $service->id,
+                "type" => "service/modified",
+                "contenue" => "Le service {$service->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un service est supprimé
      *
      * @param Service $service
      */
@@ -55,8 +55,8 @@ class ServiceObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$service->libelle} à été supprimé par {$user->nom}"
+                "type" => "service/deleted",
+                "contenue" => "Le service {$service->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

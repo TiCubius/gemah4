@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Session;
 class UtilisateurObserver
 {
     /***
+     * Ajoute une ligne à l'historique dès qu'un utilisateur est créé
+     *
      * @param Utilisateur $utilisateur
      */
     public function created(Utilisateur $utilisateur)
@@ -17,14 +19,16 @@ class UtilisateurObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $utilisateur->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$utilisateur->libelle} à été créé par {$user->nom}"
+                "utilisateur_id" => $utilisateur->id,
+                "type" => "utilisateur/created",
+                "contenue" => "L'utilisateur {$utilisateur->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
+     * Ajoute une ligne à l'historique dès qu'un utilisateur est modifié
+     *
      * @param Utilisateur $utilisateur
      */
     public function updated(Utilisateur $utilisateur)
@@ -33,14 +37,16 @@ class UtilisateurObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $utilisateur->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$utilisateur->libelle} à été modifié par {$user->nom}"
+                "utilisateur_id" => $utilisateur->id,
+                "type" => "utilisateur/modified",
+                "contenue" => "L'utilisateur {$utilisateur->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
+     * Ajoute une ligne à l'historique dès qu'un utilisateur est supprimé
+     *
      * @param Utilisateur $utilisateur
      */
     public function deleted(Utilisateur $utilisateur)
@@ -49,8 +55,8 @@ class UtilisateurObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$utilisateur->libelle} à été supprimé par {$user->nom}"
+                "type" => "utilisateur/deleted",
+                "contenue" => "L'utilisateur {$utilisateur->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

@@ -82,6 +82,11 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_tickets", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/ticket/created",
+            "contenue" => "Le type de ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/***
@@ -131,6 +136,11 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_tickets", ["libelle" => $types[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/ticket/modified",
+            "contenue" => "Le type de ticket {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/***
@@ -149,6 +159,11 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_tickets", ["libelle" => $type->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/ticket/modified",
+            "contenue" => "Le type de ticket {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/***
@@ -167,6 +182,11 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_tickets", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/ticket/modified",
+            "contenue" => "Le type de ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/***
@@ -197,5 +217,10 @@ class TypesTicketsTest extends TestCase
 		$this->assertDatabaseMissing("types_tickets", [
 			"libelle" => $type->libelle,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/ticket/deleted",
+            "contenue" => "Le type de ticket {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

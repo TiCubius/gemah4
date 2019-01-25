@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class MaterielObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un matériel est créé
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -20,15 +20,15 @@ class MaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $materiel->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$materiel->libelle} à été créé par {$user->nom}"
+                "materiel_id" => $materiel->id,
+                "type" => "materiel/created",
+                "contenue" => "Le matériel {$materiel->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un matériel est modifié
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -38,15 +38,15 @@ class MaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $materiel->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$materiel->libelle} à été modifié par {$user->nom}"
+                "materiel_id" => $materiel->id,
+                "type" => "materiel/modified",
+                "contenue" => "Le matériel {$materiel->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un matériel est supprimé
      *
      * @param DomaineMateriel $domaineMateriel
      */
@@ -56,8 +56,8 @@ class MaterielObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$materiel->libelle} à été supprimé par {$user->nom}"
+                "type" => "materiel/deleted",
+                "contenue" => "Le matériel {$materiel->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

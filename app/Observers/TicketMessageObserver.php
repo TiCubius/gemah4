@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class TicketMessageObserver
 {
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un message est créé
      *
      * @param TicketMessage $ticketMessage
      */
@@ -19,15 +19,15 @@ class TicketMessageObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $ticketMessage->id,
-                "type" => "domaine_materiel_created",
-                "contenue" => "Le domaine {$ticketMessage->libelle} à été créé par {$user->nom}"
+                "message_ticket_id" => $ticketMessage->id,
+                "type" => "ticket/message/created",
+                "contenue" => "Le ticket {$ticketMessage->ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un message est modifié
      *
      * @param TicketMessage $ticketMessage
      */
@@ -37,15 +37,15 @@ class TicketMessageObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "domaine_id" => $ticketMessage->id,
-                "type" => "domaine_materiel_updated",
-                "contenue" => "Le domaine {$ticketMessage->libelle} à été modifié par {$user->nom}"
+                "message_ticket_id" => $ticketMessage->id,
+                "type" => "ticket/message/modified",
+                "contenue" => "Le ticket {$ticketMessage->ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
 
     /***
-     * Ajoute une ligne à l'historique dès qu
+     * Ajoute une ligne à l'historique dès qu'un message est supprimé
      *
      * @param TicketMessage $ticketMessage
      */
@@ -55,8 +55,8 @@ class TicketMessageObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
-                "type" => "domaine_materiel_deleted",
-                "contenue" => "Le domaine {$ticketMessage->libelle} à été supprimé par {$user->nom}"
+                "type" => "ticket/message/deleted",
+                "contenue" => "Le ticket {$ticketMessage->ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }

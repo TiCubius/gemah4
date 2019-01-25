@@ -18,9 +18,12 @@
 						<a class="dropdown-item" href="{{route('web.scolarites.eleves.documents.decisions.create', [$eleve]) }}">
 							Décision
 						</a>
-						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.documents.create', [$eleve]) }}">
-							Autre document
-						</a>
+
+						@foreach($types->where("libelle", "<>", "Décision") as $type)
+							<a class="dropdown-item" href="{{ route('web.scolarites.eleves.documents.create', [$eleve, "type_document_id" => $type->id]) }}">
+								{{ $type->libelle }}
+							</a>
+						@endforeach
 					</div>
 				</div>
 			@endslot
@@ -43,7 +46,7 @@
 					<label for="type">Trier par type de document :</label>
 					<select selected name="type" id="type" class="form-control" required>
 						<option selected value="">Tout les types de documents</option>
-						@foreach($typesDocument as $typeDocument)
+						@foreach($types as $typeDocument)
 							<option value="{{ $typeDocument->id }}">{{ $typeDocument->libelle }}</option>
 						@endforeach
 					</select>
@@ -56,29 +59,34 @@
 						<div class="card mb-3">
 							<div class="card-body">
 								<p class="mb-0">
-									<b>Réunion CDA</b>:
+									<strong>Nom</strong>:
+									{!! $document->nom ?? '<span class="text-muted">Non défini</span>' !!}
+								</p>
+								<hr>
+								<p class="mb-0">
+									<strong>Réunion CDA</strong>:
 									{!! $document->decision->date_cda ? $document->decision->date_cda->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p class="mb-0">
-									<b>Réception de la Notification</b>:
+									<strong>Réception de la Notification</strong>:
 									{!! $document->decision->date_notification ? $document->decision->date_notification->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p class="mb-0">
-									<b>Date Limite de la Décision</b>:
+									<strong>Date Limite de la Décision</strong>:
 									{!! $document->decision->date_limite ? $document->decision->date_limite->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p class="mb-0">
-									<b>Date Convention</b>:
+									<strong>Date Convention</strong>:
 									{!! $document->decision->date_convention ? $document->decision->date_convention->format("d/m/Y") : '<span class="text-muted">Non défini</span>' !!}
 								</p>
 
 								<hr>
 								<p class="mb-0">
-									<b>Numéro MDPH</b>:
+									<strong>Numéro MDPH</strong>:
 									{!! $document->decision->numero_dossier ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p class="mb-0">
-									<b>Enseignant Référent</b>:
+									<strong>Enseignant Référent</strong>:
 									@if ($document->decision->enseignant)
 										{{ "{$document->decision->enseignant->nom} {$document->decision->enseignant->prenom}" }}
 									@else
@@ -86,7 +94,7 @@
 									@endif
 								</p>
 								<p class="mb-0">
-									<b>Suivi par</b>:
+									<strong>Suivi par</strong>:
 									{!! $document->decision->nom_suivi ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
 							</div>
@@ -115,11 +123,11 @@
 						<div class="card mb-3">
 							<div class="card-body">
 								<p class="mb-0">
-									<b>Nom</b>:
+									<strong>Nom</strong>:
 									{!! $document->nom ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p>
-									<b>Description</b>:
+									<strong>Description</strong>:
 									{!! $document->description ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
 								<p class="mb-0">Document soumis le {{ $document->created_at }}</p>

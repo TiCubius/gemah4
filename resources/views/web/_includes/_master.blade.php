@@ -51,6 +51,12 @@
 				$('[data-toggle="tooltip"]').tooltip()
 			})
 		</script>
+		<script type="application/javascript">
+			$('input[type="file"]').change(function (e) {
+				let fileName = e.target.files[0].name
+				$('.custom-file-label').html(fileName)
+			})
+		</script>
 		@yield("scripts")
 	</body>
 </html>

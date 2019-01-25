@@ -6,7 +6,7 @@ class TypesDocumentSeeder extends Seeder
 {
 	protected $types = [
 		"Décision",
-		"Autre",
+		"Autre document",
 	];
 
 	public function run()

@@ -8,9 +8,11 @@
 		<p class="small text-muted mb-0">Ceci est un message automatique, merci de ne pas y répondre</p>
 	</div>
 
+
 	<div class="card d-block">
 		<div class="card-header gemah-bg-primary">
 			Informations sur l'élève
+
 			<div class="float-right">
 				@foreach($eleve->types as $type)
 					<div class="badge badge-success m-0">{{ $type->libelle }}</div>
@@ -23,12 +25,9 @@
 			<strong>Date de naissance</strong>: {{ \Carbon\Carbon::parse($eleve->date_naissance)->format('d/m/Y') }} <br>
 			<strong>Classe</strong>: {{ $eleve->classe }}
 		</div>
-
 		<div class="card-footer text-center d-block">
-			<a href="{{ route('web.scolarites.eleves.show', [$eleve->id]) }}">
-				<button class="btn btn-sm btn-outline-primary">
-					Profil de l'élève
-				</button>
+			<a class="btn btn-sm btn-outline-primary" href="{{ route('web.scolarites.eleves.show', [$eleve->id]) }}">
+				Profil de l'élève
 			</a>
 		</div>
 	</div>

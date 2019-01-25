@@ -56,9 +56,9 @@ class DecisionCreatedMail extends Mailable
 	public function build()
 	{
 		$types = join(" / ", $this->eleve->types->pluck("libelle")->toArray());
-		$subject = "DEBUG - 3.00 - [{$types}] - Nouvelle décision pour {$this->eleve->nom} {$this->eleve->prenom}";
+		$subject = "GEMAH - 3.00 - [{$types}] - Nouvelle décision pour {$this->eleve->nom} {$this->eleve->prenom}";
 
-		return $this->from("no-reply@gemah.fr")->to($this->emails)->subject($subject)->view('emails.scolarites.eleves.decisions.create')->with([
+		return $this->from("dsi-bureautique42@ac-lyon.fr")->bcc($this->emails)->subject($subject)->view('emails.scolarites.eleves.decisions.create')->with([
 			"eleve"    => $this->eleve,
 			"decision" => $this->decision,
 		]);

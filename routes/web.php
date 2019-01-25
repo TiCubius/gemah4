@@ -104,6 +104,7 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("academies", "Administrations\AcademieController");
 		Route::resource("regions", "Administrations\RegionController");
 
+		Route::get("parametres/edit", "Administrations\ParametreController@edit")->name("parametres.edit");
 		Route::patch("parametres", "Administrations\ParametreController@update")->name("parametres.update");
 
 		Route::resource("services", "Administrations\ServiceController");

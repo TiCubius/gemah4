@@ -8,47 +8,47 @@ class ParametresSeeders extends Seeder
 		"42" => [
 			[
 				"libelle" => "Affaire suivie par",
-				"key"     => "conventions/affaire/nom",
+				"key"     => "conventions/affaire/convention/nom",
 				"value"   => "DECHAVANNE Béatrice",
 			],
 			[
 				"libelle" => "Téléphone",
-				"key"     => "conventions/affaire/telephone",
+				"key"     => "conventions/affaire/convention/telephone",
 				"value"   => "04 77 81 41 13",
 			],
 			[
 				"libelle" => "E-Mail",
-				"key"     => "conventions/affaire/email",
+				"key"     => "conventions/affaire/convention/email",
 				"value"   => "",
 			],
 			[
 				"libelle" => "Affaire suivie par",
-				"key"     => "conventions/informatique/nom",
+				"key"     => "conventions/affaire/informatique/nom",
 				"value"   => "GOUNON Jean-Jacques",
 			],
 			[
 				"libelle" => "Téléphone",
-				"key"     => "conventions/informatique/telephone",
+				"key"     => "conventions/affaire/informatique/telephone",
 				"value"   => "04 77 81 79 47",
 			],
 			[
 				"libelle" => "E-Mail",
-				"key"     => "conventions/informatique/email",
+				"key"     => "conventions/affaire/informatique/email",
 				"value"   => "",
 			],
 			[
 				"libelle" => "Affaire suivie par",
-				"key"     => "conventions/audio/nom",
+				"key"     => "conventions/affaire/audio/nom",
 				"value"   => "GAVILLET Annick",
 			],
 			[
 				"libelle" => "Téléphone",
-				"key"     => "conventions/audio/telephone",
+				"key"     => "conventions/affaire/audio/telephone",
 				"value"   => "04 77 81 41 38",
 			],
 			[
 				"libelle" => "E-Mail",
-				"key"     => "conventions/audio/email",
+				"key"     => "conventions/affaire/audio/email",
 				"value"   => "",
 			],
 			[

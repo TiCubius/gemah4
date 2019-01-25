@@ -43,7 +43,7 @@ class UtilisateursTest extends TestCase
 		$request->assertSee("Prénom");
 		$request->assertSee("Identifiant");
 		$request->assertSee("Adresse");
-		$request->assertSee("Mot");
+		$request->assertSee("Mot de passe");
 		$request->assertSee("Confirmation du mot de passe");
 		$request->assertSee("Département");
 		$request->assertSee("Service");
@@ -98,7 +98,7 @@ class UtilisateursTest extends TestCase
 			"email"                 => "unit@testing.fr",
 			"password"              => "unit.testing",
 			"password_confirmation" => "unit.testing",
-			"service"               => $Service->id,
+			"service_id"            => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -155,12 +155,12 @@ class UtilisateursTest extends TestCase
 		$Utilisateurs = factory(Utilisateur::class, 2)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateurs[0]->id}", [
-			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
-			"prenom"  => "unit.testing",
-			"identifiant"  => "unit.testing",
-			"email"   => $Utilisateurs[1]->email,
-			"service" => $Service->id,
+			"_token"      => csrf_token(),
+			"nom"         => "unit.testing",
+			"prenom"      => "unit.testing",
+			"identifiant" => "unit.testing",
+			"email"       => $Utilisateurs[1]->email,
+			"service_id"  => $Service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -177,12 +177,12 @@ class UtilisateursTest extends TestCase
 		$Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
-			"_token"  => csrf_token(),
-			"nom"     => $Utilisateur->nom,
-			"prenom"  => $Utilisateur->prenom,
-			"identifiant"  => $Utilisateur->identifiant,
-			"email"   => $Utilisateur->email,
-			"service" => $Utilisateur->service_id,
+			"_token"      => csrf_token(),
+			"nom"         => $Utilisateur->nom,
+			"prenom"      => $Utilisateur->prenom,
+			"identifiant" => $Utilisateur->identifiant,
+			"email"       => $Utilisateur->email,
+			"service_id"  => $Utilisateur->service_id,
 		]);
 
 		$request->assertStatus(302);
@@ -190,53 +190,53 @@ class UtilisateursTest extends TestCase
 		$this->assertDatabaseHas("utilisateurs", ["email" => $Utilisateur->email]);
 	}
 
-    /**
-     * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
-     * d'un formulaire d'édition complet avec modification
-     */
-    public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
-    {
-        $Service = factory(Service::class)->create();
-        $Utilisateur = factory(Utilisateur::class)->create();
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
+	 */
+	public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
+	{
+		$Service = factory(Service::class)->create();
+		$Utilisateur = factory(Utilisateur::class)->create();
 
 		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
-			"_token"  => csrf_token(),
-			"nom"     => "unit.testing",
-			"prenom"  => "unit.testing",
-			"identifiant"  => "unit.testing",
-			"email"   => "unit@testing.fr",
-			"service" => $Service->id,
+			"_token"      => csrf_token(),
+			"nom"         => "unit.testing",
+			"prenom"      => "unit.testing",
+			"identifiant" => "unit.testing",
+			"email"       => "unit@testing.fr",
+			"service_id"  => $Service->id,
 		]);
 
-        $request->assertStatus(302);
-        $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("utilisateurs", ["email" => "unit@testing.fr"]);
-    }
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("utilisateurs", ["email" => "unit@testing.fr"]);
+	}
 
-    /**
-     * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
-     * d'un formulaire d'édition complet avec modification
-     */
-    public function testTraitementFormulaireModificationMotDePasse()
-    {
-        $utilisateur = factory(Utilisateur::class)->create();
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que l'utilisateur à bien été édité lors de la soumission
+	 * d'un formulaire d'édition complet avec modification
+	 */
+	public function testTraitementFormulaireModificationMotDePasse()
+	{
+		$utilisateur = factory(Utilisateur::class)->create();
 
-        $request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
-            "_token"  => csrf_token(),
-            "nom"     => $utilisateur->nom,
-            "prenom"  => $utilisateur->prenom,
-            "identifiant"  => $utilisateur->identifiant,
-            "email"   => $utilisateur->email,
-            "service" => $utilisateur->service_id,
-            'password' => 'unit.testing',
-            'password_confirmation' => 'unit.testing',
-        ]);
+		$request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
+			"_token"                => csrf_token(),
+			"nom"                   => $utilisateur->nom,
+			"prenom"                => $utilisateur->prenom,
+			"identifiant"           => $utilisateur->identifiant,
+			"email"                 => $utilisateur->email,
+			"service_id"            => $utilisateur->service_id,
+			'password'              => 'unit.testing',
+			'password_confirmation' => 'unit.testing',
+		]);
 
-        $request->assertStatus(302);
-        $request->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("utilisateurs", ["email" => $utilisateur->email]);
-        $this->assertDatabaseMissing("utilisateurs", ["password" => $utilisateur->password]);
-    }
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("utilisateurs", ["email" => $utilisateur->email]);
+		$this->assertDatabaseMissing("utilisateurs", ["password" => $utilisateur->password]);
+	}
 
 	/**
 	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues

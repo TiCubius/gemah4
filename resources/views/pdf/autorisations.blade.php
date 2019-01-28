@@ -16,7 +16,7 @@
 					<img src="{{ resource_path("images/dsden-logo.png") }}">
 				</section>
 
-				<section id="responsable" style="margin-top: 50px; text-align: right;">
+				<section id="responsable" style="margin-top: 50px; margin-left: 58%;">
 					<p>
 						L’Inspecteur d’académie, directeur académique <br>
 						des services de l’éducation nationale de la Loire

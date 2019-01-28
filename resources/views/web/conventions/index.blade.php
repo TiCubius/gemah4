@@ -14,11 +14,11 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" href="{{ route("web.conventions.signatures_effectuees") }}">Générer la liste des responsables ayant signé</a>
-						<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}">Générer la liste des responsables n'ayant pas signé</a>
+						<a class="dropdown-item" href="{{ route("web.conventions.signatures_effectuees") }}" target="_blank">Générer la liste des responsables ayant signé</a>
+						<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}" target="_blank">Générer la liste des responsables n'ayant pas signé</a>
 
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}">Générer toutes les conventions non signées</a>
+						<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}" target="_blank">Générer toutes les conventions non signées</a>
 
 						<div class="dropdown-divider"></div>
 						<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>

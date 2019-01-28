@@ -17,14 +17,14 @@
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve]) }}">Affecter à un responsable</a>
 
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}">Modifier l'élève</a>
+						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}">Éditer l'élève</a>
 
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.autorisations", [$eleve]) }}">Autorisation CNIL</a>
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.consignes", [$eleve]) }}">Consignes du matériel</a>
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}">Convention</a>
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}">Récapitulatif</a>
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recuperations", [$eleve]) }}">Récépissé de récupération</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.autorisations", [$eleve]) }}" target="_blank">Autorisation CNIL</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.consignes", [$eleve]) }}" target="_blank">Consignes du matériel</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}" target="_blank">Convention</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}" target="_blank">Récapitulatif</a>
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recuperations", [$eleve]) }}" target="_blank">Récépissé de récupération</a>
 					</div>
 				</div>
 			@endslot

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Administrations;
 
+use App\Models\Academie;
 use App\Models\Region;
 use Tests\TestCase;
 
@@ -13,15 +14,15 @@ class RegionsTest extends TestCase
 	 */
 	public function testAffichageIndexRegions()
 	{
-		$Regions = factory(Region::class, 5)->create();
+		$regions = factory(Region::class, 5)->create();
 
 		$request = $this->get("/administrations/regions");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des régions");
 
-		foreach ($Regions as $Region) {
-			$request->assertSee($Region->nom);
+		foreach ($regions as $region) {
+			$request->assertSee($region->nom);
 		}
 	}
 
@@ -59,11 +60,11 @@ class RegionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationRegionExistante()
 	{
-		$Regions = factory(Region::class, 5)->create();
+		$regions = factory(Region::class, 5)->create();
 
 		$request = $this->post("/administrations/regions", [
 			"_token" => csrf_token(),
-			"nom"    => $Regions->random()->nom,
+			"nom"    => $regions->random()->nom,
 		]);
 
 		$request->assertStatus(302);
@@ -84,6 +85,11 @@ class RegionsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("regions", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/created",
+            "contenue" => "La région unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -92,12 +98,12 @@ class RegionsTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionRegion()
 	{
-		$Region = factory(Region::class)->create();
+		$region = factory(Region::class)->create();
 
-		$request = $this->get("/administrations/regions/{$Region->id}/edit");
+		$request = $this->get("/administrations/regions/{$region->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Region->nom}");
+		$request->assertSee("Édition de {$region->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Éditer");
 	}
@@ -107,9 +113,9 @@ class RegionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionRegionIncomplet()
 	{
-		$Region = factory(Region::class)->create();
+		$region = factory(Region::class)->create();
 
-		$request = $this->put("/administrations/regions/{$Region->id}", [
+		$request = $this->put("/administrations/regions/{$region->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -123,16 +129,21 @@ class RegionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionRegionExistante()
 	{
-		$Regions = factory(Region::class, 2)->create();
+		$regions = factory(Region::class, 2)->create();
 
-		$request = $this->put("/administrations/regions/{$Regions[0]->id}", [
+		$request = $this->put("/administrations/regions/{$regions[0]->id}", [
 			"_token" => csrf_token(),
-			"nom"    => $Regions[1]->nom,
+			"nom"    => $regions[1]->nom,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("regions", ["nom" => $Regions[0]->nom]);
+		$this->assertDatabaseHas("regions", ["nom" => $regions[0]->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/modified",
+            "contenue" => "La région {$regions[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -141,16 +152,21 @@ class RegionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionRegionCompletSansModification()
 	{
-		$Region = factory(Region::class)->create();
+		$region = factory(Region::class)->create();
 
-		$request = $this->put("/administrations/regions/{$Region->id}", [
+		$request = $this->put("/administrations/regions/{$region->id}", [
 			"_token" => csrf_token(),
-			"nom"    => $Region->nom,
+			"nom"    => $region->nom,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("regions", ["nom" => $Region->nom]);
+		$this->assertDatabaseHas("regions", ["nom" => $region->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/modified",
+            "contenue" => "La région {$region->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -159,9 +175,9 @@ class RegionsTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionRegionCompletAvecModification()
 	{
-		$Region = factory(Region::class)->create();
+		$region = factory(Region::class)->create();
 
-		$request = $this->put("/administrations/regions/{$Region->id}", [
+		$request = $this->put("/administrations/regions/{$region->id}", [
 			"_token" => csrf_token(),
 			"nom"    => "unit.testing",
 		]);
@@ -169,6 +185,66 @@ class RegionsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("regions", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/modified",
+            "contenue" => "La région unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+     */
+    public function testAffichageAlerteSuppressionRegion()
+    {
+        $region = factory(Region::class)->create();
+
+        $request = $this->get("/administrations/regions/{$region->id}/edit");
+
+        $request->assertStatus(200);
+        $request->assertSee("Supprimer");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>" . $region->nom . "</b>.");
+    }
+
+    /**
+     * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des académies
+     */
+    public function testTraitementSuppressionRegionAssocie()
+    {
+        $region = factory(Region::class)->create();
+        $academie = factory(Academie::class)->create([
+            "region_id" => $region->id,
+        ]);
+
+        $request = $this->delete("/administrations/regions/{$region->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasErrors();
+        $this->assertDatabaseHas("regions", ["nom" => $region->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/deleted",
+            "contenue" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
+
+    /**
+     * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucune
+     * académie
+     */
+    public function testTraitementSuppressionRegionNonAssocie()
+    {
+        $region = factory(Region::class)->create();
+
+        $request = $this->delete("/administrations/regions/{$region->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseMissing("regions", ["nom" => $region->nom]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "region/deleted",
+            "contenue" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
 }

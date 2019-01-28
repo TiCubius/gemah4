@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\Etablissement;
+use App\Models\Historique;
 use App\Models\TypeEtablissement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -54,6 +55,16 @@ class EtablissementController extends Controller
 				"etablissement_id" => $etablissement->id,
 			]);
 
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "etablissement_id"  => $etablissement->id,
+                "type"              => "etablissement/affectation",
+                "contenue"          => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}"
+            ]);
+
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
@@ -73,6 +84,16 @@ class EtablissementController extends Controller
 			$eleve->update([
 				"etablissement_id" => null,
 			]);
+
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "etablissement_id"  => $etablissement->id,
+                "type"              => "etablissement/desaffectation",
+                "contenue"          => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}"
+            ]);
 
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}

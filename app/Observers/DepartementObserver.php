@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Session;
 

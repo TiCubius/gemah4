@@ -192,7 +192,7 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_etablissements", ["libelle" => "unit.testing"]);
-        $this->assertDatabaseMissing("historiques", [
+        $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/modified",
             "contenue" => "Le type d'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"

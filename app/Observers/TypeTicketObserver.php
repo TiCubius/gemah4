@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\TypeTicket;
 use Illuminate\Support\Facades\Session;
 

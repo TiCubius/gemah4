@@ -110,6 +110,11 @@ class ElevesTest extends TestCase
 			"nom"    => "unit.testing",
 			"prenom" => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/created",
+            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -133,10 +138,15 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("eleves", ["code_ine" => "unit.testin"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/created",
+            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
-	 * Vérfiie l'envoi d'E-Mail [MANUEL]
+	 * Vérifie l'envoi d'E-Mail [MANUEL]
 	 */
 	public function testEmail()
 	{
@@ -156,6 +166,11 @@ class ElevesTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/created",
+            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	public function testAffichageProfilEleve()
@@ -264,6 +279,11 @@ class ElevesTest extends TestCase
 			"prenom"   => $eleve->prenom,
 			"code_ine" => $eleve->code_ine,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/modified",
+            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -288,6 +308,11 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("eleves", ["code_ine" => "unit.testin"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/modified",
+            "contenue" => "L'élève unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -322,6 +347,11 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/deleted",
+            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -340,6 +370,11 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/deleted",
+            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -354,5 +389,10 @@ class ElevesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "eleve/deleted",
+            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

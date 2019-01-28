@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Session;
 
@@ -21,7 +21,7 @@ class TicketObserver
                 "from_id" => $user["id"],
                 "ticket_id" => $ticket->id,
                 "type" => "ticket/created",
-                "contenue" => "Le domaine {$ticket->libelle} à été créé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le ticket {$ticket->libelle} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -39,7 +39,7 @@ class TicketObserver
                 "from_id" => $user["id"],
                 "ticket_id" => $ticket->id,
                 "type" => "ticket/modified",
-                "contenue" => "Le domaine {$ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
+                "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -56,7 +56,7 @@ class TicketObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type" => "ticket/deleted",
-                "contenue" => "Le domaine {$ticket->libelle} à été supprimé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le ticket {$ticket->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

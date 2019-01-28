@@ -3,6 +3,7 @@
 namespace Tests\Feature\Administrations;
 
 use App\Models\Academie;
+use App\Models\Departement;
 use App\Models\Region;
 use Tests\TestCase;
 
@@ -13,17 +14,17 @@ class AcademiesTest extends TestCase
 	 */
 	public function testAffichageIndexAcademies()
 	{
-		$Region = factory(Region::class, 1)->create();
-		$Academies = factory(Academie::class, 5)->create();
+		$region = factory(Region::class, 1)->create();
+		$academies = factory(Academie::class, 5)->create();
 
 		$request = $this->get("/administrations/academies");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des académies");
 
-		foreach ($Academies as $Academie) {
-			$request->assertSee($Academie->nom);
-			$request->assertSee($Academie->region->nom);
+		foreach ($academies as $academie) {
+			$request->assertSee($academie->nom);
+			$request->assertSee($academie->region->nom);
 		}
 	}
 
@@ -62,13 +63,13 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationAcademieExistante()
 	{
-		$Region = factory(Region::class)->create();
-		$Academies = factory(Academie::class, 5)->create();
+		$region = factory(Region::class)->create();
+		$academies = factory(Academie::class, 5)->create();
 
 		$request = $this->post("/administrations/academies", [
 			"_token" => csrf_token(),
-			"nom"    => $Academies->random()->nom,
-			"region" => $Region->id,
+			"nom"    => $academies->random()->nom,
+			"region" => $region->id,
 		]);
 
 		$request->assertStatus(302);
@@ -81,7 +82,7 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationAcademieComplet()
 	{
-		$Region = factory(Region::class)->create();
+		$region = factory(Region::class)->create();
 
 		$request = $this->post("/administrations/academies", [
 			"_token" => csrf_token(),
@@ -92,6 +93,11 @@ class AcademiesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("academies", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/created",
+            "contenue" => "L'académie unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -100,13 +106,13 @@ class AcademiesTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionAcademie()
 	{
-		$Region = factory(Region::class)->create();
-		$Academie = factory(Academie::class)->create();
+		$region = factory(Region::class)->create();
+		$academie = factory(Academie::class)->create();
 
-		$request = $this->get("/administrations/academies/{$Academie->id}/edit");
+		$request = $this->get("/administrations/academies/{$academie->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de l'{$Academie->nom}");
+		$request->assertSee("Édition de l'{$academie->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Éditer");
 	}
@@ -116,10 +122,10 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieIncomplet()
 	{
-		$Region = factory(Region::class)->create();
-		$Academie = factory(Academie::class)->create();
+		$region = factory(Region::class)->create();
+		$academie = factory(Academie::class)->create();
 
-		$request = $this->put("/administrations/academies/{$Academie->id}", [
+		$request = $this->put("/administrations/academies/{$academie->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -133,18 +139,23 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieExistante()
 	{
-		$Region = factory(Region::class)->create();
-		$Academies = factory(Academie::class, 2)->create();
+		$region = factory(Region::class)->create();
+		$academies = factory(Academie::class, 2)->create();
 
-		$request = $this->put("/administrations/academies/{$Academies[0]->id}", [
+		$request = $this->put("/administrations/academies/{$academies[0]->id}", [
 			"_token" => csrf_token(),
-			"nom"    => $Academies[1]->nom,
-			"region" => $Region->id,
+			"nom"    => $academies[1]->nom,
+			"region" => $region->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("academies", ["nom" => $Academies[0]->nom]);
+		$this->assertDatabaseHas("academies", ["nom" => $academies[0]->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/modified",
+            "contenue" => "L'académie {$academies[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -153,20 +164,25 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletSansModification()
 	{
-		$Region = factory(Region::class)->create();
-		$Academie = factory(Academie::class)->create([
-			"region_id" => $Region->id,
+		$region = factory(Region::class)->create();
+		$academie = factory(Academie::class)->create([
+			"region_id" => $region->id,
 		]);
 
-		$request = $this->put("/administrations/academies/{$Academie->id}", [
+		$request = $this->put("/administrations/academies/{$academie->id}", [
 			"_token" => csrf_token(),
-			"nom"    => $Academie->nom,
-			"region" => $Academie->region_id,
+			"nom"    => $academie->nom,
+			"region" => $academie->region_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("academies", ["nom" => $Academie->nom]);
+		$this->assertDatabaseHas("academies", ["nom" => $academie->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/modified",
+            "contenue" => "L'académie {$academie->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -175,18 +191,78 @@ class AcademiesTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionAcademieCompletAvecModification()
 	{
-		$Region = factory(Region::class)->create();
-		$Academie = factory(Academie::class)->create();
+		$region = factory(Region::class)->create();
+		$academie = factory(Academie::class)->create();
 
-		$request = $this->put("/administrations/academies/{$Academie->id}", [
+		$request = $this->put("/administrations/academies/{$academie->id}", [
 			"_token" => csrf_token(),
 			"nom"    => "unit.testing",
-			"region" => $Region->id,
+			"region" => $region->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("academies", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/modified",
+            "contenue" => "L'académie unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+     */
+    public function testAffichageAlerteSuppressionAcademie()
+    {
+        $academie = factory(Academie::class)->create();
+
+        $request = $this->get("/administrations/academies/{$academie->id}/edit");
+
+        $request->assertStatus(200);
+        $request->assertSee("Supprimer");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>" . $academie->nom . "</b>.");
+    }
+
+    /**
+     * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des départements
+     */
+    public function testTraitementSuppressionAcademieAssocie()
+    {
+        $academie = factory(Academie::class)->create();
+        $departement = factory(Departement::class)->create([
+            "academie_id" => $academie->id,
+        ]);
+
+        $request = $this->delete("/administrations/academies/{$academie->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasErrors();
+        $this->assertDatabaseHas("academies", ["nom" => $academie->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/deleted",
+            "contenue" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
+
+    /**
+     * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucun
+     * département
+     */
+    public function testTraitementSuppressionAcademieNonAssocie()
+    {
+        $academie = factory(Academie::class)->create();
+
+        $request = $this->delete("/administrations/academies/{$academie->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseMissing("academies", ["nom" => $academie->nom]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "academie/deleted",
+            "contenue" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
 }

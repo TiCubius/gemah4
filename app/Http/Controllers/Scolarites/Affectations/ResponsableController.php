@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scolarites\Affectations;
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Eleve;
+use App\Models\Historique;
 use App\Models\Responsable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -81,6 +82,16 @@ class ResponsableController extends Controller
 
 		$responsable->eleves()->attach($eleve);
 
+        $user = session("user");
+
+        Historique::create([
+            "from_id"           => $user["id"],
+            "eleve_id"          => $eleve->id,
+            "responsable_id"    => $responsable->id,
+            "type"              => "responsable/affectation",
+            "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
+        ]);
+
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 
@@ -95,6 +106,16 @@ class ResponsableController extends Controller
 	{
 		if (!$responsable->eleves->contains($eleve)) {
 			$responsable->eleves()->attach($eleve);
+
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "responsable_id"    => $responsable->id,
+                "type"              => "responsable/affectation",
+                "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
+            ]);
 
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
@@ -113,6 +134,16 @@ class ResponsableController extends Controller
 	{
 		if ($responsable->eleves->contains($eleve)) {
 			$responsable->eleves()->detach($eleve);
+
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "responsable_id"    => $responsable->id,
+                "type"              => "responsable/desaffectation",
+                "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
+            ]);
 
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}

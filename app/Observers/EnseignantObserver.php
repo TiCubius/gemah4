@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Enseignant;
 use Illuminate\Support\Facades\Session;
 

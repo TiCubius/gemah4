@@ -39,6 +39,8 @@ use App\Observers\ResponsableObserver;
 use App\Observers\ServiceObserver;
 use App\Observers\TicketMessageObserver;
 use App\Observers\TicketObserver;
+use App\Observers\TypeDocumentObserver;
+use App\Observers\TypeEleveObserver;
 use App\Observers\TypeEtablissementObserver;
 use App\Observers\TypeMaterielObserver;
 use App\Observers\TypeTicketObserver;
@@ -73,7 +75,6 @@ class AppServiceProvider extends ServiceProvider
         TicketMessage::observe(TicketMessageObserver::class);
         TypeTicket::observe(TypeTicketObserver::class);
 
-        Decision::observe(DecisionObserver::class);
         Document::observe(DocumentObserver::class);
         TypeDocument::observe(TypeDocumentObserver::class);
 

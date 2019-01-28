@@ -53,6 +53,11 @@ class AffectationsEtablissementTest extends TestCase
 			"id"               => $eleve->id,
 			"etablissement_id" => $etablissement->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "etablissement/affectation",
+            "contenue"  => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -67,6 +72,11 @@ class AffectationsEtablissementTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
+        $this->assertDatabaseMissing("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "etablissement/desaffectation",
+            "contenue"  => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -86,5 +96,10 @@ class AffectationsEtablissementTest extends TestCase
 			"id"               => $eleve->id,
 			"etablissement_id" => $etablissement->id,
 		]);
+		$this->assertDatabaseHas("historiques", [
+		    "from_id"   => $this->user->id,
+            "type"      => "etablissement/desaffectation",
+            "contenue"  => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

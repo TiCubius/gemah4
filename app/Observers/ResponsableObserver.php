@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Responsable;
 use Illuminate\Support\Facades\Session;
 
@@ -21,7 +21,7 @@ class ResponsableObserver
                 "from_id" => $user["id"],
                 "responsable_id" => $responsable->id,
                 "type" => "responsable/created",
-                "contenue" => "Le responsable {$responsable->libelle} à été créé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -39,7 +39,7 @@ class ResponsableObserver
                 "from_id" => $user["id"],
                 "responsable_id" => $responsable->id,
                 "type" => "responsable/modified",
-                "contenue" => "Le responsable {$responsable->libelle} à été modifié par {$user->nom} {$user->prenom}"
+                "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -56,7 +56,7 @@ class ResponsableObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type" => "responsable/deleted",
-                "contenue" => "Le responsable {$responsable->libelle} à été supprimé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

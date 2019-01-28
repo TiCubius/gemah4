@@ -76,6 +76,11 @@ class ResponsablesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("responsables", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "responsable/created",
+            "contenue" => "Le responsable unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -133,6 +138,11 @@ class ResponsablesTest extends TestCase
 			"nom"    => $responsable->nom,
 			"prenom" => $responsable->prenom,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "responsable/modified",
+            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -158,6 +168,11 @@ class ResponsablesTest extends TestCase
 			"nom"    => "unit.testing",
 			"prenom" => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "responsable/modified",
+            "contenue" => "Le responsable unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -191,6 +206,11 @@ class ResponsablesTest extends TestCase
 			"nom"    => $responsable->nom,
 			"prenom" => $responsable->prenom,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "responsable/deleted",
+            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -211,6 +231,11 @@ class ResponsablesTest extends TestCase
 			"nom"    => $responsable->nom,
 			"prenom" => $responsable->prenom,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "responsable/deleted",
+            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

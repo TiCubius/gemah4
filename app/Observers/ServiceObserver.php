@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Service;
 use Illuminate\Support\Facades\Session;
 
@@ -21,7 +21,7 @@ class ServiceObserver
                 "from_id" => $user["id"],
                 "service_id" => $service->id,
                 "type" => "service/created",
-                "contenue" => "Le service {$service->libelle} à été créé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le service {$service->nom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -39,7 +39,7 @@ class ServiceObserver
                 "from_id" => $user["id"],
                 "service_id" => $service->id,
                 "type" => "service/modified",
-                "contenue" => "Le service {$service->libelle} à été modifié par {$user->nom} {$user->prenom}"
+                "contenue" => "Le service {$service->nom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -56,7 +56,7 @@ class ServiceObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type" => "service/deleted",
-                "contenue" => "Le service {$service->libelle} à été supprimé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le service {$service->nom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

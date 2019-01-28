@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\Document;
 use Illuminate\Support\Facades\Session;
 
@@ -21,7 +21,7 @@ class DocumentObserver
                 "from_id" => $user["id"],
                 "document_id" => $document->id,
                 "type" => "document/created",
-                "contenue" => "Le document {$document->libelle} à été créé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le document {$document->nom} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -39,7 +39,7 @@ class DocumentObserver
                 "from_id" => $user["id"],
                 "document_id" => $document->id,
                 "type" => "document/modified",
-                "contenue" => "Le document {$document->libelle} à été modifié par {$user->nom} {$user->prenom}"
+                "contenue" => "Le document {$document->nom} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -56,7 +56,7 @@ class DocumentObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type" => "document/deleted",
-                "contenue" => "Le document {$document->libelle} à été supprimé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le document {$document->nom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\DomaineMateriel;
 use App\Models\Materiel;
 use Illuminate\Support\Facades\Session;
@@ -22,7 +22,7 @@ class MaterielObserver
                 "from_id" => $user["id"],
                 "materiel_id" => $materiel->id,
                 "type" => "materiel/created",
-                "contenue" => "Le matériel {$materiel->libelle} à été créé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le matériel {$materiel->modele} à été créé par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -40,7 +40,7 @@ class MaterielObserver
                 "from_id" => $user["id"],
                 "materiel_id" => $materiel->id,
                 "type" => "materiel/modified",
-                "contenue" => "Le matériel {$materiel->libelle} à été modifié par {$user->nom} {$user->prenom}"
+                "contenue" => "Le matériel {$materiel->modele} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }
     }
@@ -57,7 +57,7 @@ class MaterielObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type" => "materiel/deleted",
-                "contenue" => "Le matériel {$materiel->libelle} à été supprimé par {$user->nom} {$user->prenom}"
+                "contenue" => "Le matériel {$materiel->modele} à été supprimé par {$user->nom} {$user->prenom}"
             ]);
         }
     }

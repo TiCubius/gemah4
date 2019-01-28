@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\TypeDocumentObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -22,7 +23,6 @@ class TypeDocument extends Model
 	protected $fillable = [
 		"libelle",
 	];
-
 
 	/***
 	 * Un type de document défini plusieurs documents

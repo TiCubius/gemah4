@@ -5,6 +5,7 @@ namespace Tests\Feature\Materiels;
 use App\Models\Departement;
 use App\Models\DomaineMateriel;
 use App\Models\Eleve;
+use App\Models\Historique;
 use App\Models\Materiel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
@@ -17,15 +18,15 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testAffichageIndexStocks()
 	{
-		$Stocks = factory(Materiel::class, 5)->create();
+		$stocks = factory(Materiel::class, 5)->create();
 
 		$request = $this->get("/materiels/stocks");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des stocks matériel");
 
-		foreach ($Stocks as $Stock) {
-			$request->assertSee($Stock->modele);
+		foreach ($stocks as $stock) {
+			$request->assertSee($stock->modele);
 		}
 	}
 
@@ -96,14 +97,14 @@ class StocksMaterielTest extends TestCase
 	public function testTraitementFormulaireCreationStockComplet()
 	{
 		$departement = factory(Departement::class)->create();
-		$DomaineMateriel = factory(DomaineMateriel::class)->create();
-		$TypeMateriel = factory(TypeMateriel::class)->create([
-			"domaine_id" => $DomaineMateriel->id,
+		$domaineMateriel = factory(DomaineMateriel::class)->create();
+		$typeMateriel = factory(TypeMateriel::class)->create([
+			"domaine_id" => $domaineMateriel->id,
 		]);
 
 		$request = $this->post("/materiels/stocks", [
 			"_token"                         => csrf_token(),
-			"type_materiel_id"               => $TypeMateriel->id,
+			"type_materiel_id"               => $typeMateriel->id,
 			"marque"                         => "unit.testing",
 			"modele"                         => "unit.testing",
 			"prix_ttc"                       => 5.99,
@@ -115,6 +116,11 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("materiels", ["marque" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "materiel/created",
+            "contenue" => "Le matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -156,12 +162,12 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionStock()
 	{
-		$Stock = factory(Materiel::class)->create();
+		$stock = factory(Materiel::class)->create();
 
-		$request = $this->get("/materiels/stocks/{$Stock->id}/edit");
+		$request = $this->get("/materiels/stocks/{$stock->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Stock->modele}");
+		$request->assertSee("Édition de {$stock->modele}");
 		$request->assertSee("Type");
 		$request->assertSee("Marque");
 		$request->assertSee("Modèle");
@@ -191,9 +197,9 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionStockIncomplet()
 	{
-		$Stock = factory(Materiel::class)->create();
+		$stock = factory(Materiel::class)->create();
 
-		$request = $this->put("/materiels/stocks/{$Stock->id}", [
+		$request = $this->put("/materiels/stocks/{$stock->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -220,26 +226,35 @@ class StocksMaterielTest extends TestCase
 	public function testTraitementFormulaireEditionStockCompletSansModification()
 	{
 		$departement = factory(Departement::class)->create();
-		$Stock = factory(Materiel::class)->create();
-		$DomaineMateriel = factory(DomaineMateriel::class)->create();
-		$TypeMateriel = factory(TypeMateriel::class)->create([
-			"domaine_id" => $DomaineMateriel->id,
-		]);
+        $domaineMateriel = factory(DomaineMateriel::class)->create();
+        $typeMateriel = factory(TypeMateriel::class)->create([
+            "domaine_id" => $domaineMateriel->id,
+        ]);
+        $stock = factory(Materiel::class)->create([
+		    "departement_id"    => $departement->id,
+            "type_materiel_id"  => $typeMateriel->id,
+        ]);
 
-		$request = $this->put("/materiels/stocks/{$Stock->id}", [
+
+		$request = $this->put("/materiels/stocks/{$stock->id}", [
 			"_token"                         => csrf_token(),
-			"type_materiel_id"               => $TypeMateriel->id,
-			"marque"                         => $Stock->marque,
-			"modele"                         => $Stock->modele,
-			"prix_ttc"                       => $Stock->prix_ttc,
-			"etat_administratif_materiel_id" => $Stock->etat_administratif_materiel_id,
-			"etat_physique_materiel_id"      => $Stock->etat_physique_materiel_id,
-			"departement_id"                 => $departement->id,
+			"type_materiel_id"               => $stock->type_materiel_id,
+			"marque"                         => $stock->marque,
+			"modele"                         => $stock->modele,
+			"prix_ttc"                       => $stock->prix_ttc,
+			"etat_administratif_materiel_id" => $stock->etat_administratif_materiel_id,
+			"etat_physique_materiel_id"      => $stock->etat_physique_materiel_id,
+			"departement_id"                 => $stock->departement_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("materiels", ["modele" => $Stock->modele]);
+		$this->assertDatabaseHas("materiels", ["modele" => $stock->modele]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "materiel/modified",
+            "contenue" => "Le matériel {$stock->modele} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -249,16 +264,16 @@ class StocksMaterielTest extends TestCase
 	public function testTraitementFormulaireEditionStockCompletAvecModification()
 	{
 		$departement = factory(Departement::class)->create();
-		$Stock = factory(Materiel::class)->create();
-		$DomaineMateriel = factory(DomaineMateriel::class)->create();
-		$TypeMateriel = factory(TypeMateriel::class)->create([
-			"domaine_id" => $DomaineMateriel->id,
+		$stock = factory(Materiel::class)->create();
+		$domaineMateriel = factory(DomaineMateriel::class)->create();
+		$typeMateriel = factory(TypeMateriel::class)->create([
+			"domaine_id" => $domaineMateriel->id,
 		]);
 
-		$request = $this->put("/materiels/stocks/{$Stock->id}", [
+		$request = $this->put("/materiels/stocks/{$stock->id}", [
 			"_token"                         => csrf_token(),
-			"domaine_id"                     => $DomaineMateriel->id,
-			"type_materiel_id"               => $TypeMateriel->id,
+			"domaine_id"                     => $domaineMateriel->id,
+			"type_materiel_id"               => $typeMateriel->id,
 			"marque"                         => "unit.testing",
 			"modele"                         => "unit.testing",
 			"prix_ttc"                       => 5.99,
@@ -270,6 +285,11 @@ class StocksMaterielTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("materiels", ["modele" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "materiel/modified",
+            "contenue" => "Le matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -278,13 +298,13 @@ class StocksMaterielTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionStock()
 	{
-		$Stock = factory(Materiel::class)->create();
+		$stock = factory(Materiel::class)->create();
 
-		$request = $this->get("/materiels/stocks/{$Stock->id}/edit");
+		$request = $this->get("/materiels/stocks/{$stock->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Stock->marque} {$Stock->modele}" . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$stock->marque} {$stock->modele}" . "</b>.");
 	}
 
 	/**
@@ -304,6 +324,11 @@ class StocksMaterielTest extends TestCase
 			"modele" => $stock->modele,
 			"marque" => $stock->marque,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "materiel/deleted",
+            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -322,6 +347,11 @@ class StocksMaterielTest extends TestCase
 			"modele" => $stock->modele,
 			"marque" => $stock->marque,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "materiel/deleted",
+            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

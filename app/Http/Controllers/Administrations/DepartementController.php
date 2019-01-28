@@ -104,12 +104,12 @@ class DepartementController extends Controller
 	 */
 	public function destroy(Departement $departement): RedirectResponse
 	{
-		if (!($departement->has("eleves") and $departement->has("materiels") and $departement->has("responsables") and $departement->has("etablissements"))) {
+		if (!($departement->eleves->isNotEmpty() or $departement->materiels->isNotEmpty() or $departement->responsables->isNotEmpty() or $departement->etablissements->isNotEmpty()  or $departement->services->isNotEmpty())) {
 			$departement->delete();
 
 			return redirect(route("web.administrations.departements.index"));
 		}
 
-		return redirect(route("web.administrations.departements.index"))->withErrors("Ce département est lié à au moins un élève");
+		return redirect(route("web.administrations.departements.index"))->withErrors("Ce département est lié à au moins un élève, un matériel, un responsable ou un établissement");
 	}
 }

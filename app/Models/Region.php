@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Academie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -24,6 +25,6 @@ class Region extends Model
 	 */
 	public function academies(): HasMany
 	{
-		return $this->hasMany(Departement::class);
+		return $this->hasMany(Academie::class);
 	}
 }

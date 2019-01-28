@@ -2,8 +2,7 @@
 
 namespace App\Observers;
 
-use App\Historique;
-use App\Models\DomaineMateriel;
+use App\Models\Historique;
 use App\Models\EtatAdministratifMateriel;
 use Illuminate\Support\Facades\Session;
 
@@ -12,7 +11,7 @@ class EtatAdministratifMaterielObserver
     /***
      * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est créé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param EtatAdministratifMateriel $etatAdministratifMateriel
      */
     public function created(EtatAdministratifMateriel $etatAdministratifMateriel)
     {
@@ -30,7 +29,7 @@ class EtatAdministratifMaterielObserver
     /***
      * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est modifié
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param EtatAdministratifMateriel $etatAdministratifMateriel
      */
     public function updated(EtatAdministratifMateriel $etatAdministratifMateriel)
     {
@@ -48,7 +47,7 @@ class EtatAdministratifMaterielObserver
     /***
      * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est supprimé
      *
-     * @param DomaineMateriel $domaineMateriel
+     * @param EtatAdministratifMateriel $etatAdministratifMateriel
      */
     public function deleted(EtatAdministratifMateriel $etatAdministratifMateriel)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Scolarites;
+namespace Tests\Feature\Scolarites\Documents;
 
 use App\Models\Document;
 use App\Models\Eleve;
@@ -87,6 +87,11 @@ class DocumentsTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseHas("historiques", [
+		    "from_id"   => $this->user->id,
+            "type"      => "document/created",
+            "contenue"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+        ]);
 	}
 
 
@@ -154,10 +159,15 @@ class DocumentsTest extends TestCase
 			"description" => $document->description,
 			"path"        => $document->path,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "document/modified",
+            "contenue"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+        ]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été édité lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que le document à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet
 	 */
 	public function testTraitementFormulaireEditionDocumentCompletAvecModification()
@@ -181,6 +191,11 @@ class DocumentsTest extends TestCase
 			"description" => "unit.testing",
 		]);
 		$this->assertDatabaseMissing("documents", ["path" => $document->path]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "document/modified",
+            "contenue"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+        ]);
 	}
 
 
@@ -203,7 +218,7 @@ class DocumentsTest extends TestCase
 
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été supprimé
+	 * Vérifie qu'aucune erreur n'est présente et que le document à bien été supprimé
 	 */
 	public function testTraitementSuppressionEleve()
 	{
@@ -217,6 +232,11 @@ class DocumentsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("documents", ["id" => $document->id]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "document/deleted",
+            "contenue"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+        ]);
 	}
 
 	/**

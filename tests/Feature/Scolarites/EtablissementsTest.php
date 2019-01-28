@@ -126,6 +126,11 @@ class EtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("etablissements", ["id" => "UT"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etablissement/created",
+            "contenue" => "L'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -234,6 +239,11 @@ class EtablissementsTest extends TestCase
 			"id"  => $etablissement->id,
 			"nom" => $etablissement->nom,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etablissement/modified",
+            "contenue" => "L'établissement {$etablissement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -265,6 +275,11 @@ class EtablissementsTest extends TestCase
 			"id"  => $etablissement->id,
 			"nom" => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etablissement/modified",
+            "contenue" => "L'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -295,6 +310,11 @@ class EtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("etablissements", ["code" => $etablissement->code]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "etablissement/deleted",
+            "contenue" => "L'établissement {$etablissement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

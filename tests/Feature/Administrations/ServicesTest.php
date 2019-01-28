@@ -93,6 +93,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("services", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/created",
+            "contenue" => "Le service unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -146,6 +151,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("services", ["nom" => $services[0]->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/modified",
+            "contenue" => "Le service {$services[1]->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -166,6 +176,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("services", ["nom" => $service->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/modified",
+            "contenue" => "Le service {$service->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -187,6 +202,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("services", ["nom" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/modified",
+            "contenue" => "Le service unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -219,6 +239,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("services", ["nom" => $service->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/deleted",
+            "contenue" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -234,6 +259,11 @@ class ServicesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("services", ["nom" => $service->nom]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "service/deleted",
+            "contenue" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

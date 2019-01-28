@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace App\Observers;
 
 
-use App\Historique;
+use App\Models\Historique;
 use App\Models\TypeDocument;
 use Illuminate\Support\Facades\Session;
 
@@ -39,7 +39,7 @@ class TypeDocumentObserver
             Historique::create([
                 "from_id" => $user["id"],
                 "type_document_id" => $typeDocument->id,
-                "type" => "type/document//modified",
+                "type" => "type/document/modified",
                 "contenue" => "Le type de document {$typeDocument->libelle} à été modifié par {$user->nom} {$user->prenom}"
             ]);
         }

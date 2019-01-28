@@ -14,9 +14,9 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testAffichageIndexTypes()
 	{
-		$Domaines = factory(DomaineMateriel::class, 5)->create();
-		$Types = factory(TypeMateriel::class, 5)->create([
-			"domaine_id" => $Domaines->random()->id,
+		$domaines = factory(DomaineMateriel::class, 5)->create();
+		$types = factory(TypeMateriel::class, 5)->create([
+			"domaine_id" => $domaines->random()->id,
 		]);
 
 		$request = $this->get("/materiels/types");
@@ -24,9 +24,9 @@ class TypesMaterielTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des types matériel");
 
-		foreach ($Types as $Type) {
-			$request->assertSee($Type->libelle);
-			$request->assertSee($Type->domaine->libelle);
+		foreach ($types as $type) {
+			$request->assertSee($type->libelle);
+			$request->assertSee($type->domaine->libelle);
 		}
 	}
 
@@ -36,7 +36,7 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationType()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
 		$request = $this->get("/materiels/types/create");
 
 		$request->assertStatus(200);
@@ -66,15 +66,15 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeExistant()
 	{
-		$Domaine = factory(DomaineMateriel::class, 5)->create();
-		$Types = factory(TypeMateriel::class, 5)->create([
-			"domaine_id" => $Domaine->random()->id,
+		$domaine = factory(DomaineMateriel::class, 5)->create();
+		$types = factory(TypeMateriel::class, 5)->create([
+			"domaine_id" => $domaine->random()->id,
 		]);
 
 		$request = $this->post("/materiels/types", [
 			"_token"  => csrf_token(),
-			"libelle" => $Types->random()->libelle,
-			"domaine" => $Domaine->random()->id,
+			"libelle" => $types->random()->libelle,
+			"domaine" => $domaine->random()->id,
 		]);
 
 		$request->assertStatus(302);
@@ -87,16 +87,21 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
 		$request = $this->post("/materiels/types", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
-			"domaine" => $Domaine->id,
+			"domaine" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/materiel/created",
+            "contenue" => "Le type de matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -105,13 +110,13 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionType()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
 
-		$request = $this->get("/materiels/types/{$Type->id}/edit");
+		$request = $this->get("/materiels/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Type->libelle}");
+		$request->assertSee("Édition de {$type->libelle}");
 		$request->assertSee("Libellé");
 		$request->assertSee("Domaine");
 		$request->assertSee("Éditer");
@@ -123,10 +128,10 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeIncomplet()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
 
-		$request = $this->put("/materiels/types/{$Type->id}", [
+		$request = $this->put("/materiels/types/{$type->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -140,18 +145,23 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeExistant()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Types = factory(TypeMateriel::class, 2)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$types = factory(TypeMateriel::class, 2)->create();
 
-		$request = $this->put("/materiels/types/{$Types[0]->id}", [
+		$request = $this->put("/materiels/types/{$types[0]->id}", [
 			"_token"  => csrf_token(),
-			"libelle" => $Types[1]->libelle,
-			"domaine" => $Domaine->id,
+			"libelle" => $types[1]->libelle,
+			"domaine" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_materiels", ["libelle" => $Types[0]->libelle]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => $types[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/materiel/modified",
+            "contenue" => "Le type de matériel {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -160,18 +170,23 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeCompletSansModification()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
 
-		$request = $this->put("/materiels/types/{$Type->id}", [
+		$request = $this->put("/materiels/types/{$type->id}", [
 			"_token"  => csrf_token(),
-			"libelle" => $Type->libelle,
-			"domaine" => $Type->domaine_id,
+			"libelle" => $type->libelle,
+			"domaine" => $type->domaine_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_materiels", ["libelle" => $Type->libelle]);
+		$this->assertDatabaseHas("types_materiels", ["libelle" => $type->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/materiel/modified",
+            "contenue" => "Le type de matériel {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -180,18 +195,23 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeCompletAvecModification()
 	{
-		$Type = factory(TypeMateriel::class)->create();
-		$Domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
 
-		$request = $this->put("/materiels/types/{$Type->id}", [
+		$request = $this->put("/materiels/types/{$type->id}", [
 			"_token"  => csrf_token(),
 			"libelle" => "unit.testing",
-			"domaine" => $Domaine->id,
+			"domaine" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/materiel/modified",
+            "contenue" => "Le type de matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -200,14 +220,14 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionType()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
 
-		$request = $this->get("/materiels/types/{$Type->id}/edit");
+		$request = $this->get("/materiels/types/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $Type->libelle . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $type->libelle . "</b>.");
 	}
 
 	/**
@@ -216,14 +236,19 @@ class TypesMaterielTest extends TestCase
 	 */
 	public function testTraitementSuppressionType()
 	{
-		$Domaine = factory(DomaineMateriel::class)->create();
-		$Type = factory(TypeMateriel::class)->create();
+		$domaine = factory(DomaineMateriel::class)->create();
+		$type = factory(TypeMateriel::class)->create();
 
-		$request = $this->delete("/materiels/types/{$Type->id}");
+		$request = $this->delete("/materiels/types/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("types_materiels", ["libelle" => $Type->libelle]);
+		$this->assertDatabaseMissing("types_materiels", ["libelle" => $type->libelle]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/materiel/deleted",
+            "contenue" => "Le type de matériel {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

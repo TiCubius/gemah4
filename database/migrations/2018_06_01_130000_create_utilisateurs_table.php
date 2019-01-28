@@ -22,7 +22,7 @@ class CreateUtilisateursTable extends Migration
 			$table->string('identifiant');
 			$table->string('email');
 			$table->string('password');
-			//			$table->boolean('reception_email');
+			$table->boolean('reception_email')->default(true);
 
 			$table->foreign('service_id')->references('id')->on('services');
 

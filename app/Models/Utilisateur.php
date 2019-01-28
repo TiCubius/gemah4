@@ -19,6 +19,7 @@ class Utilisateur extends Model
 		"email",
 		"password",
 		"service_id",
+		"reception_email",
 	];
 
 

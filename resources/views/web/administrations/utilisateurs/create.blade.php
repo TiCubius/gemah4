@@ -26,6 +26,11 @@
 					Adresse E-Mail
 				@endcomponent
 
+				<div class="custom-control custom-checkbox mb-3">
+					<input id="reception_email" class="custom-control-input" name="reception_email" type="checkbox" checked>
+					<label class="custom-control-label" for="reception_email">Recevoir les notifications</label>
+				</div>
+
 				@component("web._includes.components.input", ["type" => "password", "name" => "password", "placeholder" => "Veuillez rentrer un mot de passe"])
 					Mot de passe
 				@endcomponent

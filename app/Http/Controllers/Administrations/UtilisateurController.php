@@ -56,12 +56,13 @@ class UtilisateurController extends Controller
 		]);
 
 		Utilisateur::create([
-			"nom"         => $request->input("nom"),
-			"prenom"      => $request->input("prenom"),
-			"identifiant" => $request->input("identifiant"),
-			"email"       => $request->input("email"),
-			"password"    => Hash::make($request->input("password")),
-			"service_id"  => $request->input("service_id"),
+			"nom"             => $request->input("nom"),
+			"prenom"          => $request->input("prenom"),
+			"identifiant"     => $request->input("identifiant"),
+			"email"           => $request->input("email"),
+			"reception_email" => $request->input("reception_email") ? true : false,
+			"password"        => Hash::make($request->input("password")),
+			"service_id"      => $request->input("service_id"),
 		]);
 
 		return redirect(route("web.administrations.utilisateurs.index"));
@@ -110,7 +111,15 @@ class UtilisateurController extends Controller
 			"service_id"  => "required|exists:services,id",
 		]);
 
-		$utilisateur->update($request->only(["nom", "prenom", "identifiant", "email", "service_id"]));
+		$utilisateur->update([
+			"nom"             => $request->input("nom"),
+			"prenom"          => $request->input("prenom"),
+			"identifiant"     => $request->input("identifiant"),
+			"email"           => $request->input("email"),
+			"reception_email" => ($request->has("reception_email") ? true : false),
+			"password"        => Hash::make($request->input("password")),
+			"service_id"      => $request->input("service_id"),
+		]);
 
 		if ($request->input("password")) {
 			$utilisateur->update([

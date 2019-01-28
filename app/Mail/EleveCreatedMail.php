@@ -35,7 +35,7 @@ class EleveCreatedMail extends Mailable
 
 		$services = Service::where("departement_id", $eleve->departement_id)->get();
 		foreach ($services as $service) {
-			$this->emails = $this->emails->merge($service->utilisateurs->pluck('email'));
+			$this->emails = $this->emails->merge($service->utilisateurs->where('reception_email', 1)->pluck('email'));
 		}
 	}
 
@@ -47,8 +47,7 @@ class EleveCreatedMail extends Mailable
 	 */
 	public function build()
 	{
-		$types = join(" / ", $this->eleve->types->pluck("libelle")->toArray());
-		$subject = "GEMAH - 3.00 - [{$types}] - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
+		$subject = "GEMAH - 3.00 - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
 
 		return $this->from("dsi-bureautique42@ac-lyon.fr")->bcc($this->emails)->subject($subject)->view('emails.scolarites.eleves.create')->with([
 			"eleve" => $this->eleve,

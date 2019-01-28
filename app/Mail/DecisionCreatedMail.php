@@ -43,7 +43,7 @@ class DecisionCreatedMail extends Mailable
 
 		$services = Service::where("departement_id", $eleve->departement_id)->get();
 		foreach ($services as $service) {
-			$this->emails = $this->emails->merge($service->utilisateurs->pluck('email'));
+			$this->emails = $this->emails->merge($service->utilisateurs->where("reception_email", 1)->pluck('email'));
 		}
 	}
 

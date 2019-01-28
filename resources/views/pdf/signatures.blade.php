@@ -20,7 +20,7 @@
 						@foreach($responsables as $responsable)
 							@foreach($responsable->eleves as $eleve)
 								@if($eleve->pivot->etat_signature === $etatAttendu)
-									<tr style="float: left;">
+									<tr style="text-align: left !important;">
 										<td>{{ $responsable->nom }} {{ $responsable->prenom }}</td>
 										<td>{{ $eleve->nom }} {{ $eleve->prenom }}</td>
 									</tr>

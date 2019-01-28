@@ -74,7 +74,7 @@ class ConventionController extends Controller
 	public function signaturesEffectuees(): Response
 	{
 		$titre = "Liste des responsables ayant signé";
-		$responsables = Responsable::with("eleves")->has("eleves")->get();
+		$responsables = Responsable::with("eleves")->has("eleves")->orderBy('nom')->orderBy('prenom')->get();
 		$etatAttendu = 1;
 
 		return PDF::loadView('pdf.signatures', compact('titre', 'responsables', 'etatAttendu'))->stream();
@@ -88,7 +88,7 @@ class ConventionController extends Controller
 	public function signaturesManquantes(): Response
 	{
 		$titre = "Liste des responsables n'ayant pas signé";
-		$responsables = Responsable::with("eleves")->has("eleves")->get();
+		$responsables = Responsable::with("eleves")->has("eleves")->orderBy('nom')->orderBy('prenom')->get();
 		$etatAttendu = 0;
 
 		return PDF::loadView('pdf.signatures', compact('titre', 'responsables', 'etatAttendu'))->stream();
@@ -102,7 +102,7 @@ class ConventionController extends Controller
 	 */
 	public function impressionsToutesConventions()
 	{
-		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->get();
+		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->orderBy("nom")->get();
 
 		// Récupération de tout les paramètres pour imprimer les conventions
 		$allParametres = Parametre::conventions(42)->get();

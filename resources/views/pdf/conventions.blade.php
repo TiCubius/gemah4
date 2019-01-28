@@ -9,7 +9,7 @@
 		@php
 			$decision = $eleve->decisions->sortBy("created_at")->last()
 		@endphp
-	
+
 		@foreach($eleve->responsables as $responsable)
 			<body style="font-size: 11px;">
 				<header>
@@ -111,10 +111,8 @@
 						<h2>Article 1 : objet de la convention</h2>
 
 						<p>
-							Dans le cadre du plan triennal d'accès à l'autonomie des personnes handicapées, la Commission des
-							droits
-							et de l’autonomie est garante de l'attribution d'équipement répondant aux besoins particuliers
-							d'enfants
+							Dans le cadre du plan triennal d'accès à l'autonomie des personnes handicapées, la Commission des droits
+							et de l’autonomie est garante de l'attribution d'équipement répondant aux besoins particuliers d'enfants
 							déficients sensoriels et moteurs, après avis médical et pédagogique des services compétents.
 						</p>
 					</section>
@@ -124,9 +122,7 @@
 						<h2>Article 2 : désignation du matériel</h2>
 
 						<p>
-							Pour <b>l'année scolaire {{ Carbon\Carbon::parse("last year")->format("Y") }}
-								/ {{ Carbon\Carbon::now()->format("Y") }}</b> est mis à disposition le matériel suivant
-							appartenant à l’Etat :
+							Pour <b>l'année scolaire {{ $parametres["conventions/annee"] }}</b> est mis à disposition le matériel suivant appartenant à l’Etat :
 						</p>
 
 						<table>

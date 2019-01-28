@@ -27,9 +27,9 @@
 					@foreach($groupedPermissions as $key => $group)
 						<div class="col-12 col-xl-6">
 							<div class="card my-3">
-								<div class="card-header gemah-bg-primary">{{ $key }}</div>
+								<div class="card-header gemah-bg-primary">Permissions : {{ $key }}</div>
 								<div class="card-body">
-									@foreach($group as $permission)
+									@foreach($group->sortBy("libelle") as $permission)
 										<td>
 											<div class="custom-control custom-checkbox">
 												@if(old("permissions[{$permission->id}]"))

@@ -99,13 +99,13 @@
 								</p>
 							</div>
 							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
-								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve->id, $document->id]) }}">
+								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve->id, $document->decision]) }}">
 									<i class="far fa-edit"></i>
 									Modifier
 								</a>
 
 								<div class="btn-group">
-									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document]) }}">
+									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document->decision]) }}">
 										<i class="fas fa-download"></i>
 										Télécharger
 									</a>

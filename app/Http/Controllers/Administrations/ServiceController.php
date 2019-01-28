@@ -19,9 +19,10 @@ class ServiceController extends Controller
 	 */
 	public function index(): View
 	{
+		$academies = Academie::with("departements")->get();
 		$services = Service::orderBy("nom")->get();
 
-		return view("web.administrations.services.index", compact("services"));
+		return view("web.administrations.services.index", compact("academies", "services"));
 	}
 
 	/**

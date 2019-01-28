@@ -9,7 +9,7 @@ class TypesMaterielSeeder extends Seeder
 			"Adaptateur",
 			"Cordon",
 			"Emetteur",
-			"Micorphone",
+			"Microphone",
 			"Micro cravate",
 			"Mini microphone",
 			"Oticon",

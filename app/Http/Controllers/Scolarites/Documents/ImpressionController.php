@@ -79,16 +79,6 @@ class ImpressionController extends Controller
 	 */
 	public function recapitulatifs(Eleve $eleve)
 	{
-		if ($eleve->responsables->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.");
-		}
-		if ($eleve->decisions->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
-		}
-		if ($eleve->materiels->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucun matériel.");
-		}
-
 		return PDF::loadView('pdf.recapitulatifs', compact('eleve'))->stream();
 	}
 
@@ -101,11 +91,9 @@ class ImpressionController extends Controller
 	public function recuperations(Eleve $eleve)
 	{
 		if ($eleve->decisions->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
+			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune décision.");
 		}
 
-		$decision = $eleve->decisions[0];
-
-		return PDF::loadView('pdf.recuperations', compact('eleve', 'decision'))->stream();
+		return PDF::loadView('pdf.recuperations', compact('eleve'))->stream();
 	}
 }

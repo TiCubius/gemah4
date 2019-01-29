@@ -55,6 +55,11 @@ class AffectationsResponsableTest extends TestCase
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "responsable/affectation",
+            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -79,6 +84,11 @@ class AffectationsResponsableTest extends TestCase
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => Responsable::where('nom', 'unit.testing')->first()->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "responsable/affectation",
+            "contenue"  => "Le responsable unit.testing unit.testing à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -93,6 +103,11 @@ class AffectationsResponsableTest extends TestCase
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
+        $this->assertDatabaseMissing("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "responsable/desaffectation",
+            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -113,5 +128,10 @@ class AffectationsResponsableTest extends TestCase
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id"   => $this->user->id,
+            "type"      => "responsable/desaffectation",
+            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

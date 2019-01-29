@@ -11,7 +11,7 @@ use Tests\TestCase;
 class StatistiquesTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des onglets statistiques

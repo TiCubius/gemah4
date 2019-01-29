@@ -73,7 +73,7 @@
 				</a>
 
 
-				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+				<a href="{{ route("web.administrations.historiques.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Historique des actions
 				</a>
 			</div>

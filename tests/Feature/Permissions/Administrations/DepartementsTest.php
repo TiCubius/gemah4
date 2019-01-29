@@ -12,7 +12,7 @@ use Tests\TestCase;
 class DepartementsTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des départements

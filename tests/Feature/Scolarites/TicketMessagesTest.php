@@ -31,6 +31,11 @@ class TicketMessagesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("messages_tickets", ["contenu" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/message/created",
+            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -89,6 +94,11 @@ class TicketMessagesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("messages_tickets", ["contenu" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/message/modified",
+            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -109,5 +119,10 @@ class TicketMessagesTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("messages_tickets", ["contenu" => $message->contenu]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/message/deleted",
+            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

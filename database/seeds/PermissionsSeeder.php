@@ -51,7 +51,8 @@ class PermissionsSeeder extends Seeder
 		"administrations/etats/materiels/physiques/edit"    => "Peut modifier un état physique d'un matériel",
 		"administrations/etats/materiels/physiques/destroy" => "Peut supprimer un état physique d'un matériel",
 
-		"administrations/historiques/show" => "Peut afficher l'historique des actions",
+        "administrations/historiques/index" => "Peut afficher l'historique",
+        "administrations/historiques/show"  => "Peut afficher les informations sur une ligne de l'historique",
 
 		"administrations/parametres/edit" => "Peut modifier les paramètres généraux (ex: informations sur les conventions)",
 

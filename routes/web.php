@@ -124,6 +124,8 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 			]);
 			Route::resource("documents", "Administrations\Types\TypeDocumentController");
 		});
+
+		Route::resource("historiques", "Administrations\HistoriqueController")->only(["index", "show"]);
 	});
 
 	Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function () {

@@ -86,6 +86,11 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_etablissements", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/etablissement/created",
+            "contenue" => "Le type d'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -136,6 +141,11 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_etablissements", ["libelle" => $types[0]->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/etablissement/modified",
+            "contenue" => "Le type d'établissement {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -156,6 +166,11 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_etablissements", ["libelle" => $type->libelle]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/etablissement/modified",
+            "contenue" => "Le type d'établissement {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -177,6 +192,11 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_etablissements", ["libelle" => "unit.testing"]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/etablissement/modified",
+            "contenue" => "Le type d'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -224,6 +244,11 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("types_etablissements", ["libelle" => $type->libelle]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "type/etablissement/deleted",
+            "contenue" => "Le type d'établissement {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 }

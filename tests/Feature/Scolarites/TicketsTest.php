@@ -6,6 +6,7 @@ use App\Models\Eleve;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
 use App\Models\TypeTicket;
+use App\Observers\TicketMessageObserver;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -96,6 +97,11 @@ class TicketsTest extends TestCase
 			"eleve_id"       => $eleve->id,
 			"type_ticket_id" => $typeTicket->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/created",
+            "contenue" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -123,6 +129,11 @@ class TicketsTest extends TestCase
 			"ticket_id" => Ticket::where("libelle", "unit.testing")->first()->id,
 			"contenu"   => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/created",
+            "contenue" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	public function testAffichageTicket()
@@ -207,6 +218,11 @@ class TicketsTest extends TestCase
 			"id"             => $ticket->id,
 			"type_ticket_id" => $typeTicket->id,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/modified",
+            "contenue" => "Le ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -214,13 +230,13 @@ class TicketsTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionTicket()
 	{
-		$ticketMessage = factory(TicketMessage::class)->create();
+		$ticket = factory(Ticket::class)->create();
 
-		$request = $this->get("/scolarites/eleves/{$ticketMessage->ticket->eleve->id}/tickets/{$ticketMessage->ticket->id}/edit");
+		$request = $this->get("/scolarites/eleves/{$ticket->eleve->id}/tickets/{$ticket->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . str_limit($ticketMessage->ticket->libelle, 15) . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . str_limit($ticket->libelle, 15) . "</b>.");
 	}
 
 	/**
@@ -228,13 +244,21 @@ class TicketsTest extends TestCase
 	 */
 	public function testSuppressionTicket()
 	{
-		$ticketMessage = factory(TicketMessage::class)->create();
+		$ticket = factory(Ticket::class)->create();
+		$ticketMessage = factory(TicketMessage::class)->create([
+		    "ticket_id" => $ticket->id
+        ]);
 
-		$request = $this->delete("/scolarites/eleves/{$ticketMessage->ticket->eleve->id}/tickets/{$ticketMessage->ticket->id}");
+		$request = $this->delete("/scolarites/eleves/{$ticket->eleve->id}/tickets/{$ticket->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("tickets", ["id" => $ticketMessage->ticket->id]);
+		$this->assertDatabaseMissing("tickets", ["id" => $ticket->id]);
 		$this->assertDatabaseMissing("messages_tickets", ["id" => $ticketMessage->id]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "ticket/deleted",
+            "contenue" => "Le ticket {$ticket->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 }

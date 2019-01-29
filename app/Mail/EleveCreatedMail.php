@@ -33,7 +33,7 @@ class EleveCreatedMail extends Mailable
 		$this->eleve = $eleve;
 		$this->emails = collect();
 
-		$services = Service::where("departement_id", $eleve->departement_id)->get();
+		$services = Service::where("departement_id", $eleve->departement_id)->with("utilisateurs")->get();
 		foreach ($services as $service) {
 			$this->emails = $this->emails->merge($service->utilisateurs->where('reception_email', 1)->pluck('email'));
 		}

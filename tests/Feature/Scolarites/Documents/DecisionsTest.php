@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Scolarites;
+namespace Tests\Feature\Scolarites\Documents;
 
 use App\Models\Decision;
 use App\Models\Departement;

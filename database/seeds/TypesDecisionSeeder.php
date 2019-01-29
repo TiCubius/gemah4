@@ -9,7 +9,7 @@ class TypesDecisionSeeder extends Seeder
         "AVS",
     ];
 
-    public function run()
+	public function run()
     {
         foreach ($this->types as $type) {
             \App\Models\TypeDecision::create([

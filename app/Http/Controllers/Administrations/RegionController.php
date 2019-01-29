@@ -87,7 +87,7 @@ class RegionController extends Controller
 	 */
 	public function destroy(Region $region): RedirectResponse
 	{
-		if (!($region->has("academies"))) {
+		if (!($region->academies->isNotEmpty())) {
 			$region->delete();
 
 			return redirect(route("web.administrations.regions.index"));

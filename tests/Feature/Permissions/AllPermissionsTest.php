@@ -31,7 +31,7 @@ use Tests\TestCase;
 class AllPermissionsTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service sans permissions

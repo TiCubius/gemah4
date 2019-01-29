@@ -63,7 +63,8 @@ class TypesDecisionsTest extends TestCase
 		$type = factory(TypeDecision::class, 5)->create();
 
 		$request = $this->post("/administrations/types/decisions", [
-			"_token" => csrf_token(), "libelle" => $type->random()->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -77,12 +78,18 @@ class TypesDecisionsTest extends TestCase
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
 		$request = $this->post("/administrations/types/decisions", [
-			"_token" => csrf_token(), "libelle" => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_decisions", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"  => $this->user->id,
+			"type"     => "type/decision/created",
+			"contenue" => "Le type de décision unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 
@@ -126,12 +133,18 @@ class TypesDecisionsTest extends TestCase
 		$type = factory(TypeDecision::class, 2)->create();
 
 		$request = $this->put("/administrations/types/decisions/{$type[0]->id}", [
-			"_token" => csrf_token(), "libelle" => $type[1]->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_decisions", ["libelle" => $type[0]->libelle]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"  => $this->user->id,
+			"type"     => "type/decision/modified",
+			"contenue" => "Le type de décision {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -143,12 +156,18 @@ class TypesDecisionsTest extends TestCase
 		$type = factory(TypeDecision::class)->create();
 
 		$request = $this->put("/administrations/types/decisions/{$type->id}", [
-			"_token" => csrf_token(), "libelle" => $type->libelle,
+			"_token"  => csrf_token(),
+			"libelle" => $type->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_decisions", ["libelle" => $type->libelle]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"  => $this->user->id,
+			"type"     => "type/decision/modified",
+			"contenue" => "Le type de décision {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -160,12 +179,18 @@ class TypesDecisionsTest extends TestCase
 		$type = factory(TypeDecision::class)->create();
 
 		$request = $this->put("/administrations/types/decisions/{$type->id}", [
-			"_token" => csrf_token(), "libelle" => "unit.testing",
+			"_token"  => csrf_token(),
+			"libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_decisions", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"  => $this->user->id,
+			"type"     => "type/decision/modified",
+			"contenue" => "Le type de décision unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 
@@ -213,6 +238,11 @@ class TypesDecisionsTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("types_decisions", ["libelle" => $type->libelle]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"  => $this->user->id,
+			"type"     => "type/decision/deleted",
+			"contenue" => "Le type de décision {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 }

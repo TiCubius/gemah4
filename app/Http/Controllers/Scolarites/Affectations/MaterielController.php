@@ -8,6 +8,7 @@ use App\Models\DomaineMateriel;
 use App\Models\Eleve;
 use App\Models\EtatAdministratifMateriel;
 use App\Models\EtatPhysiqueMateriel;
+use App\Models\Historique;
 use App\Models\Materiel;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -59,6 +60,16 @@ class MaterielController extends Controller
 				'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
 			]);
 
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "materiel_id"       => $materiel->id,
+                "type"              => "materiel/affectation",
+                "contenue"          => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
+            ]);
+
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}
 
@@ -79,6 +90,16 @@ class MaterielController extends Controller
 				"eleve_id"  => null,
 				'date_pret' => null,
 			]);
+
+            $user = session("user");
+
+            Historique::create([
+                "from_id"           => $user["id"],
+                "eleve_id"          => $eleve->id,
+                "materiel_id"       => $materiel->id,
+                "type"              => "materiel/desaffectation",
+                "contenue"          => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
+            ]);
 
 			return redirect(route("web.scolarites.eleves.show", [$eleve]));
 		}

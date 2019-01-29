@@ -100,7 +100,7 @@ class AcademieController extends Controller
 	 */
 	public function destroy(Academie $academy): RedirectResponse
 	{
-		if (!($academy->has("departements"))) {
+		if (!($academy->departements->isNotEmpty())) {
 			$academy->delete();
 
 			return redirect(route("web.administrations.academies.index"));

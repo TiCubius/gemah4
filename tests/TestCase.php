@@ -13,6 +13,8 @@ abstract class TestCase extends BaseTestCase
 	use CreatesApplication;
 	use RefreshDatabase;
 
+	protected $user;
+
 	public function setUp()
 	{
 		parent::setUp();
@@ -32,10 +34,11 @@ abstract class TestCase extends BaseTestCase
 
 		$service->permissions()->sync(Permission::all()->pluck('id'));
 
-		$user = factory(Utilisateur::class)->create([
+		$this->user = factory(Utilisateur::class)->create([
 			"service_id" => $service->id,
 		]);
 
-		$this->session(["user" => $user]);
+
+		$this->session(["user" => $this->user]);
 	}
 }

@@ -14,18 +14,18 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageIndexUtilisateurs()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateurs = factory(Utilisateur::class, 5)->create();
+		$service = factory(Service::class)->create();
+		$utilisateurs = factory(Utilisateur::class, 5)->create();
 
 		$request = $this->get("/administrations/utilisateurs");
 
 		$request->assertStatus(200);
 		$request->assertSee("Gestion des utilisateurs");
 
-		foreach ($Utilisateurs as $Utilisateur) {
-			$request->assertSee($Utilisateur->nom);
-			$request->assertSee($Utilisateur->prenom);
-			$request->assertSee($Utilisateur->service->nom);
+		foreach ($utilisateurs as $utilisateur) {
+			$request->assertSee($utilisateur->nom);
+			$request->assertSee($utilisateur->prenom);
+			$request->assertSee($utilisateur->service->nom);
 		}
 	}
 
@@ -70,12 +70,12 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationUtilisateurExistant()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateurs = factory(Utilisateur::class, 5)->create();
+		$service = factory(Service::class)->create();
+		$utilisateurs = factory(Utilisateur::class, 5)->create();
 
 		$request = $this->post("/administrations/utilisateurs", [
 			"_token" => csrf_token(),
-			"nom"    => $Utilisateurs->random()->nom,
+			"nom"    => $utilisateurs->random()->nom,
 		]);
 
 		$request->assertStatus(302);
@@ -88,7 +88,7 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationUtilisateurComplet()
 	{
-		$Service = factory(Service::class)->create();
+		$service = factory(Service::class)->create();
 
 		$request = $this->post("/administrations/utilisateurs", [
 			"_token"                => csrf_token(),
@@ -98,7 +98,7 @@ class UtilisateursTest extends TestCase
 			"email"                 => "unit@testing.fr",
 			"password"              => "unit.testing",
 			"password_confirmation" => "unit.testing",
-			"service_id"            => $Service->id,
+			"service_id"            => $service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -112,13 +112,13 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionUtilisateur()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$service = factory(Service::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->get("/administrations/utilisateurs/{$Utilisateur->id}/edit");
+		$request = $this->get("/administrations/utilisateurs/{$utilisateur->id}/edit");
 
 		$request->assertStatus(200);
-		$request->assertSee("Édition de {$Utilisateur->nom}");
+		$request->assertSee("Édition de {$utilisateur->nom}");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
 		$request->assertSee("Identifiant");
@@ -134,10 +134,10 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurIncomplet()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$service = factory(Service::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
+		$request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -151,21 +151,21 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurExistant()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateurs = factory(Utilisateur::class, 2)->create();
+		$service = factory(Service::class)->create();
+		$utilisateurs = factory(Utilisateur::class, 2)->create();
 
-		$request = $this->put("/administrations/utilisateurs/{$Utilisateurs[0]->id}", [
+		$request = $this->put("/administrations/utilisateurs/{$utilisateurs[0]->id}", [
 			"_token"      => csrf_token(),
 			"nom"         => "unit.testing",
 			"prenom"      => "unit.testing",
 			"identifiant" => "unit.testing",
-			"email"       => $Utilisateurs[1]->email,
-			"service_id"  => $Service->id,
+			"email"       => $utilisateurs[1]->email,
+			"service_id"  => $service->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("utilisateurs", ["nom" => $Utilisateurs[0]->nom]);
+		$this->assertDatabaseHas("utilisateurs", ["nom" => $utilisateurs[0]->nom]);
 	}
 
 	/**
@@ -174,20 +174,20 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletSansModification()
 	{
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
+		$request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
 			"_token"      => csrf_token(),
-			"nom"         => $Utilisateur->nom,
-			"prenom"      => $Utilisateur->prenom,
-			"identifiant" => $Utilisateur->identifiant,
-			"email"       => $Utilisateur->email,
-			"service_id"  => $Utilisateur->service_id,
+			"nom"         => $utilisateur->nom,
+			"prenom"      => $utilisateur->prenom,
+			"identifiant" => $utilisateur->identifiant,
+			"email"       => $utilisateur->email,
+			"service_id"  => $utilisateur->service_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("utilisateurs", ["email" => $Utilisateur->email]);
+		$this->assertDatabaseHas("utilisateurs", ["email" => $utilisateur->email]);
 	}
 
 	/**
@@ -196,16 +196,16 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionUtilisateurCompletAvecModification()
 	{
-		$Service = factory(Service::class)->create();
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$service = factory(Service::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->put("/administrations/utilisateurs/{$Utilisateur->id}", [
+		$request = $this->put("/administrations/utilisateurs/{$utilisateur->id}", [
 			"_token"      => csrf_token(),
 			"nom"         => "unit.testing",
 			"prenom"      => "unit.testing",
 			"identifiant" => "unit.testing",
 			"email"       => "unit@testing.fr",
-			"service_id"  => $Service->id,
+			"service_id"  => $service->id,
 		]);
 
 		$request->assertStatus(302);
@@ -243,13 +243,13 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionUtilisateur()
 	{
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->get("/administrations/utilisateurs/{$Utilisateur->id}/edit");
+		$request = $this->get("/administrations/utilisateurs/{$utilisateur->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer");
-		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$Utilisateur->nom} {$Utilisateur->prenom}" . "</b>.");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . "{$utilisateur->nom} {$utilisateur->prenom}" . "</b>.");
 	}
 
 
@@ -258,16 +258,21 @@ class UtilisateursTest extends TestCase
 	 */
 	public function testTraitementSuppressionUtilisateur()
 	{
-		$Utilisateur = factory(Utilisateur::class)->create();
+		$utilisateur = factory(Utilisateur::class)->create();
 
-		$request = $this->delete("/administrations/utilisateurs/{$Utilisateur->id}");
+		$request = $this->delete("/administrations/utilisateurs/{$utilisateur->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("utilisateurs", [
-			"nom"    => $Utilisateur->nom,
-			"prenom" => $Utilisateur->prenom,
+			"nom"    => $utilisateur->nom,
+			"prenom" => $utilisateur->prenom,
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "utilisateur/deleted",
+            "contenue" => "L'utilisateur {$utilisateur->nom} {$utilisateur->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 

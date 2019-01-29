@@ -12,7 +12,7 @@ use Tests\TestCase;
 class EtatsPhysiquesMaterielsTest extends TestCase
 {
 	private $service;
-	private $user;
+	protected $user;
 
 	/**
 	 * Création d'un utilisateur possèdant un service avec uniquement les permissions des états matériel physiques

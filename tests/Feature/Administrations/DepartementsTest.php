@@ -4,6 +4,7 @@ namespace Tests\Feature\Administrations;
 
 use App\Models\Academie;
 use App\Models\Departement;
+use App\Models\Service;
 use Tests\TestCase;
 
 class DepartementsTest extends TestCase
@@ -96,6 +97,11 @@ class DepartementsTest extends TestCase
 			"id"  => "unit.testing",
 			"nom" => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/created",
+            "contenue" => "Le département unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 
@@ -153,6 +159,11 @@ class DepartementsTest extends TestCase
 			"id"  => $departements[0]->id,
 			"nom" => $departements[0]->nom,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/modified",
+            "contenue" => "Le département {$departements[1]->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -179,6 +190,11 @@ class DepartementsTest extends TestCase
 			"id"  => $departement->id,
 			"nom" => $departement->nom,
 		]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/modified",
+            "contenue" => "Le département {$departement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
 
 	/**
@@ -203,7 +219,68 @@ class DepartementsTest extends TestCase
 			"id"  => "unit.testing",
 			"nom" => "unit.testing",
 		]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/modified",
+            "contenue" => "Le département unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+        ]);
 	}
+
+    /**
+     * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+     */
+    public function testAffichageAlerteSuppressionDepartement()
+    {
+        $departement = factory(Departement::class)->create();
+
+        $request = $this->get("/administrations/departements/{$departement->id}/edit");
+
+        $request->assertStatus(200);
+        $request->assertSee("Supprimer");
+        $request->assertSee("Vous êtes sur le point de supprimer <b>" . $departement->nom . "</b>.");
+    }
+
+    /**
+     * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des académies
+     */
+    public function testTraitementSuppressionDepartementAssocie()
+    {
+        $departement = factory(Departement::class)->create();
+        $service = factory(Service::class)->create([
+            "departement_id" => $departement->id,
+        ]);
+
+        $request = $this->delete("/administrations/departements/{$departement->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasErrors();
+        $this->assertDatabaseHas("departements", ["nom" => $departement->nom]);
+        $this->assertDatabaseMissing("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/deleted",
+            "contenue" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
+
+    /**
+     * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucun
+     * service
+     */
+    public function testTraitementSuppressionDepartementNonAssocie()
+    {
+        $departement = factory(Departement::class)->create();
+
+        $request = $this->delete("/administrations/departements/{$departement->id}");
+
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseMissing("departements", ["nom" => $departement->nom]);
+        $this->assertDatabaseHas("historiques", [
+            "from_id" => $this->user->id,
+            "type" => "departement/deleted",
+            "contenue" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+        ]);
+    }
 }
 
 ?>

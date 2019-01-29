@@ -30,10 +30,8 @@ class CreateHistoriquesTable extends Migration
             $table->unsignedInteger('type_eleve_id')->nullable();
 
             $table->unsignedInteger('ticket_id')->nullable();
-            $table->unsignedInteger('message_ticket_id')->nullable();
             $table->unsignedInteger('type_ticket_id')->nullable();
 
-            $table->unsignedInteger('decision_id')->nullable();
             $table->unsignedInteger('document_id')->nullable();
             $table->unsignedInteger('type_document_id')->nullable();
 
@@ -64,11 +62,10 @@ class CreateHistoriquesTable extends Migration
             $table->foreign('type_eleve_id')->references('id')->on('types_eleves')->onDelete('set null');
 
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('set null');
-            $table->foreign('message_ticket_id')->references('id')->on('messages_tickets')->onDelete('set null');
             $table->foreign('type_ticket_id')->references('id')->on('types_tickets')->onDelete('set null');
 
-            $table->foreign('decision_id')->references('id')->on('decisions')->onDelete('set null');
             $table->foreign('document_id')->references('id')->on('documents')->onDelete('set null');
+            $table->foreign('type_document_id')->references('id')->on('types_documents')->onDelete('set null');
 
             $table->foreign('domaine_id')->references('id')->on('domaines_materiels')->onDelete('set null');
             $table->foreign('etat_administratif_materiel_id')->references('id')->on('etats_administratifs_materiels')->onDelete('set null');

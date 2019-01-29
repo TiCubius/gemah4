@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Eleve;
 use App\Models\Historique;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Session;
@@ -19,6 +20,7 @@ class TicketObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $ticket->eleve->id,
                 "ticket_id" => $ticket->id,
                 "type" => "ticket/created",
                 "contenue" => "Le ticket {$ticket->libelle} à été créé par {$user->nom} {$user->prenom}"
@@ -37,6 +39,7 @@ class TicketObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $ticket->eleve->id,
                 "ticket_id" => $ticket->id,
                 "type" => "ticket/modified",
                 "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$user->nom} {$user->prenom}"
@@ -55,6 +58,7 @@ class TicketObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $ticket->eleve->id,
                 "type" => "ticket/deleted",
                 "contenue" => "Le ticket {$ticket->libelle} à été supprimé par {$user->nom} {$user->prenom}"
             ]);

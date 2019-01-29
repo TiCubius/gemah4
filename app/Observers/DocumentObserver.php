@@ -19,6 +19,7 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $document->eleve->id,
                 "document_id" => $document->id,
                 "type" => "document/created",
                 "contenue" => "Le document {$document->nom} à été créé par {$user->nom} {$user->prenom}"
@@ -37,6 +38,7 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $document->eleve->id,
                 "document_id" => $document->id,
                 "type" => "document/modified",
                 "contenue" => "Le document {$document->nom} à été modifié par {$user->nom} {$user->prenom}"
@@ -55,6 +57,7 @@ class DocumentObserver
             $user = session("user");
             Historique::create([
                 "from_id" => $user["id"],
+                "eleve_id" => $document->eleve->id,
                 "type" => "document/deleted",
                 "contenue" => "Le document {$document->nom} à été supprimé par {$user->nom} {$user->prenom}"
             ]);

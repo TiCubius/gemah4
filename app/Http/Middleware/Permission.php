@@ -29,6 +29,8 @@ class Permission
 		"App\Http\Controllers\Administrations\ServiceController"     => "administrations/services/",
 		"App\Http\Controllers\Administrations\UtilisateurController" => "administrations/utilisateurs/",
 
+        "App\Http\Controllers\Administrations\HistoriqueController" => "administrations/historiques/",
+
 
 		"App\Http\Controllers\Materiels\MaterielController"        => "materiels/",
 		"App\Http\Controllers\Materiels\DomaineMaterielController" => "materiels/domaines/",

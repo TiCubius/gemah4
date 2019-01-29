@@ -19,7 +19,7 @@ use App\Models\Service;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
 use App\Models\TypeDocument;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use App\Models\TypeEtablissement;
 use App\Models\TypeMateriel;
 use App\Models\TypeTicket;
@@ -102,7 +102,7 @@ class NoPermissionTest extends TestCase
 		$service = factory(Service::class)->create();
 		$utilisateur = factory(Utilisateur::class)->create();
 		$type = factory(TypeMateriel::class)->create();
-		$typeEleve = factory(TypeEleve::class)->create();
+		$typeDecision = factory(TypeDecision::class)->create();
 		$typeEtablissement = factory(TypeEtablissement::class)->create();
 		$typeTicket = factory(TypeTicket::class)->create();
 		$typeDocument = factory(TypeDocument::class)->create();
@@ -207,10 +207,10 @@ class NoPermissionTest extends TestCase
 			"/administrations/types/documents/create",
 			// "/administrations/types/documents/{$typeDocument->id}", // ERROR 404
 			"/administrations/types/documents/{$typeDocument->id}/edit",
-			"/administrations/types/eleves",
-			"/administrations/types/eleves/create",
-			// "/administrations/types/eleves/{$typeEleve->id}", // ERROR 404
-			"/administrations/types/eleves/{$typeEleve->id}/edit",
+			"/administrations/types/decisions",
+			"/administrations/types/decisions/create",
+			// "/administrations/types/decisions/{$typeDecision->id}", // ERROR 404
+			"/administrations/types/decisions/{$typeDecision->id}/edit",
 			"/administrations/types/etablissements",
 			"/administrations/types/etablissements/create",
 			// "/administrations/types/etablissements/$typeEtablissement->id}", // ERROR 404
@@ -256,7 +256,7 @@ class NoPermissionTest extends TestCase
 			"/administrations/services",
 			"/administrations/utilisateurs",
 			"/administrations/types/documents",
-			"/administrations/types/eleves",
+			"/administrations/types/decisions",
 			"/administrations/types/etablissements",
 			"/administrations/types/tickets",
 			"/administrations/materiels/etats/administratifs",
@@ -288,7 +288,7 @@ class NoPermissionTest extends TestCase
 			"/administrations/services/{$service->id}",
 			"/administrations/utilisateurs/{$utilisateur->id}",
 			"/administrations/types/documents/{$typeDocument->id}",
-			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/decisions/{$typeDecision->id}",
 			"/administrations/types/etablissements/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
 			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
@@ -319,7 +319,7 @@ class NoPermissionTest extends TestCase
 			"/administrations/services/{$service->id}",
 			"/administrations/utilisateurs/{$utilisateur->id}",
 			"/administrations/types/documents/{$typeDocument->id}",
-			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/decisions/{$typeDecision->id}",
 			"/administrations/types/etablissements/{$typeEtablissement->id}",
 			"/administrations/types/tickets/{$typeTicket->id}",
 			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TypesEleveSeeder extends Seeder
+class TypesDecisionSeeder extends Seeder
 {
     protected $types = [
         "Matériel",
@@ -12,7 +12,7 @@ class TypesEleveSeeder extends Seeder
     public function run()
     {
         foreach ($this->types as $type) {
-            \App\Models\TypeEleve::create([
+            \App\Models\TypeDecision::create([
                 'libelle' => $type,
             ]);
         }

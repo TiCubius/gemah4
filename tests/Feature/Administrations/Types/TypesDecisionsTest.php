@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Administrations;
 
-use App\Models\Eleve;
-use App\Models\TypeEleve;
+use App\Models\Decision;
+use App\Models\TypeDecision;
 use Tests\TestCase;
 
-class TypeEleveTest extends TestCase
+class TypesDecisionsTest extends TestCase
 {
 
 	/**
@@ -14,12 +14,12 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageIndexTypesEleves()
 	{
-		$types = factory(TypeEleve::class, 3)->create();
+		$types = factory(TypeDecision::class, 3)->create();
 
-		$request = $this->get("/administrations/types/eleves");
+		$request = $this->get("/administrations/types/decisions");
 
 		$request->assertStatus(200);
-		$request->assertSee("Gestion des types d'élèves");
+		$request->assertSee("Gestion des types de décision");
 
 		foreach ($types as $type) {
 			$request->assertSee($type->libelle);
@@ -32,12 +32,12 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageFormulaireCreationType()
 	{
-		$request = $this->get("/administrations/types/eleves/create");
+		$request = $this->get("/administrations/types/decisions/create");
 
 		$request->assertStatus(200);
-		$request->assertSee("Création d'un type d'élève");
+		$request->assertSee("Création d'un type de décision");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer le type d'élève");
+		$request->assertSee("Créer le type de décision");
 	}
 
 	/**
@@ -46,7 +46,7 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeIncomplet()
 	{
-		$request = $this->post("/administrations/types/eleves", [
+		$request = $this->post("/administrations/types/decisions", [
 			"_token" => csrf_token(),
 		]);
 
@@ -56,15 +56,14 @@ class TypeEleveTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire de création
-	 * d'un type d'élève déjà existant
+	 * d'un type de décision déjà existant
 	 */
 	public function testTraitementFormulaireCreationTypeExistant()
 	{
-		$type = factory(TypeEleve::class, 5)->create();
+		$type = factory(TypeDecision::class, 5)->create();
 
-		$request = $this->post("/administrations/types/eleves", [
-			"_token"  => csrf_token(),
-			"libelle" => $type->random()->libelle,
+		$request = $this->post("/administrations/types/decisions", [
+			"_token" => csrf_token(), "libelle" => $type->random()->libelle,
 		]);
 
 		$request->assertStatus(302);
@@ -77,14 +76,13 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireCreationTypeComplet()
 	{
-		$request = $this->post("/administrations/types/eleves", [
-			"_token"  => csrf_token(),
-			"libelle" => "unit.testing",
+		$request = $this->post("/administrations/types/decisions", [
+			"_token" => csrf_token(), "libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("types_decisions", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -93,9 +91,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageFormulaireEditionType()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->get("/administrations/types/eleves/{$type->id}/edit");
+		$request = $this->get("/administrations/types/decisions/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Édition de {$type->libelle}");
@@ -109,9 +107,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testTraitementFormulaireEditionTypeIncomplet()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->put("/administrations/types/eleves/{$type->id}", [
+		$request = $this->put("/administrations/types/decisions/{$type->id}", [
 			"_token" => csrf_token(),
 		]);
 
@@ -121,56 +119,53 @@ class TypeEleveTest extends TestCase
 
 	/**
 	 * Vérifie que des erreurs sont présentes lors de la tentative de soumission d'un formulaire d'édition
-	 * d'un type d'élève déjà existant
+	 * d'un type de décision déjà existant
 	 */
 	public function testTraitementFormulaireEditionTypeExistant()
 	{
-		$type = factory(TypeEleve::class, 2)->create();
+		$type = factory(TypeDecision::class, 2)->create();
 
-		$request = $this->put("/administrations/types/eleves/{$type[0]->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => $type[1]->libelle,
+		$request = $this->put("/administrations/types/decisions/{$type[0]->id}", [
+			"_token" => csrf_token(), "libelle" => $type[1]->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type[0]->libelle]);
+		$this->assertDatabaseHas("types_decisions", ["libelle" => $type[0]->libelle]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été édité lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que le type de décision à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet sans modification
 	 */
 	public function testTraitementFormulaireEditionServiceTypeSansModification()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->put("/administrations/types/eleves/{$type->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => $type->libelle,
+		$request = $this->put("/administrations/types/decisions/{$type->id}", [
+			"_token" => csrf_token(), "libelle" => $type->libelle,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseHas("types_decisions", ["libelle" => $type->libelle]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été édité lors de la soumission
+	 * Vérifie qu'aucune erreur n'est présente et que le type de décision à bien été édité lors de la soumission
 	 * d'un formulaire d'édition complet avec modification
 	 */
 	public function testTraitementFormulaireEditionTypeCompletAvecModification()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->put("/administrations/types/eleves/{$type->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => "unit.testing",
+		$request = $this->put("/administrations/types/decisions/{$type->id}", [
+			"_token" => csrf_token(), "libelle" => "unit.testing",
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => "unit.testing"]);
+		$this->assertDatabaseHas("types_decisions", ["libelle" => "unit.testing"]);
 	}
 
 
@@ -179,9 +174,9 @@ class TypeEleveTest extends TestCase
 	 */
 	public function testAffichageAlerteSuppressionType()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->get("/administrations/types/eleves/{$type->id}/edit");
+		$request = $this->get("/administrations/types/decisions/{$type->id}/edit");
 
 		$request->assertStatus(200);
 		$request->assertSee("Supprimer " . $type->libelle);
@@ -189,35 +184,35 @@ class TypeEleveTest extends TestCase
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
+	 * Vérifie qu'aucune erreur n'est présente et que le type de décision à bien été supprimé s'il n'est associé à aucun
 	 * utilisateur
 	 */
 	public function testTraitementSuppressionTypeAssocie()
 	{
-		$type = factory(TypeEleve::class)->create();
-		$eleve = factory(Eleve::class)->create();
-		$eleve->types()->attach($type);
+		$type = factory(TypeDecision::class)->create();
+		$decision = factory(Decision::class)->create();
+		$decision->types()->attach($type);
 
-		$request = $this->delete("/administrations/types/eleves/{$type->id}");
+		$request = $this->delete("/administrations/types/decisions/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseHas("types_decisions", ["libelle" => $type->libelle]);
 	}
 
 	/**
-	 * Vérifie qu'aucune erreur n'est présente et que le type d'élève à bien été supprimé s'il n'est associé à aucun
+	 * Vérifie qu'aucune erreur n'est présente et que le type de décision à bien été supprimé s'il n'est associé à aucun
 	 * utilisateur
 	 */
 	public function testTraitementSuppressionTypeNonAssocie()
 	{
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
-		$request = $this->delete("/administrations/types/eleves/{$type->id}");
+		$request = $this->delete("/administrations/types/decisions/{$type->id}");
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseMissing("types_eleves", ["libelle" => $type->libelle]);
+		$this->assertDatabaseMissing("types_decisions", ["libelle" => $type->libelle]);
 	}
 
 }

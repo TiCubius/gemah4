@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\EleveCreatedMail;
 use App\Models\Academie;
 use App\Models\Eleve;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -24,7 +24,7 @@ class EleveController extends Controller
 	public function index(Request $request): View
 	{
 		$academies = Academie::with("departements")->get();
-		$typesEleve = TypeEleve::all();
+		$typesEleve = TypeDecision::all();
 
 		$latestCreated = Eleve::latestCreated()->take(5)->get();
 		$latestUpdated = Eleve::latestUpdated()->take(5)->get();
@@ -44,7 +44,7 @@ class EleveController extends Controller
 	public function create(): View
 	{
 		$academies = Academie::with("departements")->get();
-		$types = TypeEleve::all();
+		$types = TypeDecision::all();
 
 		return view("web.scolarites.eleves.create", compact("academies", "types"));
 	}
@@ -90,7 +90,7 @@ class EleveController extends Controller
 	public function show(Eleve $eleve): View
 	{
 		// Eager loading : charge les relations nécessaires avant l'affichage de la vue
-		$eleve->load("etablissement.type", "materiels.type", "responsables", "types");
+		$eleve->load("etablissement.type", "materiels.type", "responsables");
 
 		return view("web.scolarites.eleves.show", compact("eleve"));
 	}
@@ -118,7 +118,7 @@ class EleveController extends Controller
 	public function edit(Eleve $eleve): View
 	{
 		$academies = Academie::with("departements")->get();
-		$types = TypeEleve::all();
+		$types = TypeDecision::all();
 
 		return view("web.scolarites.eleves.edit", compact("academies", "eleve", "types"));
 	}
@@ -174,6 +174,7 @@ class EleveController extends Controller
 			Storage::delete("storage/document/{$document->path}");
 		}
 
+		$eleve->decisions()->delete();
 		$eleve->documents()->delete();
 		$eleve->delete();
 

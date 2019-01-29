@@ -16,7 +16,7 @@ class Permission
 		"App\Http\Controllers\Administrations\ParametreController" => "administrations/parametres/",
 
 		"App\Http\Controllers\Administrations\Types\TypeDocumentController"      => "administrations/types/documents/",
-		"App\Http\Controllers\Administrations\Types\TypeEleveController"         => "administrations/types/eleves/",
+		"App\Http\Controllers\Administrations\Types\TypeDecisionController"      => "administrations/types/decisions/",
 		"App\Http\Controllers\Administrations\Types\TypeEtablissementController" => "administrations/types/etablissements/",
 		"App\Http\Controllers\Administrations\Types\TypeTicketController"        => "administrations/types/tickets/",
 

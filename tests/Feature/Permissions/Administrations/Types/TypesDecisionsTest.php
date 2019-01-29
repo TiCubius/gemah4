@@ -4,25 +4,25 @@ namespace Tests\Feature\Permissions;
 
 use App\Models\Permission;
 use App\Models\Service;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class TypesElevesTest extends TestCase
+class TypesDecisionsTest extends TestCase
 {
 	private $service;
 	private $user;
 
 	/**
-	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types d'élèves
+	 * Création d'un utilisateur possèdant un service avec uniquement les permissions de la gestion des types de décisions
 	 * et simulation de la connexion.
 	 */
 	public function setUp()
 	{
 		parent::setUp();
 
-        $permissions = Permission::where("id", "LIKE", "administrations/types/eleves/%")->get();
+        $permissions = Permission::where("id", "LIKE", "administrations/types/decisions/%")->get();
 
 		$this->service = factory(Service::class)->create();
         $this->service->permissions()->sync($permissions->pluck('id'));
@@ -37,30 +37,30 @@ class TypesElevesTest extends TestCase
 
 
 	/**
-	 * Vérifie que toutes les routes de la gestion des types d'élèves soient fonctionnelles
+	 * Vérifie que toutes les routes de la gestion des types de décisions soient fonctionnelles
 	 */
 	public function testAccessAutorise()
 	{
-		$typeEleve = factory(TypeEleve::class)->create();
+		$typeEleve = factory(TypeDecision::class)->create();
 
 
 		$getRoutes = [
-			"/administrations/types/eleves",
-			"/administrations/types/eleves/create",
-			// "/administrations/types/eleves/{$typeEleve->id}", // ERROR 404
-			"/administrations/types/eleves/{$typeEleve->id}/edit",
+			"/administrations/types/decisions",
+			"/administrations/types/decisions/create",
+			// "/administrations/types/decisions/{$typeEleve->id}", // ERROR 404
+			"/administrations/types/decisions/{$typeEleve->id}/edit",
 		];
 
 		$postRoutes = [
-			"/administrations/types/eleves",
+			"/administrations/types/decisions",
 		];
 
 		$patchRoutes = [
-			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/decisions/{$typeEleve->id}",
 		];
 
 		$deleteRoutes = [
-			"/administrations/types/eleves/{$typeEleve->id}",
+			"/administrations/types/decisions/{$typeEleve->id}",
 		];
 
 

@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="col-6">
-                                @component("web._includes.components.types_eleves",["types" => $types, "id" => app("request")->input("type_eleve_id")])
+                                @component("web._includes.components.types_decisions",["types" => $types, "id" => app("request")->input("type_eleve_id")])
                                 @endcomponent
                             </div>
 

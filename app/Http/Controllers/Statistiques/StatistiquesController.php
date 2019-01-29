@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Statistiques;
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Eleve;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -28,7 +28,7 @@ class StatistiquesController extends Controller
 	public function generale(Request $request): View
 	{
 		$eleves = Eleve::all();
-		$types = TypeEleve::all();
+		$types = TypeDecision::all();
 		$academies = Academie::with("departements")->get();
 
 		if ($request->exists(["departement_id", "type_eleve_id", "nom", "prenom", "date_naissance", "code_ine", "eleve_id",])) {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection;
 
 class Eleve extends Model
 {
@@ -26,16 +27,7 @@ class Eleve extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		"etablissement_id",
-		"departement_id",
-		"nom",
-		"prenom",
-		"code_ine",
-		"classe",
-		"joker",
-		"prix_global",
-		"date_naissance",
-		"date_rendu_definitive",
+		"etablissement_id", "departement_id", "nom", "prenom", "code_ine", "classe", "joker", "prix_global", "date_naissance", "date_rendu_definitive",
 	];
 
 
@@ -94,11 +86,20 @@ class Eleve extends Model
 	 * Un élève appartient à plusieurs types
 	 * [Utilisation d'une table PIVOT]
 	 *
-	 * @return BelongsToMany
+	 * @return Collection
 	 */
-	public function types(): BelongsToMany
+	public function getTypesAttribute(): Collection
 	{
-		return $this->belongsToMany(TypeEleve::class);
+		$types = collect();
+		$decisions = $this->decisions()->with("types")->get();
+
+		foreach ($decisions as $decision) {
+			foreach ($decision->types as $type) {
+				$types->push($type);
+			}
+		}
+
+		return $types->unique("id")->sortBy("libelle");
 	}
 
 

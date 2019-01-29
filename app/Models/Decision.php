@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Decision extends Model
 {
@@ -53,5 +54,15 @@ class Decision extends Model
 	public function enseignant(): BelongsTo
 	{
 		return $this->belongsTo(Enseignant::class);
+	}
+
+	/**
+	 * Une décision apprtient à plusieurs types
+	 *
+	 * @return BelongsToMany
+	 */
+	public function types(): BelongsToMany
+	{
+		return $this->belongsToMany(TypeDecision::class);
 	}
 }

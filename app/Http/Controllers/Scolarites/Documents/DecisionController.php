@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Scolarites\Documents;
 
-use App\Http\Controllers\Administrations\Types\TypeEleveController;
+use App\Http\Controllers\Administrations\Types\TypeDecisionController;
 use App\Http\Controllers\Controller;
 use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
@@ -10,7 +10,7 @@ use App\Models\Document;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\TypeDocument;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +18,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DecisionController extends Controller
 {
@@ -57,7 +58,7 @@ class DecisionController extends Controller
 	public function create(Eleve $eleve): View
 	{
 		$enseignants = Enseignant::all();
-		$types = TypeEleve::all();
+		$types = TypeDecision::all();
 
 		return view("web.scolarites.eleves.documents.decisions.create", compact("eleve", "enseignants", 'types'));
 	}
@@ -81,7 +82,7 @@ class DecisionController extends Controller
 			"date_convention"   => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
 			"numero_dossier"    => "nullable|max:191",
 			"enseignant_id"     => "nullable|exists:enseignants,id",
-            "types"              => "required|exists:types_eleves,id",
+            "types"              => "required|exists:types_decisions,id",
 			"file"              => "required",
 		]);
 
@@ -92,7 +93,7 @@ class DecisionController extends Controller
 		$request->file('file')->storeAs('public/decisions/', $filename);
 
 		$document = Document::create([
-			"nom"              => "Décision ".TypeEleve::find($request->input("types")[0])->libelle ." ²du ". Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
+			"nom"              => "Décision du ". Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
 			"description"      => $request->input("description"),
 			"type_document_id" => TypeDocument::where("libelle", "Décision")->first()->id,
 			"path"             => $filename,
@@ -110,9 +111,7 @@ class DecisionController extends Controller
 			"enseignant_id" => $request->input("enseignant_id"),
 		]);
 
-		$typesEleves = $eleve->types->pluck('id');
-        $typesEleves->push($request->input("types")[0]);
-        $eleve->types()->sync($typesEleves->toArray());
+        $decision->types()->sync($request->input("types"));
 
 		Mail::send(new DecisionCreatedMail($eleve, $decision));
 
@@ -130,8 +129,9 @@ class DecisionController extends Controller
 	{
 		if ($decision->document->eleve_id == $eleve->id) {
 			$enseignants = Enseignant::all();
+			$types = TypeDecision::all();
 
-			return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'decision', 'enseignants'));
+			return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'enseignants', 'decision', 'types'));
 		}
 
 		return back()->withErrors("Cette décision n'appartient pas à cet élève");
@@ -162,7 +162,7 @@ class DecisionController extends Controller
 
 			if ($request->hasFile("file")) {
 				// On supprime l"ancien fichier
-				Storage::delete("public/" . $decision->document->path);
+				Storage::delete("public/{$decision->document->path}");
 
 				// On enregistre le fichier
 				$filename = $this->generateFilename($eleve, $request->file("file"));
@@ -184,6 +184,8 @@ class DecisionController extends Controller
 				"enseignant_id" => $request->input("enseignant_id"),
 				"document_id"   => isset($document) ? $document->id : $decision->document_id,
 			]);
+
+			$decision->types()->sync($request->input("types"));
 
 			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 		}
@@ -207,9 +209,6 @@ class DecisionController extends Controller
 
 			// On supprime la décision dans la BDD
 			$decision->delete();
-
-			// On supprime le document associé dans la BDD
-			$decision->document()->delete();
 
 			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 		}

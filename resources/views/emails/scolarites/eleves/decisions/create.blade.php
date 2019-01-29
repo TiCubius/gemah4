@@ -5,7 +5,7 @@
 		<h4 class="alert-heading">Information : Nouvelle décision !</h4>
 		<p>
 			Une nouvelle décision vient d'être ajoutée pour <b>{{ $eleve->nom . ' ' . $eleve->prenom }}</b> <br>
-			Il s'agit d'une decision concernant un élève de type {{ join(" / ",$eleve->types->pluck("libelle")->toArray()) }}
+			Il s'agit d'une decision concernant un élève de type {{ join(" / ", $eleve->types->pluck("libelle")->toArray()) }}
 		</p>
 		<hr>
 		<p class="small text-muted mb-0">Ceci est un message automatique, merci de ne pas y répondre</p>

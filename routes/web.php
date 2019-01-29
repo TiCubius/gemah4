@@ -11,8 +11,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Mail;
-
 Route::get('/connexion', 'ConnexionController@index')->name('web.connexion');
 Route::post('/connexion', 'ConnexionController@login');
 Route::get('/deconnexion', 'ConnexionController@logout')->name('web.logout');
@@ -121,8 +119,8 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::group(["prefix" => "/types", "as" => "types."], function () {
 			Route::resource("tickets", "Administrations\Types\TypeTicketController");
 			Route::resource("etablissements", "Administrations\Types\TypeEtablissementController");
-			Route::resource("eleves", "Administrations\Types\TypeEleveController")->parameters([
-				'eleves' => 'eleve',
+			Route::resource("decisions", "Administrations\Types\TypeDecisionController")->parameters([
+				'decisions' => 'decision',
 			]);
 			Route::resource("documents", "Administrations\Types\TypeDocumentController");
 		});

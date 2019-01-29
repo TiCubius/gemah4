@@ -20,7 +20,7 @@ use App\Models\Service;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
 use App\Models\TypeDocument;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use App\Models\TypeEtablissement;
 use App\Models\TypeMateriel;
 use App\Models\TypeTicket;

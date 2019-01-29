@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class TypeEleve extends Model
+class TypeDecision extends Model
 {
 	/**
 	 * Le nom de la table n'est pas celui attendu par défaut
 	 *
 	 * @var string
 	 */
-	public $table = "types_eleves";
+	public $table = "types_decisions";
 
 	/**
 	 * Liste des attributs remplissables
@@ -25,13 +25,13 @@ class TypeEleve extends Model
 
 
 	/**
-	 * Un type d'élève possède plusieurs élève
+	 * Un type de décision possède plusieurs décisions
 	 * [Utilisation d'une table PIVOT]
 	 *
 	 * @return BelongsToMany
 	 */
-	public function eleves(): BelongsToMany
+	public function decisions(): BelongsToMany
 	{
-		return $this->belongsToMany(Eleve::class);
+		return $this->belongsToMany(Decision::class);
 	}
 }

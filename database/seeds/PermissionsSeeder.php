@@ -61,11 +61,11 @@ class PermissionsSeeder extends Seeder
 		"administrations/types/documents/edit"    => "Peut modifier un type de document",
 		"administrations/types/documents/destroy" => "Peut supprimer un type de document",
 
-		"administrations/types/eleves/index"   => "Peut afficher la liste des types d'élève",
-		"administrations/types/eleves/create"  => "Peut créer un type d'élève",
-		//		"administrations/types/eleves/show"    => "Peut afficher les informations sur un type d'élève",
-		"administrations/types/eleves/edit"    => "Peut modifier un type d'élève",
-		"administrations/types/eleves/destroy" => "Peut supprimer un type d'élève",
+		"administrations/types/decisions/index"   => "Peut afficher la liste des types de décision",
+		"administrations/types/decisions/create"  => "Peut créer un type de décision",
+		//		"administrations/types/decisions/show"    => "Peut afficher les informations sur un type d'élève",
+		"administrations/types/decisions/edit"    => "Peut modifier un type de décision",
+		"administrations/types/decisions/destroy" => "Peut supprimer un type de décision",
 
 		"administrations/types/etablissements/index"   => "Peut afficher la liste des types d'établissement",
 		"administrations/types/etablissements/create"  => "Peut créer un type d'établissement",

@@ -43,7 +43,6 @@
 					<i class="fas fa-tools"></i> Outils
 				</div>
 
-
 				<a href="{{ route("web.administrations.materiels.etats.administratifs.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des états administratifs matériel
 				</a>
@@ -52,15 +51,17 @@
 					Gestion des états physiques matériel
 				</a>
 
+
 				<a href="{{ route("web.administrations.parametres.edit") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des paramètres
 				</a>
 
-				<a href="{{ route("web.administrations.types.eleves.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
-					Gestion des types d'élèves
-				</a>
 				<a href="{{ route("web.administrations.types.etablissements.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types d'établissement
+				</a>
+
+				<a href="{{ route("web.administrations.types.decisions.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
+					Gestion des types de décision
 				</a>
 
 				<a href="{{ route("web.administrations.types.documents.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -70,6 +71,7 @@
 				<a href="{{ route("web.administrations.types.tickets.index") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des types de ticket
 				</a>
+
 
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
 					Historique des actions

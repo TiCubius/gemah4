@@ -7,7 +7,7 @@ use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Service;
 use App\Models\TypeDocument;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use App\Models\Utilisateur;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -84,7 +84,7 @@ class DecisionsTest extends TestCase
 		factory(TypeDocument::class)->create([
 			"libelle" => 'Décision',
 		]);
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
 		$request = $this->post("/scolarites/eleves/{$eleve->id}/documents/decisions", [
 			"_token"            => csrf_token(),
@@ -110,7 +110,7 @@ class DecisionsTest extends TestCase
 		$departement = factory(Departement::class)->create();
 		$service = factory(Service::class)->create(["departement_id" => $departement->id]);
 		$utilisateur = factory(Utilisateur::class)->create(["service_id" => $service->id]);
-		$type = factory(TypeEleve::class)->create();
+		$type = factory(TypeDecision::class)->create();
 
 		$eleve = factory(Eleve::class)->create([
 			"departement_id" => $departement->id
@@ -155,7 +155,6 @@ class DecisionsTest extends TestCase
 		$request->assertSee("Date de la convention");
 		$request->assertSee("Numéro du dossier MDPH");
 		$request->assertSee("Nom/prénom de l'enseignant référent");
-		$request->assertSee("Affaire suivie par");
 		$request->assertSee("Fichier");
 
 		$request->assertSee("Éditer");

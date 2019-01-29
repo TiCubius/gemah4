@@ -2,12 +2,12 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.administrations.types.eleves.index"])
-			Création d'un type d'élève
+		@component("web._includes.components.title", ["back" => "web.administrations.types.decisions.index"])
+			Création d'un type de décision
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.administrations.types.eleves.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.types.decisions.index") }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="form-group">
@@ -16,7 +16,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer le type d'élève</button>
+					<button class="btn btn-sm btn-outline-success">Créer le type de décision</button>
 				</div>
 			</form>
 		</div>

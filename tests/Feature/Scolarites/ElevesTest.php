@@ -7,7 +7,7 @@ use App\Models\Eleve;
 use App\Models\Materiel;
 use App\Models\Responsable;
 use App\Models\Service;
-use App\Models\TypeEleve;
+use App\Models\TypeDecision;
 use App\Models\Utilisateur;
 use Carbon\Carbon;
 use Tests\TestCase;

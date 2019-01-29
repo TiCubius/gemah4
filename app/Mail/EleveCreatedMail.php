@@ -47,7 +47,7 @@ class EleveCreatedMail extends Mailable
 	 */
 	public function build()
 	{
-		$subject = "GEMAH - 3.00 - Nouvel élève : {$this->eleve->nom} {$this->eleve->prenom}";
+		$subject = "GEMAH - 3.00 - Nouvel(le) élève : {$this->eleve->nom} {$this->eleve->prenom}";
 
 		return $this->from("dsi-bureautique42@ac-lyon.fr")->bcc($this->emails)->subject($subject)->view('emails.scolarites.eleves.create')->with([
 			"eleve" => $this->eleve,

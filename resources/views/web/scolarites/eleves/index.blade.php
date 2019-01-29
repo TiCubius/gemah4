@@ -27,7 +27,7 @@
 								@component("web._includes.components.departement", ["optional" => true, "academies" => $academies, "id" => request("departement_id")])
 								@endcomponent
 
-								@component("web._includes.components.types_eleves", ["optional" => true, "types" => $typesEleve, "id" => request("type_eleve_id")])
+								@component("web._includes.components.types_decisions", ["optional" => true, "types" => $typesEleve, "id" => request("type_eleve_id")])
 								@endcomponent
 
 								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH"])

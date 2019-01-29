@@ -34,6 +34,7 @@ class HistoriqueController extends Controller
             "etatAdministratifMateriel",
             "etatPhysiqueMateriel",
             "materiel",
+            "domaineMateriel",
             "typeMateriel",
             "service",
             "utilisateur"

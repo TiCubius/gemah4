@@ -193,7 +193,7 @@ class Historique extends Model
      */
     public function domaineMateriel(): BelongsTo
     {
-        return $this->belongsTo(DomaineMateriel::class);
+        return $this->belongsTo(DomaineMateriel::class, "domaine_id");
     }
 
     /**

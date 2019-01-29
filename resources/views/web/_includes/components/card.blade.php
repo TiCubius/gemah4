@@ -6,7 +6,7 @@
     <div class="card-body">
         <a href="{{ route( $route, $id) }}" type="btn" class="btn btn-outline-primary" target="_blank">
             <i class="fas fa-arrow-alt-circle-left"></i>
-            Accéder
+            Accéder à {{ $nom }}
         </a>
     </div>
 </div>

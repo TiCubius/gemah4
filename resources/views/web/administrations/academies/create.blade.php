@@ -31,7 +31,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer l'académie</button>
+					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>
 			</form>
 

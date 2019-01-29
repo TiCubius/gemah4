@@ -38,7 +38,7 @@ class TypesEtablissementsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type d'établissement");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer le type d'établissement");
+		$request->assertSee("Créer");
 	}
 
 	/**

@@ -36,7 +36,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 		$request->assertSee("Création d'un état administratif matériel");
 		$request->assertSee("Libellé");
 		$request->assertSee("Couleur");
-		$request->assertSee("Créer l'état administratif matériel");
+		$request->assertSee("Créer");
 	}
 
 	/**

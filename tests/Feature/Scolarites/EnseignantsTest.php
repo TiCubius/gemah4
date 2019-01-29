@@ -42,7 +42,7 @@ class EnseignantsTest extends TestCase
         $request->assertSee("Prénom");
         $request->assertSee("Adresse E-Mail");
         $request->assertSee("Téléphone");
-        $request->assertSee("Créer l'enseignant");
+        $request->assertSee("Créer");
     }
 
     /**

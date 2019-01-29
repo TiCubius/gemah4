@@ -44,7 +44,7 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer l'enseignant</button>
+					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>
 			</form>
 		</div>

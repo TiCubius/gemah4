@@ -43,7 +43,7 @@ class TypesMaterielTest extends TestCase
 		$request->assertSee("Création d'un type matériel");
 		$request->assertSee("Libellé");
 		$request->assertSee("Domaine");
-		$request->assertSee("Créer le type");
+		$request->assertSee("Créer");
 	}
 
 	/**

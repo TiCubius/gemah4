@@ -35,7 +35,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un état physique matériel");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer l'état physique matériel");
+		$request->assertSee("Créer");
 	}
 
 	/**

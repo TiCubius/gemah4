@@ -34,7 +34,7 @@ class TypesTicketsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type de ticket");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer le type de ticket");
+		$request->assertSee("Créer");
 	}
 
 	/***

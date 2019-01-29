@@ -37,7 +37,7 @@ class TypesDocumentsTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Création d'un type de document");
 		$request->assertSee("Libellé");
-		$request->assertSee("Créer le type de document");
+		$request->assertSee("Créer");
 	}
 
 	/**

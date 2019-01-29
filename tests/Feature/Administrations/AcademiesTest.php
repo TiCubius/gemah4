@@ -40,7 +40,7 @@ class AcademiesTest extends TestCase
 		$request->assertSee("Création d'une académie");
 		$request->assertSee("Nom");
 		$request->assertSee("Région");
-		$request->assertSee("Créer l'académie");
+		$request->assertSee("Créer");
 	}
 
 	/**

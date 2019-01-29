@@ -15,7 +15,7 @@
 					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: LYCEE POLYVALENT" value="{{ old("libelle") }}" required>
 				</div>
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer le type d'établissement</button>
+					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>
 			</form>
 		</div>

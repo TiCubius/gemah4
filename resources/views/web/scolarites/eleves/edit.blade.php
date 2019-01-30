@@ -40,8 +40,10 @@
 					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ $eleve->code_INE }}" placeholder="Ex : 0000000000X">
 				</div>
 
+				@hasPermission("eleves/edit")
 				@component("web._includes.components.form_edit")
 				@endcomponent
+				@endHas
 			</form>
 		</div>
 	</div>

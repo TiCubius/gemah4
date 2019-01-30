@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.affectations.responsables.create", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
+		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.affectations.responsables.create", "permission" => "affectations/responsables/create", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Affectation d'un responsable à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 

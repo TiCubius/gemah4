@@ -3,7 +3,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.create", "back" => "web.scolarites.index"])
+		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.create", "permission" => "scolarites/eleves/create", "back" => "web.scolarites.index"])
 			Gestion des élèves
 		@endcomponent
 

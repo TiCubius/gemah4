@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.create", "back" => "web.scolarites.index"])
+		@component("web._includes.components.title", ["add" => "web.scolarites.eleves.create", "permission" => "eleves/create", "back" => "web.scolarites.index"])
 			Gestion des élèves
 		@endcomponent
 
@@ -65,12 +65,16 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("eleves/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
 													Voir le profil
 												</a>
+												@endHas
+												@hasPermission("eleves/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -87,12 +91,16 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$eleve->nom} {$eleve->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("eleves/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
 													Voir le profil
 												</a>
+												@endHas
+												@hasPermission("eleves/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -132,7 +140,9 @@
 													<td>{{ $eleve->prenom }}</td>
 													<td data-order="{{ $eleve->date_naissance->timestamp }}">{{ $eleve->date_naissance->format("d/m/Y") }}</td>
 													<td>
+														@hasPermission("eleves/show")
 														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">Voir le profil</a>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

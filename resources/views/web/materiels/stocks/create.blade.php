@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.materiels.stocks.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.materiels.stocks.store") }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="row">

@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.academies.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.academies.create", "permission" => "administrations/academies/create", "back" => "web.administrations.index"])
 			Gestion des académies
 		@endcomponent
 
@@ -28,9 +28,11 @@
 								<td>{{ $academy->region->nom }}</td>
 								<td>{{ $academy->nom }}</td>
 								<td>
+									@hasPermission("administrations/academies/edit")
 									<a href="{{ route("web.administrations.academies.edit", [$academy]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

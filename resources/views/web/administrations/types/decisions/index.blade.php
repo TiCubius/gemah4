@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.types.decisions.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.types.decisions.create", "permission" => "administrations/types/decisions/create", "back" => "web.administrations.index"])
 			Gestion des types de décision
 		@endcomponent
 

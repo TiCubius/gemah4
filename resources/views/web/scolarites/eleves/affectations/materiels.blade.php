@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "back" => "web.materiels.index"])
+		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "permission" => "materiels/stocks/create", "back" => "web.materiels.index"])
 			Affectation d'un matériel à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 

@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "back" => "web.materiels.index"])
+		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "permission" => "materiels/stocks/create", "back" => "web.materiels.index"])
 			Gestion des stocks matériel
 		@endcomponent
 
@@ -109,12 +109,17 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 											<div class="btn-group">
+												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
 													Voir le profil
 												</a>
+												@endHas
+
+												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -131,12 +136,17 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 											<div class="btn-group">
+												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
 													Voir le profil
 												</a>
+												@endHas
+
+												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -195,7 +205,9 @@
 													<td>{{ $materiel->prix_ttc }}</td>
 													@isset($materiel->eleve)
 														<td>
+															@hasPermission("eleves/show")
 															<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}</a>
+															@endHas
 														</td>
 													@else
 														<td></td>
@@ -203,7 +215,9 @@
 													<td>{{ $materiel->date_pret ? $materiel->date_pret->format("d/m/Y") : null }}</td>
 													<td>{{ $materiel->etatPhysique->libelle }}</td>
 													<td>
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
+														@hasPermission("materiels/stocks/show")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

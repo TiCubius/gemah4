@@ -148,8 +148,10 @@
 				</div>
 
 
+				@hasPermission("materiels/stocks/edit")
 				@component("web._includes.components.form_edit")
 				@endcomponent
+				@endHas
 			</form>
 		</div>
 

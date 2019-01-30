@@ -6,13 +6,15 @@
 			Gestion du matériel
 		@endcomponent
 
-		<div class="col-12">
+			@hasPermission("materiels/stocks/index")
+			<div class="col-12">
 			<a href="{{ route("web.materiels.stocks.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					Gestion des stocks de matériel
 				</button>
 			</a>
 		</div>
+			@endHas
 
 		<div class="col-12">
 			<a href="{{ route("web.materiels.domaines.index") }}">

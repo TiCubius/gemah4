@@ -7,9 +7,11 @@
 					{{ $custom }}
 				@endisset
 				@isset($add)
+					@hasPermission("{{$permission}}")
 					<a class="btn btn-outline-primary" href="{{ route($add, $id ?? null) }}">
 						<i class="fas fa-plus-circle"></i> Ajouter
 					</a>
+					@endHas
 				@endisset
 				@isset($back)
 					<a class="btn btn-outline-primary" href="{{ route($back, $id ?? null) }}">

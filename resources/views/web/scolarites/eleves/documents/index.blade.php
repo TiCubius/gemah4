@@ -15,15 +15,19 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+						@hasPermission("eleves/documents/decisions/create")
 						<a class="dropdown-item" href="{{route('web.scolarites.eleves.documents.decisions.create', [$eleve]) }}">
 							Décision
 						</a>
+						@endHas
 
+						@hasPermission("eleves/documents/create")
 						@foreach($types->where("libelle", "<>", "Décision") as $type)
 							<a class="dropdown-item" href="{{ route('web.scolarites.eleves.documents.create', [$eleve, "type_document_id" => $type->id]) }}">
 								{{ $type->libelle }}
 							</a>
 						@endforeach
+						@endHas
 					</div>
 				</div>
 			@endslot
@@ -133,17 +137,20 @@
 								<p class="mb-0">Document soumis le {{ $document->created_at }}</p>
 							</div>
 							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
+								@hasPermission("eleves/documents/edit")
 								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.edit', [$eleve->id, $document->id]) }}">
 									<i class="far fa-edit"></i>
 									Modifier
 								</a>
+								@endHas
 
 								<div class="btn-group">
+									@hasPermission("eleves/documents/download")
 									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
 										<i class="fas fa-download"></i>
 										Télécharger
 									</a>
-
+									@endHas
 									<a class="btn btn-sm btn-primary" href="{{ asset("storage/documents/{$document->path}") }}" target="_blank">
 										<i class="far fa-eye"></i>
 										Visualiser

@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.scolarites.etablissements.create", "back" => "web.scolarites.index"])
+		@component("web._includes.components.title", ["add" => "web.scolarites.etablissements.create", "permission" => "etablissements/create", "back" => "web.scolarites.index"])
 			Gestion des établissements
 		@endcomponent
 
@@ -61,7 +61,9 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("etablissements/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -78,7 +80,9 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("etablissements/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -118,7 +122,9 @@
 													<td>{{ $etablissement->ville }}</td>
 													<td>{{ $etablissement->telephone }}</td>
 													<td>
+														@hasPermission("etablissements/edit")
 														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

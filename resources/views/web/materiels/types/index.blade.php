@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.materiels.types.create", "back" => "web.materiels.index"])
+		@component("web._includes.components.title", ["add" => "web.materiels.types.create", "permission" => "materiels/types/create", "back" => "web.materiels.index"])
 			Gestion des types matériel
 		@endcomponent
 

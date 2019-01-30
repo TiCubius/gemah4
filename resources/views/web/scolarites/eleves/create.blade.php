@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.scolarites.eleves.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.scolarites.eleves.store") }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="form-group">
@@ -40,9 +40,11 @@
 					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ old("code_ine") }}" placeholder="Ex : 0000000000X">
 				</div>
 
+				@hasPermission("eleves/create")
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>
+				@endHas
 			</form>
 		</div>
 

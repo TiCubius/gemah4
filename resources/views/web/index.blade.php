@@ -9,41 +9,53 @@
 		</div>
 
 		<div class="col-12">
+			@hasPermission("scolarites/index")
 			<a href="{{ route("web.scolarites.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="fas fa-user-graduate"></i> Gestion de la scolarité
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("responsables/index")
 			<a href="{{ route("web.responsables.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="fas fa-user-tie"></i> Gestion des responsables
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("materiels/index")
 			<a href="{{ route("web.materiels.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="fas fa-laptop"></i> Gestion du matériel
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("statistiques/index")
 			<a href="{{ route("web.statistiques.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="far fa-list-alt"></i> Statistiques
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("conventions/index")
 			<a href="{{ route("web.conventions.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="far fa-file-alt"></i> Conventions
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("administrations/index")
 			<a href="{{ route('web.administrations.index') }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					<i class="fas fa-cog"></i> Administration
 				</button>
 			</a>
+			@endHas
 		</div>
 
 	</div>

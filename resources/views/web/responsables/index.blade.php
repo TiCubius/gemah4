@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.responsables.create", "back" => "web.index"])
+		@component("web._includes.components.title", ["add" => "web.responsables.create", "permission" => "responsables/create", "back" => "web.index"])
 			Gestion des responsables
 		@endcomponent
 
@@ -62,9 +62,11 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("responsables/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -81,9 +83,11 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("responsables/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
 													Editer
 												</a>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -125,7 +129,11 @@
 													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
 													<td>
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">Editer</a>
+														@hasPermission("responsables/edit")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
+															Editer
+														</a>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

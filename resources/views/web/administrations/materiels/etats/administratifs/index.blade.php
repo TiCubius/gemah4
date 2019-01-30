@@ -2,7 +2,7 @@
 @section("content")
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.administratifs.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.administratifs.create", "permission" => "administrations/materiels/etats/administratifs/create", "back" => "web.administrations.index"])
 			Gestion des états administratifs matériel
 		@endcomponent
 
@@ -26,9 +26,11 @@
 								<td style="background: {{ $etat->couleur }};"></td>
 								<td>{{ $etat->libelle }}</td>
 								<td>
+									@hasPermission("administrations/materiels/etats/administratifs/edit")
 									<a href="{{ route("web.administrations.materiels.etats.administratifs.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

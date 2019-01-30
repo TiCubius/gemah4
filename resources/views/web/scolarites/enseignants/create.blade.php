@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.scolarites.enseignants.index") }}" method="POST">
+			<form class="mb-3" action="{{ route("web.scolarites.enseignants.store") }}" method="POST">
 				{{ csrf_field() }}
 
 				@component("web._includes.components.departement", ["academies" => $academies])
@@ -43,9 +43,11 @@
 					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}">
 				</div>
 
+				@hasPermission("enseignants/create")
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>
+				@endHas
 			</form>
 		</div>
 

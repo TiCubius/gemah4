@@ -45,7 +45,9 @@ use App\Observers\TypeEtablissementObserver;
 use App\Observers\TypeMaterielObserver;
 use App\Observers\TypeTicketObserver;
 use App\Observers\UtilisateurObserver;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -87,6 +89,16 @@ class AppServiceProvider extends ServiceProvider
 
         Service::observe(ServiceObserver::class);
         Utilisateur::observe(UtilisateurObserver::class);
+
+        Blade::directive('hasPermission', function ($permission)
+        {
+            return "<?php if(Session::has('user') && Session::get('user')->service->permissions->contains('id', $permission)) { ?>";
+        });
+
+        Blade::directive('endHas', function()
+        {
+            return "<?php } ?>";
+        });
     }
 
     /**

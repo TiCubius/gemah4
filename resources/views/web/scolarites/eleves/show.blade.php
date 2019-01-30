@@ -12,19 +12,37 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+						@hasPermission("affectations/etablissements/index")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.etablissements.index", [$eleve]) }}">Affecter un établissement</a>
+						@endHas
+						@hasPermission("affectations/materiels/index")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.materiels.index", [$eleve]) }}">Affecter un matériel</a>
+						@endHas
+						@hasPermission("affectations/responsables/index")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.affectations.responsables.index", [$eleve]) }}">Affecter à un responsable</a>
+						@endHas
 
+						@hasPermission("eleves/edit")
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}">Éditer l'élève</a>
+						@endHas
 
 						<div class="dropdown-divider"></div>
+						@hasPermission("eleves/impressions/autorisations")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.autorisations", [$eleve]) }}" target="_blank">Autorisation CNIL</a>
+						@endHas
+						@hasPermission("eleves/impressions/consignes")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.consignes", [$eleve]) }}" target="_blank">Consignes du matériel</a>
+						@endHas
+						@hasPermission("eleves/impressions/conventions")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}" target="_blank">Convention</a>
+						@endHas
+						@hasPermission("eleves/impressions/recapitulatifs")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}" target="_blank">Récapitulatif</a>
+						@endHas
+						@hasPermission("eleves/impressions/recuperations")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recuperations", [$eleve]) }}" target="_blank">Récépissé de récupération</a>
+						@endHas
 					</div>
 				</div>
 			@endslot
@@ -58,8 +76,10 @@
 					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
 						Etablissement
 
+						@hasPermission("affectations/etablissements/detach")
 						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-etablissements-{{ $eleve->etablissement->id }}">Désaffecter
 						</button>
+						@endHas
 					</div>
 
 					<div class="card-body">
@@ -80,7 +100,9 @@
 					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
 						Responsable
 
+						@hasPermission("affectations/responsables/detach")
 						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-responsable-{{ $responsable->id }}">Désaffecter</button>
+						@endHas
 					</div>
 
 					<div class="card-body">
@@ -122,9 +144,13 @@
 										<td>{{ Carbon\Carbon::parse($materiel->updated_at)->format('d/m/Y') }}</td>
 										<td>
 											<div class="btn-group">
+												@hasPermission("materiels/stocks/show")
 												<a href="{{ route('web.materiels.stocks.show', [$materiel]) }}" class="btn btn-sm btn-outline-primary">Détail</a>
+												@endHas
+												@hasPermission("affectations/materiels/detach")
 												<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-materiel-{{ $materiel->id }}">Désaffecter
 												</button>
+												@endHas
 											</div>
 										</td>
 									</tr>

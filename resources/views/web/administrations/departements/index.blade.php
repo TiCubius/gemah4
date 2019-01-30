@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.departements.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.departements.create", "permission" => "administrations/departements/create", "back" => "web.administrations.index"])
 			Gestion des départements
 		@endcomponent
 

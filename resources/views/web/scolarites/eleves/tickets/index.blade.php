@@ -2,7 +2,7 @@
 
 @section("content")
 
-	@component("web._includes.components.title", ["add" => "web.scolarites.eleves.tickets.create", "back" => "web.scolarites.eleves.show", "id" => $eleve])
+	@component("web._includes.components.title", ["add" => "web.scolarites.eleves.tickets.create", "permission" => "scolarites/eleves/tickets/create", "back" => "web.scolarites.eleves.show", "id" => $eleve])
 		Gestion des tickets
 	@endcomponent
 
@@ -30,14 +30,18 @@
 						</div>
 
 						<div class="card-footer gemah-bg-primary d-flex justify-content-between">
+							@hasPermission("eleves/tickets/edit")
 							<a role="button" href="{{ route('web.scolarites.eleves.tickets.edit', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-warning">
 								<i class="fas fa-edit"></i>
 								Modifier
 							</a>
+							@endHas
+							@hasPermission("eleves/tickets/show")
 							<a role="button" href="{{ route('web.scolarites.eleves.tickets.show', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-light">
 								<i class="far fa-eye"></i>
 								Visualiser
 							</a>
+							@endHas
 						</div>
 					</div>
 				</div>

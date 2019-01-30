@@ -7,23 +7,29 @@
 		@endcomponent
 
 		<div class="col-12">
+			@hasPermission("eleves/index")
 			<a href="{{ route("web.scolarites.eleves.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					Gestion des élèves
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("etablissements/index")
 			<a href="{{ route("web.scolarites.etablissements.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					Gestion des établissements
 				</button>
 			</a>
+			@endHas
 
+			@hasPermission("enseignants/index")
 			<a href="{{ route("web.scolarites.enseignants.index") }}">
 				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
 					Gestion des enseignants référents
 				</button>
 			</a>
+			@endHas
 		</div>
 	</div>
 @endsection

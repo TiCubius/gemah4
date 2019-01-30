@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.utilisateurs.create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.utilisateurs.create", "permission" => "administrations/utilisateurs/create", "back" => "web.administrations.index"])
 			Gestion des utilisateurs
 		@endcomponent
 

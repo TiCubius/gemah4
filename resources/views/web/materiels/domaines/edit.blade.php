@@ -16,8 +16,10 @@
 					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Informatique" value="{{ $domaine->libelle }}" required>
 				</div>
 
+				@hasPermission("materiels/domaines/edit")
 				@component("web._includes.components.form_edit")
 				@endcomponent
+				@endHas
 			</form>
 		</div>
 	</div>

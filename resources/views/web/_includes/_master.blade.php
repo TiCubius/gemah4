@@ -16,10 +16,6 @@
 	</head>
 
 	<body>
-		<div class="navbar_message">
-			ATTENTION: Aucune modification sur cette version de GEMAH ne sera sauvegardée !
-		</div>
-
 		@include("web._includes.navbar")
 
 		<div class="container-fluid">

@@ -153,7 +153,7 @@ class StocksMaterielTest extends TestCase
 		$request->assertSee("Date de service fait");
 		$request->assertSee("Date de fin de garantie");
 		$request->assertSee("Acheté pour");
-		$request->assertSee("Modifier");
+		$request->assertSee("Éditer");
 	}
 
 

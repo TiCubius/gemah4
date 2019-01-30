@@ -38,6 +38,7 @@
 				<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.tickets.edit", [$eleve, $ticket]) }}">Modifier le ticket</a>
 			</div>
 
+			@hasPermission("eleves/tickets/messages/create")
 			<form action="{{ route("web.scolarites.eleves.tickets.messages.store", [$eleve, $ticket]) }}" method="POST">
 				{{ csrf_field() }}
 
@@ -50,6 +51,7 @@
 					<button class="btn btn-sm btn-outline-primary">Envoyer le nouveau message</button>
 				</div>
 			</form>
+			@endHas
 
 		</div>
 @endsection

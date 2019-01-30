@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.scolarites.etablissements.create", "permission" => "etablissements/create", "back" => "web.scolarites.index"])
+		@component("web._includes.components.title", ["add" => "web.scolarites.etablissements.create", "permission" => "etablissements/create", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Affectation d'un établissement à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 
@@ -61,11 +61,13 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/etablissements/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.etablissements.attach", [$eleve, $etablissement]) }}" method="POST">
 													{{ csrf_field() }}
 
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -82,11 +84,13 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/etablissements/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.etablissements.attach", [$eleve, $etablissement]) }}" method="POST">
 													{{ csrf_field() }}
 
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -126,11 +130,13 @@
 													<td>{{ $etablissement->ville }}</td>
 													<td>{{ $etablissement->telephone }}</td>
 													<td>
+														@hasPermission("affectations/etablissements/attach")
 														<form action="{{ route("web.scolarites.eleves.affectations.etablissements.attach", [$eleve, $etablissement]) }}" method="POST">
 															{{ csrf_field() }}
 
 															<button class="btn btn-sm btn-outline-primary">Affecter</button>
 														</form>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

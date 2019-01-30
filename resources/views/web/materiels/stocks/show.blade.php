@@ -151,9 +151,11 @@
 			</div>
 
 			<div class="actions d-flex justify-content-center">
+				@hasPermission("materiels/stocks/edit")
 				<a href="{{ route('web.materiels.stocks.edit', [$stock]) }}" class="btn btn-sm btn-outline-primary">
-					<i class="far fa-edit"></i> Modifier
+					<i class="far fa-edit"></i> Éditer
 				</a>
+				@endHas
 			</div>
 
 		</div>

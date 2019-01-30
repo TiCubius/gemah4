@@ -70,11 +70,6 @@
 													Voir le profil
 												</a>
 												@endHas
-												@hasPermission("eleves/edit")
-												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-													Editer
-												</a>
-												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -94,11 +89,6 @@
 												@hasPermission("eleves/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
 													Voir le profil
-												</a>
-												@endHas
-												@hasPermission("eleves/edit")
-												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-													Editer
 												</a>
 												@endHas
 											</div>

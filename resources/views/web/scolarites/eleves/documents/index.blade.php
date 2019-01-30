@@ -103,11 +103,14 @@
 								</p>
 							</div>
 							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
+								@hasPermission("eleves/decisions/edit")
 								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve->id, $document->decision]) }}">
 									<i class="far fa-edit"></i>
 									Modifier
 								</a>
+								@endHas
 
+								@hasPermission("eleves/decisions/download")
 								<div class="btn-group">
 									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.decisions.download", [$eleve, $document->decision]) }}">
 										<i class="fas fa-download"></i>
@@ -119,6 +122,7 @@
 										Visualiser
 									</a>
 								</div>
+								@endHas
 							</div>
 						</div>
 					</div>
@@ -144,18 +148,18 @@
 								</a>
 								@endHas
 
+								@hasPermission("eleves/documents/download")
 								<div class="btn-group">
-									@hasPermission("eleves/documents/download")
 									<a class="btn btn-sm btn-primary" href="{{ route("web.scolarites.eleves.documents.download", [$eleve, $document]) }}">
 										<i class="fas fa-download"></i>
 										Télécharger
 									</a>
-									@endHas
 									<a class="btn btn-sm btn-primary" href="{{ asset("storage/documents/{$document->path}") }}" target="_blank">
 										<i class="far fa-eye"></i>
 										Visualiser
 									</a>
 								</div>
+								@endHas
 							</div>
 						</div>
 					</div>

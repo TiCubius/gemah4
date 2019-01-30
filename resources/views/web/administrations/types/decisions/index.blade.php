@@ -26,9 +26,11 @@
 							<tr>
 								<td>{{ $type->libelle }}</td>
 								<td>
+									@hasPermission("administrations/types/decisions/edit")
 									<a href="{{ route("web.administrations.types.decisions.edit", [$type]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

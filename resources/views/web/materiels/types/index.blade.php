@@ -26,9 +26,11 @@
 								<td>{{ $type->domaine->libelle }}</td>
 								<td>{{ $type->libelle }}</td>
 								<td>
+									@hasPermission("materiels/types/edit")
 									<a href="{{ route("web.materiels.types.edit", [$type]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

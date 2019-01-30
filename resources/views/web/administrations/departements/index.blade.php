@@ -29,9 +29,11 @@
 								<td>{{ $departement->nom }}</td>
 								<td>{{ $departement->academie->nom }}</td>
 								<td>
+									@hasPermission("administrations/departements/edit")
 									<a href="{{ route("web.administrations.departements.edit", [$departement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

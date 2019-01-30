@@ -62,12 +62,14 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/responsables/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 													{{ csrf_field() }}
 													{{ method_field("PATCH") }}
 
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -84,12 +86,14 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/responsables/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 													{{ csrf_field() }}
 													{{ method_field("PATCH") }}
 
 													<button class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -131,12 +135,14 @@
 													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
 													<td>
+														@hasPermission("affectations/responsables/attach")
 														<form action="{{ route("web.scolarites.eleves.affectations.responsables.attach", [$eleve, $responsable]) }}" method="POST">
 															{{ csrf_field() }}
 															{{ method_field("PATCH") }}
 
 															<button class="btn btn-sm btn-outline-primary">Affecter</button>
 														</form>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

@@ -2,7 +2,7 @@
 @section("content")
 
 	<div class="row">
-		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "permission" => "materiels/stocks/create", "back" => "web.materiels.index"])
+		@component("web._includes.components.title", ["add" => "web.materiels.stocks.create", "permission" => "materiels/stocks/create", "back" => "web.scolarites.eleves.show", "id" => [$eleve]])
 			Affectation d'un matériel à {{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endcomponent
 
@@ -109,11 +109,13 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/materiels/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 													{{ csrf_field() }}
 
 													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -130,11 +132,13 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$materiel->marque} {$materiel->modele}" }}</span>
 											<div class="btn-group">
+												@hasPermission("affectations/materiels/attach")
 												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 													{{ csrf_field() }}
 
 													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
 												</form>
+												@endHas
 											</div>
 										</li>
 									@endforeach
@@ -195,11 +199,13 @@
 													<td>{{ $materiel->date_pret ? $materiel->date_pret->format("d/m/Y") : null }}</td>
 													<td>{{ $materiel->etatPhysique->libelle }}</td>
 													<td>
+														@hasPermission("affectations/materiels/attach")
 														<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 															{{ csrf_field() }}
 
 															<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
 														</form>
+														@endHas
 													</td>
 												</tr>
 											@endforeach

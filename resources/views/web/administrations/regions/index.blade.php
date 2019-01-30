@@ -24,9 +24,11 @@
 							<tr>
 								<td>{{ $region->nom }}</td>
 								<td>
+									@hasPermission("administrations/regions/edit")
 									<a href="{{ route("web.administrations.regions.edit", [$region]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

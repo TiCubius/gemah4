@@ -45,17 +45,25 @@ class ImpressionController extends Controller
 	 */
 	public function conventions(Eleve $eleve)
 	{
+		$errors = [];
 		if ($eleve->responsables->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.");
+			$errors[] = "Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.";
 		}
 		if (!$eleve->etablissement) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève n'est affecté à aucun établissement.");
+			$errors[] = "Impossible de générer une convention puisque l'élève n'est affecté à aucun établissement.";
 		}
 		if ($eleve->decisions->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucune convention.");
+			$errors[] = "Impossible de générer une convention puisque l'élève ne possède aucune décision.";
 		}
 		if ($eleve->materiels->isEmpty()) {
-			return back()->withErrors("Impossible de générer une convention puisque l'élève ne possède aucun matériel.");
+			$errors[] = "Impossible de générer une convention puisque l'élève ne possède aucun matériel.";
+		}
+		if (!$eleve->types->contains("libelle", "Matériel")) {
+			$errors[] = "Impossible de générer une convention puisque l'élève n'est pas de type matériel.";
+		}
+
+		if (count($errors) >= 1) {
+			return back()->withErrors($errors);
 		}
 
 		// On recherche les données de l'élève

@@ -20,8 +20,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="optional" for="type_etablissement_id">Type</label>
-						<select id="type_etablissement_id" class="form-control" name="type_etablissement_id">
+						<label for="type_etablissement_id">Type</label>
+						<select id="type_etablissement_id" class="form-control" name="type_etablissement_id" required>
 							<option value="">Choisissez un type d'établissement</option>
 							@foreach($types as $type)
 								@if(old("type_etablissement_id") === $type->id)

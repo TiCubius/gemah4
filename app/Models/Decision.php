@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder;
 
 class Decision extends Model
 {
@@ -65,4 +66,15 @@ class Decision extends Model
 	{
 		return $this->belongsToMany(TypeDecision::class);
 	}
+
+	/**
+	 * @param              $query
+	 * @param TypeDecision $typeDecision
+	 * @return Builder
+	 */
+	public function scopeType($query, TypeDecision $typeDecision): Builder
+	{
+		return $query->types()->where("type_decision_id", $typeDecision->id);
+	}
+
 }

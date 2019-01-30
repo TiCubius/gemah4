@@ -7,7 +7,7 @@
 					{{ $custom }}
 				@endisset
 				@isset($add)
-					@hasPermission("{{$permission}}")
+					@hasPermission($permission)
 					<a class="btn btn-outline-primary" href="{{ route($add, $id ?? null) }}">
 						<i class="fas fa-plus-circle"></i> Ajouter
 					</a>

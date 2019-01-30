@@ -63,9 +63,9 @@ class EtablissementController extends Controller
 			"degre"                 => "required|max:191",
 			"regime"                => "required|max:191",
 			"ville"                 => "required|max:191",
-			"code_postal"           => "required|numeric|digits:5",
+			"code_postal"           => "required",
 			"adresse"               => "required|max:191",
-			"telephone"             => "required|numeric",
+			"telephone"             => "required",
 			"enseignant_id"         => "nullable|exists:enseignants,id",
 			"departement_id"        => "required|exists:departements,id",
 		]);
@@ -130,9 +130,9 @@ class EtablissementController extends Controller
 			"degre"                 => "required|max:191",
 			"regime"                => "required|max:191",
 			"ville"                 => "required|max:191",
-			"code_postal"           => "required|numeric|digits:5",
+			"code_postal"           => "required",
 			"adresse"               => "required|max:191",
-			"telephone"             => "required|numeric",
+			"telephone"             => "required",
 			"enseignant_id"         => "nullable|exists:enseignants,id",
 			"departement_id"        => "required|exists:departements,id",
 		]);

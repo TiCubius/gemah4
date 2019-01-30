@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Responsables;
 
 use App\Http\Controllers\Controller;
+use App\Models\Decision;
 use App\Models\Eleve;
 use App\Models\Parametre;
 use App\Models\Responsable;
+use App\Models\TypeDecision;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -102,7 +104,32 @@ class ConventionController extends Controller
 	 */
 	public function impressionsToutesConventions()
 	{
-		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->orderBy("nom")->get();
+		// On récupère le type décision "Matériel"
+		$typeDecision = TypeDecision::where("libelle", "Matériel")->first();
+
+		// On récupère toutes les décisions qui possèdent ce type matériel
+		$decisions = Decision::whereHas("types", function ($query) use ($typeDecision) {
+			return $query->where("id", $typeDecision->id);
+		})->get()->pluck("id");
+
+		// On récupère tout les élèves qui ont :
+		// - une des décision ci-dessus
+		// - du matériel
+		// - un établissement
+		// - des responsavles
+		// - les responsales n'ont pas signés
+		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")
+			->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")
+			->has("etablissement")
+			->has("decisions")
+			->has("materiels")
+			->has("responsables")
+			->where("eleve_responsable.etat_signature", "=", 0)
+			->whereHas("decisions", function ($query) use ($decisions) {
+				return $query->whereIn("decisions.id", $decisions);
+			})
+			->orderBy("eleves.nom")
+			->get();
 
 		// Récupération de tout les paramètres pour imprimer les conventions
 		$allParametres = Parametre::conventions(42)->get();

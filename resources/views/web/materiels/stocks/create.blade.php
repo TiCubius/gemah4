@@ -71,7 +71,7 @@
 
 							<div class="form-group">
 								<label for="type_materiel_id">Type du matériel</label>
-								<select id="type_materiel_id" class="form-control" name="type_materiel_id">
+								<select id="type_materiel_id" class="form-control" name="type_materiel_id" required>
 									<option value="">Sélectionnez un type</option>
 									@foreach ($domaines as $domaine)
 										<optgroup label="{{ $domaine->libelle }}">

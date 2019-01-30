@@ -15,7 +15,7 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-						@hasPermission("eleves/documents/decisions/create")
+						@hasPermission("eleves/decisions/create")
 						<a class="dropdown-item" href="{{route('web.scolarites.eleves.documents.decisions.create', [$eleve]) }}">
 							Décision
 						</a>

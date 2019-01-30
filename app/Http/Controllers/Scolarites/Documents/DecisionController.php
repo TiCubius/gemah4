@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Scolarites\Documents;
 
-use App\Http\Controllers\Administrations\Types\TypeDecisionController;
 use App\Http\Controllers\Controller;
 use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
 use App\Models\Document;
 use App\Models\Eleve;
 use App\Models\Enseignant;
-use App\Models\TypeDocument;
 use App\Models\TypeDecision;
+use App\Models\TypeDocument;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,7 +34,7 @@ class DecisionController extends Controller
 		$timestamp = Carbon::now()->timestamp;
 		$extension = $file->getClientOriginalExtension();
 
-		return $nom . "-"  . $timestamp . "." . $extension;
+		return $nom . "-" . $timestamp . "." . $extension;
 	}
 
 	/**
@@ -82,7 +81,7 @@ class DecisionController extends Controller
 			"date_convention"   => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
 			"numero_dossier"    => "nullable|max:191",
 			"enseignant_id"     => "nullable|exists:enseignants,id",
-            "types"              => "required|exists:types_decisions,id",
+			"types"             => "required|exists:types_decisions,id",
 			"file"              => "required",
 		]);
 
@@ -93,7 +92,7 @@ class DecisionController extends Controller
 		$request->file('file')->storeAs('public/decisions/', $filename);
 
 		$document = Document::create([
-			"nom"              => "Décision du ". Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
+			"nom"              => "Décision du " . Carbon::parse($request->input("date_notif"))->format("d/m/Y"),
 			"description"      => $request->input("description"),
 			"type_document_id" => TypeDocument::where("libelle", "Décision")->first()->id,
 			"path"             => $filename,
@@ -111,7 +110,7 @@ class DecisionController extends Controller
 			"enseignant_id" => $request->input("enseignant_id"),
 		]);
 
-        $decision->types()->sync($request->input("types"));
+		$decision->types()->sync($request->input("types"));
 
 		Mail::send(new DecisionCreatedMail($eleve, $decision));
 
@@ -204,10 +203,6 @@ class DecisionController extends Controller
 	public function destroy(Eleve $eleve, Decision $decision): RedirectResponse
 	{
 		if ($decision->document->eleve_id == $eleve->id) {
-			// On supprime le fichier
-			Storage::delete("public/decisions/" . $decision->document->path);
-
-			// On supprime la décision dans la BDD
 			$decision->delete();
 
 			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));

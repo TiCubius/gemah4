@@ -2,7 +2,7 @@
 	@if (count($errors) > 1)
 		<div class="alert alert-danger">
 			<b>Plusieurs erreurs se sont produites lors de l'exécution de votre requête</b>: <br>
-			<ul>
+			<ul class="mb-0">
 
 				@foreach ($errors->all() as $error)
 					<li>{{ $error }}</li>

@@ -51,7 +51,7 @@ class DocumentController extends Controller
 	 */
 	public function index(Eleve $eleve): View
 	{
-		$types = TypeDocument::all();
+		$types = TypeDocument::orderBy("libelle")->get();
 		$eleve->load("documents.typeDocument", "documents.decision.enseignant");
 
 		return view('web.scolarites.eleves.documents.index', compact('eleve', 'types'));
@@ -169,10 +169,6 @@ class DocumentController extends Controller
 	public function destroy(Eleve $eleve, Document $document): RedirectResponse
 	{
 		if ($document->eleve_id == $eleve->id) {
-			// On supprime le fichier associé
-			Storage::delete('public/documents/' . $document->path);
-
-			// On supprime le Document
 			$document->delete();
 
 			return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));

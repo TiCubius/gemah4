@@ -14,14 +14,14 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-						@hasPermission("conventions/signatures_effectuees")
+						@hasPermission("conventions/signaturesEffectuees")
 						<a class="dropdown-item" href="{{ route("web.conventions.signatures_effectuees") }}" target="_blank">Générer la liste des responsables ayant signé</a>
 						@endHas
-						@hasPermission("conventions/signatures_manquantes")
+						@hasPermission("conventions/signaturesManquantes")
 						<a class="dropdown-item" href="{{ route("web.conventions.signatures_manquantes") }}" target="_blank">Générer la liste des responsables n'ayant pas signé</a>
 						@endHas
 
-						@hasPermission("conventions/impressions_toutes_conventions")
+						@hasPermission("conventions/impressionsToutesConventions")
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}" target="_blank">Générer toutes les conventions non signées</a>
 						@endHas

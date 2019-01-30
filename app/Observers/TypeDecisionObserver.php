@@ -18,10 +18,10 @@ class TypeDecisionObserver
 		if (Session::has("user")) {
 			$user = session("user");
 			Historique::create([
-				"from_id"       => $user["id"],
+				"from_id"          => $user["id"],
 				"type_decision_id" => $typeDecision->id,
-				"type"          => "type/decision/created",
-				"contenue"      => "Le type de décision {$typeDecision->libelle} à été créé par {$user->nom} {$user->prenom}",
+				"type"             => "type/decision/created",
+				"contenue"         => "Le type de décision {$typeDecision->libelle} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
@@ -36,10 +36,10 @@ class TypeDecisionObserver
 		if (Session::has("user")) {
 			$user = session("user");
 			Historique::create([
-				"from_id"       => $user["id"],
+				"from_id"          => $user["id"],
 				"type_decision_id" => $typeDecision->id,
-				"type"          => "type/decision/modified",
-				"contenue"      => "Le type de décision {$typeDecision->libelle} à été modifié par {$user->nom} {$user->prenom}",
+				"type"             => "type/decision/modified",
+				"contenue"         => "Le type de décision {$typeDecision->libelle} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

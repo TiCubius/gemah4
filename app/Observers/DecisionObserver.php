@@ -13,7 +13,7 @@ class DecisionObserver
 	 */
 	public function deleting(Decision $decision)
 	{
-		// E01 - On supprime les relations associés à la décision
+		// On supprime les relations associés à la décision
 		$decision->types()->detach();
 	}
 

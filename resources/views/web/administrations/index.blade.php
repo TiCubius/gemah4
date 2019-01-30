@@ -65,7 +65,7 @@
 				</a>
 				@endHas
 
-				@hasPermission("administrations/parametres/index")
+				@hasPermission("administrations/parametres/edit")
 				<a href="{{ route("web.administrations.parametres.edit") }}" class="list-group-item list-group-item-action flex-column align-items-start">
 					Gestion des paramètres
 				</a>

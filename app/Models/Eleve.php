@@ -125,20 +125,6 @@ class Eleve extends Model
 		return $query->orderBy("updated_at", "DESC");
 	}
 
-	/**
-	 * Recherche un élève avec l'id de type elève donné en paramètre
-	 *
-	 * @param $query
-	 * @param $type_eleve_id
-	 * @return Builder
-	 */
-	public function scopeType($query, $type_eleve_id): Builder
-	{
-		return $query->whereHas("types", function ($query) use ($type_eleve_id) {
-			$query->where("id", $type_eleve_id);
-		});
-	}
-
 
 	/**
 	 * Retourne un Query Builder avec uniquement les élèves ayant/n'ayant pas des documents
@@ -164,7 +150,7 @@ class Eleve extends Model
 	 */
 	public function scopeLatestDocumentCreated($query, $state): Builder
 	{
-		$query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+		$query = $query->join("documents", "eleves.id", "=", "documents.eleve_id");
 
 		if ($state) {
 			return $query->orderBy("documents.created_at", "ASC");
@@ -181,7 +167,7 @@ class Eleve extends Model
 	 */
 	public function scopeLatestDocumentModified($query, $state): Builder
 	{
-		$query = $query->join("documents", "eleve.id", "=", "documents.eleve_id");
+		$query = $query->join("documents", "eleves.id", "=", "documents.eleve_id");
 
 		if ($state) {
 			return $query->orderBy("documents.updated_at", "ASC");
@@ -277,7 +263,6 @@ class Eleve extends Model
 	 *
 	 * @param             $query
 	 * @param string|null $departement_id
-	 * @param int         $type_eleve_id
 	 * @param string      $nom
 	 * @param string      $prenom
 	 * @param string|null $date_naissance
@@ -285,7 +270,7 @@ class Eleve extends Model
 	 * @param int|null    $eleve_id
 	 * @return Builder
 	 */
-	public function scopeSearch($query, ?string $departement_id, ?int $type_eleve_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine, ?int $eleve_id): Builder
+	public function scopeSearch($query, ?string $departement_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine, ?int $eleve_id): Builder
 	{
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM eleves WHERE (nom LIKE "%$...%" OR prenom LIKE "%...%" (...))
@@ -307,10 +292,6 @@ class Eleve extends Model
 
 		if ($departement_id) {
 			$search->where("departement_id", $departement_id);
-		}
-
-		if ($type_eleve_id) {
-			$search->type($type_eleve_id);
 		}
 
 		if ($eleve_id) {

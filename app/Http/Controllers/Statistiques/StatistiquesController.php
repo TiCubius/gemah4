@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Statistiques;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
+use App\Models\Decision;
 use App\Models\Eleve;
 use App\Models\TypeDecision;
 use Illuminate\Http\Request;
@@ -32,7 +33,24 @@ class StatistiquesController extends Controller
 		$academies = Academie::with("departements")->get();
 
 		if ($request->exists(["departement_id", "type_eleve_id", "nom", "prenom", "date_naissance", "code_ine", "eleve_id",])) {
-			$searchedEleves = Eleve::search($request->input("departement_id"), $request->input("type_eleve_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), $request->input("eleve_id"));
+			$searchedEleves = Eleve::search($request->input("departement_id"), $request->input("nom"), $request->input("prenom"), $request->input("date_naissance"), $request->input("code_ine"), $request->input("eleve_id"));
+
+			if($request->exists("type_eleve_id"))
+			{
+                // On récupère le type décision "Matériel"
+                $typeDecision = TypeDecision::find($request->input("type_eleve_id"));
+
+
+                // On récupère toutes les décisions qui possèdent ce type matériel
+                $decisions = Decision::whereHas("types", function ($query) use ($typeDecision) {
+                    return $query->where("id", $typeDecision->id);
+                })->get()->pluck("id");
+
+
+                $searchedEleves = $searchedEleves->whereHas("decisions", function ($query) use ($decisions) {
+                    return $query->whereIn("decisions.id", $decisions);
+                });
+            }
 
 			/** Tri par liaison entre élèves et établissements **/
 			if ($request->input("etablissement") == "normal") {

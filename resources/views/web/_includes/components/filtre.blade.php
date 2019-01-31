@@ -6,7 +6,7 @@
 	@endif
 
 	<select name="{{ $filter }}" class="form-control">
-		<option>Sélectionner un filtre...</option>
+		<option value="">Sélectionner un filtre...</option>
 		@if(app("request")->input($filter) == "normal")
 			<option selected value="normal">{{ $first_option }}</option>
 			<option value="inverted">{{ $second_option }}</option>

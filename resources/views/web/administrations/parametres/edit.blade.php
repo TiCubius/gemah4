@@ -2,7 +2,7 @@
 @section('content')
 	<div class="row">
 
-		@component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
+		@component("web._includes.components.title", ["back" => "web.administrations.index"])
 			Édition des paramètres
 		@endcomponent
 

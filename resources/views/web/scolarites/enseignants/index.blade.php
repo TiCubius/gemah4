@@ -77,7 +77,7 @@
 							<div class="card mb-3">
 								<div class="card-header gemah-bg-primary">Derniers modifiés</div>
 								<ul class="list-group list-group-flush">
-									@foreach($latestUpdated as $etablissement)
+									@foreach($latestUpdated as $enseignant)
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
 											<div class="btn-group">

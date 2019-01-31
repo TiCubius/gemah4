@@ -18,28 +18,31 @@ class ParametreController extends Controller
 	 */
 	public function edit(): View
 	{
+		// On récupère les paramètres du département de l'utilisateur
 		$departement_id = Session::get("user")->service->departement_id;
 		$parametres = Parametre::where("departement_id", $departement_id)->get();
 
+		// On groupe les parmaètres par catégories
 		$groupedParametres = $parametres->mapToGroups(function ($item, $key) {
 			$parametreStart = implode('/', explode('/', $item->key, -1));
 			return [$parametreStart => $item];
 		})->sortKeys();
 
-
 		return view("web.administrations.parametres.edit", compact("groupedParametres"));
 	}
 
 	/**
-	 * PATCH - Met à jours les paramètres
+	 * PATCH - Met à jour les paramètres
 	 *
 	 * @param Request $request
 	 * @return RedirectResponse
 	 */
 	public function update(Request $request): RedirectResponse
 	{
+		// On récupère le département de l'utilisateur
 		$departement_id = Session::get("user")->service->departement_id;
 
+		// On modifie chaque paramètre envoyé uniquement dans le département de l'utilisateur
 		foreach ($request->except(["_token", "_method"]) as $key => $value) {
 			$parametre = Parametre::where(["key" => $key, "departement_id" => $departement_id]);
 			$parametre->update(["value" => $value]);

@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class RegionObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'une région est créée
+	 * EVENT - Déchlanché après la création d'une région
 	 *
 	 * @param Region $region
 	 */
 	public function created(Region $region)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"   => $user["id"],
-				"region_id" => $region->id,
-				"type"      => "region/created",
-				"contenue"  => "La région {$region->nom} à été créée par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"region_id"   => $region->id,
+				"type"        => "region/created",
+				"information" => "La région {$region->nom} à été créée par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'une région est modifiée
+	 * EVENT - Déchlanché après la modification d'une région
 	 *
 	 * @param Region $region
 	 */
 	public function updated(Region $region)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"   => $user["id"],
-				"region_id" => $region->id,
-				"type"      => "region/modified",
-				"contenue"  => "La région {$region->nom} à été modifiée par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"region_id"   => $region->id,
+				"type"        => "region/modified",
+				"information" => "La région {$region->nom} à été modifiée par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'une région est supprimée
+	 * EVENT - Déchlanché après la suppression d'une région
 	 *
 	 * @param Region $region
 	 */
 	public function deleted(Region $region)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "region/deleted",
-				"contenue" => "La région {$region->nom} à été supprimée par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "region/deleted",
+				"information" => "La région {$region->nom} à été supprimée par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

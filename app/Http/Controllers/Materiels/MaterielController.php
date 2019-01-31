@@ -7,9 +7,8 @@ use Illuminate\View\View;
 
 class MaterielController extends Controller
 {
-
 	/**
-	 * GET - Affiche l'index du menu Matériels
+	 * GET - Affiche l'index du menu matériels
 	 *
 	 * @return View
 	 */
@@ -17,5 +16,4 @@ class MaterielController extends Controller
 	{
 		return view('web.materiels.index');
 	}
-
 }

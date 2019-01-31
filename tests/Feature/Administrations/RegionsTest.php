@@ -88,7 +88,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/created",
-            "contenue" => "La région unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -142,7 +142,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/modified",
-            "contenue" => "La région {$regions[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région {$regions[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -165,7 +165,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/modified",
-            "contenue" => "La région {$region->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région {$region->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -188,7 +188,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/modified",
-            "contenue" => "La région unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -224,7 +224,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/deleted",
-            "contenue" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -244,7 +244,7 @@ class RegionsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "region/deleted",
-            "contenue" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "La région {$region->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 }

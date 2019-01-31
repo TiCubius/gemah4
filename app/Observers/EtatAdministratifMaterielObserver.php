@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class EtatAdministratifMaterielObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est créé
+	 * EVENT - Déchlanché après la création d'un état administratif matériel
 	 *
 	 * @param EtatAdministratifMateriel $etatAdministratifMateriel
 	 */
 	public function created(EtatAdministratifMateriel $etatAdministratifMateriel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"                        => $user["id"],
+				"from_id"                        => $user->id,
 				"etat_administratif_materiel_id" => $etatAdministratifMateriel->id,
 				"type"                           => "etat/administratif/materiel/created",
-				"contenue"                       => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été créé par {$user->nom} {$user->prenom}",
+				"information"                    => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est modifié
+	 * EVENT - Déchlanché après la modification d'un état administratif matériel
 	 *
 	 * @param EtatAdministratifMateriel $etatAdministratifMateriel
 	 */
 	public function updated(EtatAdministratifMateriel $etatAdministratifMateriel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"                        => $user["id"],
+				"from_id"                        => $user->id,
 				"etat_administratif_materiel_id" => $etatAdministratifMateriel->id,
 				"type"                           => "etat/administratif/materiel/modified",
-				"contenue"                       => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été modifié par {$user->nom} {$user->prenom}",
+				"information"                    => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un état administratif de matériel est supprimé
+	 * EVENT - Déchlanché après la suppression d'un état adminitratif matériel
 	 *
 	 * @param EtatAdministratifMateriel $etatAdministratifMateriel
 	 */
 	public function deleted(EtatAdministratifMateriel $etatAdministratifMateriel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "etat/administratif/materiel/deleted",
-				"contenue" => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été supprimé par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "etat/administratif/materiel/deleted",
+				"information" => "L'état administratif matériel {$etatAdministratifMateriel->libelle} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

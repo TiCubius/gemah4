@@ -110,11 +110,11 @@ class DocumentController extends Controller
 	 */
 	public function edit(Eleve $eleve, Document $document)
 	{
-		if ($document->eleve_id == $eleve->id) {
-			return view('web.scolarites.eleves.documents.edit', compact('eleve', 'document'));
+		if ($document->eleve_id !== $eleve->id) {
+			return back()->withErrors("Impossible d'éditer un document qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Ce document n'appartient pas à cet élève");
+		return view('web.scolarites.eleves.documents.edit', compact('eleve', 'document'));
 	}
 
 	/**
@@ -127,34 +127,34 @@ class DocumentController extends Controller
 	 */
 	public function update(Request $request, Eleve $eleve, Document $document): RedirectResponse
 	{
-		if ($document->eleve_id == $eleve->id) {
-			$request->validate([
-				'nom'         => 'required|max:191',
-				'description' => 'required|max:191',
-				'file'        => 'nullable',
-			]);
-
-			if ($request->hasFile('file')) {
-				// On supprime l'ancien fichier
-				if ($document->path !== null) {
-					Storage::delete('public/documents/' . $document->path);
-				}
-
-				// On enregistre le fichier
-				$filename = $this->generateFilename($eleve, $request->file('file'));
-				$request->file('file')->storeAs('public/documents/', $filename);
-			}
-
-			$document->update([
-				'nom'         => $request->input('nom'),
-				'description' => $request->input('description'),
-				'path'        => $filename ?? $document->path,
-			]);
-
-			return redirect(route('web.scolarites.eleves.documents.index', [$eleve->id]));
+		if ($document->eleve_id !== $eleve->id) {
+			return back()->withErrors("Impossible d'éditer un document qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Ce document n'appartient pas à cet élève");
+		$request->validate([
+			'nom'         => 'required|max:191',
+			'description' => 'required|max:191',
+			'file'        => 'nullable',
+		]);
+
+		if ($request->hasFile('file')) {
+			// On supprime l'ancien fichier
+			if ($document->path !== null) {
+				Storage::delete('public/documents/' . $document->path);
+			}
+
+			// On enregistre le fichier
+			$filename = $this->generateFilename($eleve, $request->file('file'));
+			$request->file('file')->storeAs('public/documents/', $filename);
+		}
+
+		$document->update([
+			'nom'         => $request->input('nom'),
+			'description' => $request->input('description'),
+			'path'        => $filename ?? $document->path,
+		]);
+
+		return redirect(route('web.scolarites.eleves.documents.index', [$eleve->id]));
 	}
 
 
@@ -169,12 +169,12 @@ class DocumentController extends Controller
 	public function destroy(Eleve $eleve, Document $document): RedirectResponse
 	{
 		if ($document->eleve_id == $eleve->id) {
-			$document->delete();
-
-			return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));
+			return back()->withErrors("Impossible de supprimer un document qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Ce document n'appartient pas à cet élève");
+		$document->delete();
+
+		return redirect(route('web.scolarites.eleves.documents.index', $eleve->id));
 	}
 
 	/**
@@ -186,10 +186,10 @@ class DocumentController extends Controller
 	 */
 	public function download(Eleve $eleve, Document $document)
 	{
-		if ($document->eleve_id == $eleve->id) {
-			return Storage::download('public/documents/' . $document->path, $this->stripAccents($document->path));
+		if ($document->eleve_id !== $eleve->id) {
+			return back()->withErrors("Impossible de télécharger un document qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Ce document n'appartient pas cet élève");
+		return Storage::download('public/documents/' . $document->path, $this->stripAccents($document->path));
 	}
 }

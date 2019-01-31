@@ -23,21 +23,21 @@ class EtablissementController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request)
 	{
-		if ($eleve->etablissement_id === null) {
-			$academies = Academie::with("departements")->get();
-			$types = TypeEtablissement::all();
-
-			$latestCreated = Etablissement::latestCreated()->take(5)->get();
-			$latestUpdated = Etablissement::latestUpdated()->take(5)->get();
-
-			if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
-				$etablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
-			}
-
-			return view("web.scolarites.eleves.affectations.etablissements", compact("academies", "eleve", "etablissements", "latestCreated", "latestUpdated", "types"));
+		if ($eleve->etablissement_id !== null) {
+			return back()->withErrors("L'élève est déjà affecté à un établissement.");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("L'élève est déjà affecté à un établissement.");
+		$academies = Academie::with("departements")->get();
+		$types = TypeEtablissement::all();
+
+		$latestCreated = Etablissement::latestCreated()->take(5)->get();
+		$latestUpdated = Etablissement::latestUpdated()->take(5)->get();
+
+		if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
+			$etablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
+		}
+
+		return view("web.scolarites.eleves.affectations.etablissements", compact("academies", "eleve", "etablissements", "latestCreated", "latestUpdated", "types"));
 	}
 
 
@@ -50,25 +50,25 @@ class EtablissementController extends Controller
 	 */
 	public function attach(Eleve $eleve, Etablissement $etablissement): RedirectResponse
 	{
-		if ($eleve->etablissement_id === null) {
-			$eleve->update([
-				"etablissement_id" => $etablissement->id,
-			]);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "etablissement_id"  => $etablissement->id,
-                "type"              => "etablissement/affectation",
-                "contenue"          => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+		if ($eleve->etablissement_id !== null) {
+			return back()->withErrors("Impossible d'affecter un établissement à un élève qui possède déjà un établissement");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("L'élève est déjà affecté à un établissement.");
+		$eleve->update([
+			"etablissement_id" => $etablissement->id,
+		]);
+
+		// Historique : on souhaite enregistré l'affectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"          => $user->id,
+			"eleve_id"         => $eleve->id,
+			"etablissement_id" => $etablissement->id,
+			"type"             => "etablissement/affectation",
+			"information"         => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 
 	/**
@@ -80,24 +80,24 @@ class EtablissementController extends Controller
 	 */
 	public function detach(Eleve $eleve, Etablissement $etablissement): RedirectResponse
 	{
-		if ($eleve->etablissement_id == $etablissement->id) {
-			$eleve->update([
-				"etablissement_id" => null,
-			]);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "etablissement_id"  => $etablissement->id,
-                "type"              => "etablissement/desaffectation",
-                "contenue"          => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+		if ($eleve->etablissement_id !== $etablissement->id) {
+			return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Impossible de désaffecter un établissement qui n'est pas affecté à cet élève");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("L'élève n'est pas affecté à cet établissement.");
+		$eleve->update([
+			"etablissement_id" => null,
+		]);
+
+		// Historique : on souhaite enregistré la désaffectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"          => $user->id,
+			"eleve_id"         => $eleve->id,
+			"etablissement_id" => $etablissement->id,
+			"type"             => "etablissement/desaffectation",
+			"information"         => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 }

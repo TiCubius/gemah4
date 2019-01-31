@@ -33,7 +33,7 @@ class ConnexionController extends Controller
 
 		// On vérifie si l'utilisateur n'existe pas ou si son mot de passe est incorrect
 		if ((!$user) || !Hash::check($request->input('password'), $user->password)) {
-			return redirect(route('web.connexion'))->withErrors('Identifiant ou mot de passe incorrect');
+			return back()->withErrors('Identifiant ou mot de passe incorrect');
 		}
 
 		// L'utilisateur existe et son mot de passe est correct

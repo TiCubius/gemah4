@@ -44,7 +44,7 @@ class ResponsableController extends Controller
 	{
 		$academies = Academie::with("departements")->get();
 
-		return view("web.scolarites.eleves.affectations.responsables.create", compact("eleve", "academies"));
+		return view("web.scolarites.eleves.affectations.responsables.create", compact("academies", "eleve"));
 	}
 
 	/**
@@ -68,29 +68,18 @@ class ResponsableController extends Controller
 			"departement_id" => "required|exists:departements,id",
 		]);
 
-		$responsable = Responsable::create($request->only([
-			"civilite",
-			"nom",
-			"prenom",
-			"email",
-			"telephone",
-			"code_postal",
-			"ville",
-			"adresse",
-			"departement_id",
-		]));
-
+		$responsable = Responsable::create($request->all());
 		$responsable->eleves()->attach($eleve);
 
-        $user = session("user");
-
-        Historique::create([
-            "from_id"           => $user["id"],
-            "eleve_id"          => $eleve->id,
-            "responsable_id"    => $responsable->id,
-            "type"              => "responsable/affectation",
-            "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
-        ]);
+		// Historique : on souhaite enregistré l'affectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"        => $user->id,
+			"eleve_id"       => $eleve->id,
+			"responsable_id" => $responsable->id,
+			"type"           => "responsable/affectation",
+			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
@@ -104,23 +93,23 @@ class ResponsableController extends Controller
 	 */
 	public function attach(Eleve $eleve, Responsable $responsable): RedirectResponse
 	{
-		if (!$responsable->eleves->contains($eleve)) {
-			$responsable->eleves()->attach($eleve);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "responsable_id"    => $responsable->id,
-                "type"              => "responsable/affectation",
-                "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+		if ($responsable->eleves->contains($eleve)) {
+			return back()->withErrors("Ce responsable est déjà affecté à cet élève.");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce responsable est déjà affecté à cet élève.");
+		$responsable->eleves()->attach($eleve);
+
+		// Historique : on souhaite enregistré l'affectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"        => $user->id,
+			"eleve_id"       => $eleve->id,
+			"responsable_id" => $responsable->id,
+			"type"           => "responsable/affectation",
+			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 
 	/***
@@ -133,21 +122,21 @@ class ResponsableController extends Controller
 	public function detach(Eleve $eleve, Responsable $responsable): RedirectResponse
 	{
 		if ($responsable->eleves->contains($eleve)) {
-			$responsable->eleves()->detach($eleve);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "responsable_id"    => $responsable->id,
-                "type"              => "responsable/desaffectation",
-                "contenue"          => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+			return back()->withErrors("Impossible de désaffecter un responsable qui n'est pas affecté à cet élève");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce responsable n'est pas affecté à cet élève");
+		$responsable->eleves()->detach($eleve);
+
+		// Historique : on souhaite enregistré la désaffectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"        => $user->id,
+			"eleve_id"       => $eleve->id,
+			"responsable_id" => $responsable->id,
+			"type"           => "responsable/desaffectation",
+			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 }

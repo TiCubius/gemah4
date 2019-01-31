@@ -113,7 +113,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/created",
-            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -141,7 +141,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/created",
-            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -169,7 +169,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/created",
-            "contenue" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -282,7 +282,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/modified",
-            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -311,7 +311,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/modified",
-            "contenue" => "L'élève unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -350,7 +350,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/deleted",
-            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -373,7 +373,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/deleted",
-            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -392,7 +392,7 @@ class ElevesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/deleted",
-            "contenue" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

@@ -38,7 +38,7 @@ class Historique extends Model
         "utilisateur_id",
 
         "type",
-        "contenue",
+        "information",
     ];
 
     /***

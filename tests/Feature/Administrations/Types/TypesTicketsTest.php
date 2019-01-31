@@ -85,7 +85,7 @@ class TypesTicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/ticket/created",
-            "contenue" => "Le type de ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -139,7 +139,7 @@ class TypesTicketsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/ticket/modified",
-            "contenue" => "Le type de ticket {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de ticket {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -162,7 +162,7 @@ class TypesTicketsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/ticket/modified",
-            "contenue" => "Le type de ticket {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de ticket {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -185,7 +185,7 @@ class TypesTicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/ticket/modified",
-            "contenue" => "Le type de ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -220,7 +220,7 @@ class TypesTicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/ticket/deleted",
-            "contenue" => "Le type de ticket {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de ticket {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

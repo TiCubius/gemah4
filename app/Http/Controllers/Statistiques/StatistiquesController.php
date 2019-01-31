@@ -22,6 +22,8 @@ class StatistiquesController extends Controller
 	}
 
 	/***
+	 * GET - Recher d'informations générales
+	 *
 	 * @param Request $request
 	 * @return View
 	 */
@@ -127,8 +129,6 @@ class StatistiquesController extends Controller
 
 			$searchedEleves = $searchedEleves->get();
 		}
-
-		//dd($request);
 
 		return view('web.statistiques.generale', compact("eleves", "types", "academies", "searchedEleves"));
 	}

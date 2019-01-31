@@ -79,7 +79,7 @@ class ResponsablesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "responsable/created",
-            "contenue" => "Le responsable unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le responsable unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -141,7 +141,7 @@ class ResponsablesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "responsable/modified",
-            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le responsable {$responsable->nom} {$responsable->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -171,7 +171,7 @@ class ResponsablesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "responsable/modified",
-            "contenue" => "Le responsable unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le responsable unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -209,7 +209,7 @@ class ResponsablesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "responsable/deleted",
-            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -234,7 +234,7 @@ class ResponsablesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "responsable/deleted",
-            "contenue" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

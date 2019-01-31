@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class TypeTicketObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type de ticket est créé
+	 * EVENT - Déchlanché après la création d'un type de ticket
 	 *
 	 * @param TypeTicket $typeTicket
 	 */
 	public function created(TypeTicket $typeTicket)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"        => $user["id"],
+				"from_id"        => $user->id,
 				"type_ticket_id" => $typeTicket->id,
 				"type"           => "type/ticket/created",
-				"contenue"       => "Le type de ticket {$typeTicket->libelle} à été créé par {$user->nom} {$user->prenom}",
+				"information"    => "Le type de ticket {$typeTicket->libelle} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type de ticket est modifié
+	 * EVENT - Déchlanché après la modification d'un type de ticket
 	 *
 	 * @param TypeTicket $typeTicket
 	 */
 	public function updated(TypeTicket $typeTicket)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"        => $user["id"],
+				"from_id"        => $user->id,
 				"type_ticket_id" => $typeTicket->id,
 				"type"           => "type/ticket/modified",
-				"contenue"       => "Le type de ticket {$typeTicket->libelle} à été modifié par {$user->nom} {$user->prenom}",
+				"information"    => "Le type de ticket {$typeTicket->libelle} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type de ticket est supprimé
+	 * EVENT - Déchlanché après la suppression d'un type de ticket
 	 *
 	 * @param TypeTicket $typeTicket
 	 */
 	public function deleted(TypeTicket $typeTicket)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "type/ticket/deleted",
-				"contenue" => "Le type de ticket {$typeTicket->libelle} à été supprimé par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "type/ticket/deleted",
+				"information" => "Le type de ticket {$typeTicket->libelle} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

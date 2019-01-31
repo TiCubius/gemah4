@@ -90,7 +90,7 @@ class DocumentsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 		    "from_id"   => $this->user->id,
             "type"      => "document/created",
-            "contenue"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -162,7 +162,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "contenue"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -194,7 +194,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "contenue"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -235,7 +235,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/deleted",
-            "contenue"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 

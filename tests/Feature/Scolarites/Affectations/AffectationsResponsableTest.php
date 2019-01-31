@@ -58,7 +58,7 @@ class AffectationsResponsableTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "responsable/affectation",
-            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -87,7 +87,7 @@ class AffectationsResponsableTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "responsable/affectation",
-            "contenue"  => "Le responsable unit.testing unit.testing à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le responsable unit.testing unit.testing à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -106,7 +106,7 @@ class AffectationsResponsableTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "responsable/desaffectation",
-            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -131,7 +131,7 @@ class AffectationsResponsableTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "responsable/desaffectation",
-            "contenue"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

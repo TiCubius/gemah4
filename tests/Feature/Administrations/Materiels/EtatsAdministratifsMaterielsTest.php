@@ -89,7 +89,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 		    "from_id" => $this->user->id,
             "type" => "etat/administratif/materiel/created",
-            "contenue" => "L'état administratif matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état administratif matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -146,7 +146,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/administratif/materiel/modified",
-            "contenue" => "L'état administratif matériel {$Etats[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état administratif matériel {$Etats[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -170,7 +170,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/administratif/materiel/modified",
-            "contenue" => "L'état administratif matériel {$Etat->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état administratif matériel {$Etat->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -194,7 +194,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/administratif/materiel/modified",
-            "contenue" => "L'état administratif matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état administratif matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -232,7 +232,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/administratif/materiel/deleted",
-            "contenue" => "L'état administratif matériel {$EtatMateriel->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état administratif matériel {$EtatMateriel->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

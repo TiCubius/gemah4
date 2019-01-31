@@ -100,7 +100,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/created",
-            "contenue" => "Le département unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -162,7 +162,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/modified",
-            "contenue" => "Le département {$departements[1]->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département {$departements[1]->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -193,7 +193,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/modified",
-            "contenue" => "Le département {$departement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département {$departement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -222,7 +222,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/modified",
-            "contenue" => "Le département unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -258,7 +258,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/deleted",
-            "contenue" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -278,7 +278,7 @@ class DepartementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "departement/deleted",
-            "contenue" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 }

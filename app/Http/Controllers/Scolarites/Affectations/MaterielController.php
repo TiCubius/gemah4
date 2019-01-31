@@ -38,7 +38,7 @@ class MaterielController extends Controller
 			$materiels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_administratif_materiel_id"), $request->input("etat_physique_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->where("eleve_id", null)->with("eleve", "etatAdministratif", "etatPhysique", "type", "type.domaine")->get();
 		}
 
-		return view("web.scolarites.eleves.affectations.materiels",  compact("academies", "domaines", "eleve", "etatsAdministratifs", "etatsPhysiques", "latestCreated", "latestUpdated", "materiels"));
+		return view("web.scolarites.eleves.affectations.materiels", compact("academies", "domaines", "eleve", "etatsAdministratifs", "etatsPhysiques", "latestCreated", "latestUpdated", "materiels"));
 	}
 
 
@@ -51,29 +51,30 @@ class MaterielController extends Controller
 	 */
 	public function attach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id === null) {
-			$materiel->update([
-				'eleve_id'  => $eleve->id,
-				'date_pret' => Carbon::now(),
-			]);
-			$eleve->update([
-				'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
-			]);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "materiel_id"       => $materiel->id,
-                "type"              => "materiel/affectation",
-                "contenue"          => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+		if ($materiel->eleve_id !== null) {
+			return back()->withErrors("Impossible d'affecter un matériel qui est déjà affecté");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel est déjà affecté.");
+		$materiel->update([
+			'eleve_id'  => $eleve->id,
+			'date_pret' => Carbon::now(),
+		]);
+		$eleve->update([
+			'prix_global' => ($eleve->prix_global + $materiel->prix_ttc),
+		]);
+
+
+		// Historique : on souhaite enregistré l'affectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"     => $user->id,
+			"eleve_id"    => $eleve->id,
+			"materiel_id" => $materiel->id,
+			"type"        => "materiel/affectation",
+			"information"    => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 
 	/**
@@ -85,25 +86,25 @@ class MaterielController extends Controller
 	 */
 	public function detach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id == $eleve->id) {
-			$materiel->update([
-				"eleve_id"  => null,
-				'date_pret' => null,
-			]);
-
-            $user = session("user");
-
-            Historique::create([
-                "from_id"           => $user["id"],
-                "eleve_id"          => $eleve->id,
-                "materiel_id"       => $materiel->id,
-                "type"              => "materiel/desaffectation",
-                "contenue"          => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}"
-            ]);
-
-			return redirect(route("web.scolarites.eleves.show", [$eleve]));
+		if ($materiel->eleve_id !== $eleve->id) {
+			return back()->withErrors("Impossible de désaffecter un matériel qui n'est pas affecté à cet élève");
 		}
 
-		return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Ce matériel n'est pas affecté à cet élève");
+		$materiel->update([
+			"eleve_id"  => null,
+			'date_pret' => null,
+		]);
+
+		// Historique : on souhaite enregistré la désaffectation, il ne s'agit pas d'une modification classique
+		$user = Session::get("user");
+		Historique::create([
+			"from_id"     => $user->id,
+			"eleve_id"    => $eleve->id,
+			"materiel_id" => $materiel->id,
+			"type"        => "materiel/desaffectation",
+			"information"    => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+		]);
+
+		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
 }

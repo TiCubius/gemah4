@@ -100,7 +100,7 @@ class TypesMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/materiel/created",
-            "contenue" => "Le type de matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -160,7 +160,7 @@ class TypesMaterielTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de matériel {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -185,7 +185,7 @@ class TypesMaterielTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de matériel {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -210,7 +210,7 @@ class TypesMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -247,7 +247,7 @@ class TypesMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/materiel/deleted",
-            "contenue" => "Le type de matériel {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de matériel {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

@@ -35,7 +35,7 @@ class HistoriquesTest extends TestCase
         Historique::create([
             "from_id" => $this->user->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
         $request = $this->get("/administrations/historiques");
 
@@ -57,7 +57,7 @@ class HistoriquesTest extends TestCase
         $historique = Historique::create([
             "from_id" => $this->user->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -65,7 +65,7 @@ class HistoriquesTest extends TestCase
         $request->assertStatus(200);
         $request->assertSee("Détails de l'historique");
         $request->assertSee($historique->type);
-        $request->assertSee($historique->contenue);
+        $request->assertSee($historique->information);
         $request->assertSee("Par {$this->user->nom} {$this->user->prenom}");
     }
 
@@ -79,7 +79,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "eleve_id" => $eleve->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -100,7 +100,7 @@ class HistoriquesTest extends TestCase
             "eleve_id" => $ticket->eleve->id,
             "ticket_id" => $ticket->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -125,7 +125,7 @@ class HistoriquesTest extends TestCase
             "eleve_id" => $document->eleve->id,
             "document_id" => $document->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -148,7 +148,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "region_id" => $region->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -168,7 +168,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "academie_id" => $academie->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -188,7 +188,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "departement_id" => $departement->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -208,7 +208,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "responsable_id" => $responsable->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -228,7 +228,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "enseignant_id" => $enseignant->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -248,7 +248,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "etablissement_id" => $etablissement->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -268,7 +268,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "type_etablissement_id" => $typeEtablissement->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -288,7 +288,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "type_ticket_id" => $typeTicket->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -307,7 +307,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "type_document_id" => $typeDocument->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -326,7 +326,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "domaine_id" => $domaineMateriel->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -345,7 +345,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "etat_administratif_materiel_id" => $etatAdministratifMateriel->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -364,7 +364,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "etat_physique_materiel_id" => $etatPhysiqueMateriel->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -383,7 +383,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "materiel_id" => $materiel->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -402,7 +402,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "type_materiel_id" => $typeMateriel->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -421,7 +421,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "service_id" => $service->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");
@@ -440,7 +440,7 @@ class HistoriquesTest extends TestCase
             "from_id" => $this->user->id,
             "utilisateur_id" => $utilisateur->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing",
+            "information" => "unit.testing",
         ]);
 
         $request = $this->get("/administrations/historiques/{$historique->id}");

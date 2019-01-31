@@ -86,7 +86,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/physique/materiel/created",
-            "contenue" => "L'état physique matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état physique matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -141,7 +141,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/physique/materiel/modified",
-            "contenue" => "L'état physique matériel {$Etats[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état physique matériel {$Etats[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -164,7 +164,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/physique/materiel/modified",
-            "contenue" => "L'état physique matériel {$Etat->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état physique matériel {$Etat->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -187,7 +187,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/physique/materiel/modified",
-            "contenue" => "L'état physique matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état physique matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -224,7 +224,7 @@ class EtatsPhysiquesMaterielsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etat/physique/materiel/deleted",
-            "contenue" => "L'état physique matériel {$EtatMateriel->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'état physique matériel {$EtatMateriel->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

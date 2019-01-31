@@ -49,8 +49,8 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"         => "required|max:191",
 			"prenom"      => "required|max:191",
-			"identifiant" => "required|max:191",
-			"email"       => "required|max:191|email|unique:utilisateurs",
+			"identifiant" => "required|max:191|unqiue:utilisateurs,identifiant",
+			"email"       => "required|max:191|email|unique:utilisateurs,email",
 			"password"    => "required|min:8|confirmed",
 			"service_id"  => "required|exists:services,id",
 		]);
@@ -69,17 +69,6 @@ class UtilisateurController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param Utilisateur $utilisateur
-	 * @return void
-	 */
-	public function show(Utilisateur $utilisateur)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'un utilisateur
 	 *
 	 * @param Utilisateur $utilisateur
@@ -90,11 +79,11 @@ class UtilisateurController extends Controller
 		$academies = Academie::with("region", "departements")->orderBy("nom")->get();
 		$services = Service::orderBy("nom")->get();
 
-		return view("web.administrations.utilisateurs.edit", compact("utilisateur", "academies", "services"));
+		return view("web.administrations.utilisateurs.edit", compact("academies", "services", "utilisateur"));
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au utilisateur
+	 * PATCH - Enregistre les modifications apportés au utilisateur
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param Utilisateur               $utilisateur
@@ -105,7 +94,7 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"         => "required|max:191",
 			"prenom"      => "required|max:191",
-			"identifiant" => "required|max:191",
+			"identifiant" => "required|max:191|unqiue:utilisateurs,identifiant,{$utilisateur->id}",
 			"email"       => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
 			"password"    => "nullable|min:8|confirmed",
 			"service_id"  => "required|exists:services,id",
@@ -117,10 +106,10 @@ class UtilisateurController extends Controller
 			"identifiant"     => $request->input("identifiant"),
 			"email"           => $request->input("email"),
 			"reception_email" => ($request->has("reception_email") ? true : false),
-			"password"        => Hash::make($request->input("password")),
 			"service_id"      => $request->input("service_id"),
 		]);
 
+		// On met à jour le mot de passe
 		if ($request->input("password")) {
 			$utilisateur->update([
 				"password" => Hash::make($request->input("password")),
@@ -131,7 +120,7 @@ class UtilisateurController extends Controller
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * DELETE - Supprime l'utilisateur
 	 *
 	 * @param Utilisateur $utilisateur
 	 * @return RedirectResponse

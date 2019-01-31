@@ -13,7 +13,6 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
-
 	/**
 	 * GET - Affiche la liste des tickets de l'élève
 	 *
@@ -112,7 +111,7 @@ class TicketController extends Controller
 			"type_ticket_id" => "required|exists:types_tickets,id",
 		]);
 
-		$ticket->update($request->only(["libelle", "type_ticket_id"]));
+		$ticket->update($request->all());
 
 		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]));
 	}
@@ -127,11 +126,8 @@ class TicketController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Ticket $ticket): RedirectResponse
 	{
-		$ticket->messages()->delete();
 		$ticket->delete();
 
 		return redirect(route("web.scolarites.eleves.tickets.index", [$eleve]));
 	}
-
-
 }

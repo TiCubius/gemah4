@@ -119,7 +119,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/created",
-            "contenue" => "Le matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -253,7 +253,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/modified",
-            "contenue" => "Le matériel {$stock->modele} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -288,7 +288,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/modified",
-            "contenue" => "Le matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -327,7 +327,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/deleted",
-            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -350,7 +350,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/deleted",
-            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

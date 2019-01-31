@@ -7,8 +7,9 @@ use Illuminate\View\View;
 
 class ScolariteController extends Controller
 {
-
 	/**
+	 * GET - Affiche le menu de gestion de la scolarité
+	 *
 	 * @return View
 	 */
 	public function index(): View

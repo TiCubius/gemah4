@@ -99,7 +99,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("/", "Administrations\AdministrationController")->only("index");
 
 		Route::resource("departements", "Administrations\DepartementController");
-		Route::resource("academies", "Administrations\AcademieController");
+		Route::resource("academies", "Administrations\AcademieController")->parameters([
+			"academies" => "academie"
+		]);
 		Route::resource("regions", "Administrations\RegionController");
 
 		Route::get("parametres/edit", "Administrations\ParametreController@edit")->name("parametres.edit");

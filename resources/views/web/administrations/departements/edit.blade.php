@@ -24,8 +24,8 @@
 
 
 				<div class="form-group">
-					<label for="academie">Académie</label>
-					<select id="academie" class="form-control" name="academie" required>
+					<label for="academie_id">Académie</label>
+					<select id="academie_id" class="form-control" name="academie_id" required>
 						<option value="" hidden>Sélectionner une Académie</option>
 						@foreach($academies as $academie)
 							@if ($departement->academie_id == $academie->id))

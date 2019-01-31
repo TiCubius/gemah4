@@ -5,6 +5,8 @@ namespace Tests\Feature\Materiels;
 use App\Models\Departement;
 use App\Models\DomaineMateriel;
 use App\Models\Eleve;
+use App\Models\EtatAdministratifMateriel;
+use App\Models\EtatPhysiqueMateriel;
 use App\Models\Historique;
 use App\Models\Materiel;
 use App\Models\TypeMateriel;
@@ -97,6 +99,8 @@ class StocksMaterielTest extends TestCase
 	public function testTraitementFormulaireCreationStockComplet()
 	{
 		$departement = factory(Departement::class)->create();
+		$etatAdministratif = factory(EtatAdministratifMateriel::class)->create();
+		$etatPhysique = factory(EtatPhysiqueMateriel::class)->create();
 		$domaineMateriel = factory(DomaineMateriel::class)->create();
 		$typeMateriel = factory(TypeMateriel::class)->create([
 			"domaine_id" => $domaineMateriel->id,
@@ -108,8 +112,8 @@ class StocksMaterielTest extends TestCase
 			"marque"                         => "unit.testing",
 			"modele"                         => "unit.testing",
 			"prix_ttc"                       => 5.99,
-			"etat_administratif_materiel_id" => 1,
-			"etat_physique_materiel_id"      => 1,
+			"etat_administratif_materiel_id" => $etatAdministratif->id,
+			"etat_physique_materiel_id"      => $etatPhysique->id,
 			"departement_id"                 => $departement->id,
 		]);
 
@@ -119,7 +123,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/created",
-            "contenue" => "Le matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -253,7 +257,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/modified",
-            "contenue" => "Le matériel {$stock->modele} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -264,6 +268,8 @@ class StocksMaterielTest extends TestCase
 	public function testTraitementFormulaireEditionStockCompletAvecModification()
 	{
 		$departement = factory(Departement::class)->create();
+		$etatAdministratif = factory(EtatAdministratifMateriel::class)->create();
+		$etatPhysique = factory(EtatPhysiqueMateriel::class)->create();
 		$stock = factory(Materiel::class)->create();
 		$domaineMateriel = factory(DomaineMateriel::class)->create();
 		$typeMateriel = factory(TypeMateriel::class)->create([
@@ -277,8 +283,8 @@ class StocksMaterielTest extends TestCase
 			"marque"                         => "unit.testing",
 			"modele"                         => "unit.testing",
 			"prix_ttc"                       => 5.99,
-			"etat_administratif_materiel_id" => 1,
-			"etat_physique_materiel_id"      => 1,
+			"etat_administratif_materiel_id" => $etatAdministratif->id,
+			"etat_physique_materiel_id"      => $etatPhysique->id,
 			"departement_id"                 => $departement->id,
 		]);
 
@@ -288,7 +294,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/modified",
-            "contenue" => "Le matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -327,7 +333,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/deleted",
-            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -350,7 +356,7 @@ class StocksMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "materiel/deleted",
-            "contenue" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le matériel {$stock->modele} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

@@ -271,7 +271,7 @@ class UtilisateursTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "utilisateur/deleted",
-            "contenue" => "L'utilisateur {$utilisateur->nom} {$utilisateur->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'utilisateur {$utilisateur->nom} {$utilisateur->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

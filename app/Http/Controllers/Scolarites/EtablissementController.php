@@ -49,7 +49,7 @@ class EtablissementController extends Controller
 	}
 
 	/**
-	 * POST - Ajoute un nouveau établissement
+	 * POST - Ajoute un nouvel établissement
 	 *
 	 * @param Request $request
 	 * @return RedirectResponse
@@ -70,33 +70,9 @@ class EtablissementController extends Controller
 			"departement_id"        => "required|exists:departements,id",
 		]);
 
-		Etablissement::create($request->only([
-			"departement_id",
-			"enseignant_id",
-			"type_etablissement_id",
-
-			"id",
-			"nom",
-			"degre",
-			"regime",
-			"ville",
-			"code_postal",
-			"adresse",
-			"telephone",
-		]));
+		Etablissement::create($request->all());
 
 		return redirect(route("web.scolarites.etablissements.index"));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param Etablissement $etablissement
-	 * @return void
-	 */
-	public function show(Etablissement $etablissement)
-	{
-		//
 	}
 
 	/**
@@ -115,7 +91,7 @@ class EtablissementController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au établissement
+	 * PUT - Enregistre les modifications apportés a l'établissement
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param Etablissement             $etablissement
@@ -137,25 +113,13 @@ class EtablissementController extends Controller
 			"departement_id"        => "required|exists:departements,id",
 		]);
 
-		$etablissement->update($request->only([
-			"id",
-			"nom",
-			"type_etablissement_id",
-			"degre",
-			"regime",
-			"ville",
-			"code_postal",
-			"adresse",
-			"telephone",
-			"enseignant_id",
-			"departement_id",
-		]));
+		$etablissement->update($request->all());
 
 		return redirect(route("web.scolarites.etablissements.index"));
 	}
 
 	/**
-	 * DELETE - Supprime le établissement
+	 * DELETE - Supprime l'établissement
 	 *
 	 * @param Etablissement $etablissement
 	 * @return RedirectResponse

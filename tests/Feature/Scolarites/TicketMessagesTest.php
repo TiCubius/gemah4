@@ -34,7 +34,7 @@ class TicketMessagesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/message/created",
-            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -97,7 +97,7 @@ class TicketMessagesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/message/modified",
-            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -122,7 +122,7 @@ class TicketMessagesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/message/deleted",
-            "contenue" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket {$ticket->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

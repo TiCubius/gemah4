@@ -3,18 +3,18 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.academies.index"])
-			Édition de l'{{ $academy->nom }}
+			Édition de l'{{ $academie->nom }}
 		@endcomponent
 
 		<div class="col-12">
 
-			<form class="mb-3" action="{{ route("web.administrations.academies.update", [$academy]) }}" method="POST">
+			<form class="mb-3" action="{{ route("web.administrations.academies.update", [$academie]) }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Académie de Lyon" value="{{ $academy->nom }}" required>
+					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Académie de Lyon" value="{{ $academie->nom }}" required>
 				</div>
 
 
@@ -23,7 +23,7 @@
 					<select id="region" class="form-control" name="region" required>
 						<option value="" hidden>Sélectionner une Région</option>
 						@foreach($regions as $region)
-							@if ($academy->region_id == $region->id))
+							@if ($academie->region_id == $region->id))
 							<option selected value="{{ $region->id }}">{{ $region->nom }}</option>
 							@else
 								<option value="{{ $region->id }}">{{ $region->nom }}</option>
@@ -40,9 +40,9 @@
 	</div>
 
 
-	@component("web._includes.components.modals.destroy", 	["route" => "web.administrations.academies.destroy", "id" => $academy])
+	@component("web._includes.components.modals.destroy", 	["route" => "web.administrations.academies.destroy", "id" => $academie])
 		@slot("name")
-			{{ "{$academy->nom}" }}
+			{{ "{$academie->nom}" }}
 		@endslot
 	@endcomponent
 

@@ -17,9 +17,9 @@ class TypeEtablissementController extends Controller
 	 */
 	public function index(): View
 	{
-		$types_etablissements = TypeEtablissement::orderBy("libelle")->get();
+		$etablissements = TypeEtablissement::orderBy("libelle")->get();
 
-		return view("web.administrations.types.etablissements.index", compact("types_etablissements"));
+		return view("web.administrations.types.etablissements.index", compact("etablissements"));
 	}
 
 	/**
@@ -64,7 +64,7 @@ class TypeEtablissementController extends Controller
 	 * PUT - Enregistre les modifications apportés au type établissement
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param TypeEtablissement         $type
+	 * @param TypeEtablissement         $etablissement
 	 * @return RedirectResponse
 	 */
 	public function update(Request $request, TypeEtablissement $etablissement): RedirectResponse
@@ -81,14 +81,14 @@ class TypeEtablissementController extends Controller
 	/**
 	 * DELETE - Supprime le type établissement
 	 *
-	 * @param TypeEtablissement $type
+	 * @param TypeEtablissement $etablissement
 	 * @return RedirectResponse
 	 * @throws \Exception
 	 */
 	public function destroy(TypeEtablissement $etablissement): RedirectResponse
 	{
 		if ($etablissement->etablissements->isNotEmpty()) {
-			return back()->withErrors("Impossible de supprimer un type d'établissement tant qu'il a des établissements affectés");
+			return back()->withErrors("Impossible de supprimer un type qui possède des établissements affectés");
 		}
 
 		$etablissement->delete();

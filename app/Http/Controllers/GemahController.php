@@ -6,7 +6,6 @@ use Illuminate\View\View;
 
 class GemahController extends Controller
 {
-
 	/**
 	 * GET - Affiche l'Index de l'application
 	 *
@@ -16,5 +15,4 @@ class GemahController extends Controller
 	{
 		return view('web.index');
 	}
-
 }

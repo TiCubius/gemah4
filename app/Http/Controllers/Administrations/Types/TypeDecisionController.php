@@ -83,11 +83,12 @@ class TypeDecisionController extends Controller
 	 *
 	 * @param TypeDecision $decision
 	 * @return RedirectResponse
+	 * @throws \Exception
 	 */
 	public function destroy(TypeDecision $decision): RedirectResponse
 	{
 		if ($decision->decisions->isNotEmpty()) {
-			return back()->withErrors("Le type que vous essayez de supprimer est associer a une ou plusieurs décisions");
+			return back()->withErrors("Impossible de supprimer un type associé à des décisions");
 		}
 
 		$decision->delete();

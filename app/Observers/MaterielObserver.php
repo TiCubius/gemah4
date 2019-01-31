@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\DomaineMateriel;
 use App\Models\Historique;
 use App\Models\Materiel;
 use Illuminate\Support\Facades\Session;
@@ -10,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class MaterielObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un matériel est créé
+	 * EVENT - Déchlanché après la création d'un matériel
 	 *
 	 * @param Materiel $materiel
 	 */
 	public function created(Materiel $materiel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"     => $user["id"],
+				"from_id"     => $user->id,
 				"materiel_id" => $materiel->id,
 				"type"        => "materiel/created",
-				"contenue"    => "Le matériel {$materiel->modele} à été créé par {$user->nom} {$user->prenom}",
+				"information" => "Le matériel {$materiel->modele} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un matériel est modifié
+	 * EVENT - Déchlanché après la modification d'un matériel
 	 *
 	 * @param Materiel $materiel
 	 */
 	public function updated(Materiel $materiel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"     => $user["id"],
+				"from_id"     => $user->id,
 				"materiel_id" => $materiel->id,
 				"type"        => "materiel/modified",
-				"contenue"    => "Le matériel {$materiel->modele} à été modifié par {$user->nom} {$user->prenom}",
+				"information" => "Le matériel {$materiel->modele} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un matériel est supprimé
+	 * EVENT - Déchlanché après la suppression d'un matériel
 	 *
 	 * @param Materiel $materiel
 	 */
 	public function deleted(Materiel $materiel)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "materiel/deleted",
-				"contenue" => "Le matériel {$materiel->modele} à été supprimé par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "materiel/deleted",
+				"information" => "Le matériel {$materiel->modele} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

@@ -88,7 +88,7 @@ class TypesDecisionsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 			"from_id"  => $this->user->id,
 			"type"     => "type/decision/created",
-			"contenue" => "Le type de décision unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+			"information" => "Le type de décision unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
 		]);
 	}
 
@@ -143,7 +143,7 @@ class TypesDecisionsTest extends TestCase
 		$this->assertDatabaseMissing("historiques", [
 			"from_id"  => $this->user->id,
 			"type"     => "type/decision/modified",
-			"contenue" => "Le type de décision {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+			"information" => "Le type de décision {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
 		]);
 	}
 
@@ -166,7 +166,7 @@ class TypesDecisionsTest extends TestCase
 		$this->assertDatabaseMissing("historiques", [
 			"from_id"  => $this->user->id,
 			"type"     => "type/decision/modified",
-			"contenue" => "Le type de décision {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+			"information" => "Le type de décision {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
 		]);
 	}
 
@@ -189,7 +189,7 @@ class TypesDecisionsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 			"from_id"  => $this->user->id,
 			"type"     => "type/decision/modified",
-			"contenue" => "Le type de décision unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+			"information" => "Le type de décision unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
 		]);
 	}
 
@@ -241,7 +241,7 @@ class TypesDecisionsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 			"from_id"  => $this->user->id,
 			"type"     => "type/decision/deleted",
-			"contenue" => "Le type de décision {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+			"information" => "Le type de décision {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}",
 		]);
 	}
 

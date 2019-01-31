@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class EtablissementObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un établissement est créé
+	 * EVENT - Déchlanché après la création d'un établissement
 	 *
 	 * @param Etablissement $etablissement
 	 */
 	public function created(Etablissement $etablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"          => $user["id"],
+				"from_id"          => $user->id,
 				"etablissement_id" => $etablissement->id,
 				"type"             => "etablissement/created",
-				"contenue"         => "L'établissement {$etablissement->nom} à été créé par {$user->nom} {$user->prenom}",
+				"information"      => "L'établissement {$etablissement->nom} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un établissement est modifié
+	 * EVENT - Déchlanché après la modification d'un établissement
 	 *
 	 * @param Etablissement $etablissement
 	 */
 	public function updated(Etablissement $etablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"          => $user["id"],
+				"from_id"          => $user->id,
 				"etablissement_id" => $etablissement->id,
 				"type"             => "etablissement/modified",
-				"contenue"         => "L'établissement {$etablissement->nom} à été modifié par {$user->nom} {$user->prenom}",
+				"information"      => "L'établissement {$etablissement->nom} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un établissement est supprimé
+	 * EVENT - Déchlanché après la suppression d'un établissement
 	 *
 	 * @param Etablissement $etablissement
 	 */
 	public function deleted(Etablissement $etablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "etablissement/deleted",
-				"contenue" => "L'établissement {$etablissement->nom} à été supprimé par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "etablissement/deleted",
+				"information" => "L'établissement {$etablissement->nom} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

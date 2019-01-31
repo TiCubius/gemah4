@@ -56,17 +56,10 @@ class EnseignantController extends Controller
 			"prenom"         => "required|max:191",
 			"email"          => "required|email|max:191|unique:enseignants,email",
 			"telephone"      => "nullable|max:191",
-			"departement_id" => "required",
+			"departement_id" => "required|exists:departements,id",
 		]);
 
-		Enseignant::create($request->only([
-			"civilite",
-			"nom",
-			"prenom",
-			"email",
-			"telephone",
-			"departement_id",
-		]));
+		Enseignant::create($request->all());
 
 		return redirect(route("web.scolarites.enseignants.index"));
 	}
@@ -99,17 +92,10 @@ class EnseignantController extends Controller
 			"prenom"         => "required|max:191",
 			"email"          => "required|email|max:191|unique:enseignants,email,{$enseignant->id}",
 			"telephone"      => "nullable|max:191",
-			"departement_id" => "required",
+			"departement_id" => "required|exists:departements,id",
 		]);
 
-		$enseignant->update($request->only([
-			"civilite",
-			"nom",
-			"prenom",
-			"email",
-			"telephone",
-			"departement_id",
-		]));
+		$enseignant->update($request->all());
 
 		return redirect(route("web.scolarites.enseignants.index"));
 	}
@@ -123,11 +109,6 @@ class EnseignantController extends Controller
 	 */
 	public function destroy(Enseignant $enseignant): RedirectResponse
 	{
-		// On enlève le liens avec toutes les décisions
-		foreach ($enseignant->decisions as $decision) {
-			$decision->update(["enseignant_id" => null]);
-		}
-
 		$enseignant->delete();
 
 		return redirect(route("web.scolarites.enseignants.index"));

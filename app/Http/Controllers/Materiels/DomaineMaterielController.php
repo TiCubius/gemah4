@@ -50,17 +50,6 @@ class DomaineMaterielController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param DomaineMateriel $domaineMateriel
-	 * @return void
-	 */
-	public function show(DomaineMateriel $domaineMateriel)
-	{
-		//
-	}
-
-	/**
 	 * GET - Affiche le formulaire d'édition d'un domaine matériel
 	 *
 	 * @param DomaineMateriel $domaine
@@ -72,7 +61,7 @@ class DomaineMaterielController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au domaine matériel
+	 * PATCH - Enregistre les modifications apportés au domaine matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param DomaineMateriel           $domaine

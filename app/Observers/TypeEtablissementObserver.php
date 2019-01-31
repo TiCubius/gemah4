@@ -9,54 +9,54 @@ use Illuminate\Support\Facades\Session;
 class TypeEtablissementObserver
 {
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type d'établissement est créé
+	 * EVENT - Déchlanché après la création d'un type d'établissement
 	 *
 	 * @param TypeEtablissement $typeEtablissement
 	 */
 	public function created(TypeEtablissement $typeEtablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"               => $user["id"],
+				"from_id"               => $user->id,
 				"type_etablissement_id" => $typeEtablissement->id,
 				"type"                  => "type/etablissement/created",
-				"contenue"              => "Le type d'établissement {$typeEtablissement->libelle} à été créé par {$user->nom} {$user->prenom}",
+				"information"           => "Le type d'établissement {$typeEtablissement->libelle} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type d'établissement est modifié
+	 * EVENT - Déchlanché après la modification d'un type d'établissement
 	 *
 	 * @param TypeEtablissement $typeEtablissement
 	 */
 	public function updated(TypeEtablissement $typeEtablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"               => $user["id"],
+				"from_id"               => $user->id,
 				"type_etablissement_id" => $typeEtablissement->id,
 				"type"                  => "type/etablissement/modified",
-				"contenue"              => "Le type d'établissement {$typeEtablissement->libelle} à été modifié par {$user->nom} {$user->prenom}",
+				"information"           => "Le type d'établissement {$typeEtablissement->libelle} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
 
 	/***
-	 * Ajoute une ligne à l'historique dès qu'un type d'établissement est supprimé
+	 * EVENT - Déchlanché après la suppression d'un type d'établissement
 	 *
 	 * @param TypeEtablissement $typeEtablissement
 	 */
 	public function deleted(TypeEtablissement $typeEtablissement)
 	{
 		if (Session::has("user")) {
-			$user = session("user");
+			$user = Session::get("user");
 			Historique::create([
-				"from_id"  => $user["id"],
-				"type"     => "type/etablissement/deleted",
-				"contenue" => "Le type d'établissement {$typeEtablissement->libelle} à été supprimé par {$user->nom} {$user->prenom}",
+				"from_id"     => $user->id,
+				"type"        => "type/etablissement/deleted",
+				"information" => "Le type d'établissement {$typeEtablissement->libelle} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

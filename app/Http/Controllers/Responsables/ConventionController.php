@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class ConventionController extends Controller
@@ -24,10 +25,11 @@ class ConventionController extends Controller
 	 */
 	public function index(): View
 	{
+		$departement = Session::get("user")->service->departement_id;
+		$allParametres = Parametre::conventions($departement)->get();
 		$eleves = Eleve::has("responsables")->with("responsables")->orderBy("nom")->orderBy("prenom")->get();
 
-		$allParametres = Parametre::conventions(42)->get();
-
+		// Réorganisation des paramètres
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
 			$parametres[$parametre->key] = ["libelle" => $parametre->libelle, "value" => $parametre->value];
@@ -37,7 +39,7 @@ class ConventionController extends Controller
 	}
 
 	/**
-	 * PATCH - Met à jour les signatures (et la date de ces dernières) des conventions
+	 * PATCH - Met à jour l'état des signatures des conventions
 	 *
 	 * @param  Request $request
 	 * @return RedirectResponse
@@ -69,7 +71,7 @@ class ConventionController extends Controller
 
 
 	/***
-	 * Génération d'un PDF comprennant la liste des responsables ayant signé (avec le/les élèves impacté)
+	 * GET - Génération d'un PDF comprennant la liste des responsables ayant signé
 	 *
 	 * @return Response
 	 */
@@ -83,7 +85,7 @@ class ConventionController extends Controller
 	}
 
 	/***
-	 * Génération d'un PDF comprennant la liste des responsables n'ayant pas signé (avec le/les élèves impacté)
+	 * GET - Génération d'un PDF comprennant la liste des responsables n'ayant pas signé
 	 *
 	 * @return Response
 	 */
@@ -97,13 +99,15 @@ class ConventionController extends Controller
 	}
 
 	/***
-	 * Génération des PDF de conventions pour tous les élèves ayant au moins un responsable, un matériel, une décision et étant lié à un établissement
-	 * Et où le responsable n'a pas signé
+	 * GET - Génération des PDF de conventions pour tous les responsables n'ayant pas signé
 	 *
 	 * @return Response
 	 */
 	public function impressionsToutesConventions()
 	{
+		// On récupère le département de l'utilisateur
+		$departement = Session::get("user")->session->departement_id;
+
 		// On récupère le type décision "Matériel"
 		$typeDecision = TypeDecision::where("libelle", "Matériel")->first();
 
@@ -118,21 +122,12 @@ class ConventionController extends Controller
 		// - un établissement
 		// - des responsavles
 		// - les responsales n'ont pas signés
-		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")
-			->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")
-			->has("etablissement")
-			->has("decisions")
-			->has("materiels")
-			->has("responsables")
-			->where("eleve_responsable.etat_signature", "=", 0)
-			->whereHas("decisions", function ($query) use ($decisions) {
-				return $query->whereIn("decisions.id", $decisions);
-			})
-			->orderBy("eleves.nom")
-			->get();
+		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->whereHas("decisions", function ($query) use ($decisions) {
+			return $query->whereIn("decisions.id", $decisions);
+		})->orderBy("eleves.nom")->get();
 
 		// Récupération de tout les paramètres pour imprimer les conventions
-		$allParametres = Parametre::conventions(42)->get();
+		$allParametres = Parametre::conventions($departement)->get();
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
 			$parametres[$parametre->key] = $parametre->value;

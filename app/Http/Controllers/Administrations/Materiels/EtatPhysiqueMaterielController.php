@@ -12,7 +12,7 @@ class EtatPhysiqueMaterielController extends Controller
 {
 
 	/**
-	 * GET - Affiche la liste des États Physiques Matériel
+	 * GET - Affiche la liste des états physiques matériel
 	 *
 	 * @return View
 	 */
@@ -24,7 +24,7 @@ class EtatPhysiqueMaterielController extends Controller
 	}
 
 	/**
-	 * GET - Affiche le formulaire de création d'un état
+	 * GET - Affiche le formulaire de création d'un état physique matériel
 	 *
 	 * @return View
 	 */

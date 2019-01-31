@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			@if($types_etablissements->isEmpty())
+			@if($etablissements->isEmpty())
 				<div class="alert alert-warning">
 					Aucun type d'établissement n'est enregistré sur l'application
 				</div>
@@ -22,12 +22,12 @@
 					</thead>
 
 					<tbody>
-						@foreach($types_etablissements as $types_etablissement)
+						@foreach($etablissements as $etablissement)
 							<tr>
-								<td>{{ $types_etablissement->libelle }}</td>
+								<td>{{ $etablissement->libelle }}</td>
 								<td>
 									@hasPermission("administrations/types/etablissements/edit")
-									<a href="{{ route("web.administrations.types.etablissements.edit", [$types_etablissement]) }}">
+									<a href="{{ route("web.administrations.types.etablissements.edit", [$etablissement]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 									@endHas

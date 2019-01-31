@@ -96,7 +96,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/created",
-            "contenue" => "L'académie unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie unit.testing à été créée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -154,7 +154,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/modified",
-            "contenue" => "L'académie {$academies[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie {$academies[1]->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -181,7 +181,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/modified",
-            "contenue" => "L'académie {$academie->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie {$academie->nom} à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -206,7 +206,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/modified",
-            "contenue" => "L'académie unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie unit.testing à été modifiée par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -242,7 +242,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/deleted",
-            "contenue" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -262,7 +262,7 @@ class AcademiesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "academie/deleted",
-            "contenue" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'académie {$academie->nom} à été supprimée par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 }

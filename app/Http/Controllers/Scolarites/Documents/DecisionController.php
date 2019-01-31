@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
-use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
 use App\Models\Document;
 use App\Models\Eleve;
@@ -14,7 +13,6 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -71,8 +69,8 @@ class DecisionController extends Controller
 	 */
 	public function store(Request $request, Eleve $eleve): RedirectResponse
 	{
-		$dateBefore = Carbon::now()->addYear(25);
 		$dateAfter = Carbon::now()->subYear(25);
+		$dateBefore = Carbon::now()->addYear(25);
 
 		$request->validate([
 			"date_limite"       => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
@@ -112,8 +110,6 @@ class DecisionController extends Controller
 
 		$decision->types()->sync($request->input("types"));
 
-		Mail::send(new DecisionCreatedMail($eleve, $decision));
-
 		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 	}
 
@@ -126,14 +122,14 @@ class DecisionController extends Controller
 	 */
 	public function edit(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->document->eleve_id == $eleve->id) {
-			$enseignants = Enseignant::all();
-			$types = TypeDecision::all();
-
-			return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'enseignants', 'decision', 'types'));
+		if ($decision->document->eleve_id != $eleve->id) {
+			return back()->withErrors("Impossible d'éditer une décision qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Cette décision n'appartient pas à cet élève");
+		$enseignants = Enseignant::all();
+		$types = TypeDecision::all();
+
+		return view('web.scolarites.eleves.documents.decisions.edit', compact('eleve', 'enseignants', 'decision', 'types'));
 	}
 
 	/**
@@ -149,47 +145,47 @@ class DecisionController extends Controller
 		$dateBefore = Carbon::now()->addYear(25);
 		$dateAfter = Carbon::now()->subYear(25);
 
-		if ($decision->document->eleve_id == $eleve->id) {
-			$request->validate([
-				"date_limite"       => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
-				"date_cda"          => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
-				"date_notification" => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
-				"date_convention"   => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
-				"numero_dossier"    => "nullable|max:191",
-				"enseignant_id"     => "nullable|exists:enseignants,id",
-			]);
-
-			if ($request->hasFile("file")) {
-				// On supprime l"ancien fichier
-				Storage::delete("public/{$decision->document->path}");
-
-				// On enregistre le fichier
-				$filename = $this->generateFilename($eleve, $request->file("file"));
-				$request->file("file")->storeAs("public/decisions/", $filename);
-
-				// Mise a jours du document
-				$decision->document->update([
-					"path" => $filename,
-				]);
-			}
-
-			$decision->update([
-				"date_cda"          => $request->input("date_cda"),
-				"date_notification" => $request->input("date_notification"),
-				"date_limite"       => $request->input("date_limite"),
-				"date_convention"   => $request->input("date_convention"),
-				"numero_dossier"    => $request->input("numero_dossier"),
-
-				"enseignant_id" => $request->input("enseignant_id"),
-				"document_id"   => isset($document) ? $document->id : $decision->document_id,
-			]);
-
-			$decision->types()->sync($request->input("types"));
-
-			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+		if ($decision->document->eleve_id != $eleve->id) {
+			return back()->withErrors("Impossible d'éditer une décision qui n'appartient pas à cet élève");
 		}
 
-		return back()->withErrors("Cette décision n'appartient pas à cet élève");
+		$request->validate([
+			"date_limite"       => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
+			"date_cda"          => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
+			"date_notification" => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
+			"date_convention"   => "nullable|date|before:{$dateBefore},after:{$dateAfter}",
+			"numero_dossier"    => "nullable|max:191",
+			"enseignant_id"     => "nullable|exists:enseignants,id",
+		]);
+
+		if ($request->hasFile("file")) {
+			// On supprime l"ancien fichier
+			Storage::delete("public/{$decision->document->path}");
+
+			// On enregistre le fichier
+			$filename = $this->generateFilename($eleve, $request->file("file"));
+			$request->file("file")->storeAs("public/decisions/", $filename);
+
+			// Mise a jours du document
+			$decision->document->update([
+				"path" => $filename,
+			]);
+		}
+
+		$decision->update([
+			"date_cda"          => $request->input("date_cda"),
+			"date_notification" => $request->input("date_notification"),
+			"date_limite"       => $request->input("date_limite"),
+			"date_convention"   => $request->input("date_convention"),
+			"numero_dossier"    => $request->input("numero_dossier"),
+
+			"enseignant_id" => $request->input("enseignant_id"),
+			"document_id"   => isset($document) ? $document->id : $decision->document_id,
+		]);
+
+		$decision->types()->sync($request->input("types"));
+
+		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 	}
 
 	/**
@@ -202,13 +198,12 @@ class DecisionController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Decision $decision): RedirectResponse
 	{
-		if ($decision->document->eleve_id == $eleve->id) {
-			$decision->delete();
-
-			return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
+		if ($decision->document->eleve_id != $eleve->id) {
+			return back()->withErrors("Impossible de supprimer une décision qui n'appartient pas à cet élève");
 		}
+		$decision->delete();
 
-		return back()->withErrors("Cette décision n'appartient pas à cet élève");
+		return redirect(route("web.scolarites.eleves.documents.index", [$eleve]));
 	}
 
 	/**
@@ -220,11 +215,11 @@ class DecisionController extends Controller
 	 */
 	public function download(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->document->eleve_id == $eleve->id) {
-			return Storage::download("public/decisions/" . $decision->document->path, $this->stripAccents($decision->document->path));
+		if ($decision->document->eleve_id != $eleve->id) {
+			return back()->withErrors("Impossible de télécharger une décision qui n'appartient pas cet élève");
 		}
 
-		return back()->withErrors("Cette decision n'appartient pas cet élève");
+		return Storage::download("public/decisions/{$decision->document->path}", $this->stripAccents($decision->document->path));
 	}
 
 }

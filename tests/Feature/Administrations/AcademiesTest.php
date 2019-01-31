@@ -100,6 +100,29 @@ class AcademiesTest extends TestCase
         ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilAcademie()
+    {
+        $academie = factory(Academie::class)->create();
+        $departements = factory(Departement::class, 2)->create([
+            "academie_id" => $academie->id
+        ]);
+
+        $request = $this->get("administrations/academies/{$academie->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de l'académie \"{$academie->nom}\"");
+
+        $request->assertSee("Départements");
+        $request->assertSee("Action");
+        foreach ($departements as $departement)
+        {
+            $request->assertSee($departement->nom);
+            $request->assertSee("Détails");
+        }
+    }
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

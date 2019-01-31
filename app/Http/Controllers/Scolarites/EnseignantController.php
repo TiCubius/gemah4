@@ -71,6 +71,17 @@ class EnseignantController extends Controller
 		return redirect(route("web.scolarites.enseignants.index"));
 	}
 
+    /**
+     * GET - Affiche les données d'un enseignant
+     *
+     * @param Enseignant $enseignant
+     * @return View
+     */
+    public function show(Enseignant $enseignant): View
+    {
+        return view("web.scolarites.enseignants.show", compact("enseignant"));
+    }
+
 	/**
 	 * GET - Affiche le formulaire d'édition d'un enseignant
 	 *

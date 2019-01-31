@@ -92,6 +92,30 @@ class RegionsTest extends TestCase
         ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilRegion()
+    {
+        $region = factory(Region::class)->create();
+        $academies = factory(Academie::class, 2)->create([
+            "region_id" => $region->id
+        ]);
+
+        $request = $this->get("/administrations/regions/{$region->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de la région \"{$region->nom}\"");
+
+        $request->assertSee("Académies");
+        $request->assertSee("Action");
+        foreach ($academies as $academy)
+        {
+            $request->assertSee($academy->nom);
+            $request->assertSee("Détails");
+        }
+    }
+
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

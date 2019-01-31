@@ -3,6 +3,7 @@
 namespace Tests\Feature\Administrations\Materiels;
 
 use App\Models\EtatPhysiqueMateriel;
+use App\Models\Materiel;
 use Tests\TestCase;
 
 class EtatsPhysiquesMaterielsTest extends TestCase
@@ -89,6 +90,29 @@ class EtatsPhysiquesMaterielsTest extends TestCase
             "contenue" => "L'état physique matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
+
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilEtatMateriel()
+    {
+        $etat = factory(EtatPhysiqueMateriel::class)->create();
+        $materiels = factory(Materiel::class, 2)->create([
+            "etat_physique_materiel_id" => $etat->id
+        ]);
+
+        $request = $this->get("/administrations/materiels/etats/physiques/{$etat->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de l'état physique \"{$etat->libelle}\"");
+
+        $request->assertSee("Matériels");
+        $request->assertSee("Action");
+        foreach ($materiels as $materiel) {
+            $request->assertSee($materiel->modele);
+            $request->assertSee("Détails");
+        }
+    }
 
 
 	/**

@@ -23,10 +23,12 @@
 								<td>{{ $historique->contenue }}</td>
 								<td>{{ $historique->created_at->format("d/m/Y") }}</td>
 								<td>
+									@hasPermission("administrations/historiques/show")
 									<a type="btn" class="btn btn-outline-primary" target="_blank" href="{{ route("web.administrations.historiques.show", [$historique]) }}">
 										<i class="fas fa-info-circle"></i>
 										Détails
 									</a>
+									@endHas
 								</td>
 							</tr>
 						@endforeach

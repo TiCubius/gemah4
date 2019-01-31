@@ -72,11 +72,11 @@ class UtilisateurController extends Controller
 	 * Display the specified resource.
 	 *
 	 * @param Utilisateur $utilisateur
-	 * @return void
+	 * @return View
 	 */
-	public function show(Utilisateur $utilisateur)
+	public function show(Utilisateur $utilisateur): View
 	{
-		//
+		return view("web.administrations.utilisateurs.show", compact("utilisateur"));
 	}
 
 	/**

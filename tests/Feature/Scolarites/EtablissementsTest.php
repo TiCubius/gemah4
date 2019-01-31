@@ -3,6 +3,7 @@
 namespace Tests\Feature\Scolarites;
 
 use App\Models\Departement;
+use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
 use App\Models\TypeEtablissement;
@@ -132,6 +133,31 @@ class EtablissementsTest extends TestCase
             "contenue" => "L'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
+
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilEtablissement()
+    {
+        $etablissement = factory(Etablissement::class)->create();
+        $eleves = factory(Eleve::class, 2)->create([
+            "etablissement_id" => $etablissement->id
+        ]);
+
+        $request = $this->get("/scolarites/etablissements/{$etablissement->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de l'établissement \"{$etablissement->nom}\"");
+
+        $request->assertSee("Eleves");
+        $request->assertSee("Action");
+        foreach ($eleves as $eleve)
+        {
+            $request->assertSee($eleve->nom);
+            $request->assertSee($eleve->prenom);
+            $request->assertSee("Détails");
+        }
+    }
 
 
 	/**

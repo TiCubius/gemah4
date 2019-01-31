@@ -100,6 +100,31 @@ class ServicesTest extends TestCase
         ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilService()
+    {
+        $service = factory(Service::class)->create();
+        $utilisateurs = factory(Utilisateur::class, 2)->create([
+            "service_id" => $service->id
+        ]);
+
+        $request = $this->get("/administrations/services/{$service->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil du service \"{$service->nom}\"");
+
+        $request->assertSee("Utilisateurs");
+        $request->assertSee("Action");
+        foreach ($utilisateurs as $utilisateur)
+        {
+            $request->assertSee($utilisateur->nom);
+            $request->assertSee($utilisateur->prenom);
+            $request->assertSee($utilisateur->email);
+            $request->assertSee("Détails");
+        }
+    }
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

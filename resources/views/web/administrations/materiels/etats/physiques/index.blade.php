@@ -24,7 +24,7 @@
 							<tr>
 								<td>{{ $etat->libelle }}</td>
 								<td>
-									@hasPermission("administrations/materiels/etats/physiques/edit")
+									@hasPermission("administrations/etats/materiels/physiques/edit")
 									<a href="{{ route("web.administrations.materiels.etats.physiques.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>

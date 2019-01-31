@@ -83,6 +83,33 @@ class ResponsablesTest extends TestCase
         ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilResponsable()
+    {
+        $responsable = factory(Responsable::class)->create();
+        $eleves = factory(Eleve::class, 2)->create();
+
+        foreach ($eleves as $eleve)
+        {
+            $responsable->eleves()->attach($eleve);
+        }
+
+        $request = $this->get("/responsables/{$responsable->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil du responsable \"{$responsable->nom} {$responsable->prenom}\"");
+
+        $request->assertSee("Eleves");
+        $request->assertSee("Action");
+        foreach ($eleves as $eleve)
+        {
+            $request->assertSee($eleve->nom);
+            $request->assertSee($eleve->prenom);
+            $request->assertSee("Détails");
+        }
+    }
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

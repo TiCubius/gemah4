@@ -58,6 +58,17 @@ class DepartementController extends Controller
 		return redirect(route("web.administrations.departements.index"));
 	}
 
+    /**
+     * GET - Affiche les données d'une académie
+     *
+     * @param Departement $departement
+     * @return View
+     */
+    public function show(Departement $departement): View
+    {
+        return view("web.administrations.departements.show", compact("departement"));
+    }
+
 	/**
 	 * GET - Affiche le formulaire d'édition d'un Départements
 	 *

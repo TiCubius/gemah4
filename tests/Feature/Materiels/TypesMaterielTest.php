@@ -3,6 +3,7 @@
 namespace Tests\Feature\Materiels;
 
 use App\Models\DomaineMateriel;
+use App\Models\Materiel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
 
@@ -80,6 +81,31 @@ class TypesMaterielTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 	}
+
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilType()
+    {
+        $type = factory(TypeMateriel::class)->create();
+        $materiels = factory(Materiel::class, 2)->create([
+            "type_materiel_id" => $type->id
+        ]);
+
+        $request = $this->get("/materiels/types/{$type->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil du type de matériel \"{$type->libelle}\"");
+
+        $request->assertSee("Matériels");
+        $request->assertSee("Action");
+        foreach ($materiels as $materiel)
+        {
+            $request->assertSee($materiel->modele);
+            $request->assertSee($materiel->marque);
+            $request->assertSee("Détails");
+        }
+    }
 
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et qu'un Type à bien été créée lors de la soumissions d'un

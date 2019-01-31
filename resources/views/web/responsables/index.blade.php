@@ -129,8 +129,8 @@
 													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
 													<td>
-														@hasPermission("responsables/edit")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
+														@hasPermission("responsables/show")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
 															Editer
 														</a>
 														@endHas

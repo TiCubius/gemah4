@@ -9,45 +9,45 @@ class PermissionsSeeder extends Seeder
 
 		"administrations/academies/index"   => "Peut afficher la liste des académies",
 		"administrations/academies/create"  => "Peut créer une academie",
-		//		"administrations/academies/show"    => "Peut afficher les informations sur une academie",
+		"administrations/academies/show"    => "Peut afficher les informations sur une academie",
 		"administrations/academies/edit"    => "Peut modifier une academie",
 		"administrations/academies/destroy" => "Peut supprimer une academie",
 
 		"administrations/departements/index"   => "Peut afficher la liste des départements",
 		"administrations/departements/create"  => "Peut créer un departement",
-		//		"administrations/departements/show"    => "Peut afficher les informations sur un departement",
+		"administrations/departements/show"    => "Peut afficher les informations sur un departement",
 		"administrations/departements/edit"    => "Peut modifier un departement",
 		"administrations/departements/destroy" => "Peut supprimer un departement",
 
 		"administrations/regions/index"   => "Peut afficher la liste des régions",
 		"administrations/regions/create"  => "Peut créer un departement",
-		//		"administrations/regions/show"    => "Peut afficher les informations sur un departement",
+		"administrations/regions/show"    => "Peut afficher les informations sur un departement",
 		"administrations/regions/edit"    => "Peut modifier un departement",
 		"administrations/regions/destroy" => "Peut supprimer un departement",
 
 
 		"administrations/services/index"   => "Peut afficher la liste des services",
 		"administrations/services/create"  => "Peut créer un service",
-		//		"administrations/services/show"    => "Peut afficher les informations sur un service",
+		"administrations/services/show"    => "Peut afficher les informations sur un service",
 		"administrations/services/edit"    => "Peut modifier un service",
 		"administrations/services/destroy" => "Peut supprimer un service",
 
 		"administrations/utilisateurs/index"   => "Peut afficher la liste des utilisateurs",
 		"administrations/utilisateurs/create"  => "Peut créer un utilisateur",
-		//		"administrations/utilisateurs/show"    => "Peut afficher les informations sur un utilisateur",
+		"administrations/utilisateurs/show"    => "Peut afficher les informations sur un utilisateur",
 		"administrations/utilisateurs/edit"    => "Peut modifier un utilisateur",
 		"administrations/utilisateurs/destroy" => "Peut supprimer un utilisateur",
 
 
 		"administrations/etats/materiels/administratifs/index"   => "Peut afficher la liste des états administratifs du matériel",
 		"administrations/etats/materiels/administratifs/create"  => "Peut créer un état administratif du matériel",
-		//		"administrations/etats/materiels/administratifs/show"    => "Peut afficher les informations sur un état administratif d'un matériel",
+		"administrations/etats/materiels/administratifs/show"    => "Peut afficher les informations sur un état administratif d'un matériel",
 		"administrations/etats/materiels/administratifs/edit"    => "Peut modifier un état administratif du matériel",
 		"administrations/etats/materiels/administratifs/destroy" => "Peut supprimer un état administratif du matériel",
 
 		"administrations/etats/materiels/physiques/index"   => "Peut afficher la liste des états physiques du matériel",
 		"administrations/etats/materiels/physiques/create"  => "Peut créer un état physique d'un matériel",
-		//		"administrations/etats/materiels/physiques/show"    => "Peut afficher les informations sur un état physique d'un matériel",
+		"administrations/etats/materiels/physiques/show"    => "Peut afficher les informations sur un état physique d'un matériel",
 		"administrations/etats/materiels/physiques/edit"    => "Peut modifier un état physique d'un matériel",
 		"administrations/etats/materiels/physiques/destroy" => "Peut supprimer un état physique d'un matériel",
 
@@ -58,25 +58,25 @@ class PermissionsSeeder extends Seeder
 
 		"administrations/types/documents/index"   => "Peut afficher la liste des types de documen",
 		"administrations/types/documents/create"  => "Peut créer un type de document",
-		//		"administrations/types/documents/show"    => "Peut afficher les informations sur un type de document",
+		"administrations/types/documents/show"    => "Peut afficher les informations sur un type de document",
 		"administrations/types/documents/edit"    => "Peut modifier un type de document",
 		"administrations/types/documents/destroy" => "Peut supprimer un type de document",
 
 		"administrations/types/decisions/index"   => "Peut afficher la liste des types de décision",
 		"administrations/types/decisions/create"  => "Peut créer un type de décision",
-		//		"administrations/types/decisions/show"    => "Peut afficher les informations sur un type d'élève",
+		"administrations/types/decisions/show"    => "Peut afficher les informations sur un type d'élève",
 		"administrations/types/decisions/edit"    => "Peut modifier un type de décision",
 		"administrations/types/decisions/destroy" => "Peut supprimer un type de décision",
 
 		"administrations/types/etablissements/index"   => "Peut afficher la liste des types d'établissement",
 		"administrations/types/etablissements/create"  => "Peut créer un type d'établissement",
-		//		"administrations/types/etablissements/show"    => "Peut afficher les informations sur un type d'établissement",
+		"administrations/types/etablissements/show"    => "Peut afficher les informations sur un type d'établissement",
 		"administrations/types/etablissements/edit"    => "Peut modifier un type d'établissement",
 		"administrations/types/etablissements/destroy" => "Peut supprimer un type d'établissement",
 
 		"administrations/types/tickets/index"   => "Peut afficher la liste des types de tickets",
 		"administrations/types/tickets/create"  => "Peut créer un type de ticket",
-		//		"administrations/types/tickets/show"    => "Peut afficher les informations sur un type de ticket",
+		"administrations/types/tickets/show"    => "Peut afficher les informations sur un type de ticket",
 		"administrations/types/tickets/edit"    => "Peut modifier un type de ticket",
 		"administrations/types/tickets/destroy" => "Peut supprimer un type de ticket",
 

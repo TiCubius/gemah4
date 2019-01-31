@@ -26,7 +26,7 @@
 								<td style="background: {{ $etat->couleur }};"></td>
 								<td>{{ $etat->libelle }}</td>
 								<td>
-									@hasPermission("administrations/materiels/etats/administratifs/edit")
+									@hasPermission("administrations/etats/materiels/administratifs/edit")
 									<a href="{{ route("web.administrations.materiels.etats.administratifs.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Etablissement extends Model
 {
@@ -45,6 +46,15 @@ class Etablissement extends Model
 		return $this->belongsTo(TypeEtablissement::class, "type_etablissement_id");
 	}
 
+    /**
+     * Un établissement peut ête lié à plusieurs élèves
+     *
+     * @return HasMany
+     */
+    public function eleves(): HasMany
+    {
+        return $this->hasMany(Eleve::class);
+    }
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante

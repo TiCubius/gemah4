@@ -57,14 +57,14 @@ class TypeMaterielController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
+	 * GET - Affiche les données d'un type de matériel
 	 *
 	 * @param TypeMateriel $type
-	 * @return void
+	 * @return View
 	 */
-	public function show(TypeMateriel $type)
+	public function show(TypeMateriel $type): View
 	{
-		//
+		return view("web.materiels.types.show", compact("type"));
 	}
 
 	/**

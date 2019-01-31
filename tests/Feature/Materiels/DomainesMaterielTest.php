@@ -3,6 +3,7 @@
 namespace Tests\Feature\Materiels;
 
 use App\Models\DomaineMateriel;
+use App\Models\Materiel;
 use App\Models\TypeMateriel;
 use Tests\TestCase;
 
@@ -87,6 +88,29 @@ class DomainesMaterielTest extends TestCase
 		$this->assertDatabaseHas("domaines_materiels", ["libelle" => "unit.testing"]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilDomaine()
+    {
+        $domaine = factory(DomaineMateriel::class)->create();
+        $types = factory(TypeMateriel::class, 2)->create([
+            "domaine_id" => $domaine->id
+        ]);
+
+        $request = $this->get("/materiels/domaines/{$domaine->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil du domaine matériel \"{$domaine->libelle}\"");
+
+        $request->assertSee("Types de matériel");
+        $request->assertSee("Action");
+        foreach ($types as $type)
+        {
+            $request->assertSee($type->libelle);
+            $request->assertSee("Détails");
+        }
+    }
 
 	/**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires

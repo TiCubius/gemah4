@@ -78,6 +78,17 @@ class ResponsableController extends Controller
 		return redirect(route("web.responsables.index"));
 	}
 
+    /**
+     * GET - Affiche les données d'un responsable
+     *
+     * @param Responsable $responsable
+     * @return View
+     */
+    public function show(Responsable $responsable): View
+    {
+        return view("web.responsables.show", compact("responsable"));
+    }
+
 	/**
 	 * GET - Affiche le formulaire d'édition d'un responsable
 	 *

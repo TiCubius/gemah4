@@ -73,6 +73,16 @@ class ServiceController extends Controller
 		return redirect(route("web.administrations.services.index"));
 	}
 
+    /**
+     * GET - Affiche les données d'un service
+     *
+     * @param Service $service
+     * @return View
+     */
+    public function show(Service $service): View
+    {
+        return view("web.administrations.services.show", compact("service"));
+    }
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'un service

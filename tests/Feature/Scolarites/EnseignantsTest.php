@@ -4,6 +4,7 @@ namespace Tests\Feature\Scolarites;
 
 use App\Models\Departement;
 use App\Models\Enseignant;
+use App\Models\Etablissement;
 use Tests\TestCase;
 
 class EnseignantsTest extends TestCase
@@ -108,6 +109,29 @@ class EnseignantsTest extends TestCase
         ]);
     }
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilEnseignant()
+    {
+        $enseignant = factory(Enseignant::class)->create();
+        $etablissements = factory(Etablissement::class, 2)->create([
+            "enseignant_id" => $enseignant->id
+        ]);
+
+        $request = $this->get("/scolarites/enseignants/{$enseignant->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de l'enseignant \"{$enseignant->nom} {$enseignant->prenom}\"");
+
+        $request->assertSee("Etablissements");
+        $request->assertSee("Action");
+        foreach ($etablissements as $etablissement)
+        {
+            $request->assertSee($etablissement->nom);
+            $request->assertSee("Détails");
+        }
+    }
 
     /**
      * Vérifie que le formulaire d'édition contient bien les champs nécessaires

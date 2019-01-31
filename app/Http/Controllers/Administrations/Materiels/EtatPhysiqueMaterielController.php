@@ -50,6 +50,17 @@ class EtatPhysiqueMaterielController extends Controller
 		return redirect(route("web.administrations.materiels.etats.physiques.index"));
 	}
 
+    /**
+     * GET - Affiche les données d'un état administratif matériel
+     *
+     * @param EtatPhysiqueMateriel $physique
+     * @return View
+     */
+    public function show(EtatPhysiqueMateriel $physique): View
+    {
+        return view("web.administrations.materiels.etats.physiques.show", compact("physique"));
+    }
+
 	/**
 	 * GET - Affiche le formulaire d'édition d'un état physique matériel
 	 *

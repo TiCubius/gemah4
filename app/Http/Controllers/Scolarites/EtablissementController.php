@@ -92,11 +92,11 @@ class EtablissementController extends Controller
 	 * Display the specified resource.
 	 *
 	 * @param Etablissement $etablissement
-	 * @return void
+	 * @return View
 	 */
-	public function show(Etablissement $etablissement)
+	public function show(Etablissement $etablissement): View
 	{
-		//
+		return view("web.scolarites.etablissements.show", compact("etablissement"));
 	}
 
 	/**

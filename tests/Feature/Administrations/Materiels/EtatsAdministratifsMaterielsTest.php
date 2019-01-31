@@ -3,6 +3,7 @@
 namespace Tests\Feature\Administrations\Materiels;
 
 use App\Models\EtatAdministratifMateriel;
+use App\Models\Materiel;
 use Tests\TestCase;
 
 class EtatsAdministratifsMaterielsTest extends TestCase
@@ -93,8 +94,31 @@ class EtatsAdministratifsMaterielsTest extends TestCase
         ]);
 	}
 
+    /**
+     * Vérifie que les données présentes sur le profil sont bien celles attendues
+     */
+    public function testAffichageProfilEtatMateriel()
+    {
+        $etat = factory(EtatAdministratifMateriel::class)->create();
+        $materiels = factory(Materiel::class, 2)->create([
+            "etat_administratif_materiel_id" => $etat->id
+        ]);
 
-	/**
+        $request = $this->get("/administrations/materiels/etats/administratifs/{$etat->id}");
+
+        $request->assertStatus(200);
+        $request->assertSee("Profil de l'état administratif \"{$etat->libelle}\"");
+
+        $request->assertSee("Matériels");
+        $request->assertSee("Action");
+        foreach ($materiels as $materiel) {
+            $request->assertSee($materiel->modele);
+            $request->assertSee("Détails");
+        }
+
+    }
+
+    /**
 	 * Vérifie que le formulaire d'édition contient bien les champs nécessaires
 	 */
 	public function testAffichageFormulaireEditionEtatMateriel()

@@ -76,8 +76,8 @@ class TypeMaterielController extends Controller
 	public function update(Request $request, TypeMateriel $type): RedirectResponse
 	{
 		$request->validate([
-			"libelle" => "required|max:191|unique:types_materiels,libelle,{$type->id}",
-			"domaine" => "required|exists:domaines_materiels,id",
+			"libelle"    => "required|max:191|unique:types_materiels,libelle,{$type->id}",
+			"domaine_id" => "required|exists:domaines_materiels,id",
 		]);
 
 		$type->update($request->only(["libelle", "domaine_id"]));

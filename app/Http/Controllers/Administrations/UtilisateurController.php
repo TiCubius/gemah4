@@ -49,7 +49,7 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"         => "required|max:191",
 			"prenom"      => "required|max:191",
-			"identifiant" => "required|max:191|unqiue:utilisateurs,identifiant",
+			"identifiant" => "required|max:191|unique:utilisateurs,identifiant",
 			"email"       => "required|max:191|email|unique:utilisateurs,email",
 			"password"    => "required|min:8|confirmed",
 			"service_id"  => "required|exists:services,id",
@@ -94,7 +94,7 @@ class UtilisateurController extends Controller
 		$request->validate([
 			"nom"         => "required|max:191",
 			"prenom"      => "required|max:191",
-			"identifiant" => "required|max:191|unqiue:utilisateurs,identifiant,{$utilisateur->id}",
+			"identifiant" => "required|max:191|unique:utilisateurs,identifiant,{$utilisateur->id}",
 			"email"       => "required|max:191|email|unique:utilisateurs,email,{$utilisateur->id}",
 			"password"    => "nullable|min:8|confirmed",
 			"service_id"  => "required|exists:services,id",

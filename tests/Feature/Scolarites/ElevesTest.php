@@ -345,9 +345,9 @@ class ElevesTest extends TestCase
 		$request = $this->delete("/scolarites/eleves/{$eleve->id}");
 
 		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
-        $this->assertDatabaseMissing("historiques", [
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
+        $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/deleted",
             "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
@@ -368,9 +368,9 @@ class ElevesTest extends TestCase
 		$request = $this->delete("/scolarites/eleves/{$eleve->id}");
 
 		$request->assertStatus(302);
-		$request->assertSessionHasErrors();
-		$this->assertDatabaseHas("eleves", ["id" => $eleve->id]);
-        $this->assertDatabaseMissing("historiques", [
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
+        $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "eleve/deleted",
             "information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"

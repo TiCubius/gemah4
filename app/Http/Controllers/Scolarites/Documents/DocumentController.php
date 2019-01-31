@@ -110,7 +110,7 @@ class DocumentController extends Controller
 	 */
 	public function edit(Eleve $eleve, Document $document)
 	{
-		if ($document->eleve_id !== $eleve->id) {
+		if ($document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible d'éditer un document qui n'appartient pas à cet élève");
 		}
 
@@ -127,7 +127,7 @@ class DocumentController extends Controller
 	 */
 	public function update(Request $request, Eleve $eleve, Document $document): RedirectResponse
 	{
-		if ($document->eleve_id !== $eleve->id) {
+		if ($document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible d'éditer un document qui n'appartient pas à cet élève");
 		}
 
@@ -168,7 +168,7 @@ class DocumentController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Document $document): RedirectResponse
 	{
-		if ($document->eleve_id == $eleve->id) {
+		if ($document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible de supprimer un document qui n'appartient pas à cet élève");
 		}
 
@@ -186,7 +186,7 @@ class DocumentController extends Controller
 	 */
 	public function download(Eleve $eleve, Document $document)
 	{
-		if ($document->eleve_id !== $eleve->id) {
+		if ($document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible de télécharger un document qui n'appartient pas à cet élève");
 		}
 

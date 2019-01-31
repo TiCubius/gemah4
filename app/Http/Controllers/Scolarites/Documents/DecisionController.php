@@ -122,7 +122,7 @@ class DecisionController extends Controller
 	 */
 	public function edit(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->document->eleve_id !== $eleve->id) {
+		if ($decision->document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible d'éditer une décision qui n'appartient pas à cet élève");
 		}
 
@@ -145,7 +145,7 @@ class DecisionController extends Controller
 		$dateBefore = Carbon::now()->addYear(25);
 		$dateAfter = Carbon::now()->subYear(25);
 
-		if ($decision->document->eleve_id !== $eleve->id) {
+		if ($decision->document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible d'éditer une décision qui n'appartient pas à cet élève");
 		}
 
@@ -198,7 +198,7 @@ class DecisionController extends Controller
 	 */
 	public function destroy(Eleve $eleve, Decision $decision): RedirectResponse
 	{
-		if ($decision->document->eleve_id !== $eleve->id) {
+		if ($decision->document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible de supprimer une décision qui n'appartient pas à cet élève");
 		}
 		$decision->delete();
@@ -215,7 +215,7 @@ class DecisionController extends Controller
 	 */
 	public function download(Eleve $eleve, Decision $decision)
 	{
-		if ($decision->document->eleve_id !== $eleve->id) {
+		if ($decision->document->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible de télécharger une décision qui n'appartient pas cet élève");
 		}
 

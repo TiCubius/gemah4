@@ -17,10 +17,9 @@ class TypeDocumentController extends Controller
 	 */
 	public function index(): View
 	{
-
 		$documents = TypeDocument::orderBy("libelle")->get();
 
-		return view("web.administrations.types.documents.index", compact("types_documents"));
+		return view("web.administrations.types.documents.index", compact("documents"));
 	}
 
 	/**

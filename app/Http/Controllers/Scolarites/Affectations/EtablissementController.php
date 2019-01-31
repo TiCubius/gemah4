@@ -10,6 +10,7 @@ use App\Models\Historique;
 use App\Models\TypeEtablissement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class EtablissementController extends Controller
@@ -23,7 +24,7 @@ class EtablissementController extends Controller
 	 */
 	public function index(Eleve $eleve, Request $request)
 	{
-		if ($eleve->etablissement_id !== null) {
+		if ($eleve->etablissement_id != null) {
 			return back()->withErrors("L'élève est déjà affecté à un établissement.");
 		}
 
@@ -50,7 +51,7 @@ class EtablissementController extends Controller
 	 */
 	public function attach(Eleve $eleve, Etablissement $etablissement): RedirectResponse
 	{
-		if ($eleve->etablissement_id !== null) {
+		if ($eleve->etablissement_id != null) {
 			return back()->withErrors("Impossible d'affecter un établissement à un élève qui possède déjà un établissement");
 		}
 
@@ -80,8 +81,8 @@ class EtablissementController extends Controller
 	 */
 	public function detach(Eleve $eleve, Etablissement $etablissement): RedirectResponse
 	{
-		if ($eleve->etablissement_id !== $etablissement->id) {
-			return redirect(route("web.scolarites.eleves.show", [$eleve]))->withErrors("Impossible de désaffecter un établissement qui n'est pas affecté à cet élève");
+		if ($eleve->etablissement_id != $etablissement->id) {
+			return back()->withErrors("Impossible de désaffecter un établissement qui n'est pas affecté à cet élève");
 		}
 
 		$eleve->update([

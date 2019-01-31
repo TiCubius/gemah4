@@ -220,7 +220,7 @@ class DocumentsTest extends TestCase
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que le document à bien été supprimé
 	 */
-	public function testTraitementSuppressionEleve()
+	public function testTraitementSuppressionDocument()
 	{
 		$eleve = factory(Eleve::class)->create();
 		$document = factory(Document::class)->create([
@@ -242,7 +242,7 @@ class DocumentsTest extends TestCase
 	/**
 	 * Vérifie qu'on ne peut éditer un document si il n'apparitent pas a l'élève courant
 	 */
-	public function testEditionDocumentAutreEleve()
+	public function testEditionDocumentAutreDocument()
 	{
 
 		$eleves = factory(Eleve::class, 2)->create();

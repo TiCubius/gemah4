@@ -41,9 +41,9 @@ class HistoriquesTest extends TestCase
 
         $request->assertStatus(200);
         $request->assertSee("Historique");
-        $request->assertSee("Type");
-        $request->assertSee("Contenue");
         $request->assertSee("Date");
+        $request->assertSee("Type");
+        $request->assertSee("Informations");
         $request->assertSee("Action");
 
         $request->assertSee("unit.testing");

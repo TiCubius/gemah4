@@ -9,6 +9,7 @@ use App\Models\Historique;
 use App\Models\Responsable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class ResponsableController extends Controller
@@ -78,7 +79,7 @@ class ResponsableController extends Controller
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
 			"type"           => "responsable/affectation",
-			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+			"information"    => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
@@ -106,7 +107,7 @@ class ResponsableController extends Controller
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
 			"type"           => "responsable/affectation",
-			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+			"information"    => "Le responsable {$responsable->nom} {$responsable->prenom} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
@@ -121,7 +122,7 @@ class ResponsableController extends Controller
 	 */
 	public function detach(Eleve $eleve, Responsable $responsable): RedirectResponse
 	{
-		if ($responsable->eleves->contains($eleve)) {
+		if (!$responsable->eleves->contains($eleve)) {
 			return back()->withErrors("Impossible de désaffecter un responsable qui n'est pas affecté à cet élève");
 		}
 
@@ -134,7 +135,7 @@ class ResponsableController extends Controller
 			"eleve_id"       => $eleve->id,
 			"responsable_id" => $responsable->id,
 			"type"           => "responsable/desaffectation",
-			"information"       => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+			"information"    => "Le responsable {$responsable->nom} {$responsable->prenom} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));

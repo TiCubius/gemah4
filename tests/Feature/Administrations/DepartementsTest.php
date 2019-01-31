@@ -66,10 +66,10 @@ class DepartementsTest extends TestCase
 		$departements = factory(Departement::class, 5)->create();
 
 		$request = $this->post("/administrations/departements", [
-			"_token"   => csrf_token(),
-			"id"       => $departements->random()->id,
-			"nom"      => $departements->random()->nom,
-			"academie" => $academie->id,
+			"_token"      => csrf_token(),
+			"id"          => $departements->random()->id,
+			"nom"         => $departements->random()->nom,
+			"academie_id" => $academie->id,
 		]);
 
 		$request->assertStatus(302);
@@ -85,10 +85,10 @@ class DepartementsTest extends TestCase
 		$academie = factory(Academie::class)->create();
 
 		$request = $this->post("/administrations/departements", [
-			"_token"   => csrf_token(),
-			"id"       => "unit.testing",
-			"nom"      => "unit.testing",
-			"academie" => $academie->id,
+			"_token"      => csrf_token(),
+			"id"          => "unit.testing",
+			"nom"         => "unit.testing",
+			"academie_id" => $academie->id,
 		]);
 
 		$request->assertStatus(302);
@@ -97,11 +97,11 @@ class DepartementsTest extends TestCase
 			"id"  => "unit.testing",
 			"nom" => "unit.testing",
 		]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/created",
-            "information" => "Le département unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/created",
+			"information" => "Le département unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 
@@ -147,10 +147,10 @@ class DepartementsTest extends TestCase
 		$departements = factory(Departement::class, 2)->create();
 
 		$request = $this->put("/administrations/departements/{$departements[0]->id}", [
-			"_token"   => csrf_token(),
-			"id"       => $departements[1]->id,
-			"nom"      => $departements[1]->nom,
-			"academie" => $academie->id,
+			"_token"      => csrf_token(),
+			"id"          => $departements[1]->id,
+			"nom"         => $departements[1]->nom,
+			"academie_id" => $academie->id,
 		]);
 
 		$request->assertStatus(302);
@@ -159,11 +159,11 @@ class DepartementsTest extends TestCase
 			"id"  => $departements[0]->id,
 			"nom" => $departements[0]->nom,
 		]);
-        $this->assertDatabaseMissing("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/modified",
-            "information" => "Le département {$departements[1]->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/modified",
+			"information" => "Le département {$departements[1]->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -178,10 +178,10 @@ class DepartementsTest extends TestCase
 		]);
 
 		$request = $this->put("/administrations/departements/{$departement->id}", [
-			"_token"   => csrf_token(),
-			"id"       => $departement->id,
-			"nom"      => $departement->nom,
-			"academie" => $departement->academie_id,
+			"_token"      => csrf_token(),
+			"id"          => $departement->id,
+			"nom"         => $departement->nom,
+			"academie_id" => $departement->academie_id,
 		]);
 
 		$request->assertStatus(302);
@@ -190,11 +190,11 @@ class DepartementsTest extends TestCase
 			"id"  => $departement->id,
 			"nom" => $departement->nom,
 		]);
-        $this->assertDatabaseMissing("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/modified",
-            "information" => "Le département {$departement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/modified",
+			"information" => "Le département {$departement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -207,10 +207,10 @@ class DepartementsTest extends TestCase
 		$departement = factory(Departement::class)->create();
 
 		$request = $this->put("/administrations/departements/{$departement->id}", [
-			"_token"   => csrf_token(),
-			"id"       => "unit.testing",
-			"nom"      => "unit.testing",
-			"academie" => $academie->id,
+			"_token"      => csrf_token(),
+			"id"          => "unit.testing",
+			"nom"         => "unit.testing",
+			"academie_id" => $academie->id,
 		]);
 
 		$request->assertStatus(302);
@@ -219,68 +219,68 @@ class DepartementsTest extends TestCase
 			"id"  => "unit.testing",
 			"nom" => "unit.testing",
 		]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/modified",
-            "information" => "Le département unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/modified",
+			"information" => "Le département unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
-    /**
-     * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
-     */
-    public function testAffichageAlerteSuppressionDepartement()
-    {
-        $departement = factory(Departement::class)->create();
+	/**
+	 * Vérifie que les données présentes sur l'alerte de suppression sont bien celles attendues
+	 */
+	public function testAffichageAlerteSuppressionDepartement()
+	{
+		$departement = factory(Departement::class)->create();
 
-        $request = $this->get("/administrations/departements/{$departement->id}/edit");
+		$request = $this->get("/administrations/departements/{$departement->id}/edit");
 
-        $request->assertStatus(200);
-        $request->assertSee("Supprimer");
-        $request->assertSee("Vous êtes sur le point de supprimer <b>" . $departement->nom . "</b>.");
-    }
+		$request->assertStatus(200);
+		$request->assertSee("Supprimer");
+		$request->assertSee("Vous êtes sur le point de supprimer <b>" . $departement->nom . "</b>.");
+	}
 
-    /**
-     * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des académies
-     */
-    public function testTraitementSuppressionDepartementAssocie()
-    {
-        $departement = factory(Departement::class)->create();
-        $service = factory(Service::class)->create([
-            "departement_id" => $departement->id,
-        ]);
+	/**
+	 * Vérifie que des erreurs sont présentes et que le service n'est pas supprimé s'il est associé à des académies
+	 */
+	public function testTraitementSuppressionDepartementAssocie()
+	{
+		$departement = factory(Departement::class)->create();
+		$service = factory(Service::class)->create([
+			"departement_id" => $departement->id,
+		]);
 
-        $request = $this->delete("/administrations/departements/{$departement->id}");
+		$request = $this->delete("/administrations/departements/{$departement->id}");
 
-        $request->assertStatus(302);
-        $request->assertSessionHasErrors();
-        $this->assertDatabaseHas("departements", ["nom" => $departement->nom]);
-        $this->assertDatabaseMissing("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/deleted",
-            "information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
-        ]);
-    }
+		$request->assertStatus(302);
+		$request->assertSessionHasErrors();
+		$this->assertDatabaseHas("departements", ["nom" => $departement->nom]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/deleted",
+			"information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+		]);
+	}
 
-    /**
-     * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucun
-     * service
-     */
-    public function testTraitementSuppressionDepartementNonAssocie()
-    {
-        $departement = factory(Departement::class)->create();
+	/**
+	 * Vérifie qu'aucune erreur n'est présente et que le service à bien été supprimé s'il n'est associé à aucun
+	 * service
+	 */
+	public function testTraitementSuppressionDepartementNonAssocie()
+	{
+		$departement = factory(Departement::class)->create();
 
-        $request = $this->delete("/administrations/departements/{$departement->id}");
+		$request = $this->delete("/administrations/departements/{$departement->id}");
 
-        $request->assertStatus(302);
-        $request->assertSessionHasNoErrors();
-        $this->assertDatabaseMissing("departements", ["nom" => $departement->nom]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "departement/deleted",
-            "information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
-        ]);
-    }
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("departements", ["nom" => $departement->nom]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "departement/deleted",
+			"information" => "Le département {$departement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+		]);
+	}
 }
 
 ?>

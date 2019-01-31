@@ -13,6 +13,7 @@ use App\Models\Materiel;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class MaterielController extends Controller
@@ -51,7 +52,7 @@ class MaterielController extends Controller
 	 */
 	public function attach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id !== null) {
+		if ($materiel->eleve_id != null) {
 			return back()->withErrors("Impossible d'affecter un matériel qui est déjà affecté");
 		}
 
@@ -86,7 +87,7 @@ class MaterielController extends Controller
 	 */
 	public function detach(Eleve $eleve, Materiel $materiel): RedirectResponse
 	{
-		if ($materiel->eleve_id !== $eleve->id) {
+		if ($materiel->eleve_id != $eleve->id) {
 			return back()->withErrors("Impossible de désaffecter un matériel qui n'est pas affecté à cet élève");
 		}
 

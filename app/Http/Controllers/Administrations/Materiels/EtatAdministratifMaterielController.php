@@ -12,7 +12,7 @@ class EtatAdministratifMaterielController extends Controller
 {
 
 	/**
-	 * GET - Affiche la liste des États Administratifs Matériel
+	 * GET - Affiche la liste des états administratifs matériel
 	 *
 	 * @return View
 	 */
@@ -24,7 +24,7 @@ class EtatAdministratifMaterielController extends Controller
 	}
 
 	/**
-	 * GET - Affiche le formulaire de création d'un état
+	 * GET - Affiche le formulaire de création d'un état administratif matériel
 	 *
 	 * @return View
 	 */

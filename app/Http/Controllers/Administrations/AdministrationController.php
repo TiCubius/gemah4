@@ -9,7 +9,7 @@ class AdministrationController extends Controller
 {
 
 	/**
-	 * GET - Affiche l'index du menu Admunistration de l'application
+	 * GET - Affiche l'index du menu administration de l'application
 	 *
 	 * @return View
 	 */

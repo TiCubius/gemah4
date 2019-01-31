@@ -82,6 +82,11 @@ class Eleve extends Model
 		return $this->belongsToMany(Responsable::class)->withPivot('etat_signature', 'date_signature');
 	}
 
+	public function tickets(): HasMany
+	{
+		return $this->hasMany(Ticket::class);
+	}
+
 	/**
 	 * Un élève appartient à plusieurs types
 	 * [Utilisation d'une table PIVOT]

@@ -96,7 +96,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/created",
-            "contenue" => "Le service unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -179,7 +179,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/modified",
-            "contenue" => "Le service {$services[1]->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service {$services[1]->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -204,7 +204,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/modified",
-            "contenue" => "Le service {$service->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service {$service->nom} à été modifié {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -230,7 +230,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/modified",
-            "contenue" => "Le service unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -267,7 +267,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/deleted",
-            "contenue" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -287,7 +287,7 @@ class ServicesTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "service/deleted",
-            "contenue" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le service {$service->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

@@ -105,7 +105,7 @@ class EnseignantsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "enseignant/created",
-            "contenue" => "L'enseignant unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'enseignant unit.testing unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -221,7 +221,7 @@ class EnseignantsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "enseignant/deleted",
-            "contenue" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -249,7 +249,7 @@ class EnseignantsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "enseignant/modified",
-            "contenue" => "L'enseignant unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'enseignant unit.testing unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 
@@ -284,7 +284,7 @@ class EnseignantsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "enseignant/deleted",
-            "contenue" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'enseignant {$enseignant->nom} {$enseignant->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
     }
 

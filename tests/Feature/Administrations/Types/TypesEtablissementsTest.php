@@ -89,7 +89,7 @@ class TypesEtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/created",
-            "contenue" => "Le type d'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type d'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -144,7 +144,7 @@ class TypesEtablissementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/modified",
-            "contenue" => "Le type d'établissement {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type d'établissement {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -169,7 +169,7 @@ class TypesEtablissementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/modified",
-            "contenue" => "Le type d'établissement {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type d'établissement {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -195,7 +195,7 @@ class TypesEtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/modified",
-            "contenue" => "Le type d'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type d'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -247,7 +247,7 @@ class TypesEtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/etablissement/deleted",
-            "contenue" => "Le type d'établissement {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type d'établissement {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

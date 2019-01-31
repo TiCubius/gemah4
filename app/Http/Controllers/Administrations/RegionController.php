@@ -90,7 +90,7 @@ class RegionController extends Controller
 	}
 
 	/**
-	 * DELETE - Supprime la région, sauf si elle est encore lié à au moins une Académie
+	 * DELETE - Supprime la région
 	 *
 	 * @param Region $region
 	 * @return RedirectResponse
@@ -98,12 +98,12 @@ class RegionController extends Controller
 	 */
 	public function destroy(Region $region): RedirectResponse
 	{
-		if (!($region->academies->isNotEmpty())) {
-			$region->delete();
-
-			return redirect(route("web.administrations.regions.index"));
+		if ($region->academies->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer une région associée à des académie");
 		}
 
-		return redirect(route("web.administrations.regions.index"))->withErrors("Cette région est lié à au moins une académie");
+		$region->delete();
+
+		return redirect(route("web.administrations.regions.index"));
 	}
 }

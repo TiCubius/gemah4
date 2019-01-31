@@ -17,8 +17,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="domaine">Domaine</label>
-					<select id="domaine" class="form-control" name="domaine" required>
+					<label for="domaine_id">Domaine</label>
+					<select id="domaine_id" class="form-control" name="domaine_id" required>
 						<option value="" hidden>Sélectionner un Domaine</option>
 						@foreach($domaines as $domaine)
 							@if($type->domaine_id === $domaine->id)

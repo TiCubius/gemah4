@@ -7,24 +7,24 @@
 
 		<div class="col-12 mb-3">
 			<div class="table-responsive">
-				<table id="table" class="table table-sm table-hover text-center" width="100%" style="display: none;">
+				<table id="table" class="table table-sm table-hover table-striped text-center" width="100%" style="display: none;">
 					<thead class="gemah-bg-primary">
 						<tr>
-							<td>Type</td>
-							<td>Contenue</td>
 							<td>Date</td>
+							<td>Type</td>
+							<td>Informations</td>
 							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($historiques as $historique)
 							<tr>
-								<td>{{ $historique->type }}</td>
-								<td>{{ $historique->contenue }}</td>
-								<td>{{ $historique->created_at->format("d/m/Y") }}</td>
-								<td>
-									@hasPermission("administrations/historiques/show")
-									<a type="btn" class="btn btn-outline-primary" target="_blank" href="{{ route("web.administrations.historiques.show", [$historique]) }}">
+								<td class="align-middle">{{ $historique->created_at->format("d/m/Y") }}</td>
+								<td class="align-middle">{{ $historique->type }}</td>
+								<td class="align-middle">{{ $historique->information }}</td>
+								<td class="align-middle">
+                                    @hasPermission("administrations/historiques/show")
+									<a type="btn" class="btn btn-sm btn-outline-primary" target="_blank" href="{{ route("web.administrations.historiques.show", [$historique]) }}">
 										<i class="fas fa-info-circle"></i>
 										Détails
 									</a>
@@ -44,7 +44,10 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"info": false,
+				autoWidth: false,
 				"columnDefs": [
+					{"width": "100px", "targets": 0},
+					{"width": "200px", "targets": 1},
 					{"orderable": false, "targets": 3},
 				],
 				"pageLength": 50,

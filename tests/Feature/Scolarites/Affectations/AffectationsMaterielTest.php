@@ -72,7 +72,7 @@ class AffectationsMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "materiel/affectation",
-            "contenue"  => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -91,7 +91,7 @@ class AffectationsMaterielTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "materiel/desaffectation",
-            "contenue"  => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -115,7 +115,7 @@ class AffectationsMaterielTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "materiel/desaffectation",
-            "contenue"  => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
+            "information"  => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

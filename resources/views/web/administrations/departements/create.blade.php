@@ -22,11 +22,11 @@
 				</div>
 
 				<div class="form-group">
-					<label for="academie">Académie</label>
-					<select id="academie" class="form-control" name="academie" required>
+					<label for="academie_id">Académie</label>
+					<select id="academie_id" class="form-control" name="academie_id" required>
 						<option value="" hidden>Sélectionner une Région</option>
 						@foreach($academies as $academie)
-							@if (old("academie") == $academie->id)
+							@if (old("academie_id") == $academie->id)
 								<option selected value="{{ $academie->id }}">{{ $academie->nom }}</option>
 							@else
 								<option value="{{ $academie->id }}">{{ $academie->nom }}</option>

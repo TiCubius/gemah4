@@ -63,17 +63,7 @@ class ResponsableController extends Controller
 			"departement_id" => "required|exists:departements,id",
 		]);
 
-		Responsable::create($request->only([
-			"civilite",
-			"nom",
-			"prenom",
-			"email",
-			"telephone",
-			"code_postal",
-			"ville",
-			"adresse",
-			"departement_id",
-		]));
+		Responsable::create($request->all());
 
 		return redirect(route("web.responsables.index"));
 	}
@@ -123,17 +113,7 @@ class ResponsableController extends Controller
 			"departement_id" => "required|exists:departements,id",
 		]);
 
-		$responsable->update($request->only([
-			"civilite",
-			"nom",
-			"prenom",
-			"email",
-			"telephone",
-			"code_postal",
-			"ville",
-			"adresse",
-			"departement_id",
-		]));
+		$responsable->update($request->all());
 
 		return redirect(route("web.responsables.index"));
 	}
@@ -147,12 +127,12 @@ class ResponsableController extends Controller
 	 */
 	public function destroy(Responsable $responsable): RedirectResponse
 	{
-		if ($responsable->eleves->isEmpty()) {
-			$responsable->delete();
-
-			return redirect(route("web.responsables.index"));
+		if ($responsable->eleves->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un responsable associé à des élèves");
 		}
 
-		return back()->withErrors("Impossible de supprimer un responsable associé à des élèves");
+		$responsable->delete();
+
+		return redirect(route("web.responsables.index"));
 	}
 }

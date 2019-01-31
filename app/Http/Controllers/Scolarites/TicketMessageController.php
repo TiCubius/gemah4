@@ -12,7 +12,6 @@ use Illuminate\View\View;
 
 class TicketMessageController extends Controller
 {
-
 	/**
 	 * POST - Ajoute un nouveau message pour un ticket
 	 *
@@ -65,9 +64,7 @@ class TicketMessageController extends Controller
 			"contenu" => "required",
 		]);
 
-		$message->update([
-			"contenu" => $request->input("contenu"),
-		]);
+		$message->update($request->all());
 
 		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]));
 	}
@@ -85,6 +82,6 @@ class TicketMessageController extends Controller
 	{
 		$message->delete();
 
-		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]))->with("success", "Le message a été supprimé avec succès");
+		return redirect(route("web.scolarites.eleves.tickets.show", [$eleve, $ticket]));
 	}
 }

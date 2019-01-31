@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			@if($types_documents->isEmpty())
+			@if($documents->isEmpty())
 				<div class="alert alert-warning">
 					Aucun type d'élève n'est enregistré sur l'application
 				</div>
@@ -21,12 +21,12 @@
 					</thead>
 
 					<tbody>
-						@foreach($types_documents as $type_documents)
+						@foreach($documents as $document)
 							<tr>
-								<td>{{ $type_documents->libelle }}</td>
+								<td>{{ $document->libelle }}</td>
 								<td>
 									@hasPermission("administrations/types/documents/edit")
-									<a href="{{ route("web.administrations.types.documents.edit", [$type_documents]) }}">
+									<a href="{{ route("web.administrations.types.documents.edit", [$document]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>
 									</a>
 									@endHas

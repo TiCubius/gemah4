@@ -13,7 +13,7 @@ class ImpressionController extends Controller
 {
 
 	/**
-	 * Génération du PDF de l'autorisation CNIL
+	 * GET - Génération du PDF de l'autorisation CNIL
 	 *
 	 * @param Eleve $eleve
 	 * @return Response|RedirectResponse
@@ -38,7 +38,7 @@ class ImpressionController extends Controller
 	}
 
 	/**
-	 * Génération du PDF de convention
+	 * GET - Génération du PDF de convention
 	 *
 	 * @param Eleve $eleve
 	 * @return Response|RedirectResponse
@@ -80,7 +80,7 @@ class ImpressionController extends Controller
 	}
 
 	/**
-	 * Génération du PDF de récapitulatif élève
+	 * GET - Génération du PDF de récapitulatif élève
 	 *
 	 * @param Eleve $eleve
 	 * @return Response|RedirectResponse
@@ -91,7 +91,7 @@ class ImpressionController extends Controller
 	}
 
 	/**
-	 * Génération du PDF de récépissé de récupération de matériel
+	 * GET - Génération du PDF de récépissé de récupération de matériel
 	 *
 	 * @param Eleve $eleve
 	 * @return Response|RedirectResponse

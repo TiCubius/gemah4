@@ -130,7 +130,7 @@ class EtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etablissement/created",
-            "contenue" => "L'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'établissement unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -268,7 +268,7 @@ class EtablissementsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "etablissement/modified",
-            "contenue" => "L'établissement {$etablissement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'établissement {$etablissement->nom} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -304,7 +304,7 @@ class EtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etablissement/modified",
-            "contenue" => "L'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'établissement unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -339,7 +339,7 @@ class EtablissementsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "etablissement/deleted",
-            "contenue" => "L'établissement {$etablissement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "L'établissement {$etablissement->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

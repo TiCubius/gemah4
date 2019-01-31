@@ -73,9 +73,9 @@ class TypesMaterielTest extends TestCase
 		]);
 
 		$request = $this->post("/materiels/types", [
-			"_token"  => csrf_token(),
-			"libelle" => $types->random()->libelle,
-			"domaine" => $domaine->random()->id,
+			"_token"     => csrf_token(),
+			"libelle"    => $types->random()->libelle,
+			"domaine_id" => $domaine->random()->id,
 		]);
 
 		$request->assertStatus(302);
@@ -115,19 +115,19 @@ class TypesMaterielTest extends TestCase
 	{
 		$domaine = factory(DomaineMateriel::class)->create();
 		$request = $this->post("/materiels/types", [
-			"_token"  => csrf_token(),
-			"libelle" => "unit.testing",
-			"domaine" => $domaine->id,
+			"_token"     => csrf_token(),
+			"libelle"    => "unit.testing",
+			"domaine_id" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "type/materiel/created",
-            "contenue" => "Le type de matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "type/materiel/created",
+			"information" => "Le type de matériel unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 
@@ -175,19 +175,19 @@ class TypesMaterielTest extends TestCase
 		$types = factory(TypeMateriel::class, 2)->create();
 
 		$request = $this->put("/materiels/types/{$types[0]->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => $types[1]->libelle,
-			"domaine" => $domaine->id,
+			"_token"     => csrf_token(),
+			"libelle"    => $types[1]->libelle,
+			"domaine_id" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => $types[0]->libelle]);
-        $this->assertDatabaseMissing("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "type/materiel/modified",
+			"information" => "Le type de matériel {$types[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -200,19 +200,19 @@ class TypesMaterielTest extends TestCase
 		$type = factory(TypeMateriel::class)->create();
 
 		$request = $this->put("/materiels/types/{$type->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => $type->libelle,
-			"domaine" => $type->domaine_id,
+			"_token"     => csrf_token(),
+			"libelle"    => $type->libelle,
+			"domaine_id" => $type->domaine_id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => $type->libelle]);
-        $this->assertDatabaseMissing("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseMissing("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "type/materiel/modified",
+			"information" => "Le type de matériel {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 	/**
@@ -225,19 +225,19 @@ class TypesMaterielTest extends TestCase
 		$domaine = factory(DomaineMateriel::class)->create();
 
 		$request = $this->put("/materiels/types/{$type->id}", [
-			"_token"  => csrf_token(),
-			"libelle" => "unit.testing",
-			"domaine" => $domaine->id,
+			"_token"     => csrf_token(),
+			"libelle"    => "unit.testing",
+			"domaine_id" => $domaine->id,
 		]);
 
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseHas("types_materiels", ["libelle" => "unit.testing"]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "type/materiel/modified",
-            "contenue" => "Le type de matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "type/materiel/modified",
+			"information" => "Le type de matériel unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 
@@ -270,11 +270,11 @@ class TypesMaterielTest extends TestCase
 		$request->assertStatus(302);
 		$request->assertSessionHasNoErrors();
 		$this->assertDatabaseMissing("types_materiels", ["libelle" => $type->libelle]);
-        $this->assertDatabaseHas("historiques", [
-            "from_id" => $this->user->id,
-            "type" => "type/materiel/deleted",
-            "contenue" => "Le type de matériel {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
-        ]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id"     => $this->user->id,
+			"type"        => "type/materiel/deleted",
+			"information" => "Le type de matériel {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+		]);
 	}
 
 }

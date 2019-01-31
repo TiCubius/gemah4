@@ -11,7 +11,7 @@
 		@foreach($academies as $academy)
 			<optgroup label="{{ $academy->nom }}">
 				@foreach($academy->departements as $departement)
-					@if($departement->id == ($id ?? session("user")->service->departement_id))
+					@if($departement->id == ($id ?? Session::get("user")->service->departement_id))
 						<option selected value="{{ $departement->id }}">{{ $departement->nom }}</option>
 					@else
 						<option value="{{ $departement->id }}">{{ $departement->nom }}</option>

@@ -88,7 +88,7 @@ class TypesDocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/document/created",
-            "contenue" => "Le type de document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -143,7 +143,7 @@ class TypesDocumentsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/document/modified",
-            "contenue" => "Le type de document {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de document {$type[1]->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -166,7 +166,7 @@ class TypesDocumentsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/document/modified",
-            "contenue" => "Le type de document {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de document {$type->libelle} à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -189,7 +189,7 @@ class TypesDocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/document/modified",
-            "contenue" => "Le type de document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -242,7 +242,7 @@ class TypesDocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "type/document/deleted",
-            "contenue" => "Le type de document {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le type de document {$type->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 

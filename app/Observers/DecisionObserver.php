@@ -2,12 +2,29 @@
 
 namespace App\Observers;
 
+use App\Mail\DecisionCreatedMail;
 use App\Models\Decision;
+use Illuminate\Support\Facades\Mail;
 
 class DecisionObserver
 {
 	/**
-	 * Lors de la suppression d'une décision
+	 * EVENT - Déclanché après la création d'une décision
+	 *
+	 * @param Decision $decision
+	 */
+	public function created(Decision $decision)
+	{
+		// Il est nécessaire d'envoyer un E-Mail uniquement
+		// si l'élève possède plus d'une décision
+		$eleve = $decision->document->eleve;
+		if (count($eleve->decisions) > 1) {
+			Mail::send(new DecisionCreatedMail($eleve, $decision));
+		}
+	}
+
+	/**
+	 * EVENT - Déchlanché lors de la suppression d'une décision
 	 *
 	 * @param Decision $decision
 	 */
@@ -18,7 +35,7 @@ class DecisionObserver
 	}
 
 	/**
-	 * Une fois que la décision à été supprimée
+	 * EVENT - Déchlanché après la suppression d'une décision
 	 *
 	 * @param Decision $decision
 	 */

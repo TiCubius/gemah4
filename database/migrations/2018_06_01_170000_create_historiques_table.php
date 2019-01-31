@@ -45,7 +45,7 @@ class CreateHistoriquesTable extends Migration
             $table->unsignedInteger('utilisateur_id')->nullable();
 
             $table->string('type');
-            $table->string('contenue');
+            $table->string('information');
 
 
             $table->foreign('from_id')->references('id')->on('utilisateurs')->onDelete('set null');

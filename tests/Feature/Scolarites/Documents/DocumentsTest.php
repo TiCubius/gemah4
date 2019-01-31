@@ -90,7 +90,7 @@ class DocumentsTest extends TestCase
 		$this->assertDatabaseHas("historiques", [
 		    "from_id"   => $this->user->id,
             "type"      => "document/created",
-            "contenue"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -162,7 +162,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "contenue"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -194,7 +194,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "contenue"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -220,7 +220,7 @@ class DocumentsTest extends TestCase
 	/**
 	 * Vérifie qu'aucune erreur n'est présente et que le document à bien été supprimé
 	 */
-	public function testTraitementSuppressionEleve()
+	public function testTraitementSuppressionDocument()
 	{
 		$eleve = factory(Eleve::class)->create();
 		$document = factory(Document::class)->create([
@@ -235,14 +235,14 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/deleted",
-            "contenue"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
 	/**
 	 * Vérifie qu'on ne peut éditer un document si il n'apparitent pas a l'élève courant
 	 */
-	public function testEditionDocumentAutreEleve()
+	public function testEditionDocumentAutreDocument()
 	{
 
 		$eleves = factory(Eleve::class, 2)->create();

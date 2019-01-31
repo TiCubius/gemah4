@@ -44,14 +44,11 @@ class TypeMaterielController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"libelle" => "required|max:191|unique:types_materiels",
-			"domaine" => "required|exists:domaines_materiels,id",
+			"libelle"    => "required|max:191|unique:types_materiels",
+			"domaine_id" => "required|exists:domaines_materiels,id",
 		]);
 
-		TypeMateriel::create([
-			"libelle"    => $request->input("libelle"),
-			"domaine_id" => $request->input("domaine"),
-		]);
+		TypeMateriel::create($request->only(["libelle", "domaine_id"]));
 
 		return redirect(route("web.materiels.types.index"));
 	}
@@ -81,7 +78,7 @@ class TypeMaterielController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au type matériel
+	 * PATCH - Enregistre les modifications apportés au type matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param TypeMateriel              $type
@@ -90,14 +87,11 @@ class TypeMaterielController extends Controller
 	public function update(Request $request, TypeMateriel $type): RedirectResponse
 	{
 		$request->validate([
-			"libelle" => "required|max:191|unique:types_materiels,libelle,{$type->id}",
-			"domaine" => "required|exists:domaines_materiels,id",
+			"libelle"    => "required|max:191|unique:types_materiels,libelle,{$type->id}",
+			"domaine_id" => "required|exists:domaines_materiels,id",
 		]);
 
-		$type->update([
-			"libelle"    => $request->input("libelle"),
-			"domaine_id" => $request->input("domaine"),
-		]);
+		$type->update($request->only(["libelle", "domaine_id"]));
 
 		return redirect(route("web.materiels.types.index"));
 	}
@@ -111,6 +105,10 @@ class TypeMaterielController extends Controller
 	 */
 	public function destroy(TypeMateriel $type): RedirectResponse
 	{
+		if ($type->materiels->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer un type de matériel associé à du matériel");
+		}
+
 		$type->delete();
 
 		return redirect(route("web.materiels.types.index"));

@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Historique;
+use Illuminate\View\View;
 
 class HistoriqueController extends Controller
 {
 	/***
 	 * GET - Retourne l'index de l'historique
 	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @return View
 	 */
-	public function index()
+	public function index(): View
 	{
 		$historiques = Historique::orderBy("created_at", "DESC")->get();
 
@@ -20,12 +21,12 @@ class HistoriqueController extends Controller
 	}
 
 	/***
-	 * GET - Retourne une ligne de l'historique
+	 * GET - Affiche une ligne de l'historique
 	 *
 	 * @param Historique $historique
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @return View
 	 */
-	public function show(Historique $historique)
+	public function show(Historique $historique): View
 	{
 		return view("web.administrations.historiques.show", compact("historique"));
 	}

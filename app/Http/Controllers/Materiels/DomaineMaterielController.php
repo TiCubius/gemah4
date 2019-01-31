@@ -72,7 +72,7 @@ class DomaineMaterielController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au domaine matériel
+	 * PATCH - Enregistre les modifications apportés au domaine matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param DomaineMateriel           $domaine

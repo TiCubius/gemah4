@@ -47,7 +47,7 @@ class TypesMaterielTest extends TestCase
 		$getRoutes = [
 			"/materiels/types",
 			"/materiels/types/create",
-			"/materiels/types/{$type->id}",
+			// "/materiels/types/{$type->id}", // 404
 			"/materiels/types/{$type->id}/edit",
 		];
 

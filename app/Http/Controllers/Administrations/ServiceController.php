@@ -105,7 +105,7 @@ class ServiceController extends Controller
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au service
+	 * PATCH - Enregistre les modifications apportés au service
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param Service                   $service
@@ -116,11 +116,10 @@ class ServiceController extends Controller
 		$request->validate([
 			"nom"            => "required|max:191|unique_with:services,departement_id,{$service->id}",
 			"description"    => "required|max:191",
-			"departement_id" => "required|max:191|exists:departements,id",
+			"departement_id" => "required|exists:departements,id",
 		]);
 
 		$service->update($request->only(["nom", "description", "departement_id"]));
-		$service->utilisateurs()->touch();
 
 		if ($request->has("permissions")) {
 			// On récupère les permissions
@@ -152,7 +151,6 @@ class ServiceController extends Controller
 			return back()->withErrors("Impossible de supprimer un service associé à des utilisateurs");
 		}
 
-		$service->permissions()->detach();
 		$service->delete();
 
 		return redirect(route("web.administrations.services.index"));

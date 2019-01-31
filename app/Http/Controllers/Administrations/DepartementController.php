@@ -24,7 +24,7 @@ class DepartementController extends Controller
 	}
 
 	/**
-	 * GET - Affiche le formulaire de création d'un Département
+	 * GET - Affiche le formulaire de création d'un département
 	 *
 	 * @return View
 	 */
@@ -44,16 +44,12 @@ class DepartementController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"id"       => "required|min:1|max:191|unique:departements",
-			"nom"      => "required|max:191|unique:departements",
-			"academie" => "required|exists:academies,id",
+			"id"          => "required|max:191|unique:departements",
+			"nom"         => "required|max:191|unique:departements",
+			"academie_id" => "required|exists:academies,id",
 		]);
 
-		Departement::create([
-			"id"          => $request->input("id"),
-			"nom"         => $request->input("nom"),
-			"academie_id" => $request->input("academie"),
-		]);
+		Departement::create($request->only(["id", "nom", "academie_id"]));
 
 		return redirect(route("web.administrations.departements.index"));
 	}
@@ -70,7 +66,7 @@ class DepartementController extends Controller
     }
 
 	/**
-	 * GET - Affiche le formulaire d'édition d'un Départements
+	 * GET - Affiche le formulaire d'édition d'un département
 	 *
 	 * @param Departement $departement
 	 * @return View
@@ -79,7 +75,7 @@ class DepartementController extends Controller
 	{
 		$academies = Academie::orderBy("nom")->get();
 
-		return view("web.administrations.departements.edit", compact("departement", "academies"));
+		return view("web.administrations.departements.edit", compact("academies", "departement"));
 	}
 
 	/**
@@ -92,16 +88,12 @@ class DepartementController extends Controller
 	public function update(Request $request, Departement $departement): RedirectResponse
 	{
 		$request->validate([
-			"id"       => "required|min:1|max:191|unique:departements,id,{$departement->id}",
-			"nom"      => "required|max:191|unique:departements,nom,{$departement->id}",
-			"academie" => "required|exists:academies,id",
+			"id"          => "required|max:191|unique:departements,id,{$departement->id}",
+			"nom"         => "required|max:191|unique:departements,nom,{$departement->id}",
+			"academie_id" => "required|exists:academies,id",
 		]);
 
-		$departement->update([
-			"id"          => $request->input("id"),
-			"nom"         => $request->input("nom"),
-			"academie_id" => $request->input("academie"),
-		]);
+		$departement->update($request->only(["id", "nom", "academie_id"]));
 
 		return redirect(route("web.administrations.departements.index"));
 	}
@@ -115,12 +107,33 @@ class DepartementController extends Controller
 	 */
 	public function destroy(Departement $departement): RedirectResponse
 	{
-		if (!($departement->eleves->isNotEmpty() or $departement->materiels->isNotEmpty() or $departement->responsables->isNotEmpty() or $departement->etablissements->isNotEmpty()  or $departement->services->isNotEmpty())) {
-			$departement->delete();
-
-			return redirect(route("web.administrations.departements.index"));
+		$errors = [];
+		if ($departement->eleves->isNotEmpty()) {
+			$errors[] = "Impossible de supprimer un département associé à des élèves";
 		}
 
-		return redirect(route("web.administrations.departements.index"))->withErrors("Ce département est lié à au moins un élève, un matériel, un responsable ou un établissement");
+		if ($departement->materiels->isNotEmpty()) {
+			$errors[] = "Impossible de supprimer un département associé à du matériel";
+		}
+
+		if ($departement->responsables->isNotEmpty()) {
+			$errors[] = "Impossible de supprimer un département associé à des responsables";
+		}
+
+		if ($departement->etablissements->isNotEmpty()) {
+			$errors[] = "Impossible de supprimer un département associé à des établissements";
+		}
+
+		if ($departement->services->isNotempty()) {
+			$errors[] = "Impossible de supprimer un département associé à des services";
+		}
+
+		if (count($errors) >= 1) {
+			return back()->withErrors($errors);
+		}
+
+		$departement->delete();
+
+		return redirect(route("web.administrations.departements.index"));
 	}
 }

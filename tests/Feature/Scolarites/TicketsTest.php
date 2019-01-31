@@ -100,7 +100,7 @@ class TicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/created",
-            "contenue" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -132,7 +132,7 @@ class TicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/created",
-            "contenue" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket unit.testing à été créé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -221,7 +221,7 @@ class TicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/modified",
-            "contenue" => "Le ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 
@@ -258,7 +258,7 @@ class TicketsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id" => $this->user->id,
             "type" => "ticket/deleted",
-            "contenue" => "Le ticket {$ticket->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+            "information" => "Le ticket {$ticket->libelle} à été supprimé par {$this->user->nom} {$this->user->prenom}"
         ]);
 	}
 }

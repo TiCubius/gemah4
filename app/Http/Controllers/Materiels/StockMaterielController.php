@@ -50,7 +50,7 @@ class StockMaterielController extends Controller
 		$etatsAdministratifs = EtatAdministratifMateriel::orderBy("libelle")->get();
 		$etatsPhysiques = EtatPhysiqueMateriel::orderBy("libelle")->get();
 
-		return view("web.materiels.stocks.create", compact("domaines", "etatsAdministratifs", "etatsPhysiques", "types", "academies"));
+		return view("web.materiels.stocks.create", compact("academies", "domaines", "etatsAdministratifs", "etatsPhysiques", "types"));
 	}
 
 	/**
@@ -65,14 +65,15 @@ class StockMaterielController extends Controller
 		$dateAfter = Carbon::now()->subYear(25);
 
 		$request->validate([
-			"type_materiel_id"               => "required",
+			"type_materiel_id"               => "required|exists:types_materiels,id",
 			"marque"                         => "required",
 			"modele"                         => "required",
 			"numero_serie"                   => "nullable",
 			"nom_fournisseur"                => "nullable",
 			"prix_ttc"                       => "required",
-			"etat_administratif_materiel_id" => "required",
-			"etat_physique_materiel_id"      => "required",
+			"etat_administratif_materiel_id" => "required|exists:etats_administratifs_materiels,id",
+			"etat_physique_materiel_id"      => "required|exists:etats_physiques_materiels,id",
+			"departement_id"                 => "required|exists:departements,id",
 
 			"numero_devis"             => "nullable",
 			"numero_formulaire_chorus" => "nullable",
@@ -83,7 +84,6 @@ class StockMaterielController extends Controller
 			"date_service_fait"        => "nullable|before:{$dateBefore},after:{$dateAfter}",
 			"date_fin_garantie"        => "nullable|before:{$dateBefore},after:{$dateAfter}",
 			"achat_pour"               => "nullable",
-			"departement_id"           => "required|exists:departements,id",
 		]);
 
 		Materiel::create($request->only([
@@ -134,11 +134,11 @@ class StockMaterielController extends Controller
 		$etatsAdministratifs = EtatAdministratifMateriel::orderBy("libelle")->get();
 		$etatsPhysiques = EtatPhysiqueMateriel::orderBy("libelle")->get();
 
-		return view("web.materiels.stocks.edit", compact("stock", "domaines", "etatsAdministratifs", "etatsPhysiques", "types", "academies"));
+		return view("web.materiels.stocks.edit", compact("academies", "domaines", "etatsAdministratifs", "etatsPhysiques", "stock", "types"));
 	}
 
 	/**
-	 * PUT - Enregistre les modifications apportés au stock matériel
+	 * PATCH - Enregistre les modifications apportés au stock matériel
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param Materiel                  $stock
@@ -146,18 +146,18 @@ class StockMaterielController extends Controller
 	 */
 	public function update(Request $request, Materiel $stock): RedirectResponse
 	{
-		$dateBefore = Carbon::now()->addYear(25);
 		$dateAfter = Carbon::now()->subYear(25);
+		$dateBefore = Carbon::now()->addYear(25);
 
 		$request->validate([
-			"type_materiel_id"               => "required",
+			"type_materiel_id"               => "required|exists:types_materiels,id",
 			"marque"                         => "required",
 			"modele"                         => "required",
 			"numero_serie"                   => "nullable",
 			"nom_fournisseur"                => "nullable",
 			"prix_ttc"                       => "required",
-			"etat_administratif_materiel_id" => "required",
-			"etat_physique_materiel_id"      => "required",
+			"etat_administratif_materiel_id" => "required|exists:etats_administratifs_materiels,id",
+			"etat_physique_materiel_id"      => "required|exists:etats_physiques_materiels,id",
 			"departement_id"                 => "required|exists:departements,id",
 
 			"numero_devis"             => "nullable",
@@ -204,12 +204,12 @@ class StockMaterielController extends Controller
 	 */
 	public function destroy(Materiel $stock): RedirectResponse
 	{
-		if ($stock->eleve_id === null) {
-			$stock->delete();
-
-			return redirect(route("web.materiels.stocks.index"));
+		if ($stock->eleve_id !== null) {
+			return back()->withErrors("Impossible de supprimer un matériel associé à un élève");
 		}
 
-		return back()->withErrors("Impossible de supprimer un matériel lorsqu'il est associé à un élève");
+		$stock->delete();
+
+		return redirect(route("web.materiels.stocks.index"));
 	}
 }

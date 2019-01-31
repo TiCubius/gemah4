@@ -66,17 +66,7 @@ class EleveController extends Controller
 			"code_ine"       => "nullable|max:11|unique:eleves",
 		]);
 
-		$eleve = Eleve::create($request->only([
-			"nom",
-			"prenom",
-			"date_naissance",
-			"classe",
-			"departement_id",
-			"code_ine",
-		]));
-
-
-		Mail::send(new EleveCreatedMail($eleve));
+		Eleve::create($request->all());
 
 		return redirect(route("web.scolarites.eleves.index"));
 	}
@@ -141,14 +131,7 @@ class EleveController extends Controller
 			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
 		]);
 
-		$eleve->update($request->only([
-			"nom",
-			"prenom",
-			"date_naissance",
-			"classe",
-			"departement_id",
-			"code_ine",
-		]));
+		$eleve->update($request->all());
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
 	}
@@ -162,20 +145,19 @@ class EleveController extends Controller
 	 */
 	public function destroy(Eleve $eleve): RedirectResponse
 	{
-		if ($eleve->responsables->isNotEmpty()) {
-			return back()->withErrors("Impossible de supprimer un élève tant qu'il a des responsables affectés");
-		}
+//		$errors = [];
+//		if ($eleve->responsables->isNotEmpty()) {
+//			$errors[] = "Impossible de supprimer un élève tant qu'il a des responsables affectés";
+//		}
+//
+//		if ($eleve->materiels->isNotEmpty()) {
+//			$errors[] = "Impossible de supprimer un élève tant qu'il a des matériels affectés";
+//		}
+//
+//		if (count($errors) >= 1) {
+//			return back()->withErrors($errors);
+//		}
 
-		if ($eleve->materiels->isNotEmpty()) {
-			return back()->withErrors("Impossible de supprimer un élève tant qu'il a des matériels affectés");
-		}
-
-		foreach ($eleve->documents as $document) {
-			Storage::delete("storage/document/{$document->path}");
-		}
-
-		$eleve->decisions()->delete();
-		$eleve->documents()->delete();
 		$eleve->delete();
 
 		return redirect(route("web.scolarites.eleves.index"));

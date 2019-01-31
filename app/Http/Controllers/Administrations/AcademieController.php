@@ -70,31 +70,31 @@ class AcademieController extends Controller
 	/**
 	 * GET - Affiche le formulaire d'édition d'une académie
 	 *
-	 * @param Academie $academy
+	 * @param Academie $academie
 	 * @return View
 	 */
-	public function edit(Academie $academy): View
+	public function edit(Academie $academie): View
 	{
 		$regions = Region::orderBy("nom")->get();
 
-		return view("web.administrations.academies.edit", compact("academy", "regions"));
+		return view("web.administrations.academies.edit", compact("academie", "regions"));
 	}
 
 	/**
 	 * PUT - Enregistre les modifications apportés à l'académie
 	 *
 	 * @param  \Illuminate\Http\Request $request
-	 * @param Academie                  $academy
+	 * @param Academie                  $academie
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, Academie $academy): RedirectResponse
+	public function update(Request $request, Academie $academie): RedirectResponse
 	{
 		$request->validate([
-			"nom"    => "required|max:191|unique:academies,nom,{$academy->id}",
+			"nom"    => "required|max:191|unique:academies,nom,{$academie->id}",
 			"region" => "required|exists:regions,id",
 		]);
 
-		$academy->update([
+		$academie->update([
 			"nom"       => $request->input("nom"),
 			"region_id" => $request->input("region"),
 		]);
@@ -103,20 +103,20 @@ class AcademieController extends Controller
 	}
 
 	/**
-	 * DELETE - Supprime l'Académie, sauf si elle est encore lié à au moins un département
+	 * DELETE - Supprime l'académie
 	 *
-	 * @param Academie $academy
+	 * @param Academie $academie
 	 * @return RedirectResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Academie $academy): RedirectResponse
+	public function destroy(Academie $academie): RedirectResponse
 	{
-		if (!($academy->departements->isNotEmpty())) {
-			$academy->delete();
-
-			return redirect(route("web.administrations.academies.index"));
+		if ($academie->departements->isNotEmpty()) {
+			return back()->withErrors("Impossible de supprimer une académie associé à des départements");
 		}
 
-		return redirect(route("web.administrations.academies.index"))->withErrors("Cette académie est lié à au moins un département");
+		$academie->delete();
+
+		return redirect(route("web.administrations.academies.index"));
 	}
 }

@@ -11,7 +11,7 @@ use Illuminate\View\View;
 class TypeTicketController extends Controller
 {
 	/**
-	 * GET - Affiche la liste des Types Tickets
+	 * GET - Affiche la liste des types de tickets
 	 *
 	 * @return View
 	 */
@@ -88,7 +88,7 @@ class TypeTicketController extends Controller
 	public function destroy(TypeTicket $ticket): RedirectResponse
 	{
 		if ($ticket->tickets->isNotEmpty()) {
-			return back()->withErrors("Impossible de supprimer un type de ticket associé à des tickets");
+			return back()->withErrors("Impossible de supprimer un type associé à des tickets");
 		}
 
 		$ticket->delete();

@@ -36,18 +36,16 @@ class StatistiquesTest extends TestCase
 		$request->assertStatus(200);
 		$request->assertSee("Statistiques générales");
 		$request->assertSee("Département");
-		$request->assertSee("Identifiant");
-		$request->assertSee("#");
+		$request->assertSee("Type");
 		$request->assertSee("Nom");
 		$request->assertSee("Prénom");
+		$request->assertSee("Etablissement");
+		$request->assertSee("Materiels");
+		$request->assertSee("Responsable");
+		$request->assertSee("Documents");
+		$request->assertSee("Ordre");
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Action");
-		foreach ($eleves as $eleve) {
-			$request->assertSee($eleve->id);
-			$request->assertSee($eleve->nom);
-			$request->assertSee($eleve->prenom);
-			$request->assertSee(\Carbon\Carbon::parse($eleve->date_naissance)->format("d/m/Y"));
-		}
 	}
 }
 

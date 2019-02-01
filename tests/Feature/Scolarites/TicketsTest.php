@@ -41,7 +41,7 @@ class TicketsTest extends TestCase
 			$request->assertSee($ticket->libelle);
 			$request->assertSee($ticket->description);
 			$request->assertSee($ticket->type->libelle);
-			$request->assertSee(Carbon::parse($ticket->created_at)->format("d/m/Y H:m:s"));
+			$request->assertSee(Carbon::parse($ticket->created_at)->format("d/m/Y H:i:s"));
 		}
 	}
 

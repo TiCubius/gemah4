@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-			@foreach($eleve->documents as $document)
+			@foreach($eleve->documents->sortByDesc("created_at") as $document)
 				@if ($document->typeDocument->libelle == "Décision")
 					<div class="col-6 js-document js-document-{{ $document->type_document_id }}" style="display: none;">
 						<div class="card mb-3">
@@ -138,7 +138,7 @@
 									<strong>Description</strong>:
 									{!! $document->description ?? '<span class="text-muted">Non défini</span>' !!}
 								</p>
-								<p class="mb-0">Document soumis le {{ $document->created_at }}</p>
+								<p class="mb-0">Document soumis le {{ $document->created_at->format("d/m/Y à H:i:s") }}</p>
 							</div>
 							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
 								@hasPermission("eleves/documents/edit")

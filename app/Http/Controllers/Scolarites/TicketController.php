@@ -60,7 +60,7 @@ class TicketController extends Controller
 			"libelle" => $request->input("libelle"),
 		]);
 
-		if ($request->has("message")) {
+		if ($request->input("message") != "") {
 			TicketMessage::create([
 				"ticket_id" => $ticket->id,
 				"contenu"   => $request->input("message"),

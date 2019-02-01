@@ -7,7 +7,7 @@
 
 		<div class="col-12 mb-3">
 			<div class="table-responsive">
-				<table id="table" class="table table-sm table-hover table-striped text-center" width="100%" style="display: none;">
+				<table id="table" class="table table-sm table-hover table-striped" width="100%" style="display: none;">
 					<thead class="gemah-bg-primary">
 						<tr>
 							<td>Date</td>
@@ -19,7 +19,7 @@
 					<tbody>
 						@foreach($historiques as $historique)
 							<tr>
-								<td data-order="{{ $historique->created_at->timestamp }}" class="align-middle" title="{{ $historique->created_at->format("h:i:s") }}">{{ $historique->created_at->format("d/m/Y") }}</td>
+								<td data-order="{{ $historique->created_at->timestamp }}" class="align-middle">{{ $historique->created_at->format("d/m/Y à h:i:s") }}</td>
 								<td class="align-middle">{{ $historique->type }}</td>
 								<td class="align-middle">{{ $historique->information }}</td>
 								<td class="align-middle">
@@ -48,8 +48,11 @@
 				},
 				"info": false,
 				autoWidth: false,
+				"order": [
+					[0, "desc"],
+				],
 				"columnDefs": [
-					{"width": "100px", "targets": 0},
+					{"width": "150px", "targets": 0},
 					{"width": "200px", "targets": 1},
 					{"orderable": false, "targets": 3},
 				],

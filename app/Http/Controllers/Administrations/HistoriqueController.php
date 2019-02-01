@@ -15,7 +15,7 @@ class HistoriqueController extends Controller
 	 */
 	public function index(): View
 	{
-		$historiques = Historique::orderBy("created_at", "DESC")->get();
+		$historiques = Historique::all();
 
 		return view("web.administrations.historiques.index", compact("historiques"));
 	}

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Departement;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -18,11 +20,11 @@ class ServicesSeeder extends Seeder
     public function run()
     {
         $services = $this->services;
-        $departements = \App\Models\Departement::all();
-        $permissions = \App\Models\Permission::all();
-        $permissionsCrudMateriel = \App\Models\Permission::where("id", "LIKE", "%materiels/stocks/%")->get();
-        $permissionsAffectationMateriel = \App\Models\Permission::where("id", "LIKE", "%affectations/materiels/%")->get();
-        $permissionsAdmin = \App\Models\Permission::where("id", "LIKE", "materiels/types/%")->orWhere("id", "LIKE", "materiels/domaines/%")->orWhere("id", "LIKE", "administrations/%")->get();
+        $departements = Departement::all();
+        $permissions = Permission::all();
+        $permissionsCrudMateriel = Permission::where("id", "LIKE", "%materiels/stocks/%")->get();
+        $permissionsAffectationMateriel = Permission::where("id", "LIKE", "%affectations/materiels/%")->get();
+        $permissionsAdmin = Permission::where("id", "LIKE", "materiels/types/%")->orWhere("id", "LIKE", "materiels/domaines/%")->orWhere("id", "LIKE", "administrations/%")->get();
         $permissionsGlobal = $permissions->diff($permissionsAdmin)->diff($permissionsCrudMateriel)->diff($permissionsAffectationMateriel);
 
         $output = new ConsoleOutput();
@@ -44,7 +46,7 @@ class ServicesSeeder extends Seeder
                     $service->permissions()->sync($permissions->pluck('id'));
                 }
                 if ($service->nom == "DAF") {
-                    $permissionsList = $permissionsGlobal->merge($permissionsCrudMateriel);
+                    $permissionsList = $permissionsGlobal->merge($permissionsCrudMateriel)->merge($permissionsAffectationMateriel);
 
                     $service->permissions()->sync($permissionsList->pluck('id'));
                 }

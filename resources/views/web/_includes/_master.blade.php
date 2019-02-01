@@ -16,10 +16,6 @@
 	</head>
 
 	<body>
-		<div class="navbar_message">
-			ATTENTION: Aucune modification sur cette version de GEMAH ne sera sauvegardée !
-		</div>
-
 		@include("web._includes.navbar")
 
 		<div class="container-fluid">
@@ -55,6 +51,22 @@
 			$('input[type="file"]').change(function (e) {
 				let fileName = e.target.files[0].name
 				$('.custom-file-label').html(fileName)
+			})
+		</script>
+
+		<script>
+			// Remise a l'ancienne valeur des différents selects
+			// Si le formulaire a été envoyé en GET
+			let queries = new URLSearchParams(window.location.search)
+			document.querySelectorAll(`select`).forEach((select) => {
+				let name = select.name
+				let value = queries.get(name)
+
+				select.querySelectorAll(`option`).forEach((option) => {
+					if (option.value === value) {
+						option.selected = true
+					}
+				})
 			})
 		</script>
 		@yield("scripts")

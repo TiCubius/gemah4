@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ use Illuminate\Support\Collection;
 
 class Eleve extends Model
 {
+	use Filterable;
+
 	/**
 	 * Liste des attributs pouvant être converti par Carbon
 	 *
@@ -275,7 +278,7 @@ class Eleve extends Model
 	 * @param int|null    $eleve_id
 	 * @return Builder
 	 */
-	public function scopeSearch($query, ?string $departement_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine, ?int $eleve_id): Builder
+	public function scopeSearch($query, ?string $departement_id, ?int $type_eleve_id, ?string $nom, ?string $prenom, ?string $date_naissance, ?string $code_ine): Builder
 	{
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM eleves WHERE (nom LIKE "%$...%" OR prenom LIKE "%...%" (...))
@@ -299,8 +302,12 @@ class Eleve extends Model
 			$search->where("departement_id", $departement_id);
 		}
 
-		if ($eleve_id) {
-			$search->where("id", "LIKE", "%" . $eleve_id . "%");
+		if ($type_eleve_id) {
+			$search->whereHas("decisions", function ($query) use ($type_eleve_id) {
+				return $query->whereHas("types", function ($query) use ($type_eleve_id) {
+					return $query->where("id", $type_eleve_id);
+				});
+			});
 		}
 
 		return $search;

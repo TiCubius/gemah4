@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administrations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Historique;
+use Carbon\Carbon;
 use Illuminate\View\View;
 
 class HistoriqueController extends Controller
@@ -15,9 +16,11 @@ class HistoriqueController extends Controller
 	 */
 	public function index(): View
 	{
-		$historiques = Historique::all();
+	    Historique::where("created_at", "<=", Carbon::now()->subMonth(6)->toDateTimeString())->delete();
 
-		return view("web.administrations.historiques.index", compact("historiques"));
+        $historiques = Historique::all();
+
+        return view("web.administrations.historiques.index", compact("historiques"));
 	}
 
 	/***

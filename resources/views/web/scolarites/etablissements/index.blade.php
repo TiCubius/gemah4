@@ -68,7 +68,7 @@
 												</a>
 												@endHas
 												@hasPermission("etablissements/edit")
-												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer</a>
 												@endHas
 											</div>
 										</li>
@@ -93,7 +93,7 @@
 												</a>
 												@endHas
 												@hasPermission("etablissements/edit")
-												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer</a>
 												@endHas
 											</div>
 										</li>
@@ -141,7 +141,7 @@
 														</a>
 														@endHas
 														@hasPermission("etablissements/edit")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer</a>
 														@endHas
 													</td>
 												</tr>

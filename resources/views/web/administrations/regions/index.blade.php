@@ -34,7 +34,7 @@
 									@endHas
 									@hasPermission("administrations/regions/edit")
 									<a href="{{ route("web.administrations.regions.edit", [$region]) }}">
-										<button class="btn btn-sm btn-outline-primary">Editer</button>
+										<button class="btn btn-sm btn-outline-primary">Éditer</button>
 									</a>
 									@endHas
 								</td>

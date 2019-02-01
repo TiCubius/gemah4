@@ -36,7 +36,7 @@
 									@endHas
 									@hasPermission("administrations/etats/materiels/administratifs/edit")
 									<a href="{{ route("web.administrations.materiels.etats.administratifs.edit", [$etat]) }}">
-										<button class="btn btn-sm btn-outline-primary">Editer</button>
+										<button class="btn btn-sm btn-outline-primary">Éditer</button>
 									</a>
 									@endHas
 								</td>

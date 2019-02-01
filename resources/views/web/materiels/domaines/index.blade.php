@@ -34,7 +34,7 @@
 									@endHas
 									@hasPermission("materiels/domaines/edit")
 									<a href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">
-										<button class="btn btn-sm btn-outline-primary">Editer</button>
+										<button class="btn btn-sm btn-outline-primary">Éditer</button>
 									</a>
 									@endHas
 								</td>

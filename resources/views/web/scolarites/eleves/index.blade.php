@@ -72,7 +72,7 @@
 												@endHas
 												@hasPermission("eleves/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-													Editer
+													Éditer
 												</a>
 												@endHas
 											</div>
@@ -98,7 +98,7 @@
 												@endHas
 												@hasPermission("eleves/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-													Editer
+													Éditer
 												</a>
 												@endHas
 											</div>
@@ -140,14 +140,16 @@
 													<td>{{ $eleve->prenom }}</td>
 													<td data-order="{{ $eleve->date_naissance->timestamp }}">{{ $eleve->date_naissance->format("d/m/Y") }}</td>
 													<td>
-														@hasPermission("eleves/show")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">Voir le profil</a>
-														@endHas
-														@hasPermission("eleves/edit")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
-															Editer
-														</a>
-														@endHas
+														<div class="btn-group">
+															@hasPermission("eleves/show")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">Voir le profil</a>
+															@endHas
+															@hasPermission("eleves/edit")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">
+																Éditer
+															</a>
+															@endHas
+														</div>
 													</td>
 												</tr>
 											@endforeach
@@ -169,7 +171,7 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"language": {
-					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+					"url": "{{ asset("assets/js/dataTables.french.json") }}",
 				},
 				"info": false,
 				"columnDefs": [

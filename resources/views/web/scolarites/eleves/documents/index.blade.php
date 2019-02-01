@@ -106,7 +106,7 @@
 								@hasPermission("eleves/decisions/edit")
 								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.decisions.edit', [$eleve->id, $document->decision]) }}">
 									<i class="far fa-edit"></i>
-									Modifier
+									Éditer
 								</a>
 								@endHas
 
@@ -144,7 +144,7 @@
 								@hasPermission("eleves/documents/edit")
 								<a class="btn btn-sm btn-outline-warning" href="{{ route('web.scolarites.eleves.documents.edit', [$eleve->id, $document->id]) }}">
 									<i class="far fa-edit"></i>
-									Modifier
+									Éditer
 								</a>
 								@endHas
 

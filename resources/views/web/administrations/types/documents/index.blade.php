@@ -27,7 +27,7 @@
 								<td>
 									@hasPermission("administrations/types/documents/edit")
 									<a href="{{ route("web.administrations.types.documents.edit", [$document]) }}">
-										<button class="btn btn-sm btn-outline-primary">Editer</button>
+										<button class="btn btn-sm btn-outline-primary">Éditer</button>
 									</a>
 									@endHas
 								</td>

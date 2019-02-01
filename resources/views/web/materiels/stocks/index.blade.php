@@ -117,7 +117,7 @@
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
-													Editer
+													Éditer
 												</a>
 												@endHas
 											</div>
@@ -144,7 +144,7 @@
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
-													Editer
+													Éditer
 												</a>
 												@endHas
 											</div>

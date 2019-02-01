@@ -4,6 +4,20 @@
 
 		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.tickets.index", "id" => $eleve])
 			Ticket {{ $eleve->nom }} {{ $eleve->prenom }} / {{ $ticket->type->libelle }}
+
+			@slot("custom")
+				<div class="btn-group">
+					<div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Gestion ticket
+					</div>
+
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+						@hasPermission("eleves/tickets/edit")
+						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.tickets.edit", [$eleve, $ticket]) }}">Éditer le ticket</a>
+						@endHas
+					</div>
+				</div>
+			@endslot
 		@endcomponent
 
 		<div class="col-12">
@@ -28,18 +42,14 @@
 						{!! nl2br(e($message->contenu)) !!}
 					</div>
 					<div class="card-footer d-flex justify-content-between align-items-center">
-						<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.tickets.messages.edit", [$eleve, $ticket, $message]) }}">Modifier</a>
+						<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.tickets.messages.edit", [$eleve, $ticket, $message]) }}">Éditer</a>
 						<small>{{ $message->created_at->format("d/m/Y H:i:s") }}</small>
 					</div>
 				</div>
 			@endforeach
 
-			<div class="d-flex justify-content-center my-3">
-				<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.tickets.edit", [$eleve, $ticket]) }}">Modifier le ticket</a>
-			</div>
-
 			@hasPermission("eleves/tickets/messages/create")
-			<form action="{{ route("web.scolarites.eleves.tickets.messages.store", [$eleve, $ticket]) }}" method="POST">
+			<form class="mt-3" action="{{ route("web.scolarites.eleves.tickets.messages.store", [$eleve, $ticket]) }}" method="POST">
 				{{ csrf_field() }}
 
 				<div class="form-group">
@@ -52,8 +62,8 @@
 				</div>
 			</form>
 			@endHas
-
 		</div>
+	</div>
 @endsection
 
 @include("web._includes.sidebars.eleve")

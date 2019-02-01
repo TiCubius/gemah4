@@ -39,22 +39,22 @@
 
 							<div class="form-group">
 								<label class="optional" for="date_ej">Date d'engagement juridique</label>
-								<input id="date_ej" class="form-control" name="date_ej" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_ej? $stock->date_ej->format("Y-m-d") : null  }}">
+								<input id="date_ej" class="form-control" name="date_ej" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_ej ? $stock->date_ej->format("Y-m-d") : null  }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_facture">Date de la facture</label>
-								<input id="date_facture" class="form-control" name="date_facture" type="date" placeholder="Ex: 01/01/2019" value="{{  $stock->date_facture? $stock->date_facture->format("Y-m-d") : null }}">
+								<input id="date_facture" class="form-control" name="date_facture" type="date" placeholder="Ex: 01/01/2019" value="{{  $stock->date_facture ? $stock->date_facture->format("Y-m-d") : null }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_service_fait">Date de service fait</label>
-								<input id="date_service_fait" class="form-control" name="date_service_fait" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_service_fait? $stock->date_service_fait->format("Y-m-d") : null }}">
+								<input id="date_service_fait" class="form-control" name="date_service_fait" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_service_fait ? $stock->date_service_fait->format("Y-m-d") : null }}">
 							</div>
 
 							<div class="form-group">
 								<label class="optional" for="date_fin_garantie">Date de fin de garantie</label>
-								<input id="date_fin_garantie" class="form-control" name="date_fin_garantie" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_fin_garantie? $stock->date_fin_garantie->format("Y-m-d") : null }}">
+								<input id="date_fin_garantie" class="form-control" name="date_fin_garantie" type="date" placeholder="Ex: 01/01/2019" value="{{ $stock->date_fin_garantie ? $stock->date_fin_garantie->format("Y-m-d") : null }}">
 							</div>
 
 							<div class="form-group">

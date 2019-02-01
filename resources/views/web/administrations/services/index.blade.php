@@ -39,7 +39,7 @@
                                 @endHas
                                 @hasPermission("administrations/services/edit")
                                 <a href="{{ route("web.administrations.services.edit", [$service]) }}">
-                                    <button class="btn btn-sm btn-outline-primary">Editer</button>
+                                    <button class="btn btn-sm btn-outline-primary">Éditer</button>
                                 </a>
                                 @endHas
                             </td>

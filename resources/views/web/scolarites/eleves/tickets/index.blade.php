@@ -33,7 +33,7 @@
 							@hasPermission("eleves/tickets/edit")
 							<a role="button" href="{{ route('web.scolarites.eleves.tickets.edit', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-warning">
 								<i class="fas fa-edit"></i>
-								Modifier
+								Éditer
 							</a>
 							@endHas
 							@hasPermission("eleves/tickets/show")

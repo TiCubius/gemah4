@@ -15,7 +15,7 @@
 				</div>
 
 				<div class="card-footer d-flex justify-content-between">
-					Le {{ \Carbon\Carbon::make($historique->created_at)->format("d/m/Y à h:i:s") }}
+					Le {{ \Carbon\Carbon::make($historique->created_at)->format("d/m/Y à H:i:s") }}
 					<span class="text-muted">Par {{ $historique->user->nom ?? "utilisateur" }} {{ $historique->user->prenom ?? "supprimé"}}</span>
 				</div>
 			</div>

@@ -2,7 +2,7 @@
 
 @section("content")
 
-	@component("web._includes.components.title", ["add" => "web.scolarites.eleves.tickets.create", "permission" => "scolarites/eleves/tickets/create", "back" => "web.scolarites.eleves.show", "id" => $eleve])
+	@component("web._includes.components.title", ["add" => "web.scolarites.eleves.tickets.create", "permission" => "eleves/tickets/create", "back" => "web.scolarites.eleves.show", "id" => $eleve])
 		Gestion des tickets
 	@endcomponent
 
@@ -25,7 +25,7 @@
 							</p>
 							<p class="mb-0">
 								<strong>Soumis le</strong>:
-								{{ \Carbon\Carbon::parse($ticket->created_at)->format("d/m/Y H:m:s") }}
+								{{ \Carbon\Carbon::parse($ticket->created_at)->format("d/m/Y H:i:s") }}
 							</p>
 						</div>
 

@@ -17,7 +17,7 @@
 					<div class="footer text-center">
 						<small>{{ $ticket->created_at->diffForHumans()}}</small>
 						<br>
-						<small>{{ $ticket->created_at->format("d/m/Y H:m:s") }}</small>
+						<small>{{ $ticket->created_at->format("d/m/Y H:i:s") }}</small>
 					</div>
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 					</div>
 					<div class="card-footer d-flex justify-content-between align-items-center">
 						<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.tickets.messages.edit", [$eleve, $ticket, $message]) }}">Modifier</a>
-						<small>{{ $message->created_at->format("d/m/Y H:m:s") }}</small>
+						<small>{{ $message->created_at->format("d/m/Y H:i:s") }}</small>
 					</div>
 				</div>
 			@endforeach

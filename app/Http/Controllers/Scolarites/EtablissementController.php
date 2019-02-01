@@ -57,7 +57,7 @@ class EtablissementController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			"id"                    => "required|max:191|unique:etablissements",
+			"id"                    => "required|unique:etablissements",
 			"nom"                   => "required|max:191",
 			"type_etablissement_id" => "required|exists:types_etablissements,id",
 			"degre"                 => "required|max:191",
@@ -111,7 +111,7 @@ class EtablissementController extends Controller
 	public function update(Request $request, Etablissement $etablissement): RedirectResponse
 	{
 		$request->validate([
-			"id"                    => "required|max:191|unique:etablissements,id,{$etablissement->id}",
+			"id"                    => "required|unique:etablissements,id,{$etablissement->id}",
 			"nom"                   => "required|max:191",
 			"type_etablissement_id" => "required|exists:types_etablissements,id",
 			"degre"                 => "required|max:191",

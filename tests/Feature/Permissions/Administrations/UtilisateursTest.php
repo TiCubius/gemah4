@@ -44,7 +44,7 @@ class UtilisateursTest extends TestCase
 		$getRoutes = [
 			"/administrations/utilisateurs",
 			"/administrations/utilisateurs/create",
-			// "/administrations/utilisateurs/{$utilisateur->id}", // ERROR 404
+			"/administrations/utilisateurs/{$utilisateur->id}",
 			"/administrations/utilisateurs/{$utilisateur->id}/edit",
 		];
 

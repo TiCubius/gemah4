@@ -3,7 +3,7 @@
     <div class="row">
 
         @component("web._includes.components.title", ["back" => "web.administrations.academies.index"])
-            Profil de l'académie "{{ $academy->nom }}"
+            Profil de l'académie "{{ $academie->nom }}"
         @endcomponent
 
         @component("web._includes.components.show_card", ["title" => "Départements", "id" => "departement"])
@@ -15,7 +15,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($academy->departements as $departement)
+                @foreach($academie->departements as $departement)
                     <tr>
                         <td>{{ $departement->nom }}</td>
                         <td>

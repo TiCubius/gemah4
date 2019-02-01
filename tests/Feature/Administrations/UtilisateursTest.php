@@ -116,7 +116,7 @@ class UtilisateursTest extends TestCase
         $historique = Historique::create([
             "from_id" => $utilisateur->id,
             "type" => "unit.testing",
-            "contenue" => "unit.testing"
+            "information" => "unit.testing"
         ]);
 
         $request = $this->get("/administrations/utilisateurs/{$utilisateur->id}");
@@ -127,7 +127,7 @@ class UtilisateursTest extends TestCase
         $request->assertSee("Historique");
         $request->assertSee("Action");
         $request->assertSee($historique->type);
-        $request->assertSee($historique->contenue);
+        $request->assertSee($historique->information);
         $request->assertSee("Détails");
 
     }

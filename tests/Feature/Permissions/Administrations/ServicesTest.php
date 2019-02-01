@@ -46,7 +46,7 @@ class ServicesTest extends TestCase
 		$getRoutes = [
 			"/administrations/services",
 			"/administrations/services/create",
-			// "/administrations/services/{$service->id}", // ERROR 404
+			"/administrations/services/{$service->id}",
 			"/administrations/services/{$service->id}/edit",
 		];
 

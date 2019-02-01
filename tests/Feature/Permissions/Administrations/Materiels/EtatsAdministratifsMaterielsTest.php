@@ -46,7 +46,7 @@ class EtatsAdministratifsMaterielsTest extends TestCase
 		$getRoutes = [
 			"/administrations/materiels/etats/administratifs",
 			"/administrations/materiels/etats/administratifs/create",
-			// "/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}", // ERROR 404
+			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}",
 			"/administrations/materiels/etats/administratifs/{$etatAdministratifMateriel->id}/edit",
 		];
 

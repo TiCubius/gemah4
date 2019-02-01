@@ -47,7 +47,7 @@ class ResponsablesTest extends TestCase
 		$getRoutes = [
 			"/responsables",
 			"/responsables/create",
-			// "/responsables/{$responsable->id}", // ERROR 404
+			"/responsables/{$responsable->id}",
 			"/responsables/{$responsable->id}/edit",
 		];
 

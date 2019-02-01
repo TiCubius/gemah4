@@ -65,6 +65,7 @@ class EtablissementsTest extends TestCase
 		$getRoutes = [
 			"/scolarites/etablissements",
 			"/scolarites/etablissements/create",
+            "/scolarites/etablissements/{$etablissement->id}",
 			"/scolarites/etablissements/{$etablissement->id}/edit",
 		];
 

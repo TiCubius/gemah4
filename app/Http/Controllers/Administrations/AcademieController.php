@@ -59,12 +59,12 @@ class AcademieController extends Controller
     /**
      * GET - Affiche les données d'une académie
      *
-     * @param Academie $academy
+     * @param Academie $academie
      * @return View
      */
-    public function show(Academie $academy): View
+    public function show(Academie $academie): View
     {
-        return view("web.administrations.academies.show", compact("academy"));
+        return view("web.administrations.academies.show", compact("academie"));
     }
 
 	/**

@@ -45,7 +45,7 @@ class DepartementsTest extends TestCase
 		$getRoutes = [
 			"/administrations/departements",
 			"/administrations/departements/create",
-			// "/administrations/departements/{$departement->id}", // ERROR 404
+			"/administrations/departements/{$departement->id}",
 			"/administrations/departements/{$departement->id}/edit",
 		];
 

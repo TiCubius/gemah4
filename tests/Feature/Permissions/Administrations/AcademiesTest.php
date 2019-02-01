@@ -47,7 +47,7 @@ class AcademiesTest extends TestCase
 		$getRoutes = [
 			"/administrations/academies",
 			"/administrations/academies/create",
-			// "/administrations/academies/{$academie->id}", // ERROR 404
+			"/administrations/academies/{$academie->id}",
 			"/administrations/academies/{$academie->id}/edit",
 		];
 

@@ -46,7 +46,7 @@ class RegionsTest extends TestCase
 		$getRoutes = [
 			"/administrations/regions",
 			"/administrations/regions/create",
-			// "/administrations/regions/{$region->id}", // ERROR 404
+			"/administrations/regions/{$region->id}",
 			"/administrations/regions/{$region->id}/edit",
 		];
 

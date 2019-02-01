@@ -101,13 +101,18 @@ class ResponsablesTest extends TestCase
         $request->assertStatus(200);
         $request->assertSee("Profil du responsable \"{$responsable->nom} {$responsable->prenom}\"");
 
-        $request->assertSee("Eleves");
-        $request->assertSee("Action");
+        $request->assertSee($responsable->nom);
+        $request->assertSee($responsable->prenom);
+        $request->assertSee($responsable->email);
+
+
+        $request->assertSee("Elève");
         foreach ($eleves as $eleve)
         {
             $request->assertSee($eleve->nom);
             $request->assertSee($eleve->prenom);
             $request->assertSee("Détails");
+            $request->assertSee($eleve->prix_global);
         }
     }
 

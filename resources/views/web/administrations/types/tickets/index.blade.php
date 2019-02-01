@@ -2,7 +2,7 @@
 @section("content")
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.types.tickets.create", "permission" => "administrations/type/tickets/create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.types.tickets.create", "permission" => "administrations/types/tickets/create", "back" => "web.administrations.index"])
 			Gestion des types de tickets
 		@endcomponent
 

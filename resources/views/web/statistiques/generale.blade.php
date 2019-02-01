@@ -148,6 +148,9 @@
 	<script>
 		$(document).ready(function () {
 			$('#table').DataTable({
+				"language": {
+					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+				},
 				"info": false,
 				"columnDefs": [
 					{"orderable": false, "targets": 3},

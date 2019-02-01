@@ -43,6 +43,9 @@
     <script>
         $(document).ready(function () {
             $('#services').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},
@@ -59,6 +62,9 @@
     <script>
         $(document).ready(function () {
             $('#etablissements').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},
@@ -75,6 +81,9 @@
     <script>
         $(document).ready(function () {
             $('#eleves').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},
@@ -91,6 +100,9 @@
     <script>
         $(document).ready(function () {
             $('#materiels').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},
@@ -107,6 +119,9 @@
     <script>
         $(document).ready(function () {
             $('#responsables').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},

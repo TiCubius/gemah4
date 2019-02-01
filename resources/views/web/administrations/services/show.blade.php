@@ -44,6 +44,9 @@
     <script>
         $(document).ready(function () {
             $('#utilisateurs').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},

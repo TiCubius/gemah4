@@ -39,6 +39,9 @@
     <script>
         $(document).ready(function () {
             $('#etablissements').DataTable({
+                "language": {
+                    "url": "{{ asset("assets/js/dataTables.french.json") }}"
+                },
                 "info": false,
                 "columnDefs": [
                     {"orderable": false, "targets": 1},

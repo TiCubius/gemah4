@@ -7,6 +7,7 @@ use App\Models\Academie;
 use App\Models\Enseignant;
 use App\Models\Etablissement;
 use App\Models\TypeEtablissement;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -56,16 +57,19 @@ class EtablissementController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
+		// Par défaut, si pas d'ID: GEMAH-...
+		$request->merge(["id" => $request->id ?? "GEMAH-" . Carbon::now()->timestamp]);
+
 		$request->validate([
-			"id"                    => "required|max:191|unique:etablissements",
+			"id"                    => "nullable|max:191|unique:etablissements",
 			"nom"                   => "required|max:191",
 			"type_etablissement_id" => "required|exists:types_etablissements,id",
-			"degre"                 => "required|max:191",
-			"regime"                => "required|max:191",
+			"degre"                 => "nullable|max:191",
+			"regime"                => "nullable|max:191",
 			"ville"                 => "required|max:191",
-			"code_postal"           => "required",
-			"adresse"               => "required|max:191",
-			"telephone"             => "required",
+			"code_postal"           => "nullable",
+			"adresse"               => "nullable|max:191",
+			"telephone"             => "nullable",
 			"enseignant_id"         => "nullable|exists:enseignants,id",
 			"departement_id"        => "required|exists:departements,id",
 		]);
@@ -110,6 +114,9 @@ class EtablissementController extends Controller
 	 */
 	public function update(Request $request, Etablissement $etablissement): RedirectResponse
 	{
+		// Par défaut, si pas d'ID: GEMAH-...
+		$request->merge(["id" => $request->id ?? "GEMAH-" . Carbon::now()->timestamp]);
+
 		$request->validate([
 			"id"                    => "required|max:191|unique:etablissements,id,{$etablissement->id}",
 			"nom"                   => "required|max:191",

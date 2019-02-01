@@ -134,15 +134,17 @@
 													<td>{{ $etablissement->ville }}</td>
 													<td>{{ $etablissement->telephone }}</td>
 													<td>
-														@hasPermission("etablissements/show")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.show", [$etablissement]) }}">
-															<i class="fas fa-info-circle"></i>
-															Détails
-														</a>
-														@endHas
-														@hasPermission("etablissements/edit")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer</a>
-														@endHas
+														<div class="btn-group">
+															@hasPermission("etablissements/show")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.show", [$etablissement]) }}">
+																<i class="fas fa-info-circle"></i>
+																Détails
+															</a>
+															@endHas
+															@hasPermission("etablissements/edit")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer</a>
+															@endHas
+														</div>
 													</td>
 												</tr>
 											@endforeach
@@ -164,7 +166,7 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"language": {
-					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+					"url": "{{ asset("assets/js/dataTables.french.json") }}",
 				},
 				"info": false,
 				"columnDefs": [

@@ -35,18 +35,18 @@
 
 
 					<div class="form-group">
-						<label for="id">Code</label>
-						<input id="id" class="form-control" name="id" type="text" placeholder="Ex: ..." value="{{ old("id") }}" required>
+						<label class="optional" for="id">Code</label>
+						<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 0420044V" value="{{ old("id") }}">
 					</div>
 
 					<div class="form-group">
-						<label for="degre">Degré</label>
-						<input id="degre" class="form-control" name="degre" type="text" placeholder="Ex: ..." value="{{ old("degre") }}" required>
+						<label class="optional" for="degre">Degré</label>
+						<input id="degre" class="form-control" name="degre" type="text" placeholder="Ex: ..." value="{{ old("degre") }}">
 					</div>
 
 					<div class="form-group">
-						<label for="regime">Régime</label>
-						<input id="regime" class="form-control" name="regime" type="text" placeholder="Ex: ..." value="{{ old("regime") }}" required>
+						<label class="optional" for="regime">Régime</label>
+						<input id="regime" class="form-control" name="regime" type="text" placeholder="Ex: ..." value="{{ old("regime") }}">
 					</div>
 				</div>
 
@@ -63,8 +63,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="code_postal">Code Postal</label>
-						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ old("code_postal") }}" required>
+						<label class="optional" for="code_postal">Code Postal</label>
+						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ old("code_postal") }}">
 					</div>
 
 					<div class="form-group">

@@ -62,6 +62,8 @@ class DepartementController extends Controller
      */
     public function show(Departement $departement): View
     {
+    	$departement->load("eleves", "etablissements", "materiels.eleve", "materiels.etatAdministratif", "materiels.etatPhysique", "materiels.type", "responsables", "services");
+
         return view("web.administrations.departements.show", compact("departement"));
     }
 

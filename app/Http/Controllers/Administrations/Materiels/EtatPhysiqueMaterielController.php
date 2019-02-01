@@ -58,7 +58,10 @@ class EtatPhysiqueMaterielController extends Controller
      */
     public function show(EtatPhysiqueMateriel $physique): View
     {
-        return view("web.administrations.materiels.etats.physiques.show", compact("physique"));
+		$physique->load("materiels.eleve", "materiels.type", "materiels.etatAdministratif", "materiels.etatPhysique");
+
+
+		return view("web.administrations.materiels.etats.physiques.show", compact("physique"));
     }
 
 	/**

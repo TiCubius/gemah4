@@ -20,10 +20,10 @@ class CreateEtablissementsTable extends Migration
 			$table->unsignedInteger('type_etablissement_id');
 			$table->string('departement_id');
 			$table->string('nom');
-			$table->string('degre');
-			$table->string('regime');
+			$table->string('degre')->nullable();
+			$table->string('regime')->nullable();
 			$table->string('adresse')->nullable();
-			$table->string('code_postal');
+			$table->string('code_postal')->nullable();
 			$table->string('ville');
 			$table->string('telephone')->nullable();
 

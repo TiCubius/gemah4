@@ -36,18 +36,18 @@
 
 
 					<div class="form-group">
-						<label for="id">Code</label>
+						<label class="optional" for="id">Code</label>
 						<input id="id" class="form-control" name="id" type="text" placeholder="Ex: ..." value="{{ $etablissement->id }}" required>
 					</div>
 
 					<div class="form-group">
-						<label for="degre">Degré</label>
-						<input id="degre" class="form-control" name="degre" type="text" placeholder="Ex: ..." value="{{ $etablissement->degre }}" required>
+						<label class="optional" for="degre">Degré</label>
+						<input id="degre" class="form-control" name="degre" type="text" placeholder="Ex: ..." value="{{ $etablissement->degre }}">
 					</div>
 
 					<div class="form-group">
-						<label for="regime">Régime</label>
-						<input id="regime" class="form-control" name="regime" type="text" placeholder="Ex: ..." value="{{ $etablissement->regime }}" required>
+						<label class="optional" for="regime">Régime</label>
+						<input id="regime" class="form-control" name="regime" type="text" placeholder="Ex: ..." value="{{ $etablissement->regime }}">
 					</div>
 				</div>
 
@@ -64,13 +64,13 @@
 					</div>
 
 					<div class="form-group">
-						<label for="code_postal">Code Postal</label>
-						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ $etablissement->code_postal }}" required>
+						<label class="optional" for="code_postal">Code Postal</label>
+						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ $etablissement->code_postal }}">
 					</div>
 
 					<div class="form-group">
-						<label for="adresse">Adresse</label>
-						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ $etablissement->adresse }}" required>
+						<label class="optional" for="adresse">Adresse</label>
+						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ $etablissement->adresse }}">
 					</div>
 				</div>
 
@@ -79,12 +79,12 @@
 					<hr>
 
 					<div class="form-group">
-						<label for="telephone">Téléphone</label>
-						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ $etablissement->telephone }}" required>
+						<label class="optional" for="telephone">Téléphone</label>
+						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ $etablissement->telephone }}">
 					</div>
 
 					<div class="form-group">
-						<label for="enseignant_id">Enseignant Référent</label>
+						<label class="optional" for="enseignant_id">Enseignant Référent</label>
 						<select id="enseignant_id" class="form-control" name="enseignant_id">
 							<option value="">Sélectionnez un enseignant</option>
 							@foreach($enseignants as $enseignant)

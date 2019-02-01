@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.administrations.materiels.etats.physiques.index"])
             Profil de l'état physique "{{ $physique->libelle }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion état physique
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/etats/materiels/physiques/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.materiels.etats.physiques.edit", [$physique]) }}">Éditer l'état physique</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
             @component("web._includes.components.show_card", ["title" => "Matériels", "id" => "materiel"])

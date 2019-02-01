@@ -2,8 +2,22 @@
 @section('content')
     <div class="row">
 
-        @component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
+        @component("web._includes.components.title", ["back" => "web.administrations.services.index"])
             Profil du service "{{ $service->nom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion service
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/services/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.services.edit", [$service]) }}">Éditer le service</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
 

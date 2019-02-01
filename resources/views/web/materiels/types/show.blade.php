@@ -2,8 +2,22 @@
 @section('content')
     <div class="row">
 
-        @component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
+        @component("web._includes.components.title", ["back" => "web.materiels.types.index"])
             Profil du type de matériel "{{ $type->libelle }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion type matériel
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("materiels/types/edit")
+                        <a class="dropdown-item" href="{{ route("web.materiels.types.edit", [$type]) }}">Éditer le type de matériel</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
 

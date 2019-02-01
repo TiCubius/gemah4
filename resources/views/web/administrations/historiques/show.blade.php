@@ -27,31 +27,31 @@
 			@endif
 
 			@if($historique->academie)
-				@component("web._includes.components.card", ["route" => "web.administrations.academies.edit", "id" => [$historique->academie], "nom" => $historique->academie->nom])
+				@component("web._includes.components.card", ["route" => "web.administrations.academies.show", "id" => [$historique->academie], "nom" => $historique->academie->nom])
 					Lien vers l'académie impliquée
 				@endcomponent
 			@endif
 
 			@if($historique->departement)
-				@component("web._includes.components.card", ["route" => "web.administrations.departements.edit", "id" => [$historique->departement], "nom" => $historique->departement->nom])
+				@component("web._includes.components.card", ["route" => "web.administrations.departements.show", "id" => [$historique->departement], "nom" => $historique->departement->nom])
 					Lien vers le département impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->responsable)
-				@component("web._includes.components.card", ["route" => "web.responsables.edit", "id" => [$historique->responsable], "nom" => $historique->responsable->nom ." ". $historique->responsable->prenom])
+				@component("web._includes.components.card", ["route" => "web.responsables.show", "id" => [$historique->responsable], "nom" => $historique->responsable->nom ." ". $historique->responsable->prenom])
 					Lien vers le responsable impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->enseignant)
-				@component("web._includes.components.card", ["route" => "web.scolarites.enseignants.edit", "id" => [$historique->enseignant], "nom" => $historique->enseignant->nom ." ". $historique->enseignant->prenom])
+				@component("web._includes.components.card", ["route" => "web.scolarites.enseignants.show", "id" => [$historique->enseignant], "nom" => $historique->enseignant->nom ." ". $historique->enseignant->prenom])
 					Lien vers l'enseignant impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->etablissement)
-				@component("web._includes.components.card", ["route" => "web.scolarites.etablissements.edit", "id" => [$historique->etablissement], "nom" => $historique->etablissement->nom])
+				@component("web._includes.components.card", ["route" => "web.scolarites.etablissements.show", "id" => [$historique->etablissement], "nom" => $historique->etablissement->nom])
 					Lien vers l'établissement impliqué
 				@endcomponent
 			@endif
@@ -99,19 +99,19 @@
 			@endif
 
 			@if($historique->domaineMateriel)
-				@component("web._includes.components.card", ["route" => "web.materiels.domaines.edit", "id" => [$historique->domaineMateriel], "nom" => $historique->domaineMateriel->libelle])
+				@component("web._includes.components.card", ["route" => "web.materiels.domaines.show", "id" => [$historique->domaineMateriel], "nom" => $historique->domaineMateriel->libelle])
 					Lien vers le domaine de matériel impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->etatAdministratifMateriel)
-				@component("web._includes.components.card", ["route" => "web.administrations.materiels.etats.administratifs.edit", 	"id" => [$historique->etatAdministratifMateri ], "nom" => $historique->etatAdministratifMateriel->libelle])
+				@component("web._includes.components.card", ["route" => "web.administrations.materiels.etats.administratifs.show", 	"id" => [$historique->etatAdministratifMateri ], "nom" => $historique->etatAdministratifMateriel->libelle])
 					Lien vers l'état administratif de matériel impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->etatPhysiqueMateriel)
-				@component("web._includes.components.card", ["route" => "web.administrations.materiels.etats.physiques.edit", "id" => [$historique->etatPhysiqueMateriel], "nom" => $historique->etatPhysiqueMateriel->libelle])
+				@component("web._includes.components.card", ["route" => "web.administrations.materiels.etats.physiques.show", "id" => [$historique->etatPhysiqueMateriel], "nom" => $historique->etatPhysiqueMateriel->libelle])
 					Lien vers l'état physique de matériel impliqué
 				@endcomponent
 			@endif
@@ -123,19 +123,19 @@
 			@endif
 
 			@if($historique->typeMateriel)
-				@component("web._includes.components.card", ["route" => "web.materiels.types.edit", "id" => [$historique->typeMateriel], "nom" => $historique->typeMateriel->libelle])
+				@component("web._includes.components.card", ["route" => "web.materiels.types.show", "id" => [$historique->typeMateriel], "nom" => $historique->typeMateriel->libelle])
 					Lien vers le type de matériel impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->service)
-				@component("web._includes.components.card", ["route" => "web.administrations.services.edit", "id" => [$historique->service], "nom" => $historique->service->nom])
+				@component("web._includes.components.card", ["route" => "web.administrations.services.show", "id" => [$historique->service], "nom" => $historique->service->nom])
 					Lien vers le service impliqué
 				@endcomponent
 			@endif
 
 			@if($historique->utilisateur)
-				@component("web._includes.components.card", ["route" => "web.administrations.utilisateurs.edit", "id" => [$historique->utilisateur], "nom" => $historique->utilisateur->nom ." ". $historique->utilisateur->prenom])
+				@component("web._includes.components.card", ["route" => "web.administrations.utilisateurs.show", "id" => [$historique->utilisateur], "nom" => $historique->utilisateur->nom ." ". $historique->utilisateur->prenom])
 					Lien vers l'utilisateur impliqué
 				@endcomponent
 			@endif

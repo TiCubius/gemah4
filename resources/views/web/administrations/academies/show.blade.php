@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.administrations.academies.index"])
             Profil de l'académie "{{ $academie->nom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion académie
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/academies/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.academies.edit", [$academie]) }}">Éditer l'académie</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
         @component("web._includes.components.show_card", ["title" => "Départements", "id" => "departement"])

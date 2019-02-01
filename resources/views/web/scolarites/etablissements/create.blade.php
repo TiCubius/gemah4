@@ -68,8 +68,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="adresse">Adresse</label>
-						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}" required>
+						<label class="optional" for="adresse">Adresse</label>
+						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}">
 					</div>
 				</div>
 
@@ -78,8 +78,8 @@
 					<hr>
 
 					<div class="form-group">
-						<label for="telephone">Téléphone</label>
-						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}" required>
+						<label class="optional" for="telephone">Téléphone</label>
+						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}">
 					</div>
 
 					<div class="form-group">

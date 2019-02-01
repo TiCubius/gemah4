@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.administrations.departements.index"])
             Profil du département "{{ $departement->nom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion département
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/departements/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.departements.edit", [$departement]) }}">Éditer le département</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
         @component("web._includes.components.show_card", ["title" => "Services", "id" => "service"])

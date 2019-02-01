@@ -62,6 +62,12 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("responsables/show")
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a>
+												@endHas
 												@hasPermission("responsables/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
 													Editer
@@ -83,6 +89,12 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$responsable->nom} {$responsable->prenom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("responsables/show")
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a>
+												@endHas
 												@hasPermission("responsables/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
 													Editer
@@ -129,6 +141,12 @@
 													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
 													<td>
+														@hasPermission("responsables/show")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+															<i class="fas fa-info-circle"></i>
+															Détails
+														</a>
+														@endHas
 														@hasPermission("responsables/show")
 														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
 															Editer

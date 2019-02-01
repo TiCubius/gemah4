@@ -2,8 +2,22 @@
 @section('content')
     <div class="row">
 
-        @component("web._includes.components.title", ["back" => "web.administrations.departements.index"])
+        @component("web._includes.components.title", ["back" => "web.responsables.index"])
             Profil du responsable "{{ $responsable->nom }} {{ $responsable->prenom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("responsables/edit")
+                        <a class="dropdown-item" href="{{ route("web.responsables.edit", [$responsable]) }}">Éditer </a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
         <div class="col-12 mb-3">

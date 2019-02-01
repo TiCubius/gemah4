@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.administrations.utilisateurs.index"])
             Profil de l'utilisateur "{{ $utilisateur->nom }} {{ $utilisateur->prenom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion utilisateur
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/utilisateurs/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur]) }}">Éditer l'utilisateur</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
 

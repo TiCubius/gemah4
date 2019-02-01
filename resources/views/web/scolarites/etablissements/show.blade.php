@@ -2,8 +2,22 @@
 @section('content')
     <div class="row">
 
-        @component("web._includes.components.title", ["back" => "web.administrations.departements.index"])
+        @component("web._includes.components.title", ["back" => "web.scolarites.etablissements.index"])
             Profil de l'établissement "{{ $etablissement->nom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion établissement
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("scolarites/etablissements/edit")
+                        <a class="dropdown-item" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer l'établissement</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
         @component("web._includes.components.show_card", ["title" => "Eleves", "id" => "eleve"])

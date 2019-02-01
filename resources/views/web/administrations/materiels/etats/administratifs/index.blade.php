@@ -26,6 +26,14 @@
 								<td style="background: {{ $etat->couleur }};"></td>
 								<td>{{ $etat->libelle }}</td>
 								<td>
+									@hasPermission("administrations/etats/materiels/administratifs/show")
+									<a href="{{ route("web.administrations.materiels.etats.administratifs.show", [$etat]) }}">
+										<button class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</button>
+									</a>
+									@endHas
 									@hasPermission("administrations/etats/materiels/administratifs/edit")
 									<a href="{{ route("web.administrations.materiels.etats.administratifs.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

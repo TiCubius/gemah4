@@ -24,6 +24,14 @@
 							<tr>
 								<td>{{ $region->nom }}</td>
 								<td>
+									@hasPermission("administrations/regions/show")
+									<a href="{{ route("web.administrations.regions.show", [$region]) }}">
+										<button class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</button>
+									</a>
+									@endHas
 									@hasPermission("administrations/regions/edit")
 									<a href="{{ route("web.administrations.regions.edit", [$region]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

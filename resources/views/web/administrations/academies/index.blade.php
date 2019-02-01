@@ -28,6 +28,14 @@
 								<td>{{ $academy->region->nom }}</td>
 								<td>{{ $academy->nom }}</td>
 								<td>
+									@hasPermission("administrations/academies/show")
+									<a href="{{ route("web.administrations.academies.show", [$academy]) }}">
+										<button class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</button>
+									</a>
+									@endHas
 									@hasPermission("administrations/academies/edit")
 									<a href="{{ route("web.administrations.academies.edit", [$academy]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

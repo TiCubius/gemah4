@@ -24,6 +24,14 @@
 							<tr>
 								<td>{{ $etat->libelle }}</td>
 								<td>
+									@hasPermission("administrations/etats/materiels/physiques/show")
+									<a href="{{ route("web.administrations.materiels.etats.physiques.show", [$etat]) }}">
+										<button class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</button>
+									</a>
+									@endHas
 									@hasPermission("administrations/etats/materiels/physiques/edit")
 									<a href="{{ route("web.administrations.materiels.etats.physiques.edit", [$etat]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

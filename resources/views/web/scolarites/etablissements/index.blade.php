@@ -61,6 +61,12 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("etablissements/show")
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.show", [$etablissement]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a>
+												@endHas
 												@hasPermission("etablissements/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
 												@endHas
@@ -80,6 +86,12 @@
 										<li class="list-group-item d-flex justify-content-between">
 											<span>{{ "{$etablissement->nom}" }}</span>
 											<div class="btn-group">
+												@hasPermission("etablissements/show")
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.show", [$etablissement]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a>
+												@endHas
 												@hasPermission("etablissements/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
 												@endHas
@@ -122,6 +134,12 @@
 													<td>{{ $etablissement->ville }}</td>
 													<td>{{ $etablissement->telephone }}</td>
 													<td>
+														@hasPermission("etablissements/show")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.show", [$etablissement]) }}">
+															<i class="fas fa-info-circle"></i>
+															Détails
+														</a>
+														@endHas
 														@hasPermission("etablissements/edit")
 														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Editer</a>
 														@endHas

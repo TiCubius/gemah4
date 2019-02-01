@@ -28,7 +28,7 @@ class ServicesSeeder extends Seeder
         $permissionsGlobal = $permissions->diff($permissionsAdmin)->diff($permissionsCrudMateriel)->diff($permissionsAffectationMateriel);
 
         $output = new ConsoleOutput();
-        $progress = new ProgressBar($output, count($services)); //* count($departements));
+        $progress = new ProgressBar($output, count($services) * count($departements));
         $progress->setFormat("<fg=white> %current%/%max% [%bar%] %percent:3s%%\n  TIME: %elapsed:6s%\n  EST: %estimated:-6s% / ETA: %remaining:-6s%");
         $progress->start();
 

@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.materiels.domaines.index"])
             Profil du domaine matériel "{{ $domaine->libelle }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion domaine matériel
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("materiels/domaines/edit")
+                        <a class="dropdown-item" href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">Éditer le domaine matériel</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
 

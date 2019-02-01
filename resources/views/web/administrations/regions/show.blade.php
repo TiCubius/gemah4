@@ -4,6 +4,20 @@
 
         @component("web._includes.components.title", ["back" => "web.administrations.regions.index"])
             Profil de la région "{{ $region->nom }}"
+
+            @slot("custom")
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion région
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        @hasPermission("administrations/regions/edit")
+                        <a class="dropdown-item" href="{{ route("web.administrations.regions.edit", [$region]) }}">Éditer la région</a>
+                        @endHas
+                    </div>
+                </div>
+            @endslot
         @endcomponent
 
 

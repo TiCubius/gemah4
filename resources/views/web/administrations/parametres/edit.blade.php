@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.administrations.index"])
-			Édition des paramètres
+			Personnalisation des conventions
 		@endcomponent
 
 		<div class="col-12">

@@ -19,7 +19,7 @@
 					<tbody>
 						@foreach($historiques as $historique)
 							<tr>
-								<td class="align-middle">{{ $historique->created_at->format("d/m/Y") }}</td>
+								<td data-order="{{ $historique->created_at->timestamp }}" class="align-middle" title="{{ $historique->created_at->format("h:i:s") }}">{{ $historique->created_at->format("d/m/Y") }}</td>
 								<td class="align-middle">{{ $historique->type }}</td>
 								<td class="align-middle">{{ $historique->information }}</td>
 								<td class="align-middle">

@@ -24,6 +24,14 @@
 							<tr>
 								<td>{{ $domaine->libelle }}</td>
 								<td>
+									@hasPermission("materiels/domaines/show")
+									<a href="{{ route("web.materiels.domaines.show", [$domaine]) }}">
+										<button class="btn btn-sm btn-outline-primary">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</button>
+									</a>
+									@endHas
 									@hasPermission("materiels/domaines/edit")
 									<a href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">
 										<button class="btn btn-sm btn-outline-primary">Editer</button>

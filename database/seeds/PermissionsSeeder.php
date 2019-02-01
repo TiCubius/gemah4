@@ -188,7 +188,7 @@ class PermissionsSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->permissions as $code => $permission) {
-			\App\Models\Permission::create([
+			\App\Models\Permission::updateOrCreate([
 				"id"      => $code,
 				"libelle" => $permission,
 			]);

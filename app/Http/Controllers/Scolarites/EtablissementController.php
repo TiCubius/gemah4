@@ -118,7 +118,7 @@ class EtablissementController extends Controller
 		$request->merge(["id" => $request->id ?? "GEMAH-" . Carbon::now()->timestamp]);
 
 		$request->validate([
-			"id"                    => "required|max:191|unique:etablissements,id,{$etablissement->id}",
+			"id"                    => "required|unique:etablissements,id,{$etablissement->id}",
 			"nom"                   => "required|max:191",
 			"type_etablissement_id" => "required|exists:types_etablissements,id",
 			"degre"                 => "required|max:191",

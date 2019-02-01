@@ -30,7 +30,7 @@
 									<a href="{{ route("web.materiels.types.show", [$type]) }}">
 										<button class="btn btn-sm btn-outline-primary">
 											<i class="fas fa-info-circle"></i>
-											Éditer
+											Détails
 										</button>
 									</a>
 									@endHas

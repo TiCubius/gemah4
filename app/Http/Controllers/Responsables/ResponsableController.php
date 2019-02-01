@@ -76,6 +76,11 @@ class ResponsableController extends Controller
      */
     public function show(Responsable $responsable): View
     {
+        $responsable->load(
+            "eleves",
+            "eleves.materiels",
+            "eleves.materiels.type"
+        );
         return view("web.responsables.show", compact("responsable"));
     }
 

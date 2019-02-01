@@ -106,7 +106,7 @@ class ConventionController extends Controller
 	public function impressionsToutesConventions()
 	{
 		// On récupère le département de l'utilisateur
-		$departement = Session::get("user")->session->departement_id;
+		$departement = Session::get("user")->service->departement_id;
 
 		// On récupère le type décision "Matériel"
 		$typeDecision = TypeDecision::where("libelle", "Matériel")->first();

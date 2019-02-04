@@ -23,7 +23,7 @@ class DocumentObserver
 				"eleve_id"    => $document->eleve->id,
 				"document_id" => $document->id,
 				"type"        => "document/created",
-				"information" => "Le document {$document->nom} à été créé par {$user->nom} {$user->prenom}",
+				"information" => "Le document {$document->nom} de {$document->eleve->nom} {$document->eleve->prenom} à été créé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
@@ -42,7 +42,7 @@ class DocumentObserver
 				"eleve_id"    => $document->eleve->id,
 				"document_id" => $document->id,
 				"type"        => "document/modified",
-				"information" => "Le document {$document->nom} à été modifié par {$user->nom} {$user->prenom}",
+				"information" => "Le document {$document->nom} de {$document->eleve->nom} {$document->eleve->prenom} à été modifié par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}
@@ -68,7 +68,7 @@ class DocumentObserver
 				"from_id"     => $user->id,
 				"eleve_id"    => $document->eleve->id,
 				"type"        => "document/deleted",
-				"information" => "Le document {$document->nom} à été supprimé par {$user->nom} {$user->prenom}",
+				"information" => "Le document {$document->nom} de {$document->eleve->nom} {$document->eleve->prenom} à été supprimé par {$user->nom} {$user->prenom}",
 			]);
 		}
 	}

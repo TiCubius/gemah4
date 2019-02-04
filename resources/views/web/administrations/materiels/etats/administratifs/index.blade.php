@@ -2,7 +2,7 @@
 @section("content")
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.administratifs.create", "permission" => "administrations/materiels/etats/administratifs/create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.administratifs.create", "permission" => "administrations/etats/materiels/administratifs/create", "back" => "web.administrations.index"])
 			Gestion des états administratifs matériel
 		@endcomponent
 

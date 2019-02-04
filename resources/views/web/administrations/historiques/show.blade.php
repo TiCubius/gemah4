@@ -74,7 +74,7 @@
 				@endif
 
 				@if($historique->document)
-					@component("web._includes.components.card", ["route" => "web.scolarites.eleves.documents.edit", "id" =>  [$historique->eleve, $historique->doc], "nom" => $historique->document->nom])
+					@component("web._includes.components.card", ["route" => "web.scolarites.eleves.documents.edit", "id" =>  [$historique->eleve, $historique->document], "nom" => $historique->document->nom])
 						Lien vers le document impliqué
 					@endcomponent
 				@endif

@@ -2,7 +2,7 @@
 @section("content")
 	<div class="row">
 
-		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.physiques.create", "permission" => "administrations/materiels/etats/physiques/create", "back" => "web.administrations.index"])
+		@component("web._includes.components.title", ["add" => "web.administrations.materiels.etats.physiques.create", "permission" => "administrations/etats/materiels/physiques/create", "back" => "web.administrations.index"])
 			Gestion des états physiques matériel
 		@endcomponent
 

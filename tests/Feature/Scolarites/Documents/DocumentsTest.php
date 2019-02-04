@@ -4,6 +4,7 @@ namespace Tests\Feature\Scolarites\Documents;
 
 use App\Models\Document;
 use App\Models\Eleve;
+use App\Models\Historique;
 use App\Models\TypeDocument;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -85,12 +86,12 @@ class DocumentsTest extends TestCase
 			"file"             => UploadedFile::fake()->create("avatar.jpg"),
 		]);
 
-		$request->assertStatus(302);
-		$request->assertSessionHasNoErrors();
-		$this->assertDatabaseHas("historiques", [
+        $request->assertStatus(302);
+        $request->assertSessionHasNoErrors();
+        $this->assertDatabaseHas("historiques", [
 		    "from_id"   => $this->user->id,
             "type"      => "document/created",
-            "information"  => "Le document unit.testing à été créé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing de {$eleve->nom} {$eleve->prenom} à été créé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -162,7 +163,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseMissing("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "information"  => "Le document {$document->nom} à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} de {$eleve->nom} {$eleve->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -194,7 +195,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/modified",
-            "information"  => "Le document unit.testing à été modifié par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document unit.testing de {$eleve->nom} {$eleve->prenom} à été modifié par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 
@@ -235,7 +236,7 @@ class DocumentsTest extends TestCase
         $this->assertDatabaseHas("historiques", [
             "from_id"   => $this->user->id,
             "type"      => "document/deleted",
-            "information"  => "Le document {$document->nom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
+            "information"  => "Le document {$document->nom} de {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}",
         ]);
 	}
 

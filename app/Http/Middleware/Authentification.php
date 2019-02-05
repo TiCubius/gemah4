@@ -22,6 +22,7 @@ class Authentification
 			if ($request->path() !== "/") {
 				Session::put("redirect_uri", $request->path());
 			}
+
 			return redirect(route('web.connexion'));
 		}
 
@@ -38,6 +39,7 @@ class Authentification
 
 		if (!$newUser) {
 			Session::put("user", null);
+
 			return redirect(route("web.connexion"))->withErrors("Veuillez vous reconnecter");
 		}
 

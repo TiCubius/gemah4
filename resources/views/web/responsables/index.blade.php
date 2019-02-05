@@ -125,55 +125,51 @@
                             @endcomponent
                         </div>
 
-                        @if(count($responsables) > 0)
-                            <div class="col-12 mt-3">
-                                <div class="table-responsive">
-                                    <table id="table" class="table table-stripped">
-                                        <thead class="gemah-bg-primary">
-                                        <tr class="align-middle">
-                                            <th class="align-middle">Nom</th>
-                                            <th class="align-middle">Prénom</th>
-                                            <th class="align-middle">Adresse E-Mail</th>
-                                            <th class="align-middle">Téléphone</th>
-                                            <th class="align-middle" width="116px">Actions</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($responsables as $responsable)
-                                            <tr>
-                                                <td>{{ $responsable->nom }}</td>
-                                                <td>{{ $responsable->prenom }}</td>
-                                                <td>{{ $responsable->email}}</td>
-                                                <td>{{ $responsable->telephone }}</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        @hasPermission("responsables/show")
-                                                        <a class="btn btn-sm btn-outline-primary"
-                                                           href="{{ route("web.responsables.show", [$responsable]) }}">
-                                                            <i class="fas fa-info-circle"></i>
-                                                            Détails
-                                                        </a>
-                                                        @endHas
-                                                        @hasPermission("responsables/edit")
-                                                        <a class="btn btn-sm btn-outline-primary"
-                                                           href="{{ route("web.responsables.edit", [$responsable]) }}">
-                                                            Éditer
-                                                        </a>
-                                                        @endHas
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        @endif
-                    @endempty
-                </div>
-            @endif
-        </div>
-    </div>
+						@if(count($responsables) > 0)
+							<div class="col-12 mt-3">
+								<div class="table-responsive">
+									<table id="table" class="table table-stripped">
+										<thead class="gemah-bg-primary">
+											<tr class="align-middle">
+												<th class="align-middle">Nom</th>
+												<th class="align-middle">Prénom</th>
+												<th class="align-middle">Adresse E-Mail</th>
+												<th class="align-middle">Téléphone</th>
+												<th class="align-middle" width="116px">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($responsables as $responsable)
+												<tr>
+													<td>{{ $responsable->nom }}</td>
+													<td>{{ $responsable->prenom }}</td>
+													<td>{{ $responsable->email}}</td>
+													<td>{{ $responsable->telephone }}</td>
+													<td class="btn-group">
+														@hasPermission("responsables/show")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+															<i class="fas fa-info-circle"></i>
+															Détails
+														</a>
+														@endHas
+														@hasPermission("responsables/show")
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+															Éditer
+														</a>
+														@endHas
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						@endif
+					@endempty
+				</div>
+			@endif
+		</div>
+	</div>
 
 @endsection
 

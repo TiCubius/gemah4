@@ -178,6 +178,7 @@ class PermissionsSeeder extends Seeder
 
 		"statistiques/index"    => "Peut afficher le menu des statistiques",
 		"statistiques/generale" => "Peut afficher les statistiques générales",
+		"statistiques/listeDecisionsExpirees" => "Peut afficher la liste des décisions expirées"
 	];
 
 	/**

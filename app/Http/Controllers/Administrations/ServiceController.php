@@ -111,7 +111,7 @@ class ServiceController extends Controller
 	 * @param Service                   $service
 	 * @return RedirectResponse
 	 */
-	public function update(Request $request, Service $service): RedirectResponse
+	public function update(Request $request, Service $service)
 	{
 		$request->validate([
 			"nom"            => "required|max:191|unique_with:services,departement_id,{$service->id}",
@@ -127,6 +127,9 @@ class ServiceController extends Controller
 
 			// On supprime toutes les permissions du service
 			$service->permissions()->detach();
+
+			// On indique que le service a été modifié
+			$service->touch();
 
 			// On réaffecte les nouvelles permissions
 			foreach ($request->input("permissions") as $key => $value) {

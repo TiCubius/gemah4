@@ -38,7 +38,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form method="POST" action="{{ route("web.conventions.update", ["" => $eleves]) }}">
+			<form id="form" action="{{ route("web.conventions.update") }}" method="POST" >
 				{{ csrf_field() }}
 				{{ method_field("PATCH") }}
 
@@ -77,7 +77,7 @@
 				</div>
 
 				@hasPermission("conventions/edit")
-				<button type="submit" class="btn btn-menu btn-outline-primary float-right my-3">Enregistrer</button>
+				<button type="submit" class="btn btn-menu btn-outline-primary float-right my-3 js-submit">Enregistrer</button>
 				@endHas
 			</form>
 		</div>
@@ -112,10 +112,21 @@
 
 @endsection
 
+@include("web._includes.sidebars.conventions")
+
 @section("scripts")
 	<script>
-		$(function () {
-			$('[data-toggle="tooltip"]').tooltip()
+		$(`.js-submit`).on(`click`, (e) => {
+			e.preventDefault()
+
+			$(`#form`).submit()
+		})
+	</script>
+
+	<script>
+		$(`input`).on(`click`, (e) => {
+			$(`#alert`).removeClass(`d-none`)
+			$(`.js-submit`).removeClass(`btn-outline-primary`).addClass(`btn-primary`)
 		})
 	</script>
 

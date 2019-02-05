@@ -51,9 +51,6 @@
 			<section style="margin-top: 50px; text-align: center;">
 				Signature
 			</section>
-
 		</section>
-
-
 	</body>
 </html>

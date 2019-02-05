@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Decision;
-use App\Models\TypeDecision;
-use App\Observers\DecisionObserver;
 use App\Models\Academie;
+use App\Models\Decision;
 use App\Models\Departement;
 use App\Models\Document;
 use App\Models\DomaineMateriel;
@@ -20,12 +18,14 @@ use App\Models\Responsable;
 use App\Models\Service;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
+use App\Models\TypeDecision;
 use App\Models\TypeDocument;
 use App\Models\TypeEtablissement;
 use App\Models\TypeMateriel;
 use App\Models\TypeTicket;
 use App\Models\Utilisateur;
 use App\Observers\AcademieObserver;
+use App\Observers\DecisionObserver;
 use App\Observers\DepartementObserver;
 use App\Observers\DocumentObserver;
 use App\Observers\DomaineMaterielObserver;
@@ -47,67 +47,64 @@ use App\Observers\TypeTicketObserver;
 use App\Observers\UtilisateurObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Schema::defaultStringLength(191);
+	/**
+	 * Bootstrap any application services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		// Schema::defaultStringLength(191);
 
-        Decision::observe(DecisionObserver::class);
+		Decision::observe(DecisionObserver::class);
 
-        Region::observe(RegionObserver::class);
-        Academie::observe(AcademieObserver::class);
-        Departement::observe(DepartementObserver::class);
+		Region::observe(RegionObserver::class);
+		Academie::observe(AcademieObserver::class);
+		Departement::observe(DepartementObserver::class);
 
-        Responsable::observe(ResponsableObserver::class);
-        Enseignant::observe(EnseignantObserver::class);
-        Etablissement::observe(EtablissementObserver::class);
-        TypeEtablissement::observe(TypeEtablissementObserver::class);
-        Eleve::observe(EleveObserver::class);
-        TypeDecision::observe(TypeDecisionObserver::class);
+		Responsable::observe(ResponsableObserver::class);
+		Enseignant::observe(EnseignantObserver::class);
+		Etablissement::observe(EtablissementObserver::class);
+		TypeEtablissement::observe(TypeEtablissementObserver::class);
+		Eleve::observe(EleveObserver::class);
+		TypeDecision::observe(TypeDecisionObserver::class);
 
-        Ticket::observe(TicketObserver::class);
-        TicketMessage::observe(TicketMessageObserver::class);
-        TypeTicket::observe(TypeTicketObserver::class);
+		Ticket::observe(TicketObserver::class);
+		TicketMessage::observe(TicketMessageObserver::class);
+		TypeTicket::observe(TypeTicketObserver::class);
 
-        Document::observe(DocumentObserver::class);
-        TypeDocument::observe(TypeDocumentObserver::class);
+		Document::observe(DocumentObserver::class);
+		TypeDocument::observe(TypeDocumentObserver::class);
 
-        DomaineMateriel::observe(DomaineMaterielObserver::class);
-        EtatAdministratifMateriel::observe(EtatAdministratifMaterielObserver::class);
-        EtatPhysiqueMateriel::observe(EtatPhysiqueMaterielObserver::class);
-        Materiel::observe(MaterielObserver::class);
-        TypeMateriel::observe(TypeMaterielObserver::class);
+		DomaineMateriel::observe(DomaineMaterielObserver::class);
+		EtatAdministratifMateriel::observe(EtatAdministratifMaterielObserver::class);
+		EtatPhysiqueMateriel::observe(EtatPhysiqueMaterielObserver::class);
+		Materiel::observe(MaterielObserver::class);
+		TypeMateriel::observe(TypeMaterielObserver::class);
 
-        Service::observe(ServiceObserver::class);
-        Utilisateur::observe(UtilisateurObserver::class);
+		Service::observe(ServiceObserver::class);
+		Utilisateur::observe(UtilisateurObserver::class);
 
-        Blade::directive('hasPermission', function ($permission)
-        {
-            return "<?php if(Session::has('user') && Session::get('user')->service->permissions->contains('id', $permission)) { ?>";
-        });
+		Blade::directive('hasPermission', function ($permission) {
+			return "<?php if(Session::has('user') && Session::get('user')->service->permissions->contains('id', $permission)) { ?>";
+		});
 
-        Blade::directive('endHas', function()
-        {
-            return "<?php } ?>";
-        });
-    }
+		Blade::directive('endHas', function () {
+			return "<?php } ?>";
+		});
+	}
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
+	/**
+	 * Register any application services.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		//
+	}
 }

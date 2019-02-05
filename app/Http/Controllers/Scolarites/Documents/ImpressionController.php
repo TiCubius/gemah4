@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Scolarites\Documents;
 use App\Http\Controllers\Controller;
 use App\Models\Eleve;
 use App\Models\Parametre;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -32,7 +32,7 @@ class ImpressionController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function consignes(): Response
+	public function consignes()
 	{
 		return PDF::loadView('pdf.consignes')->stream();
 	}

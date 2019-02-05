@@ -19,7 +19,7 @@
 				<img src="{{ resource_path("images/dsden-logo.png") }}">
 			</section>
 
-			<section class="content" style="margin-top: 50px; font-size: 12px;">
+			<section class="content" style="margin-top: 50px; font-size: 14px;">
 				<h2>Récapitulatif</h2>
 
 				<section style="height: 137px;">

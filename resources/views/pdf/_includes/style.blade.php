@@ -49,12 +49,12 @@
 	}
 
 	th, td {
-		padding: 8px;
+		padding: 4px;
 		text-align: center;
-		padding: 0;
 	}
 
 	tr:nth-child(even) {
+		font-size: 14px;
 		background-color: #f2f2f2
 	}
 

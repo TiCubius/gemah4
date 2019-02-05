@@ -46,5 +46,8 @@
 				</section>
 			</section>
 		</body>
+		@if(!$loop->last)
+			<div class="new-page"></div>
+		@endif
 	@endforeach
 </html>

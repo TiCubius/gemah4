@@ -21,13 +21,16 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xl-2 d-none d-xl-block text-center">
-					@include("web._includes.sidebar")
-					@if(View::hasSection('sidebar'))
-						<div class="col-12">
-							<hr>
-							@yield("sidebar")
-						</div>
-					@endif
+					<div class="sticky-top">
+
+						@include("web._includes.sidebar")
+						@if(View::hasSection('sidebar'))
+							<div class="col-12">
+								<hr>
+								@yield("sidebar")
+							</div>
+						@endif
+					</div>
 				</div>
 
 				<div class="col-12 col-xl-10">

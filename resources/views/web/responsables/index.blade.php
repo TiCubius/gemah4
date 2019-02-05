@@ -140,7 +140,7 @@
 													<td>{{ $responsable->prenom }}</td>
 													<td>{{ $responsable->email}}</td>
 													<td>{{ $responsable->telephone }}</td>
-													<td>
+													<td class="btn-group">
 														@hasPermission("responsables/show")
 														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
 															<i class="fas fa-info-circle"></i>

@@ -8,47 +8,48 @@
 
 	<div class="row">
 		<div class="col-12">
+			@if($tickets->isEmpty())
+				<div class="alert alert-warning">
+					Aucun ticket n'est enregistré pour cet(te) élève
+				</div>
+			@else
+				@foreach($tickets as $ticket)
+					<div class="col-6 float-left mb-3">
+						<div class="card">
+							<div class="card-body">
+								<p class="mb-0">
+									<strong>Libellé</strong>:
+									{{ $ticket->libelle }}
+								</p>
+								<hr>
+								<p class="mb-0">
+									<strong>Type</strong>:
+									{{ $ticket->type->libelle }}
+								</p>
+								<p class="mb-0">
+									<strong>Soumis le</strong>:
+									{{ \Carbon\Carbon::parse($ticket->created_at)->format("d/m/Y H:i:s") }}
+								</p>
+							</div>
 
-			@foreach($tickets as $ticket)
-				<div class="col-6 float-left mb-3">
-
-					<div class="card">
-						<div class="card-body">
-							<p class="mb-0">
-								<strong>Libellé</strong>:
-								{{ $ticket->libelle }}
-							</p>
-							<hr>
-							<p class="mb-0">
-								<strong>Type</strong>:
-								{{ $ticket->type->libelle }}
-							</p>
-							<p class="mb-0">
-								<strong>Soumis le</strong>:
-								{{ \Carbon\Carbon::parse($ticket->created_at)->format("d/m/Y H:i:s") }}
-							</p>
-						</div>
-
-						<div class="card-footer gemah-bg-primary d-flex justify-content-between">
-							@hasPermission("eleves/tickets/edit")
-							<a role="button" href="{{ route('web.scolarites.eleves.tickets.edit', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-warning">
-								<i class="fas fa-edit"></i>
-								Éditer
-							</a>
-							@endHas
-							@hasPermission("eleves/tickets/show")
-							<a role="button" href="{{ route('web.scolarites.eleves.tickets.show', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-light">
-								<i class="far fa-eye"></i>
-								Visualiser
-							</a>
-							@endHas
+							<div class="card-footer gemah-bg-primary d-flex justify-content-between">
+								@hasPermission("eleves/tickets/edit")
+								<a role="button" href="{{ route('web.scolarites.eleves.tickets.edit', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-warning">
+									<i class="fas fa-edit"></i>
+									Éditer
+								</a>
+								@endHas
+								@hasPermission("eleves/tickets/show")
+								<a role="button" href="{{ route('web.scolarites.eleves.tickets.show', [$eleve, $ticket]) }}" class="btn btn-sm btn-outline-light">
+									<i class="far fa-eye"></i>
+									Visualiser
+								</a>
+								@endHas
+							</div>
 						</div>
 					</div>
-				</div>
-
-
-			@endforeach
-
+				@endforeach
+			@endif
 		</div>
 	</div>
 

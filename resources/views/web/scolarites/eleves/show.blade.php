@@ -76,10 +76,25 @@
 					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
 						Etablissement
 
-						@hasPermission("affectations/etablissements/detach")
-						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-etablissements-{{ $eleve->etablissement->id }}">Désaffecter
-						</button>
-						@endHas
+						<div class="btn btn-outline-light btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Gestion établissement
+						</div>
+
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							@hasPermission("responsables/show")
+							<a class="dropdown-item" href="{{ route("web.scolarites.etablissements.show", [$eleve->etablissement]) }}" target="_blank">Détails de l'établissement</a>
+							@endHas
+							@hasPermission("responsables/edit")
+							<a class="dropdown-item" href="{{ route("web.scolarites.etablissements.edit", [$eleve->etablissement]) }}" target="_blank">Éditer l'établissement</a>
+							@endHas
+
+							<div class="dropdown-divider"></div>
+							@hasPermission("affectations/responsables/detach")
+							<div class="dropdown-item">
+								<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-etablissements-{{ $eleve->etablissement->id }}">Désaffecter l'établissement</button>
+							</div>
+							@endHas
+						</div>
 					</div>
 
 					<div class="card-body">
@@ -100,9 +115,28 @@
 					<div class="card-header gemah-bg-primary d-flex align-items-center justify-content-between">
 						Responsable
 
-						@hasPermission("affectations/responsables/detach")
-						<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-responsable-{{ $responsable->id }}">Désaffecter</button>
-						@endHas
+						<div class="btn btn-outline-light btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Gestion responasble
+						</div>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							@hasPermission("responsables/show")
+							<a class="dropdown-item" href="{{ route("web.responsables.show", [$responsable]) }}" target="_blank">
+								Détails du responsable
+							</a>
+							@endHas
+							@hasPermission("responsables/edit")
+							<a class="dropdown-item" href="{{ route("web.responsables.edit", [$responsable]) }}" target="_blank">
+								Éditer le responsable
+							</a>
+							@endHas
+
+							<div class="dropdown-divider"></div>
+							@hasPermission("affectations/responsables/detach")
+							<div class="dropdown-item">
+								<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-responsable-{{ $responsable->id }}">Désaffecter le responsable</button>
+							</div>
+							@endHas
+						</div>
 					</div>
 
 					<div class="card-body">
@@ -148,7 +182,7 @@
 												<a href="{{ route('web.materiels.stocks.show', [$materiel]) }}" class="btn btn-sm btn-outline-primary">Détail</a>
 												@endHas
 												@hasPermission("affectations/materiels/detach")
-												<button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#modal-materiel-{{ $materiel->id }}">Désaffecter
+												<button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#modal-materiel-{{ $materiel->id }}">Désaffecter
 												</button>
 												@endHas
 											</div>
@@ -170,7 +204,6 @@
 					</div>
 				</div>
 			</div>
-
 		@elseif($eleve->prix_global > 0)
 			<div class="col-12">
 				<div class="card text-center mb-3">
@@ -214,11 +247,3 @@
 @endsection
 
 @include("web._includes.sidebars.eleve")
-
-@section("scripts")
-	<script>
-		$(function () {
-			$('[data-toggle="tooltip"]').tooltip()
-		})
-	</script>
-@endsection

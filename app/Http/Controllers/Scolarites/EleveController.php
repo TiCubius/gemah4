@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\EleveCreatedMail;
 use App\Models\Academie;
 use App\Models\Eleve;
+use App\Models\Responsable;
 use App\Models\TypeDecision;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -109,6 +110,7 @@ class EleveController extends Controller
 	{
 		$academies = Academie::with("departements")->get();
 		$types = TypeDecision::all();
+		$eleve->load("responsables.eleves");
 
 		return view("web.scolarites.eleves.edit", compact("academies", "eleve", "types"));
 	}
@@ -143,22 +145,15 @@ class EleveController extends Controller
 	 * @return RedirectResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Eleve $eleve): RedirectResponse
+	public function destroy(Eleve $eleve, Request $request): RedirectResponse
 	{
-//		$errors = [];
-//		if ($eleve->responsables->isNotEmpty()) {
-//			$errors[] = "Impossible de supprimer un élève tant qu'il a des responsables affectés";
-//		}
-//
-//		if ($eleve->materiels->isNotEmpty()) {
-//			$errors[] = "Impossible de supprimer un élève tant qu'il a des matériels affectés";
-//		}
-//
-//		if (count($errors) >= 1) {
-//			return back()->withErrors($errors);
-//		}
 
 		$eleve->delete();
+		if ($request->has("delete-responsables")) {
+			foreach ($request->input("delete-responsables") as $responsbale) {
+				Responsable::find("$responsbale")->delete();
+			}
+		}
 
 		return redirect(route("web.scolarites.eleves.index"));
 	}

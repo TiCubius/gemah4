@@ -87,7 +87,6 @@
 									</tbody>
 								</table>
 							</div>
-					</div>
 					<div class="card-footer d-flex justify-content-between">
 						<div data-toggle="tooltip" data-placement="bottom" title="Le prix global correspond au prix de tout les matériels qui ont été affectés et désaffectés de cet élève">
 							<strong>Prix global</strong> : {{ $eleve->prix_global }} €
@@ -98,19 +97,19 @@
 						</div>
 					</div>
 					@elseif($eleve->prix_global > 0)
-				</div>
-				<div class="card-footer">
-					<strong>Aucun matériel assigné</strong>
-				</div>
+						<div class="card-footer">
+							<strong>Aucun matériel assigné</strong>
+						</div>
 
-				<div class="card-footer" data-toggle="tooltip" data-placement="bottom" title="Le prix global correspond au prix de tout les matériels qui ont été affectés et désaffectés de cet élève">
-					<strong>Prix global</strong>: {{ $eleve->prix_global }} €
+						<div class="card-footer" data-toggle="tooltip" data-placement="bottom" title="Le prix global correspond au prix de tout les matériels qui ont été affectés et désaffectés de cet élève">
+							<strong>Prix global</strong>: {{ $eleve->prix_global }} €
+						</div>
+					@endif
+					</div>
 				</div>
 			</div>
-	</div>
-	@endif</div>
-	</div>
 	@endforeach
+	</div>
 
 
 @endsection

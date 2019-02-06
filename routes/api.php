@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,3 +10,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+use Illuminate\Support\Facades\Route;
+
+Route::group(["middleware" => ["authentification"]], function () {
+	Route::resource("scolarites/eleves", "Api\Scolarites\EleveController");
+	Route::resource("responsables", "Api\Responsables\ResponsableController");
+});

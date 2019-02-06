@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Scolarites;
 
 use App\Http\Controllers\Controller;
-use App\Mail\EleveCreatedMail;
 use App\Models\Academie;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use App\Models\TypeDecision;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class EleveController extends Controller
@@ -58,11 +56,14 @@ class EleveController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
+		$dateAfter = Carbon::now()->subYear(50);
+		$dateBefore = Carbon::now()->addYear(50);
+
 		$request->validate([
 			"nom"            => "required|max:255",
 			"prenom"         => "required|max:255",
-			"date_naissance" => "required|date",
-			"classe"         => "required",
+			"date_naissance" => "required|date|before:{$dateBefore},after:{$dateAfter}",
+			"classe"         => "nullable|max:255",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves",
 		]);
@@ -124,11 +125,14 @@ class EleveController extends Controller
 	 */
 	public function update(Request $request, Eleve $eleve): RedirectResponse
 	{
+		$dateAfter = Carbon::now()->subYear(50);
+		$dateBefore = Carbon::now()->addYear(50);
+
 		$request->validate([
 			"nom"            => "required|max:255",
 			"prenom"         => "required|max:255",
-			"date_naissance" => "required|date",
-			"classe"         => "required",
+			"date_naissance" => "required|date|before:{$dateBefore},after:{$dateAfter}",
+			"classe"         => "nullable|max:255",
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
 		]);
@@ -141,13 +145,13 @@ class EleveController extends Controller
 	/**
 	 * DELETE - Supprime l'élève
 	 *
-	 * @param Eleve $eleve
+	 * @param Eleve   $eleve
+	 * @param Request $request
 	 * @return RedirectResponse
 	 * @throws \Exception
 	 */
 	public function destroy(Eleve $eleve, Request $request): RedirectResponse
 	{
-
 		$eleve->delete();
 		if ($request->has("delete-responsables")) {
 			foreach ($request->input("delete-responsables") as $responsbale) {

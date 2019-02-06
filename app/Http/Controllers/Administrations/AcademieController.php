@@ -56,16 +56,16 @@ class AcademieController extends Controller
 		return redirect(route("web.administrations.academies.index"));
 	}
 
-    /**
-     * GET - Affiche les données d'une académie
-     *
-     * @param Academie $academie
-     * @return View
-     */
-    public function show(Academie $academie): View
-    {
-        return view("web.administrations.academies.show", compact("academie"));
-    }
+	/**
+	 * GET - Affiche les données d'une académie
+	 *
+	 * @param Academie $academie
+	 * @return View
+	 */
+	public function show(Academie $academie): View
+	{
+		return view("web.administrations.academies.show", compact("academie"));
+	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'une académie

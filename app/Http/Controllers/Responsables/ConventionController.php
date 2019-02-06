@@ -8,13 +8,13 @@ use App\Models\Eleve;
 use App\Models\Parametre;
 use App\Models\Responsable;
 use App\Models\TypeDecision;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
-use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class ConventionController extends Controller
 {

@@ -46,15 +46,15 @@ class Etablissement extends Model
 		return $this->belongsTo(TypeEtablissement::class, "type_etablissement_id");
 	}
 
-    /**
-     * Un établissement peut ête lié à plusieurs élèves
-     *
-     * @return HasMany
-     */
-    public function eleves(): HasMany
-    {
-        return $this->hasMany(Eleve::class);
-    }
+	/**
+	 * Un établissement peut ête lié à plusieurs élèves
+	 *
+	 * @return HasMany
+	 */
+	public function eleves(): HasMany
+	{
+		return $this->hasMany(Eleve::class);
+	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante

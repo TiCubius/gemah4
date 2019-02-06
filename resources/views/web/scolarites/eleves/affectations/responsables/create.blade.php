@@ -7,7 +7,7 @@
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.scolarites.eleves.affectations.responsables.store", [$eleve]) }}" method="POST">
+			<form id="form" class="mb-3" action="{{ route("web.scolarites.eleves.affectations.responsables.store", [$eleve]) }}" method="POST">
 				{{ csrf_field() }}
 
 				@component("web._includes.components.departement", ["academies" => $academies])
@@ -61,10 +61,47 @@
 				</div>
 
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer</button>
+					<button class="btn btn-sm btn-outline-success js-submit">Créer</button>
 				</div>
 			</form>
 		</div>
 
 	</div>
+@endsection
+
+
+@component("web._includes.components.modals.duplicate")
+	@slot("type")
+		Le responsable
+	@endslot
+@endcomponent
+
+@section("scripts")
+
+	<script>
+		$(`.js-submit`).on(`click`, (e) => {
+			e.preventDefault()
+
+			let nom = $(`#nom`).val()
+			let prenom = $(`#prenom`).val()
+
+			if (nom !== "" && prenom !== "") {
+				$.get(`/api/responsables?nom=${nom}&prenom=${prenom}`).then((results) => {
+					if (results.length >= 1) {
+						// Un élève du même nom/prénom existe déjà
+						$(`#modal`).modal()
+					} else {
+						$(`#form`).submit()
+					}
+				}).catch(console.error)
+			}
+		})
+
+		$(`.js-force-submit`).on(`click`, (e) => {
+			e.preventDefault()
+
+			$(`#form`).submit()
+		})
+	</script>
+
 @endsection

@@ -30,7 +30,16 @@ class Eleve extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		"etablissement_id", "departement_id", "nom", "prenom", "code_ine", "classe", "joker", "prix_global", "date_naissance", "date_rendu_definitive",
+		"etablissement_id",
+		"departement_id",
+		"nom",
+		"prenom",
+		"code_ine",
+		"classe",
+		"joker",
+		"prix_global",
+		"date_naissance",
+		"date_rendu_definitive",
 	];
 
 

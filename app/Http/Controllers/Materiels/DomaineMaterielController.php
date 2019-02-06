@@ -53,12 +53,12 @@ class DomaineMaterielController extends Controller
 	 * GET - Affiche les données d'un domaine matériel
 	 *
 	 * @param DomaineMateriel $domaine
-     * @return View
-     */
-    public function show(DomaineMateriel $domaine): View
-    {
-        return view("web.materiels.domaines.show", compact("domaine"));
-    }
+	 * @return View
+	 */
+	public function show(DomaineMateriel $domaine): View
+	{
+		return view("web.materiels.domaines.show", compact("domaine"));
+	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'un domaine matériel

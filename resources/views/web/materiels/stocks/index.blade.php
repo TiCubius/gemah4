@@ -216,7 +216,7 @@
 													<td>{{ $materiel->etatPhysique->libelle }}</td>
 													<td>
 														@hasPermission("materiels/stocks/show")
-															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
 														@endHas
 													</td>
 												</tr>
@@ -239,7 +239,7 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"language": {
-					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+					"url": "{{ asset("assets/js/dataTables.french.json") }}",
 				},
 				"info": false,
 				"columnDefs": [

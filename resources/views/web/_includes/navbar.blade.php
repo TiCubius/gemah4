@@ -1,3 +1,13 @@
+@if(env("APP_ENV") === "local")
+	<div class="navbar_message d-flex">
+		VERSION DE DÉVELOPPEMENT: Aucune modification ne sera sauvegardée
+
+		<div class="ml-3">
+			<a href="{{ env("APP_URL") }}:1080"> Serveur mail</a>
+		</div>
+	</div>
+@endif
+
 <nav class="navbar navbar-expand-xl navbar-dark gemah-bg-primary mb-3">
 	<a class="navbar-brand" href="{{ route('web.index') }}">GEMAH</a>
 

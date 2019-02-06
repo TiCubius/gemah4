@@ -100,7 +100,7 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 
 		Route::resource("departements", "Administrations\DepartementController");
 		Route::resource("academies", "Administrations\AcademieController")->parameters([
-			"academies" => "academie"
+			"academies" => "academie",
 		]);
 		Route::resource("regions", "Administrations\RegionController");
 

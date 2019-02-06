@@ -52,6 +52,16 @@
 		@slot("name")
 			{{ "{$eleve->nom} {$eleve->prenom}" }}
 		@endslot
+		@foreach($eleve->responsables as $responsable)
+			@if($responsable->eleves->count() <= 1 )
+				{{ "{$responsable->nom} {$responsable->prenom} ne sera affecté a aucun élève après cette suppression"}}
+
+				<div class="custom-control custom-checkbox">
+					<input id="delete-responsables[]" class="custom-control-input" name="delete-responsables[]" value="{{$responsable->id}}" type="checkbox">
+					<label class="custom-control-label" for="delete-responsables[]">Supprimer {{ "{$responsable->nom} {$responsable->prenom}"}}</label>
+				</div>
+			@endif
+		@endforeach
 	@endcomponent
 
 @endsection

@@ -18,7 +18,7 @@
 				<div class="row">
 					{{-- Des matériels existent sur l'application --}}
 
-					<div class="col-12 @empty($materiels) col-lg-6 @endempty">
+					<div class="col-12 mb-3 @empty($materiels) col-lg-6 @endempty">
 						<form class="card" method="GET">
 							{{-- Formulaire de recherche --}}
 
@@ -99,7 +99,7 @@
 					</div>
 
 					@empty($materiels)
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							{{-- Liste des derrniers matériels créés --}}
 
 							<div class="card mb-3">

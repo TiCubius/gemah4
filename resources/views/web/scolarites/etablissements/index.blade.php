@@ -18,7 +18,7 @@
 				<div class="row">
 					{{-- Des établissements existent sur l'application --}}
 
-					<div class="col-12 @empty($etablissements) col-lg-6 @endempty">
+					<div class="col-12 mb-3 @empty($etablissements) col-lg-6 @endempty">
 						<form class="card" method="GET">
 							{{-- Formulaire de recherche --}}
 
@@ -51,7 +51,7 @@
 					</div>
 
 					@empty($etablissements)
-						<div class="col-6">
+						<div class="col-12 col-lg-6">
 							{{-- Liste des derrniers établissements créés --}}
 
 							<div class="card mb-3">

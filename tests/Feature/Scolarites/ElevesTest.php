@@ -378,6 +378,56 @@ class ElevesTest extends TestCase
 	}
 
 	/**
+	 * Vérifie que la possibilité de suppression du responsbale est bien présente lors de la
+	 * suppression d'un élève associé à un responsable affecté a aucun autre eleve
+	 */
+	public function testAffichageSuppressionEleveAvecResponsablesSansAutresEleve()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$responsable = factory(Responsable::class)->create();
+		$responsable->eleves()->attach($eleve);
+
+
+		$request = $this->get("/scolarites/eleves/{$eleve->id}/edit");
+
+		$request->assertStatus(200);
+
+		$request->assertSee("{$responsable->nom} {$responsable->prenom} ne sera affecté a aucun élève après cette suppression");
+		$request->assertSee("Supprimer {$responsable->nom} {$responsable->prenom }");
+	}
+
+	/**
+	 * Vérifie qu'une erreur est présente lors de la suppression d'un élève associé à un
+	 * responsable, et que l'éleve n'a pas été supprimé
+	 */
+	public function testTraitementSuppressionEleveAvecResponsablesSansAutresEleve()
+	{
+		$eleve = factory(Eleve::class)->create();
+		$responsable = factory(Responsable::class)->create();
+		$responsable->eleves()->attach($eleve);
+
+		$request = $this->delete("/scolarites/eleves/{$eleve->id}",[
+			"delete-responsables"=>[$responsable->id]
+		]);
+
+		$request->assertStatus(302);
+		$request->assertSessionHasNoErrors();
+		$this->assertDatabaseMissing("eleves", ["id" => $eleve->id]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id" => $this->user->id,
+			"type" => "eleve/deleted",
+			"information" => "L'élève {$eleve->nom} {$eleve->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+		]);
+		$this->assertDatabaseMissing("responsables", ["id" => $responsable->id]);
+		$this->assertDatabaseHas("historiques", [
+			"from_id" => $this->user->id,
+			"type" => "responsable/deleted",
+			"information" => "Le responsable {$responsable->nom} {$responsable->prenom} à été supprimé par {$this->user->nom} {$this->user->prenom}"
+		]);
+
+
+	}
+	/**
 	 * Vérifie qu'aucune erreur n'est présente et que l'éleve à bien été supprimé
 	 */
 	public function testTraitementSuppressionEleve()

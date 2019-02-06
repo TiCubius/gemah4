@@ -43,6 +43,7 @@ class StatistiquesTest extends TestCase
 		$getRoutes = [
 		    "/statistiques",
             "/statistiques/generale",
+            "/statistiques/liste",
 		];
 
 

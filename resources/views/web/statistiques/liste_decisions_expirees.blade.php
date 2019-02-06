@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.statistiques.index"])
-			Liste des élèves dont la décision à expiré
+			Liste des élèves dont la décision a expiré
 		@endcomponent
 
 		<div class="col-12">

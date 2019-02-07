@@ -52,7 +52,7 @@ class CreateHistoriquesTable extends Migration
 
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('set null');
             $table->foreign('academie_id')->references('id')->on('academies')->onDelete('set null');
-            $table->foreign('departement_id')->references('id')->on('departements')->onDelete('set null');
+            $table->foreign('departement_id')->references('id')->on('departements')->onDelete('set null')->onUpdate('cascade');
 
             $table->foreign('responsable_id')->references('id')->on('responsables')->onDelete('set null');
             $table->foreign('enseignant_id')->references('id')->on('enseignants')->onDelete('set null');

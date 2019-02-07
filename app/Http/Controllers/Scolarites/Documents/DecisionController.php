@@ -69,8 +69,8 @@ class DecisionController extends Controller
 	 */
 	public function store(Request $request, Eleve $eleve): RedirectResponse
 	{
-		$dateAfter = Carbon::now()->subYear(25);
-		$dateBefore = Carbon::now()->addYear(25);
+		$dateAfter = Carbon::now()->subYear(50);
+		$dateBefore = Carbon::now()->addYear(50);
 
 		$request->validate([
 			"date_limite"       => "nullable|date|before:{$dateBefore},after:{$dateAfter}",

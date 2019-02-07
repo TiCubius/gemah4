@@ -30,12 +30,21 @@ class Eleve extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		"etablissement_id", "departement_id", "nom", "prenom", "code_ine", "classe", "joker", "prix_global", "date_naissance", "date_rendu_definitive",
+		"etablissement_id",
+		"departement_id",
+		"nom",
+		"prenom",
+		"code_ine",
+		"classe",
+		"joker",
+		"prix_global",
+		"date_naissance",
+		"date_rendu_definitive",
 	];
 
 
 	/***
-	 * Un élève peut avoir plusieurs décisions
+	 * Un élève possède plusieurs décisions
 	 *
 	 * @return HasManyThrough
 	 */
@@ -44,8 +53,18 @@ class Eleve extends Model
 		return $this->hasManyThrough(Decision::class, Document::class);
 	}
 
+	/**
+	 * Un élève appartient à un département
+	 *
+	 * @return BelongsTo
+	 */
+	public function departement(): BelongsTo
+	{
+		return $this->belongsTo(Departement::class);
+	}
+
 	/***
-	 * Un élève peut avoir plusieurs documents
+	 * Un élève possède plusieurs documents
 	 *
 	 * @return HasMany
 	 */
@@ -65,7 +84,7 @@ class Eleve extends Model
 	}
 
 	/***
-	 * Un élève peut avoir plusieurs matériels
+	 * Un élève possède plusieurs matériels
 	 *
 	 * @return HasMany
 	 */
@@ -85,10 +104,16 @@ class Eleve extends Model
 		return $this->belongsToMany(Responsable::class)->withPivot('etat_signature', 'date_signature');
 	}
 
+	/**
+	 * Un élève possède plusieurs tickets
+	 *
+	 * @return HasMany
+	 */
 	public function tickets(): HasMany
 	{
 		return $this->hasMany(Ticket::class);
 	}
+
 
 	/**
 	 * Un élève appartient à plusieurs types

@@ -35,10 +35,10 @@ class Utilisateur extends Model
 	}
 
 	/**
-     * Un utilisateur est auteur de lignes d'historique
-     */
+	 * Un utilisateur est auteur de lignes d'historique
+	 */
 	public function historiques(): HasMany
-    {
-        return $this->hasMany(Historique::class, "from_id");
-    }
+	{
+		return $this->hasMany(Historique::class, "from_id");
+	}
 }

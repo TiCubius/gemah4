@@ -216,7 +216,7 @@ class TypesDocumentsTest extends TestCase
 	{
 		$type = factory(TypeDocument::class)->create();
 		$document = factory(Document::class)->create();
-		$document->typeDocument()->associate($type);
+		$document->type()->associate($type);
 		$document->save();
 
 		$request = $this->delete("/administrations/types/documents/{$type->id}");

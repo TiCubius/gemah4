@@ -51,18 +51,18 @@ class EtatAdministratifMaterielController extends Controller
 		return redirect(route("web.administrations.materiels.etats.administratifs.index"));
 	}
 
-    /**
-     * GET - Affiche les données d'un état administratif matériel
-     *
-     * @param EtatAdministratifMateriel $administratif
-     * @return View
-     */
-    public function show(EtatAdministratifMateriel $administratif): View
-    {
+	/**
+	 * GET - Affiche les données d'un état administratif matériel
+	 *
+	 * @param EtatAdministratifMateriel $administratif
+	 * @return View
+	 */
+	public function show(EtatAdministratifMateriel $administratif): View
+	{
 		$administratif->load("materiels.eleve", "materiels.type", "materiels.etatAdministratif", "materiels.etatPhysique");
 
-        return view("web.administrations.materiels.etats.administratifs.show", compact("administratif"));
-    }
+		return view("web.administrations.materiels.etats.administratifs.show", compact("administratif"));
+	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'un état administratif matériel

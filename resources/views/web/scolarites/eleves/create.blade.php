@@ -1,52 +1,81 @@
 @extends('web._includes._master')
 @section('content')
-	<div class="row">
 
+	<div class="row">
 		@component("web._includes.components.title", ["back" => "web.scolarites.eleves.index"])
 			Création d'un élève
 		@endcomponent
 
 		<div class="col-12">
-			<form class="mb-3" action="{{ route("web.scolarites.eleves.store") }}" method="POST">
+			<form id="form" class="mb-3" action="{{ route("web.scolarites.eleves.store") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex : SMITH" value="{{ old("nom") }}" required>
-				</div>
-
-				<div class="form-group">
-					<label for="prenom">Prénom</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex : John" value="{{ old("prenom") }}" required>
-				</div>
-
-
-				<div class="form-group">
-					<label for="date_naissance">Date de naissance</label>
-					<input id="date_naissance" class="form-control" name="date_naissance" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_naissance") }}" required>
-				</div>
-
-				<div class="form-group">
-					<label for="classe">Classe</label>
-					<input id="classe" class="form-control" name="classe" type="text" placeholder="Ex : 1e" value="{{ old("classe") }}" required>
-				</div>
-
-
-				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: SMITH"])
+					Nom
 				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="code_ine">Code INE</label>
-					<input id="code_ine" class="form-control" name="code_ine" type="text" value="{{ old("code_ine") }}" placeholder="Ex : 0000000000X">
-				</div>
+				@component("web._includes.components.input", ["name" => "prenom", "placeholder" => "Ex: Jane"])
+					Prénom
+				@endcomponent
+
+				@component("web._includes.components.input", ["name" => "date_naissance", "placeholder" => "Ex: 07/01/2019", "type" => "date"])
+					Date de naissance
+				@endcomponent
+
+				@component("web._includes.components.input", ["optional" => true, "name" => "classe", "placeholder" => "Ex: 1e"])
+					Classe
+				@endcomponent
+
+				@component('web._includes.components.departement', ['academies' => $academies])
+				@endcomponent
+
+				@component("web._includes.components.input", ["optional" => true, "name" => "code_ine", "placeholder" => "Ex: 0000000000X"])
+					Code INE
+				@endcomponent
 
 				@hasPermission("eleves/create")
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-sm btn-outline-success">Créer</button>
+					<button class="btn btn-sm btn-outline-success js-submit">Créer</button>
 				</div>
 				@endHas
 			</form>
 		</div>
-
 	</div>
+
+@endsection
+
+@component("web._includes.components.modals.duplicate")
+	@slot("type")
+		L'élève
+	@endslot
+@endcomponent
+
+@section("scripts")
+
+	<script>
+		$(`.js-submit`).on(`click`, (e) => {
+			e.preventDefault()
+
+			let nom = $(`#nom`).val()
+			let prenom = $(`#prenom`).val()
+
+			if (nom !== "" && prenom !== "") {
+				$.get(`/api/scolarites/eleves?nom=${nom}&prenom=${prenom}`).then((results) => {
+					if (results.length >= 1) {
+						// Un élève du même nom/prénom existe déjà
+						$(`#modal`).modal()
+					} else {
+						$(`#form`).submit()
+					}
+				}).catch(console.error)
+			}
+		})
+
+		$(`.js-force-submit`).on(`click`, (e) => {
+			e.preventDefault()
+
+			$(`#form`).submit()
+		})
+	</script>
+
 @endsection

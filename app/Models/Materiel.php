@@ -56,6 +56,16 @@ class Materiel extends Model
 
 
 	/**
+	 * Un matériel appartient à un département
+	 *
+	 * @return BelongsTo
+	 */
+	public function departement()
+	{
+		return $this->belongsTo(Departement::class);
+	}
+
+	/**
 	 * Un matériel appartient à un élève
 	 *
 	 * @return BelongsTo

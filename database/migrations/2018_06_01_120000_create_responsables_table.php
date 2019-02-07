@@ -26,7 +26,7 @@ class CreateResponsablesTable extends Migration
 			$table->string('adresse')->nullable();
 			$table->string('departement_id');
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 
 			$table->timestamps();
 		});

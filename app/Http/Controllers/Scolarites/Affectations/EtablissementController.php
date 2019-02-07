@@ -66,7 +66,7 @@ class EtablissementController extends Controller
 			"eleve_id"         => $eleve->id,
 			"etablissement_id" => $etablissement->id,
 			"type"             => "etablissement/affectation",
-			"information"         => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
+			"information"      => "L'élève {$eleve->nom} {$eleve->prenom} à été affecté à l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
@@ -96,7 +96,7 @@ class EtablissementController extends Controller
 			"eleve_id"         => $eleve->id,
 			"etablissement_id" => $etablissement->id,
 			"type"             => "etablissement/desaffectation",
-			"information"         => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
+			"information"      => "L'élève {$eleve->nom} {$eleve->prenom} à été désaffecté de l'établissement {$etablissement->nom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));

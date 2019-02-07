@@ -9,7 +9,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					<i class="fas fa-map-marker-alt"></i>  Départements, Académies et Régions
+					<i class="fas fa-map-marker-alt"></i> Départements, Académies et Régions
 				</div>
 
 				@hasPermission("administrations/departements/index")
@@ -32,7 +32,7 @@
 		<div class="col-12 col-md-4">
 			<div class="list-group mb-3">
 				<div class="list-group-item flex-column align-items-start gemah-bg-primary">
-					<i class="fas fa-users-cog"></i>  Services et Utilisateurs
+					<i class="fas fa-users-cog"></i> Services et Utilisateurs
 				</div>
 
 				@hasPermission("administrations/services/index")

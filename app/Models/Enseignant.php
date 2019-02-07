@@ -33,15 +33,15 @@ class Enseignant extends Model
 		return $this->hasMany(Decision::class);
 	}
 
-    /**
-     * Un enseignant peut ête lié à plusieurs établissements
-     *
-     * @return HasMany
-     */
-    public function etablissements(): HasMany
-    {
-        return $this->hasMany(Etablissement::class);
-    }
+	/**
+	 * Un enseignant peut ête lié à plusieurs établissements
+	 *
+	 * @return HasMany
+	 */
+	public function etablissements(): HasMany
+	{
+		return $this->hasMany(Etablissement::class);
+	}
 
 	/**
 	 * Retourne un Query Builder triant les résultats par date de création décroissante

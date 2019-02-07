@@ -14,10 +14,10 @@ class Service extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-	    "nom",
-        "description",
-        "departement_id",
-    ];
+		"nom",
+		"description",
+		"departement_id",
+	];
 
 
 	/**

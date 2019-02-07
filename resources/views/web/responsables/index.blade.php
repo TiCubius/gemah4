@@ -40,7 +40,7 @@
 								@endcomponent
 
 								@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 01 23 45 67 89"])
-								Téléphone
+									Téléphone
 								@endcomponent
 
 								<div class="d-flex justify-content-between">
@@ -173,7 +173,7 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"language": {
-					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+					"url": "{{ asset("assets/js/dataTables.french.json") }}",
 				},
 				"info": false,
 				"columnDefs": [

@@ -24,11 +24,11 @@ class DomaineMateriel extends Model
 		"libelle",
 	];
 
-    protected $dispatchesEvents = [
-        "created" => DomaineMaterielObserver::class,
-        "updated" => DomaineMaterielObserver::class,
-        "deleted" => DomaineMaterielObserver::class
-    ];
+	protected $dispatchesEvents = [
+		"created" => DomaineMaterielObserver::class,
+		"updated" => DomaineMaterielObserver::class,
+		"deleted" => DomaineMaterielObserver::class,
+	];
 
 
 	/**

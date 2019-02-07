@@ -72,7 +72,7 @@ class MaterielController extends Controller
 			"eleve_id"    => $eleve->id,
 			"materiel_id" => $materiel->id,
 			"type"        => "materiel/affectation",
-			"information"    => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+			"information" => "Le materiel {$materiel->modele} à été affecté à l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));
@@ -103,7 +103,7 @@ class MaterielController extends Controller
 			"eleve_id"    => $eleve->id,
 			"materiel_id" => $materiel->id,
 			"type"        => "materiel/desaffectation",
-			"information"    => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
+			"information" => "Le materiel {$materiel->modele} à été désaffecté de l'élève {$eleve->nom} {$eleve->prenom} par {$user->nom} {$user->prenom}",
 		]);
 
 		return redirect(route("web.scolarites.eleves.show", [$eleve]));

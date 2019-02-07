@@ -38,7 +38,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form id="form" action="{{ route("web.conventions.update") }}" method="POST" >
+			<form id="form" action="{{ route("web.conventions.update") }}" method="POST">
 				{{ csrf_field() }}
 				{{ method_field("PATCH") }}
 

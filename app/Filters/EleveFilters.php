@@ -122,20 +122,10 @@ class EleveFilters extends QueryFilters
 	}
 
 	/**
-	 * FILTRE - Recherche sur le prénom
-	 *
+	 * Tri de la recherche
 	 * @param null $term
 	 * @return Builder|null
 	 */
-	public function prenom($term = null): ?Builder
-	{
-		if ($term) {
-			return $this->builder->where("prenom", "LIKE", "%{$term}%");
-		}
-
-		return null;
-	}
-
 	public function ordre($term = null): ?Builder
 	{
 		if ($term === "ASC/created_at") {
@@ -154,6 +144,21 @@ class EleveFilters extends QueryFilters
 			return $this->builder->orderBy("nom", "ASC")->orderBy("prenom", "ASC");
 		} elseif ($term === "DESC/alphabetique") {
 			return $this->builder->orderBy("nom", "DESC")->orderBy("prenom", "DESC");
+		}
+
+		return null;
+	}
+
+	/**
+	 * FILTRE - Recherche sur le prénom
+	 *
+	 * @param null $term
+	 * @return Builder|null
+	 */
+	public function prenom($term = null): ?Builder
+	{
+		if ($term) {
+			return $this->builder->where("prenom", "LIKE", "%{$term}%");
 		}
 
 		return null;

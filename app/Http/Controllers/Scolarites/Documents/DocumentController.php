@@ -52,7 +52,7 @@ class DocumentController extends Controller
 	public function index(Eleve $eleve): View
 	{
 		$types = TypeDocument::orderBy("libelle")->get();
-		$eleve->load("documents.typeDocument", "documents.decision.enseignant");
+		$eleve->load("documents.type", "documents.decision.enseignant");
 
 		return view('web.scolarites.eleves.documents.index', compact('eleve', 'types'));
 	}

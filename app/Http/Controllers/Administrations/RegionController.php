@@ -50,15 +50,15 @@ class RegionController extends Controller
 	}
 
 	/**
-     * GET - Affiche les données d'une région
-     *
-     * @param Region $region
-     * @return View
-     */
+	 * GET - Affiche les données d'une région
+	 *
+	 * @param Region $region
+	 * @return View
+	 */
 	public function show(Region $region): View
-    {
-        return view("web.administrations.regions.show", compact("region"));
-    }
+	{
+		return view("web.administrations.regions.show", compact("region"));
+	}
 
 	/**
 	 * GET - Affiche le formulaire d'édition d'une région

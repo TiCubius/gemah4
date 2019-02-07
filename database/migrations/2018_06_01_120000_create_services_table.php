@@ -20,7 +20,7 @@ class CreateServicesTable extends Migration
 			$table->string('description');
 			$table->string('departement_id');
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 			$table->unique(["nom", "departement_id"]);
 			$table->timestamps();
 		});

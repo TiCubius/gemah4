@@ -16,11 +16,11 @@ class HistoriqueController extends Controller
 	 */
 	public function index(): View
 	{
-	    Historique::where("created_at", "<=", Carbon::now()->subMonth(6)->toDateTimeString())->delete();
+		Historique::where("created_at", "<=", Carbon::now()->subMonth(6)->toDateTimeString())->delete();
 
-        $historiques = Historique::all();
+		$historiques = Historique::all();
 
-        return view("web.administrations.historiques.index", compact("historiques"));
+		return view("web.administrations.historiques.index", compact("historiques"));
 	}
 
 	/***

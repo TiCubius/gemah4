@@ -54,7 +54,7 @@ class DocumentObserver
 	 */
 	public function deleted(Document $document)
 	{
-		if ($document->typeDocument->libelle == "Décision") {
+		if ($document->type->libelle == "Décision") {
 			// On supprime la décision
 			Storage::delete('public/decisions/' . $document->path);
 		} else {

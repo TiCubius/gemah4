@@ -23,7 +23,7 @@
 								<td class="align-middle">{{ $historique->type }}</td>
 								<td class="align-middle">{{ $historique->information }}</td>
 								<td class="align-middle">
-                                    @hasPermission("administrations/historiques/show")
+									@hasPermission("administrations/historiques/show")
 									<a type="btn" class="btn btn-sm btn-outline-primary" target="_blank" href="{{ route("web.administrations.historiques.show", [$historique]) }}">
 										<i class="fas fa-info-circle"></i>
 										Détails
@@ -44,7 +44,7 @@
 		$(document).ready(function () {
 			$('#table').DataTable({
 				"language": {
-					"url": "{{ asset("assets/js/dataTables.french.json") }}"
+					"url": "{{ asset("assets/js/dataTables.french.json") }}",
 				},
 				"info": false,
 				autoWidth: false,

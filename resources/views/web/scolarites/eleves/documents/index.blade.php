@@ -50,15 +50,15 @@
 					<label for="type">Trier par type de document :</label>
 					<select selected name="type" id="type" class="form-control" required>
 						<option selected value="">Tout les types de documents</option>
-						@foreach($types as $typeDocument)
-							<option value="{{ $typeDocument->id }}">{{ $typeDocument->libelle }}</option>
+						@foreach($types as $type)
+							<option value="{{ $type->id }}">{{ $type->libelle }}</option>
 						@endforeach
 					</select>
 				</div>
 			</div>
 
 			@foreach($eleve->documents->sortByDesc("created_at") as $document)
-				@if ($document->typeDocument->libelle == "Décision")
+				@if ($document->type->libelle == "Décision")
 					<div class="col-6 js-document js-document-{{ $document->type_document_id }}" style="display: none;">
 						<div class="card mb-3">
 							<div class="card-body">

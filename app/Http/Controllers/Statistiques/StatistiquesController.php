@@ -81,6 +81,7 @@ class StatistiquesController extends Controller
 
 	/**
 	 * Retourne la liste des élèves dont la décision a expiré depuis 6 mois
+	 *
 	 * @return View
 	 */
 	public function listeDecisionsExpirees(): View
@@ -90,6 +91,6 @@ class StatistiquesController extends Controller
 		$eleves = Eleve::join("documents", "documents.eleve_id", "eleves.id")->join("decisions", "decisions.document_id", "documents.id")->groupBy("eleves.id")->havingRaw("date_limite < '{$date}'")->selectRaw("eleves.*, MAX(decisions.date_limite) as date_limite")->get();
 		$eleves->load("decisions");
 
-		return view("web.statistiques.liste_decisions_expirees",compact("eleves"));
+		return view("web.statistiques.liste_decisions_expirees", compact("eleves"));
 	}
 }

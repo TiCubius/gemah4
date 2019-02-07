@@ -19,7 +19,8 @@ class StatistiquesTest extends TestCase
 
 		$request->assertStatus(200);
 		$request->assertSee("Statistiques");
-		$request->assertSee("Statistiques générales");
+		$request->assertSee("Liste élèves");
+        $request->assertSee("Liste matériels");
 	}
 
 	/**
@@ -27,14 +28,12 @@ class StatistiquesTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testStatistiqueGeneralAffichage()
+	public function testStatistiqueListeElevesAffichage()
 	{
-		$eleves = factory(Eleve::class, 5)->create();
-
-		$request = $this->get('/statistiques/generale');
+		$request = $this->get('/statistiques/eleves');
 
 		$request->assertStatus(200);
-		$request->assertSee("Statistiques générales");
+		$request->assertSee("Liste des élèves");
 		$request->assertSee("Département");
 		$request->assertSee("Type");
 		$request->assertSee("Nom");
@@ -47,6 +46,34 @@ class StatistiquesTest extends TestCase
 		$request->assertSee("Date de naissance");
 		$request->assertSee("Action");
 	}
+
+    public function testStatistiqueListeMaterielAffichage()
+    {
+        $request = $this->get('/statistiques/materiels');
+
+        $request->assertStatus(200);
+        $request->assertSee("Liste des matériels");
+        $request->assertSee("Département");
+        $request->assertSee("État administratif");
+        $request->assertSee("État physique");
+        $request->assertSee("Type de matériel");
+        $request->assertSee("Numéro de série");
+        $request->assertSee("Clé produit");
+        $request->assertSee("Marque");
+        $request->assertSee("Modèle");
+        $request->assertSee("Nom du fournisseur");
+        $request->assertSee("Numéro devis");
+        $request->assertSee("Numéro de formulaire chorus");
+        $request->assertSee("Numéro de facture chorus");
+        $request->assertSee("Numéro d'engagement juridique");
+        $request->assertSee("Date d'engagement juridique");
+        $request->assertSee("Date de facture");
+        $request->assertSee("Date de service fait");
+        $request->assertSee("Date de fin de garantie");
+        $request->assertSee("Date de prêt");
+        $request->assertSee("Acheté pour");
+
+    }
 }
 
 ?>

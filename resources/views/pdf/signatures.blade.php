@@ -9,7 +9,7 @@
 			<h2>{{ $titre }}</h2>
 
 			<section>
-				<table>
+				<table style="text-align: left !important;">
 					<thead>
 						<tr>
 							<th>Responsables</th>
@@ -20,9 +20,9 @@
 						@foreach($responsables as $responsable)
 							@foreach($responsable->eleves as $eleve)
 								@if($eleve->pivot->etat_signature === $etatAttendu)
-									<tr style="text-align: left !important;">
-										<td>{{ $responsable->nom }} {{ $responsable->prenom }}</td>
-										<td>{{ $eleve->nom }} {{ $eleve->prenom }}</td>
+									<tr>
+										<td style="text-align: left;">{{ $responsable->nom }} {{ $responsable->prenom }}</td>
+										<td style="text-align: left;">{{ $eleve->nom }} {{ $eleve->prenom }}</td>
 									</tr>
 								@endif
 							@endforeach

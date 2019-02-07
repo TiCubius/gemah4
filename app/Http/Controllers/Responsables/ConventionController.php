@@ -72,10 +72,8 @@ class ConventionController extends Controller
 
 	/***
 	 * GET - Génération d'un PDF comprennant la liste des responsables ayant signé
-	 *
-	 * @return Response
 	 */
-	public function signaturesEffectuees(): Response
+	public function signaturesEffectuees()
 	{
 		$titre = "Liste des responsables ayant signé";
 		$responsables = Responsable::with("eleves")->has("eleves")->orderBy('nom')->orderBy('prenom')->get();
@@ -86,10 +84,8 @@ class ConventionController extends Controller
 
 	/***
 	 * GET - Génération d'un PDF comprennant la liste des responsables n'ayant pas signé
-	 *
-	 * @return Response
 	 */
-	public function signaturesManquantes(): Response
+	public function signaturesManquantes()
 	{
 		$titre = "Liste des responsables n'ayant pas signé";
 		$responsables = Responsable::with("eleves")->has("eleves")->orderBy('nom')->orderBy('prenom')->get();
@@ -100,8 +96,6 @@ class ConventionController extends Controller
 
 	/***
 	 * GET - Génération des PDF de conventions pour tous les responsables n'ayant pas signé
-	 *
-	 * @return Response
 	 */
 	public function impressionsToutesConventions()
 	{

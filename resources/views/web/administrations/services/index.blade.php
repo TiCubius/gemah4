@@ -28,18 +28,15 @@
 							<tr data-departement="{{ $service->departement_id }}">
 								<td>{{ $service->nom }}</td>
 								<td>{{ $service->description }}</td>
-								<td>
+								<td class="btn-group">
 									@hasPermission("administrations/services/show")
-									<a href="{{ route("web.administrations.services.show", [$service]) }}">
-										<button class="btn btn-sm btn-outline-primary">
-											<i class="fas fa-info-circle"></i>
-											Détails
-										</button>
+									<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.services.show", [$service]) }}">
+										<i class="fas fa-info-circle"></i> Détails
 									</a>
 									@endHas
 									@hasPermission("administrations/services/edit")
-									<a href="{{ route("web.administrations.services.edit", [$service]) }}">
-										<button class="btn btn-sm btn-outline-primary">Éditer</button>
+									<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.services.edit", [$service]) }}">
+										Éditer
 									</a>
 									@endHas
 								</td>

@@ -152,6 +152,7 @@ return [
          */
         Barryvdh\DomPDF\ServiceProvider::class,
 		Barryvdh\Snappy\ServiceProvider::class,
+		ZanySoft\Zip\ZipServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
 
 		'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 		'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+		'Zip' => ZanySoft\Zip\ZipFacade::class,
 	],
 
 ];

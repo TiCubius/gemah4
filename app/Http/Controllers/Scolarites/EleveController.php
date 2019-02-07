@@ -10,7 +10,9 @@ use App\Models\TypeDecision;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use ZanySoft\Zip\Zip;
 
 class EleveController extends Controller
 {
@@ -160,5 +162,40 @@ class EleveController extends Controller
 		}
 
 		return redirect(route("web.scolarites.eleves.index"));
+	}
+
+	/**
+	 * GET - Exporte toutes les données d'un élève
+	 *
+	 * @param Eleve $eleve
+	 * @return Eleve
+	 * @throws \Exception
+	 */
+	public function export(Eleve $eleve)
+	{
+		$eleve->load("departement.academie.region", "documents.type", "documents.decision.enseignant", "documents.decision.types", "etablissement.type", "materiels.departement.academie.region", "materiels.etatAdministratif", "materiels.etatPhysique", "materiels.type.domaine", "responsables.departement.academie.region", "tickets.type", "tickets.messages");
+
+		// On génère le fichier .json
+		Storage::put("export/eleves/{$eleve->nom} {$eleve->prenom}/{$eleve->nom} {$eleve->prenom}.json", json_encode($eleve, JSON_PRETTY_PRINT));
+
+		// On récupère toutes les décisions & documents
+		$eleve->documents()->each(function ($document) use ($eleve) {
+			if ($document->type->libelle === "Décision") {
+				Storage::copy("public/decisions/{$document->path}", "export/eleves/{$eleve->nom} {$eleve->prenom}/decisions/{$document->path}");
+			} else {
+				Storage::copy("public/decisions/{$document->path}", "export/eleves/{$eleve->nom} {$eleve->prenom}/documents/{$document->path}");
+			}
+		});
+
+		// On génère le .zip
+		$zip = Zip::create(storage_path("app/export/{$eleve->nom}_{$eleve->prenom}.zip"));
+		$zip->add(storage_path("app/export/eleves/{$eleve->nom} {$eleve->prenom}/"));
+		$zip->close();
+
+		// On supprime les fichiers
+		Storage::deleteDirectory("export/eleves/{$eleve->nom} {$eleve->prenom}");
+
+		// On télécharge et supprime le zip
+		return response()->download((storage_path("app/export/{$eleve->nom}_{$eleve->prenom}.zip")))->deleteFileAfterSend();
 	}
 }

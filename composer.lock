@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52fbd8d634bc39ed5531e6372e3c5616",
+    "content-hash": "b059394fbabe5440a480bd96be829c12",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -3655,6 +3655,65 @@
             "time": "2019-01-29T11:11:52+00:00"
         },
         {
+            "name": "zanysoft/laravel-zip",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zanysoft/laravel-zip.git",
+                "reference": "466663746c92154c48a2d490efc6724f9f6e9652"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zanysoft/laravel-zip/zipball/466663746c92154c48a2d490efc6724f9f6e9652",
+                "reference": "466663746c92154c48a2d490efc6724f9f6e9652",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0",
+                "scrutinizer/ocular": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ZanySoft\\Zip\\ZipServiceProvider"
+                    ],
+                    "aliases": {
+                        "Zip": "ZanySoft\\Zip\\ZipFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ZanySoft\\Zip\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zany Soft",
+                    "email": "info@zanysoft.co",
+                    "homepage": "http://www.zanysoft.co"
+                }
+            ],
+            "description": "ZipArchive toolbox",
+            "homepage": "http://www.zanysoft.co",
+            "keywords": [
+                "merge",
+                "multiple",
+                "unzip",
+                "zip",
+                "ziparchive"
+            ],
+            "time": "2017-10-10T03:22:41+00:00"
+        },
+        {
             "name": "zendframework/zend-diactoros",
             "version": "1.8.6",
             "source": {
@@ -3891,6 +3950,66 @@
                 "testing"
             ],
             "time": "2019-01-28T08:41:16+00:00"
+        },
+        {
+            "name": "chumper/zipper",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Chumper/Zipper.git",
+                "reference": "6a1733c34d67c3952b8439afb36ad4ea5c3ceacb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Chumper/Zipper/zipball/6a1733c34d67c3952b8439afb36ad4ea5c3ceacb",
+                "reference": "6a1733c34d67c3952b8439afb36ad4ea5c3ceacb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^5.0",
+                "illuminate/support": "^5.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Chumper\\Zipper\\ZipperServiceProvider"
+                    ],
+                    "aliases": {
+                        "Zipper": "Chumper\\Zipper\\Zipper"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Chumper\\Zipper\\": "src/Chumper/Zipper"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Plaschke",
+                    "email": "github@nilsplaschke.de",
+                    "homepage": "http://nilsplaschke.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is a little neat helper for the ZipArchive methods with handy functions",
+            "homepage": "http://github.com/Chumper/zipper",
+            "keywords": [
+                "archive",
+                "laravel",
+                "zip"
+            ],
+            "time": "2017-07-17T08:05:10+00:00"
         },
         {
             "name": "clue/stdio-react",

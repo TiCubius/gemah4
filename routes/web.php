@@ -29,6 +29,8 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		]);
 
 		Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
+			Route::get("export", "Scolarites\EleveController@export")->name("export");
+
 			Route::resource("tickets", "Scolarites\TicketController");
 			Route::resource("documents", "Scolarites\Documents\DocumentController");
 

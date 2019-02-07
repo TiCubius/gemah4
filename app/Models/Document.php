@@ -47,7 +47,7 @@ class Document extends Model
 	 *
 	 * @return BelongsTo
 	 */
-	public function typeDocument(): BelongsTo
+	public function type(): BelongsTo
 	{
 		return $this->BelongsTo(TypeDocument::class, "type_document_id");
 	}

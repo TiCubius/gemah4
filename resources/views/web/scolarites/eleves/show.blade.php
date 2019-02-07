@@ -25,6 +25,7 @@
 						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.edit', [$eleve]) }}">Éditer l'élève</a>
 						@endHas
 
+
 						<div class="dropdown-divider"></div>
 						@hasPermission("eleves/impressions/autorisations")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.autorisations", [$eleve]) }}" target="_blank">Autorisation CNIL</a>
@@ -38,6 +39,12 @@
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}" target="_blank">Récapitulatif</a>
 						@endHas @hasPermission("eleves/impressions/recuperations")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recuperations", [$eleve]) }}" target="_blank">Récépissé de récupération</a>
+						@endHas
+
+
+						@hasPermission("eleves/export")
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ route('web.scolarites.eleves.export', [$eleve]) }}" target="_blank">Exporter l'élève</a>
 						@endHas
 					</div>
 				</div>

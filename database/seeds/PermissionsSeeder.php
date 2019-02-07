@@ -51,8 +51,8 @@ class PermissionsSeeder extends Seeder
 		"administrations/etats/materiels/physiques/edit"    => "Peut modifier un état physique d'un matériel",
 		"administrations/etats/materiels/physiques/destroy" => "Peut supprimer un état physique d'un matériel",
 
-        "administrations/historiques/index" => "Peut afficher l'historique",
-        "administrations/historiques/show"  => "Peut afficher les informations sur une ligne de l'historique",
+		"administrations/historiques/index" => "Peut afficher l'historique",
+		"administrations/historiques/show"  => "Peut afficher les informations sur une ligne de l'historique",
 
 		"administrations/parametres/edit" => "Peut modifier les paramètres généraux (ex: informations sur les conventions)",
 
@@ -105,6 +105,7 @@ class PermissionsSeeder extends Seeder
 		"eleves/show"    => "Peut afficher les informations sur un élève",
 		"eleves/edit"    => "Peut modifier un élève",
 		"eleves/destroy" => "Peut supprimer un élève",
+		"eleves/export"  => "Peut exporter toutes les données de l'élève",
 
 		"eleves/documents/index"    => "Peut afficher la liste des documents",
 		"eleves/documents/create"   => "Peut créer un document",
@@ -176,9 +177,9 @@ class PermissionsSeeder extends Seeder
 
 		"scolarites/index" => "Peut afficher le menu gestion de la scolarité",
 
-		"statistiques/index"    => "Peut afficher le menu des statistiques",
-		"statistiques/generale" => "Peut afficher les statistiques générales",
-		"statistiques/listeDecisionsExpirees" => "Peut afficher la liste des décisions expirées"
+		"statistiques/index"                  => "Peut afficher le menu des statistiques",
+		"statistiques/generale"               => "Peut afficher les statistiques générales",
+		"statistiques/listeDecisionsExpirees" => "Peut afficher la liste des décisions expirées",
 	];
 
 	/**

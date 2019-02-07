@@ -38,7 +38,7 @@ class CreateMaterielsTable extends Migration
 			$table->date('date_pret')->nullable();
 			$table->string('achat_pour')->nullable();
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 			$table->foreign('etat_administratif_materiel_id')->references('id')->on('etats_administratifs_materiels');
 			$table->foreign('etat_physique_materiel_id')->references('id')->on('etats_physiques_materiels');
 			$table->foreign('eleve_id')->references('id')->on('eleves');

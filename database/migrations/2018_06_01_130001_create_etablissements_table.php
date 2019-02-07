@@ -30,7 +30,7 @@ class CreateEtablissementsTable extends Migration
 			$table->primary('id');
 			$table->foreign('enseignant_id')->references('id')->on('enseignants');
 			$table->foreign('type_etablissement_id')->references('id')->on('types_etablissements');
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 			$table->timestamps();
 		});
 	}

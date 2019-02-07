@@ -23,7 +23,7 @@ class CreateEnseignantsTable extends Migration
 			$table->string('telephone')->nullable();
 			$table->string('departement_id');
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 
 			$table->timestamps();
 		});

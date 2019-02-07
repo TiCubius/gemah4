@@ -27,7 +27,7 @@ class CreateElevesTable extends Migration
 			$table->date('date_naissance');
 			$table->date('date_rendu_definitive')->nullable();
 
-			$table->foreign('departement_id')->references('id')->on('departements');
+			$table->foreign('departement_id')->references('id')->on('departements')->onUpdate('cascade');
 			$table->foreign('etablissement_id')->references('id')->on('etablissements');
 
 			$table->timestamps();

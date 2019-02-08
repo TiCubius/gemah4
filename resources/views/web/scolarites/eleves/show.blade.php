@@ -34,7 +34,8 @@
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.consignes", [$eleve]) }}" target="_blank">Consignes du matériel</a>
 						@endHas
 						@hasPermission("eleves/impressions/conventions")
-						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}" target="_blank">Convention</a>
+						<a  class="dropdown-item" data-toggle="modal" data-target="#convention">Convention</a>
+						{{--class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}" target="_blank"--}}
 						@endHas @hasPermission("eleves/impressions/recapitulatifs")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}" target="_blank">Récapitulatif</a>
 						@endHas @hasPermission("eleves/impressions/recuperations")
@@ -50,6 +51,9 @@
 				</div>
 			@endslot
 		@endcomponent
+
+			@component("web._includes.components.modals.convention", ["route" => route("web.scolarites.eleves.impressions.conventions", [$eleve]) ])
+			@endcomponent
 
 		<div class="col-md-6 mb-3">
 			<div class="card w-100">

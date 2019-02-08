@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.statistiques.index"])
-			Liste des élèves dont la décision a expiré
+			Liste des élèves dont la décision a expiré depuis le {{ \Carbon\Carbon::parse($date)->format("d/m/Y") }}
 		@endcomponent
 
 		<div class="col-12">
@@ -13,22 +13,25 @@
 						<tr class="text-center">
 							<th>Nom</th>
 							<th>Prénom</th>
-							<th>Date limite convention</th>
+							<th>Date limite de la convention</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($eleves as $eleve)
-							<tr>
-								<td>{{ $eleve->nom }}</td>
-								<td>{{ $eleve->prenom }}</td>
-								<td data-order="{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->timestamp }}">{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->format("d/m/Y") }}</td>
-								<td>
-									<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-										Détails
-									</a>
-								</td>
-							</tr>
+							@php($eleve->decision = $eleve->decisions->sortByDesc("date_cda")->first())
+							@if(($eleve->decision) && $eleve->decision->date_limite <= $date && $eleve->decision->date_limite !== null)
+								<tr>
+									<td>{{ $eleve->nom }}</td>
+									<td>{{ $eleve->prenom }}</td>
+									<td data-order="{{ $eleve->decision->date_limite->timestamp }}">{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->format("d/m/Y") }}</td>
+									<td>
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+											Détails
+										</a>
+									</td>
+								</tr>
+							@endif
 						@endforeach
 					</tbody>
 				</table>

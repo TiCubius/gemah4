@@ -229,8 +229,9 @@ class NoPermissionTest extends TestCase
 			"/administrations/materiels/etats/physiques/{$etatPhysiqueMateriel->id}/edit",
 
 			"/statistiques",
-			"/statistiques/generale",
-            "/statistiques/liste",
+			"/statistiques/eleves",
+			"/statistiques/materiels",
+			"/statistiques/decisions",
 		];
 
 		$postRoutes = [

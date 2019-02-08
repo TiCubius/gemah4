@@ -4,7 +4,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.statistiques.index"])
-			Statistiques générales
+			Liste des élèves
 		@endcomponent
 		<div class="col-12">
 			<form class="mb-3">
@@ -19,23 +19,23 @@
 
 					<div id="option_recherche" class="collapse show" aria-labelledby="recherche">
 						<div class="card-body row">
-							<div class="col-6">
+							<div class="col-md-6 col-12">
 								@component("web._includes.components.departement", ["optional" => true, "academies" => $academies, "id" => app("request")->input("departement_id")])
 								@endcomponent
 							</div>
 
-							<div class="col-6">
+							<div class="col-md-6 col-12">
 								@component("web._includes.components.types_decisions",["optional" => true, "types" => $types, "id" => app("request")->input("type_eleve_id")])
 								@endcomponent
 							</div>
 
-							<div class="col-6">
+							<div class="col-md-6 col-12">
 								@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex: SMITH"])
 									Nom
 								@endcomponent
 							</div>
 
-							<div class="col-6">
+							<div class="col-md-6 col-12">
 								@component("web._includes.components.input", ["optional" => true, "name" => "prenom", "placeholder" => "Ex: John"])
 									Prénom
 								@endcomponent
@@ -96,7 +96,7 @@
 				</div>
 
 				<div class="actions d-flex justify-content-between">
-					<a class="btn btn-outline-dark" href="{{ route("web.statistiques.generale") }}">
+					<a class="btn btn-outline-dark" href="{{ route("web.statistiques.eleves") }}">
 						Annuler la recherche
 					</a>
 					<button class="btn btn-outline-dark">Rechercher</button>

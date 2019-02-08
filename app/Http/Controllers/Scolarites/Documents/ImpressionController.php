@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Scolarites\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Parametre;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class ImpressionController extends Controller
 {
@@ -45,7 +47,9 @@ class ImpressionController extends Controller
 	 */
 	public function conventions(Eleve $eleve)
 	{
-		$errors = [];
+        $departement = Departement::find(Session::get("user")->service->departement_id);
+
+        $errors = [];
 		if ($eleve->responsables->isEmpty()) {
 			$errors[] = "Impossible de générer une convention puisque l'élève n'est affecté à aucun responsable.";
 		}
@@ -70,13 +74,13 @@ class ImpressionController extends Controller
 		$eleves = $eleve->with("responsables", "etablissement", "decisions", "materiels")->where('id', $eleve->id)->get();
 
 		// Récupération de tout les paramètres pour imprimer la convention
-		$allParametres = Parametre::conventions(42)->get();
+		$allParametres = Parametre::conventions($departement->id)->get();
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
 			$parametres[$parametre->key] = $parametre->value;
 		}
 
-		return PDF::loadView('pdf.conventions', compact('eleves', 'parametres'))->stream();
+		return PDF::loadView('pdf.conventions', compact('eleves', 'parametres', 'departement'))->stream();
 	}
 
 	/**

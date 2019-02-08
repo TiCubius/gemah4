@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
 
         //$this->call(EtablissementSeeder::class);
 
-		$this->call(PermissionsSeeder::class);
+		//$this->call(PermissionsSeeder::class);
 		//$this->call(ServicesSeeder::class);
 		//$this->call(UtilisateursSeeder::class);
 
@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(TypesDecisionSeeder::class);
         //$this->call(EtatsAdministratifsMaterielSeeder::class);
         //$this->call(EtatsPhysiquesMaterielSeeder::class);
-        //$this->call(ParametresSeeders::class);
+        $this->call(ParametresSeeders::class);
 	}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Responsables;
 
 use App\Http\Controllers\Controller;
 use App\Models\Decision;
+use App\Models\Departement;
 use App\Models\Eleve;
 use App\Models\Parametre;
 use App\Models\Responsable;
@@ -25,8 +26,8 @@ class ConventionController extends Controller
 	 */
 	public function index(): View
 	{
-		$departement = Session::get("user")->service->departement_id;
-		$allParametres = Parametre::conventions($departement)->get();
+		$departement = Departement::find(Session::get("user")->service->departement_id);
+		$allParametres = Parametre::conventions($departement->id)->get();
 		$eleves = Eleve::has("responsables")->with("responsables")->orderBy("nom")->orderBy("prenom")->get();
 
 		// Réorganisation des paramètres
@@ -35,7 +36,7 @@ class ConventionController extends Controller
 			$parametres[$parametre->key] = ["libelle" => $parametre->libelle, "value" => $parametre->value];
 		}
 
-		return view("web.conventions.index", compact("eleves", "parametres"));
+		return view("web.conventions.index", compact("eleves", "parametres", "departement"));
 	}
 
 	/**
@@ -100,7 +101,7 @@ class ConventionController extends Controller
 	public function impressionsToutesConventions()
 	{
 		// On récupère le département de l'utilisateur
-		$departement = Session::get("user")->service->departement_id;
+		$departement = Departement::find(Session::get("user")->service->departement_id);
 
 		// On récupère le type décision "Matériel"
 		$typeDecision = TypeDecision::where("libelle", "Matériel")->first();
@@ -118,15 +119,15 @@ class ConventionController extends Controller
 		// - les responsales n'ont pas signés
 		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->whereHas("decisions", function ($query) use ($decisions) {
 			return $query->whereIn("decisions.id", $decisions);
-		})->orderBy("eleves.nom")->get();
+		})->orderBy("eleves.nom")->where("eleves.id", $departement->id)->get();
 
 		// Récupération de tout les paramètres pour imprimer les conventions
-		$allParametres = Parametre::conventions($departement)->get();
+		$allParametres = Parametre::conventions($departement->id)->get();
 		$parametres = [];
 		foreach ($allParametres as $parametre) {
 			$parametres[$parametre->key] = $parametre->value;
 		}
 
-		return PDF::loadView("pdf.conventions", compact('eleves', 'parametres'))->stream();
+		return PDF::loadView("pdf.conventions", compact('eleves', 'parametres', 'departement'))->stream();
 	}
 }

@@ -26,7 +26,7 @@
 				<thead>
 					<tr>
 						<td>Type</td>
-						<td>Contenue</td>
+						<td>Information</td>
 						<td>Date</td>
 						<td>Action</td>
 					</tr>
@@ -35,7 +35,7 @@
 					@foreach($utilisateur->historiques as $historique)
 						<tr>
 							<td>{{ $historique->type }}</td>
-							<td>{{ $historique->contenue }}</td>
+							<td>{{ $historique->information }}</td>
 							<td>{{ $historique->created_at->format("d/m/Y") }}</td>
 							<td>
 								@hasPermission("administrations/historiques/show")

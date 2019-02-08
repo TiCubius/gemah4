@@ -18,7 +18,7 @@
 								<div class="card-header gemah-bg-primary">Paramètres : {{ $key }}</div>
 								<div class="card-body">
 									@foreach($group as $parametre)
-										@component("web._includes.components.input", ["optional" => true, "name" => $parametre->key, "value" => $parametre->value])
+										@component("web._includes.components.parameter_textaera", ["optional" => true, "name" => $parametre->key, "value" => $parametre->value])
 											{{ $parametre->libelle }}
 										@endcomponent
 									@endforeach

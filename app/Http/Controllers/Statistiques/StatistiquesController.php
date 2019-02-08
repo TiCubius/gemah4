@@ -15,7 +15,9 @@ use App\Models\Materiel;
 use App\Models\TypeDecision;
 use App\Models\TypeMateriel;
 use Carbon\Carbon;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 

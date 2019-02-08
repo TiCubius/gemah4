@@ -17,7 +17,7 @@ class CreateParametresTable extends Migration
 			$table->string('departement_id');
 			$table->string('libelle');
 			$table->string('key');
-			$table->string('value')->nullable();
+			$table->text('value')->nullable();
 
 			$table->primary(["departement_id", "key"]);
 			$table->foreign("departement_id")->references("id")->on("departements")->onUpdate('cascade');

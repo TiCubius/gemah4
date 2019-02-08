@@ -38,7 +38,7 @@
 		</div>
 
 		@foreach($responsable->eleves as $eleve)
-			<div class="col-md-6 mb-3">
+			<div class="col-12 mb-3">
 				<div class="card w-100">
 					<div class="card-header gemah-bg-primary d-flex justify-content-between align-items-center">
 						Elève
@@ -71,6 +71,7 @@
 											<th>Type</th>
 											<th>Marque</th>
 											<th>Modèle</th>
+											<th>Numéro de série</th>
 											<th>Prêt le</th>
 										</tr>
 									</thead>
@@ -81,6 +82,7 @@
 												<td>{{ $materiel->type->libelle }}</td>
 												<td>{{ $materiel->marque }}</td>
 												<td>{{ $materiel->modele }}</td>
+												<td>{{ $materiel->numero_serie }}</td>
 												<td>{{ Carbon\Carbon::parse($materiel->updated_at)->format('d/m/Y') }}</td>
 											</tr>
 										@endforeach

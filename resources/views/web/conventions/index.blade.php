@@ -23,9 +23,8 @@
 
 						@hasPermission("conventions/impressionsToutesConventions")
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route("web.conventions.impressions_toutes_conventions") }}" target="_blank">Générer toutes les conventions non signées</a>
+						<a class="dropdown-item" data-toggle="modal" data-target="#convention">Générer toutes les conventions non signées</a>
 						@endHas
-
 						<div class="dropdown-divider"></div>
 						<a id="export" class="dropdown-item" href="#" download="data.json">Sauvegarder la liste actuelle</a>
 						<a class="dropdown-item" data-toggle="modal" data-target="#dataImport">Importer une sauvegarde</a>
@@ -97,8 +96,8 @@
 					</p>
 
 					<div class="custom-file">
-						<input id="file" type="file" class="custom-file-input" id="customFile">
-						<label class="custom-file-label" for="customFile">Choose file</label>
+						<input id="file" type="file" class="custom-file-input">
+						<label class="custom-file-label" for="file">Choose file</label>
 					</div>
 				</div>
 
@@ -109,6 +108,9 @@
 			</div>
 		</div>
 	</form>
+
+	@component("web._includes.components.modals.convention", ["route" => route("web.conventions.impressions_toutes_conventions") ])
+	@endcomponent
 
 @endsection
 

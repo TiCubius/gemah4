@@ -19,16 +19,19 @@
 					</thead>
 					<tbody>
 						@foreach($eleves as $eleve)
-							<tr>
-								<td>{{ $eleve->nom }}</td>
-								<td>{{ $eleve->prenom }}</td>
-								<td data-order="{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->timestamp }}">{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->format("d/m/Y") }}</td>
-								<td>
-									<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-										Détails
-									</a>
-								</td>
-							</tr>
+							@php($eleve->decision = $eleve->decisions->sortByDesc("date_cda")->first())
+							@if(($eleve->decision) && $eleve->decision->date_limite < \Carbon\Carbon::now() && $eleve->decision->date_limite !== null)
+								<tr>
+									<td>{{ $eleve->nom }}</td>
+									<td>{{ $eleve->prenom }}</td>
+									<td data-order="{{ $eleve->decision->date_limite->timestamp }}">{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->format("d/m/Y") }}</td>
+									<td>
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+											Détails
+										</a>
+									</td>
+								</tr>
+							@endif
 						@endforeach
 					</tbody>
 				</table>

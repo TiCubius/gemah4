@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Statistiques;
 use App\Filters\EleveFilters;
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
+use App\Models\Decision;
 use App\Models\Eleve;
 use App\Models\TypeDecision;
 use Carbon\Carbon;
@@ -52,10 +53,16 @@ class StatistiquesController extends Controller
 	 */
 	public function listeDecisionsExpirees(): View
 	{
-		$date = Carbon::now()->subMonth(6)->format('Y-m-d');
+		// On récupère tout les élèves
+		$eleves = Eleve::with("decisions.types")->get();
 
-		$eleves = Eleve::join("documents", "documents.eleve_id", "eleves.id")->join("decisions", "decisions.document_id", "documents.id")->groupBy("eleves.id")->havingRaw("date_limite < '{$date}'")->selectRaw("eleves.*, MAX(decisions.date_limite) as date_limite")->get();
-		$eleves->load("decisions");
+		// On filtre les décisions
+		// - On ne souhaite que les décisions Matériel
+		$eleves->each(function (Eleve $eleve, $key) {
+			$eleve->decisions = $eleve->decisions->reject(function (Decision $decision, $key) {
+				return (!$decision->types->contains("libelle", "Matériel"));
+			});
+		});
 
 		return view("web.statistiques.liste_decisions_expirees", compact("eleves"));
 	}

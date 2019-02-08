@@ -33,6 +33,14 @@
 					Code INE
 				@endcomponent
 
+				<div class="custom-control custom-checkbox">
+					<input name="joker" id="joker" class="custom-control-input" type="checkbox" checked>
+					
+					<label class="custom-control-label" for="joker">
+						Joker
+					</label>
+				</div>
+
 				@hasPermission("eleves/create")
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success js-submit">Créer</button>

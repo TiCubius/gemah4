@@ -131,6 +131,11 @@ class ParametresSeeders extends Seeder
                 "key"     => "conventions/article5/contenu",
                 "value"   => "<b>La présente convention devra être obligatoirement signée et retournée à la direction des services départementaux de l’éducation nationale de le Loire, division de l’élève en début de chaque année scolaire afin de faciliter le suivi de l’élève et du matériel.</b> A défaut de signature de la convention, ce matériel ne pourra être laissé à disposition de l’élève. <br><br> L'élève peut conserver le bénéfice de cette opération <b>le temps de sa scolarité dans un établissement Education Nationale de l'Académie de LYON</b> (premier et second degrés) ; s'il quitte cette dernière, le matériel sera restitué à la direction des services départementaux de l’éducation nationale de la Loire, qui assurera le lien avec l'Académie d'accueil.",
             ],
+            [
+                "libelle" => "Lieu de signature",
+                "key"     => "conventions/signatures/lieu",
+                "value"   => "A Saint-Etienne",
+            ]
 		],
 	];
 

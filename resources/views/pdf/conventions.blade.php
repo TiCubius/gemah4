@@ -177,14 +177,14 @@
             <section id="signature1" style="margin-top: 20px; height: 150px;">
                 <div style="width: 50%; height: 150px; text-align: center; float: left;">
                     <p>
-                        A Saint-Etienne, <br> le : {{ \Carbon\Carbon::now()->format('d/m/Y') }} <br><br>
+                        {{ $parametres["conventions/signatures/lieu"] }}, <br> le : {{ \Carbon\Carbon::now()->format('d/m/Y') }} <br><br>
 
                         Le représentant légal </p>
                 </div>
 
                 <div style="width: 50%; height: 150px; text-align: center; float: left;">
                     <p>
-                        A Saint-Etienne, le {{ \Carbon\Carbon::now()->format('d/m/Y') }} <br><br>
+                        {{ $parametres["conventions/signatures/lieu"] }} le {{ \Carbon\Carbon::now()->format('d/m/Y') }} <br><br>
 
 								Pour l’inspecteur d’académie, directeur académique {{ $parametres["conventions/direction/localisation"] }} <br>
 								Par délégation <br><br>
@@ -202,7 +202,7 @@
 
             <section id="signature2" style="height: 50px;">
                 <div style="float: left; width: 50%; text-align: center; height: 50px;">
-                    A Saint-Etienne, le : {{ \Carbon\Carbon::now()->format('d/m/Y') }}
+                    {{ $parametres["conventions/signatures/lieu"] }} le : {{ \Carbon\Carbon::now()->format('d/m/Y') }}
                 </div>
 
                 <div style="float: left; width: 50%; text-align: center; height: 50px;">

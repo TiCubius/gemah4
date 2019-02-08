@@ -73,9 +73,9 @@ class MaterielFilters extends QueryFilters
     public function eleve($term = null): ?Builder
     {
         if ($term === "with") {
-            return $this->builder->whereHas("eleves");
+            return $this->builder->whereHas("eleve");
         } elseif ($term === "without") {
-            return $this->builder->whereDoesntHave("eleves");
+            return $this->builder->whereDoesntHave("eleve");
         }
 
         return null;

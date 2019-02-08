@@ -29,19 +29,18 @@
 								<td>{{ $departement->nom }}</td>
 								<td>{{ $departement->academie->nom }}</td>
 								<td>
-									@hasPermission("administrations/departements/show")
-									<a href="{{ route("web.administrations.departements.show", [$departement]) }}">
-										<button class="btn btn-sm btn-outline-primary">
-											<i class="fas fa-info-circle"></i>
-											Détails
-										</button>
-									</a>
-									@endHas
-									@hasPermission("administrations/departements/edit")
-									<a href="{{ route("web.administrations.departements.edit", [$departement]) }}">
-										<button class="btn btn-sm btn-outline-primary">Éditer</button>
-									</a>
-									@endHas
+									<div class="btn-group">
+										@hasPermission("administrations/departements/show")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.departements.show", [$departement]) }}">
+											<i class="fas fa-info-circle"></i> Détails
+										</a>
+										@endHas
+										@hasPermission("administrations/departements/edit")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.departements.edit", [$departement]) }}">
+											Éditer
+										</a>
+										@endHas
+									</div>
 								</td>
 							</tr>
 						@endforeach

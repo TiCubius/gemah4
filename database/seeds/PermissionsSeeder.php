@@ -177,10 +177,10 @@ class PermissionsSeeder extends Seeder
 
 		"scolarites/index" => "Peut afficher le menu gestion de la scolarité",
 
-		"statistiques/index"                  => "Peut afficher le menu des statistiques",
-		"statistiques/eleves"            => "Peut afficher la liste des élèves",
-        "statistiques/materiels"         => "Peut afficher la liste des matériels",
-        "statistiques/decisions" => "Peut afficher la liste des décisions expirées"
+		"statistiques/index"     => "Peut afficher le menu des statistiques",
+		"statistiques/eleves"    => "Peut afficher la liste des élèves",
+		"statistiques/materiels" => "Peut afficher la liste des matériels",
+		"statistiques/decisions" => "Peut afficher la liste des décisions expirées",
 	];
 
 	/**

@@ -237,6 +237,7 @@ class AllPermissionsTest extends TestCase
             "/statistiques",
             "/statistiques/eleves",
             "/statistiques/materiels",
+			"/statistiques/decisions",
 		];
 
 		$postRoutes = [

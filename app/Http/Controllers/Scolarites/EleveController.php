@@ -70,6 +70,8 @@ class EleveController extends Controller
 			"code_ine"       => "nullable|max:11|unique:eleves",
 		]);
 
+        $request->merge(["joker" => $request->input("joker") ? 1 : 0]);
+
 		Eleve::create($request->all());
 
 		return redirect(route("web.scolarites.eleves.index"));
@@ -138,6 +140,8 @@ class EleveController extends Controller
 			"departement_id" => "required|exists:departements,id",
 			"code_ine"       => "nullable|max:11|unique:eleves,code_ine,{$eleve->id}",
 		]);
+
+		$request->merge(["joker" => $request->input("joker") ? 1 : 0]);
 
 		$eleve->update($request->all());
 

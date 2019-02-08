@@ -230,7 +230,8 @@ class NoPermissionTest extends TestCase
 
 			"/statistiques",
 			"/statistiques/eleves",
-            "/statistiques/materiels",
+			"/statistiques/materiels",
+			"/statistiques/decisions",
 		];
 
 		$postRoutes = [

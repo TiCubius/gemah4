@@ -144,6 +144,6 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::get("/", "Statistiques\StatistiquesController@index")->name("index");
 		Route::get("/eleves", "Statistiques\StatistiquesController@eleves")->name("eleves");
         Route::get("/materiels", "Statistiques\StatistiquesController@materiels")->name("materiels");
-		Route::get("/liste", "Statistiques\StatistiquesController@decisions")->name("decisions");
+		Route::get("/decisions", "Statistiques\StatistiquesController@decisions")->name("decisions");
 	});
 });

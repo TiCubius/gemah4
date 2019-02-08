@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Statistiques;
 
 use App\Filters\EleveFilters;
+use App\Filters\MaterielFilters;
 use App\Http\Controllers\Controller;
 use App\Models\Academie;
 use App\Models\Decision;
+use App\Models\DomaineMateriel;
 use App\Models\Eleve;
+use App\Models\EtatAdministratifMateriel;
+use App\Models\EtatPhysiqueMateriel;
+use App\Models\Materiel;
 use App\Models\TypeDecision;
+use App\Models\TypeMateriel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -26,13 +32,13 @@ class StatistiquesController extends Controller
 	}
 
 	/***
-	 * GET - Recher d'informations générales
+	 * GET - Recherche d'informations sur les élèves
 	 *
 	 * @param Request      $request
 	 * @param EleveFilters $filter
 	 * @return View
 	 */
-	public function generale(Request $request, EleveFilters $filter): View
+	public function eleves(Request $request, EleveFilters $filter): View
 	{
 		$types = TypeDecision::all();
 		$academies = Academie::with("departements")->get();
@@ -43,16 +49,46 @@ class StatistiquesController extends Controller
 			$eleves = Eleve::where("departement_id", Session::get("user")->service->departement_id)->get();
 		}
 
-		return view('web.statistiques.generale', compact("academies", "eleves", "types"));
+		return view('web.statistiques.eleve', compact("academies", "eleves", "types"));
+
+	}
+
+	/***
+	 * GET - Recherche d'informations sur les matériels
+	 *
+	 * @param Request         $request
+	 * @param MaterielFilters $filter
+	 * @return View
+	 */
+	public function materiels(Request $request, MaterielFilters $filter): View
+	{
+		$academies = Academie::with("departements")->get();
+		$etat_administratifs = EtatAdministratifMateriel::all();
+		$etat_physiques = EtatPhysiqueMateriel::all();
+		$domaines = DomaineMateriel::with("types")->get();
+
+		if ($request->exists(["departement_id", "etat_administratif_materiel_id", "etat_physique_materiel_id", "type_materiel_id", "numero_serie", "cle_produit", "marque", "modele", "nom_fournisseur", "numero_devis", "numero_formulaire_chorus", "numero_facture_chorus", "numero_ej", "date_ej", "date_facture", "date_service_fait", "date_fin_garantie", "date_pret", "achat_pour", "ordre"])) {
+			$materiels = Materiel::filter($filter)->get();
+		} else {
+			$materiels = Materiel::where("departement_id", Session::get("user")->service->departement_id)->get();
+		}
+
+		$materiels->load("eleve", "type", "etatAdministratif", "etatPhysique");
+
+		return view('web.statistiques.materiel', compact("etat_administratifs", "etat_physiques", "domaines", "materiels", "types_materiel", "academies"));
+
 	}
 
 	/**
-	 * Retourne la liste des élèves dont la décision a expiré depuis 6 mois
+	 * Recherche d'informations sur les décisions
 	 *
+	 * @param Request $request
 	 * @return View
 	 */
-	public function listeDecisionsExpirees(): View
+	public function decisions(Request $request): View
 	{
+		$date = $request->input("date") ?? Carbon::now()->subMonth(6);
+
 		// On récupère tout les élèves
 		$eleves = Eleve::with("decisions.types")->get();
 
@@ -64,6 +100,6 @@ class StatistiquesController extends Controller
 			});
 		});
 
-		return view("web.statistiques.liste_decisions_expirees", compact("eleves"));
+		return view("web.statistiques.decisions", compact("date", "eleves"));
 	}
 }

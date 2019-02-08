@@ -3,7 +3,7 @@
 	<div class="row">
 
 		@component("web._includes.components.title", ["back" => "web.statistiques.index"])
-			Liste des élèves dont la décision a expiré
+			Liste des élèves dont la décision a expiré depuis le {{ \Carbon\Carbon::parse($date)->format("d/m/Y") }}
 		@endcomponent
 
 		<div class="col-12">
@@ -13,14 +13,14 @@
 						<tr class="text-center">
 							<th>Nom</th>
 							<th>Prénom</th>
-							<th>Date limite convention</th>
+							<th>Date limite de la convention</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($eleves as $eleve)
 							@php($eleve->decision = $eleve->decisions->sortByDesc("date_cda")->first())
-							@if(($eleve->decision) && $eleve->decision->date_limite < \Carbon\Carbon::now() && $eleve->decision->date_limite !== null)
+							@if(($eleve->decision) && $eleve->decision->date_limite <= $date && $eleve->decision->date_limite !== null)
 								<tr>
 									<td>{{ $eleve->nom }}</td>
 									<td>{{ $eleve->prenom }}</td>

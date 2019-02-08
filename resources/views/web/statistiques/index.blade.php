@@ -7,23 +7,34 @@
 		@endcomponent
 
 		<div class="col-12">
-			<a href="{{ route("web.statistiques.generale") }}">
-				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Statistiques générales
-				</button>
+			@hasPermission("statistiques/eleves")
+			<a class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary" href="{{ route("web.statistiques.eleves") }}">
+				Statistiques élèves
 			</a>
-			<a href="{{ route("web.statistiques.liste") }}">
-				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					Liste élèves de date décision depassé
-				</button>
+			@endHas
+
+			@hasPermission("statistiques/materiels")
+			<a class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary" href="{{ route("web.statistiques.materiels") }}">
+				Statistiques matériels
 			</a>
+			@endHas
 
-			{{--<a href="#">
-				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
-					...
-				</button>
-			</a>--}}
 
+			@hasPermission("statistiques/decisions")
+			<a class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary" data-toggle="modal" data-target="#modal" href="#">
+				Élèves dont la décision est dépassée
+			</a>
+			@endHas
 		</div>
 	</div>
+
+	@component("web._includes.components.modals.base", ["route" => "web.statistiques.decisions", "method" => "GET"])
+		@slot("title")
+			Décisions dépassées
+		@endslot
+
+		Veuillez choisir une date à partir de laquelle les décisions seront considérées comme dépassées. <br><br>
+
+		<input class="form-control" name="date" type="date" value="{{ \Carbon\Carbon::now()->subMonth(6)->format("Y-m-d") }}">
+	@endcomponent
 @endsection

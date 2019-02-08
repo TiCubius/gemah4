@@ -96,7 +96,7 @@
 				</div>
 
 				<div class="actions d-flex justify-content-between">
-					<a class="btn btn-outline-dark" href="{{ route("web.statistiques.listeEleves") }}">
+					<a class="btn btn-outline-dark" href="{{ route("web.statistiques.eleves") }}">
 						Annuler la recherche
 					</a>
 					<button class="btn btn-outline-dark">Rechercher</button>

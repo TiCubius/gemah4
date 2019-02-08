@@ -40,7 +40,7 @@ class StatistiquesController extends Controller
 	 * @param EleveFilters $filter
 	 * @return View
 	 */
-	public function listeEleves(Request $request, EleveFilters $filter): View
+	public function eleves(Request $request, EleveFilters $filter): View
 	{
 		$types = TypeDecision::all();
 		$academies = Academie::with("departements")->get();
@@ -61,9 +61,8 @@ class StatistiquesController extends Controller
      * @param EleveFilters $filter
      * @return View
      */
-    public function listeMateriels(Request $request, MaterielFilters $filter): View
+    public function materiels(Request $request, MaterielFilters $filter): View
     {
-        $types = TypeMateriel::all();
         $academies = Academie::with("departements")->get();
         $etat_administratifs = EtatAdministratifMateriel::all();
         $etat_physiques = EtatPhysiqueMateriel::all();
@@ -84,7 +83,7 @@ class StatistiquesController extends Controller
 	 *
 	 * @return View
 	 */
-	public function listeDecisionsExpirees(): View
+	public function decisions(): View
 	{
 		$date = Carbon::now()->subMonth(6)->format('Y-m-d');
 

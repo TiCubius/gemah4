@@ -195,9 +195,11 @@
 						Annuler la recherche
 					</a>
 					@isset($materiels)
+						@hasPermission("statistiques/materielsExport")
 						<a class="btn btn-outline-dark" href="{{ route("web.statistiques.materiels.exports", \Illuminate\Support\Facades\Request::all()) }}">
 							Exporter les résultats
 						</a>
+						@endHas
 					@endisset
 					<button class="btn btn-outline-dark">Rechercher</button>
 				</div>

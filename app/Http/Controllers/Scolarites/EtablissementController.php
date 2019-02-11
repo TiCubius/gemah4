@@ -28,7 +28,7 @@ class EtablissementController extends Controller
 		$latestCreated = Etablissement::latestCreated()->take(5)->get();
 		$latestUpdated = Etablissement::latestUpdated()->take(5)->get();
 
-		if ($request->exists(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
+		if ($request->hasAny(["departement_id", "type_etablissement_id", "nom", "ville", "telephone"])) {
 			$etablissements = Etablissement::search($request->input("departement_id"), $request->input("type_etablissement_id"), $request->input("nom"), $request->input("ville"), $request->input("telephone"))->get();
 		}
 

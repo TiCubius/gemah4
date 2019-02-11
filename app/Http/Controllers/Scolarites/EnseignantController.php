@@ -23,7 +23,7 @@ class EnseignantController extends Controller
 		$latestCreated = Enseignant::latestCreated()->take(5)->get();
 		$latestUpdated = Enseignant::latestUpdated()->take(5)->get();
 
-		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
+		if ($request->hasAny(["nom", "prenom", "email", "telephone", "departement_id"])) {
 			$enseignants = Enseignant::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->get();
 		}
 

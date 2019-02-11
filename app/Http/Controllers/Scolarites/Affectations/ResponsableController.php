@@ -28,7 +28,7 @@ class ResponsableController extends Controller
 		$latestCreated = Responsable::latestCreated()->notRelated($eleve)->take(5)->get();
 		$latestUpdated = Responsable::latestUpdated()->notRelated($eleve)->take(5)->get();
 
-		if ($request->exists(["nom", "prenom", "email", "telephone", "departement_id"])) {
+		if ($request->hasAny(["nom", "prenom", "email", "telephone", "departement_id"])) {
 			$responsables = Responsable::search($request->input("nom"), $request->input("prenom"), $request->input("email"), $request->input("telephone"), $request->input("departement_id"))->notRelated($eleve)->get();
 		}
 

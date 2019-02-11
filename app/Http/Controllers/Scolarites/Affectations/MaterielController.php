@@ -35,7 +35,7 @@ class MaterielController extends Controller
 		$latestCreated = Materiel::latestCreated()->where("eleve_id", null)->take(5)->get();
 		$latestUpdated = Materiel::latestUpdated()->where("eleve_id", null)->take(5)->get();
 
-		if ($request->exists(["type_materiel_id", "etat_administratif_materiel_id", "etat_physique_materiel_id", "marque", "modele", "numero_serie", "cle_produit",])) {
+		if ($request->hasAny(["type_materiel_id", "etat_administratif_materiel_id", "etat_physique_materiel_id", "marque", "modele", "numero_serie", "cle_produit",])) {
 			$materiels = Materiel::search($request->input("departement_id"), $request->input("type_materiel_id"), $request->input("etat_administratif_materiel_id"), $request->input("etat_physique_materiel_id"), $request->input("marque"), $request->input("modele"), $request->input("numero_serie"), $request->input("cle_produit"))->where("eleve_id", null)->with("eleve", "etatAdministratif", "etatPhysique", "type", "type.domaine")->get();
 		}
 

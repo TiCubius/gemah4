@@ -99,47 +99,54 @@
 					<a class="btn btn-outline-dark" href="{{ route("web.statistiques.eleves") }}">
 						Annuler la recherche
 					</a>
+					@isset($eleves)
+						<a class="btn btn-outline-dark" href="{{ route("web.statistiques.eleves.exports", \Illuminate\Support\Facades\Request::all()) }}">
+							Exporter les résultats
+						</a>
+					@endisset
 					<button class="btn btn-outline-dark">Rechercher</button>
 				</div>
 			</form>
 
-			<div class="mt-3">
-				@component("web._includes.components.alert", ["type" => "success"])
-					<b>Information(s) sur la recherche</b> <br>
-					<ul class="mb-0">
-						<li>
-							Nombre d'élèves: {{ count($eleves) }}
-						</li>
-					</ul>
-				@endcomponent
-			</div>
+			@isset($eleves)
+				<div class="mt-3">
+					@component("web._includes.components.alert", ["type" => "success"])
+						<b>Information(s) sur la recherche</b> <br>
+						<ul class="mb-0">
+							<li>
+								Nombre d'élèves: {{ count($eleves) }}
+							</li>
+						</ul>
+					@endcomponent
+				</div>
 
-			<div class="table-responsive mb-3">
-				<table id="table" class="table table-hover table-sm table-striped text-center">
-					<thead class="gemah-bg-primary">
-						<tr class="text-center">
-							<th>Nom</th>
-							<th>Prénom</th>
-							<th>Date de naissance</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($eleves as $eleve)
-							<tr>
-								<td>{{ $eleve->nom }}</td>
-								<td>{{ $eleve->prenom }}</td>
-								<td>{{ $eleve->date_naissance->format("d/m/Y") }}</td>
-								<td>
-									<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-										Détails
-									</a>
-								</td>
+				<div class="table-responsive mb-3">
+					<table id="table" class="table table-hover table-sm table-striped text-center">
+						<thead class="gemah-bg-primary">
+							<tr class="text-center">
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Date de naissance</th>
+								<th>Action</th>
 							</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
+						</thead>
+						<tbody>
+							@foreach($eleves as $eleve)
+								<tr>
+									<td>{{ $eleve->nom }}</td>
+									<td>{{ $eleve->prenom }}</td>
+									<td>{{ $eleve->date_naissance->format("d/m/Y") }}</td>
+									<td>
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+											Détails
+										</a>
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			@endisset
 		</div>
 	</div>
 @endsection

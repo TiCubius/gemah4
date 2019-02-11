@@ -65,6 +65,27 @@ class EleveFilters extends QueryFilters
 	}
 
 	/**
+	 * FILTRE - Recherche sur les documents
+	 *
+	 * @param null $term
+	 * @return Builder|null
+	 */
+	public function documents($term = null): ?Builder
+	{
+		if ($term === "with") {
+			return $this->builder->whereHas("documents");
+		} elseif ($term === "without") {
+			return $this->builder->whereDoesntHave("documents");
+		} elseif ($term) {
+			return $this->builder->whereHas("documents", function ($query) use ($term) {
+				return $query->where("nom", "LIKE", "%{$term}%");
+			});
+		}
+
+		return null;
+	}
+
+	/**
 	 * FILTRE - REcherche sur l'établissement
 	 *
 	 * @param null $term
@@ -123,6 +144,7 @@ class EleveFilters extends QueryFilters
 
 	/**
 	 * Tri de la recherche
+	 *
 	 * @param null $term
 	 * @return Builder|null
 	 */
@@ -193,11 +215,15 @@ class EleveFilters extends QueryFilters
 	 */
 	public function type_eleve_id($term = null): ?Builder
 	{
-		return $this->builder->whereHas("decisions", function ($query) use ($term) {
-			return $query->whereHas("types", function ($query) use ($term) {
-				return $query->where("id", $term);
+		if ($term) {
+			return $this->builder->whereHas("decisions", function ($query) use ($term) {
+				return $query->whereHas("types", function ($query) use ($term) {
+					return $query->where("id", $term);
+				});
 			});
-		});
+		}
+
+		return null;
 	}
 
 }

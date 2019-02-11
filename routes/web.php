@@ -142,8 +142,13 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 
 	Route::group(["prefix" => "/statistiques", "as" => "web.statistiques."], function () {
 		Route::get("/", "Statistiques\StatistiquesController@index")->name("index");
+
 		Route::get("/eleves", "Statistiques\StatistiquesController@eleves")->name("eleves");
-        Route::get("/materiels", "Statistiques\StatistiquesController@materiels")->name("materiels");
+		Route::get("/eleves/export", "Statistiques\StatistiquesController@elevesExport")->name("eleves.exports");
+
+		Route::get("/materiels", "Statistiques\StatistiquesController@materiels")->name("materiels");
+		Route::get("/materiels/export", "Statistiques\StatistiquesController@materielsExport")->name("materiels.exports");
+
 		Route::get("/decisions", "Statistiques\StatistiquesController@decisions")->name("decisions");
 	});
 });

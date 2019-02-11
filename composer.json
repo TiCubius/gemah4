@@ -17,6 +17,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
+        "maatwebsite/excel": "^3.1",
         "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {

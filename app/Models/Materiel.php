@@ -141,13 +141,13 @@ class Materiel extends Model
 	 * @param string|null $cleProduit
 	 * @return Builder
 	 */
-	public function scopeSearch($query, ?string $departementId, ?int $typeId, ?int $etatAdministratifId, ?int $etatPhysiqueId, ?string $marque, ?string $modele, ?string $numeroSerie, ?string $cleProduit): Builder
+	public function scopeSearch($query, ?string $departementId, ?int $typeId, ?int $etatAdministratifId, ?int $etatPhysiqueId, ?string $marque, ?string $modele, ?string $numeroSerie, ?string $cleProduit, ?string $achatPour): Builder
 	{
 		// On souhaite une requête SQL du type:
 		// SELECT * FROM Materiels WHERE (type LIKE "%--%" OR marque LIKE "%--%" (...))
 		// Les parenthèses sont indispensable dans le cas où l'on rajoute diverses conditions supplémentaires
 
-		$search = $query->select('materiels.*')->where(function ($query) use ($typeId, $marque, $modele, $numeroSerie, $cleProduit) {
+		$search = $query->select('materiels.*')->where(function ($query) use ($typeId, $marque, $modele, $numeroSerie, $cleProduit, $achatPour) {
 			if ($marque) {
 				$query = $query->orWhere("marque", "LIKE", "%{$marque}%");
 			}
@@ -160,6 +160,9 @@ class Materiel extends Model
 			if ($cleProduit) {
 				$query = $query->orWhere("numero_serie", "LIKE", "%{$cleProduit}%");
 			}
+            if ($achatPour) {
+                $query = $query->orWhere("achat_pour", "LIKE", "%{$achatPour}%");
+            }
 		});
 
 		if ($departementId) {

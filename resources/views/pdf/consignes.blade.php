@@ -12,7 +12,7 @@
 			</section>
 
 			<section id="dsden" style="position: absolute; top: 0;">
-				<img src="{{ resource_path("images/dsden-logo.png") }}">
+				<img src="{{ resource_path("images/".session('user')->departement_id."/dsden-logo.png") }}">
 			</section>
 		</header>
 

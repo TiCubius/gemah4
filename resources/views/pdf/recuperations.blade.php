@@ -9,10 +9,10 @@
         <img src="{{ resource_path("images/marianne-logo.png") }}" style="height: 75px;">
     </section>
 
-    <section id="dsden" style="position: absolute; top: 0;">
-        <img src="{{ resource_path("images/dsden-logo.png") }}">
-    </section>
-</header>
+			<section id="dsden" style="position: absolute; top: 0;">
+				<img src="{{ resource_path("images/".session('user')->departement_id."/dsden-logo.png") }}">
+			</section>
+		</header>
 
 <section class="content" style="margin-top: 125px;">
     <h2>Récépissé de récupération du matériel prêté</h2>

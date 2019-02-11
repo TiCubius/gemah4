@@ -148,7 +148,7 @@
 														</a>
 														@endHas
 														@hasPermission("responsables/show")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.show", [$responsable]) }}">
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.responsables.edit", [$responsable]) }}">
 															Éditer
 														</a>
 														@endHas

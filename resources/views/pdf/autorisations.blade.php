@@ -35,7 +35,7 @@
 					A Saint-Etienne, le : {{ \Carbon\Carbon::now()->format("d/m/Y") }}
 				</section>
 
-				<section id="legal" style="margin-top: 100px; text-align: center; font-size: 18px;">
+				<section id="legal" style="margin-top: 100px; text-align: center; font-size: 16px;">
 					Je donne mon accord pour que l'ensemble des informations nécessaires au prêt de matériel adapté pour mon enfant fasse l'objet d'un traitement automatisé.
 
 					Je suis informé que le droit d'accès et de rectification s'exerce auprès de l'IA-DASEN du département concerné conformément à la loi du 10/01/78.

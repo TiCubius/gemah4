@@ -44,8 +44,6 @@ class StatistiquesTest extends TestCase
 		$request->assertSee("Responsable");
 		$request->assertSee("Documents");
 		$request->assertSee("Ordre");
-		$request->assertSee("Date de naissance");
-		$request->assertSee("Action");
 	}
 
 	/**

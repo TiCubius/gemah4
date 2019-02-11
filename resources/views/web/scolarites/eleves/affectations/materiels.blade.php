@@ -47,7 +47,8 @@
 								</div>
 
 								<div class="form-group">
-									<label class="optional" for="etat_administratif_materiel_id">Etat administratif</label>
+									<label class="optional" for="etat_administratif_materiel_id">Etat
+										administratif</label>
 									<select id="etat_administratif_materiel_id" class="form-control" name="etat_administratif_materiel_id">
 										<option value>Sélectionnez un état</option>
 										@foreach($etatsAdministratifs as $etat)
@@ -90,8 +91,13 @@
 									Clé de produit
 								@endcomponent
 
+								@component("web._includes.components.input", ["optional" => true, "name" => "achat_pour", "placeholder" => "Ex: SMITH John"])
+									Acheté pour
+								@endcomponent
+
 								<div class="d-flex justify-content-between">
-									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler la recherche</a>
+									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler
+										la recherche</a>
 									<button class="btn btn-outline-dark">Rechercher</button>
 								</div>
 							</div>
@@ -113,7 +119,9 @@
 												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 													{{ csrf_field() }}
 
-													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+													<button type="submit" class="btn btn-sm btn-outline-primary">
+														Affecter
+													</button>
 												</form>
 												@endHas
 											</div>
@@ -136,7 +144,9 @@
 												<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 													{{ csrf_field() }}
 
-													<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+													<button type="submit" class="btn btn-sm btn-outline-primary">
+														Affecter
+													</button>
 												</form>
 												@endHas
 											</div>
@@ -174,7 +184,7 @@
 												<th class="align-middle">Modèle</th>
 												<th class="align-middle">Numéro de Série</th>
 												<th class="align-middle">Prix TTC</th>
-												<th class="align-middle">Assigné à</th>
+												<th class="align-middle">Acheté pour</th>
 												<th class="align-middle">Date de prêt</th>
 												<th class="align-middle">Etat physique</th>
 												<th class="align-middle" width="116px">Actions</th>
@@ -189,13 +199,7 @@
 													<td>{{ $materiel->modele }}</td>
 													<td>{{ $materiel->numero_serie }}</td>
 													<td>{{ $materiel->prix_ttc }}</td>
-													@isset($materiel->eleve)
-														<td>
-															<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}</a>
-														</td>
-													@else
-														<td></td>
-													@endisset
+													<td>{{ $materiel->achat_pour }}</td>
 													<td>{{ $materiel->date_pret ? $materiel->date_pret->format("d/m/Y") : null }}</td>
 													<td>{{ $materiel->etatPhysique->libelle }}</td>
 													<td>
@@ -203,7 +207,9 @@
 														<form action="{{ route("web.scolarites.eleves.affectations.materiels.attach", [$eleve, $materiel]) }}" method="POST">
 															{{ csrf_field() }}
 
-															<button type="submit" class="btn btn-sm btn-outline-primary">Affecter</button>
+															<button type="submit" class="btn btn-sm btn-outline-primary">
+																Affecter
+															</button>
 														</form>
 														@endHas
 													</td>

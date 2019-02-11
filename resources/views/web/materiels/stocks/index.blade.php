@@ -47,7 +47,8 @@
 								</div>
 
 								<div class="form-group">
-									<label class="optional" for="etat_administratif_materiel_id">Etat administratif</label>
+									<label class="optional" for="etat_administratif_materiel_id">Etat
+										administratif</label>
 									<select id="etat_administratif_materiel_id" class="form-control" name="etat_administratif_materiel_id">
 										<option value>Sélectionnez un état</option>
 										@foreach($etatsAdministratifs as $etat)
@@ -90,8 +91,13 @@
 									Clé de produit
 								@endcomponent
 
+								@component("web._includes.components.input", ["optional" => true, "name" => "achat_pour", "placeholder" => "Ex: SMITH John"])
+									Acheté pour
+								@endcomponent
+
 								<div class="d-flex justify-content-between">
-									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler la recherche</a>
+									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler
+										la recherche</a>
 									<button class="btn btn-outline-dark">Rechercher</button>
 								</div>
 							</div>
@@ -111,15 +117,11 @@
 											<div class="btn-group">
 												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
-													Voir le profil
-												</a>
-												@endHas
+													Voir le profil </a> @endHas
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
-													Éditer
-												</a>
-												@endHas
+													Éditer </a> @endHas
 											</div>
 										</li>
 									@endforeach
@@ -138,15 +140,11 @@
 											<div class="btn-group">
 												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
-													Voir le profil
-												</a>
-												@endHas
+													Voir le profil </a> @endHas
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
-													Éditer
-												</a>
-												@endHas
+													Éditer </a> @endHas
 											</div>
 										</li>
 									@endforeach
@@ -188,7 +186,8 @@
 												<th class="align-middle">Modèle</th>
 												<th class="align-middle">Numéro de Série</th>
 												<th class="align-middle">Prix TTC</th>
-												<th class="align-middle">Assigné à</th>
+												<th class="align-middle">Acheté pour</th>
+												<th class="align-middle">Affecté à</th>
 												<th class="align-middle">Date de prêt</th>
 												<th class="align-middle">Etat physique</th>
 												<th class="align-middle" width="116px">Actions</th>
@@ -203,12 +202,14 @@
 													<td>{{ $materiel->modele }}</td>
 													<td>{{ $materiel->numero_serie }}</td>
 													<td>{{ $materiel->prix_ttc }}</td>
+													<td>{{ $materiel->achat_pour }}</td>
 													@isset($materiel->eleve)
 														<td>
 															@hasPermission("eleves/show")
 															<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}</a>
 															@endHas
 														</td>
+
 													@else
 														<td></td>
 													@endisset
@@ -243,7 +244,7 @@
 				},
 				"info": false,
 				"columnDefs": [
-					{"orderable": false, "targets": 9},
+					{"orderable": false, "targets": 10},
 				],
 				"pageLength": 50,
 			})

@@ -119,7 +119,7 @@ class ConventionController extends Controller
 		// - les responsales n'ont pas signés
 		$eleves = Eleve::with("responsables", "etablissement", "decisions", "materiels", "materiels.type", "materiels.type.domaine")->join("eleve_responsable", "eleves.id", "=", "eleve_responsable.eleve_id")->has("etablissement")->has("decisions")->has("materiels")->has("responsables")->where("eleve_responsable.etat_signature", "=", 0)->whereHas("decisions", function ($query) use ($decisions) {
 			return $query->whereIn("decisions.id", $decisions);
-		})->orderBy("eleves.nom")->where("eleves.id", $departement->id)->get();
+		})->orderBy("eleves.nom")->where("eleves.departement_id", $departement->id)->get();
 
 		// Récupération de tout les paramètres pour imprimer les conventions
 		$allParametres = Parametre::conventions($departement->id)->get();

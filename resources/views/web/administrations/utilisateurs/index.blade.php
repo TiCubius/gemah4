@@ -30,19 +30,18 @@
 									<td>{{ "{$utilisateur->nom} {$utilisateur->prenom}" }}</td>
 									<td>{{ $utilisateur->email }}</td>
 									<td>
-										@hasPermission("administrations/utilisateurs/show")
-										<a href="{{ route("web.administrations.utilisateurs.show", [$utilisateur]) }}">
-											<button class="btn btn-sm btn-outline-primary">
-												<i class="fas fa-info-circle"></i>
-												Détails
-											</button>
-										</a>
-										@endHas
-										@hasPermission("administrations/utilisateurs/create")
-										<a href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur]) }}">
-											<button class="btn btn-sm btn-outline-primary">Éditer</button>
-										</a>
-										@endHas
+										<div class="btn-group">
+											@hasPermission("administrations/utilisateurs/show")
+											<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.utilisateurs.show", [$utilisateur]) }}">
+												<i class="fas fa-info-circle"></i>Détails
+											</a>
+											@endHas
+											@hasPermission("administrations/utilisateurs/create")
+											<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.utilisateurs.edit", [$utilisateur]) }}">
+												Éditer
+											</a>
+											@endHas
+										</div>
 									</td>
 								</tr>
 							@endforeach

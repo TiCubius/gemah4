@@ -7,6 +7,7 @@
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="{{ asset("assets/css/simplemde.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/css/github.css") }}">
         <link rel="stylesheet" href="{{ asset("assets/css/docs.css")  }}">
     </head>
 

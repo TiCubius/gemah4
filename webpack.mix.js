@@ -14,6 +14,7 @@ let mix = require('laravel-mix');
 mix.copy('resources/css/bootstrap.css', 'public/assets/css')
 	.copy('resources/css/dataTables.bootstrap4.min.css', 'public/assets/css')
 	.copy('resources/css/simplemde.css', 'public/assets/css')
+	.copy('resources/css/github.css', 'public/assets/css')
     .copy('resources/js/bootstrap.min.js', 'public/assets/js')
     .copy('resources/js/jquery-3.3.1.min.js', 'public/assets/js')
 	.copy('resources/js/poppers.min.js', 'public/assets/js')

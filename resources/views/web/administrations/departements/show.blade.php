@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil du département {$departement->nom}")
+
 @section('content')
 	<div class="row">
 

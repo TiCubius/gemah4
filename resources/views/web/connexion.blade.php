@@ -6,7 +6,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 		<meta name="generator" content="Jekyll v3.8.5">
-		<title>Connexion GEMAH</title>
+		<title>GEMAH - Connexion</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href={{ asset("assets/css/bootstrap.css") }} rel="stylesheet">

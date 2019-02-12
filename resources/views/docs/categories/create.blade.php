@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = "Nouvelle catégorie")
 @section('content')
     <form id="form" action="{{ route("categories.store") }}" method="POST">
         @csrf

@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Ticket {$eleve->nom} {$eleve->prenom} / {$ticket->type->libelle}")
+
 @section('content')
 	<div class="row">
 

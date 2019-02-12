@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Création d'une région")
+
 @section('content')
 	<div class="row">
 

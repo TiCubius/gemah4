@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Liste des élèves dont la décision a expiré depuis le " . \Carbon\Carbon::parse($date)->format("d/m/Y"))
+
 @section('content')
 	<div class="row">
 

@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = "Nouvelle documentation")
 @section('content')
 
 	<form id="form" action="{{ route("documentations.store") }}" method="POST">

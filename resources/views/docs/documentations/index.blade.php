@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = "Liste des documentations")
 @section('content')
 
 	<div id="content">

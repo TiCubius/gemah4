@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = $documentation->libelle)
 @section('content')
 
     <div id="content">

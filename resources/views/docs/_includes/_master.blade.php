@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Introduction · Bootstrap</title>
+        <title>{{ "Documentation - " . $title ?? "Index" }}</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="{{ asset("assets/css/simplemde.css") }}">

@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Nouvelle décision")
 
 @include('web._includes.sidebars.eleve')
 @section('content')

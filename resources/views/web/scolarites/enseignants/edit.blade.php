@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Édition de {$enseignant->nom} {$enseignant->prenom}")
+
 @section('content')
 	<div class="row">
 

@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Nouveau document")
 
 @section('content')
 	<div class="row">

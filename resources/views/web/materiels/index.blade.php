@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Gestion du matériel")
+
 @section('content')
 	<div class="row">
 

@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Création d'un responsable et affectation a {$eleve->nom} {$eleve->prenom}")
+
 @section('content')
 	<div class="row">
 

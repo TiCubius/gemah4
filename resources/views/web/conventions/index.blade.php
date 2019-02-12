@@ -1,4 +1,6 @@
 @extends("web._includes._master")
+@php($title = "Liste des conventions")
+
 @section('content')
 
 	@component('web._includes.components.title', ["back" => "web.index"])

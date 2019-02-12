@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Édition de {$document->libelle}")
+
 @section('content')
 	<div class="row">
 

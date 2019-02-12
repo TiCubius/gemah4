@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil du type de matériel $type->libelle}")
+
 @section('content')
 	<div class="row">
 

@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Édition de {$service->nom}")
+
 @section('content')
 	<div class="row">
 

@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Édition d'un message")
+
 @section('content')
 	<div class="row">
 

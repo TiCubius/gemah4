@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Gestion de la scolarité")
+
 @section('content')
 	<div class="row">
 

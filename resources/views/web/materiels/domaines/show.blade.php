@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil du domaine matériel {$domaine->libelle}")
+
 @section('content')
 	<div class="row">
 

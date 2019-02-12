@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil du responsable {$responsable->nom} {$responsable->prenom}")
+
 @section('content')
 	<div class="row">
 

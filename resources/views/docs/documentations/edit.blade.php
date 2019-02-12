@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = "Édition de {$documentation->libelle}")
 @section('content')
 
     <form id="form" action="{{ route("documentations.update", [$documentation]) }}" method="POST">

@@ -1,4 +1,5 @@
 @extends('docs._includes._master')
+@php($title = "Édition de {$categorie->libelle}")
 @section('content')
     <form id="form" action="{{ route("categories.update", [$categorie]) }}" method="POST">
         @csrf

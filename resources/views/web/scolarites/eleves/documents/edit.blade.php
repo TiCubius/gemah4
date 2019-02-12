@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Édition de {$document->nom}")
 
 @section('content')
 

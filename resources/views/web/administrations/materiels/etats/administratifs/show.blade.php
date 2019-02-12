@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil de l'état administratif {$administratif->libelle}")
+
 @section('content')
 	<div class="row">
 

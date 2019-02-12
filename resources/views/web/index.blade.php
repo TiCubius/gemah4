@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Index")
 @section('content')
 	<div class="row">
 

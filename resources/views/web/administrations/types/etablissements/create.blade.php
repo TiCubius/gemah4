@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Création d'un type d'établissement")
+
 @section('content')
 	<div class="row">
 

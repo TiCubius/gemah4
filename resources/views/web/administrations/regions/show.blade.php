@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil de la région {$region->nom} ")
+
 @section('content')
 	<div class="row">
 

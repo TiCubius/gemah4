@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Détails de l'historique")
+
 @section('content')
 	<div class="row">
 		@component("web._includes.components.title", ["back" => "web.administrations.historiques.index"])

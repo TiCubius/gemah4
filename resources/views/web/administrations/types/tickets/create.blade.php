@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Création d'un type de ticket")
+
 @section('content')
 	<div class="row">
 

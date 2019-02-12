@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Gestion des documents")
 
 @section('content')
 

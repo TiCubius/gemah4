@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/gemah.css') }}">
 		@yield('css')
 
-		<title>{{ $title ?? 'GEMAH' }}</title>
+		<title>{{ "GEMAH - " . $title ?? "Index" }}</title>
 	</head>
 
 	<body>

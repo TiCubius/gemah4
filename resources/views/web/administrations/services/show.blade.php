@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Profil du service {$service->nom}")
+
 @section('content')
 	<div class="row">
 

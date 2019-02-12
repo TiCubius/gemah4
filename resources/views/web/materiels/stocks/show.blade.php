@@ -1,4 +1,5 @@
 @extends('web._includes._master')
+@php($title = "Descriptif matériel de {$stock->modele}")
 
 @section('content')
 	<div class="row">

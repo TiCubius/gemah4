@@ -1,4 +1,6 @@
 @extends('web._includes._master')
+@php($title = "Personnalisation des conventions")
+
 @section('content')
 	<div class="row">
 

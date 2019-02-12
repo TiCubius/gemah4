@@ -1,4 +1,5 @@
 @extends("docs._includes._master")
+@php($title = "Gestion des images")
 @section("content")
 
 	<div id="content">

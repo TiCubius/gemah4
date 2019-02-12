@@ -145,7 +145,7 @@
 					<div class="card-footer">
 						<div class="dropup">
 							<div class="btn btn-outline-dark btn-sm dropdown-toggle float-right" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Gestion responasble
+								Gestion responsable
 							</div>
 
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">

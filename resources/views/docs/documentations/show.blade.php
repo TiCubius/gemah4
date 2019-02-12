@@ -5,7 +5,9 @@
     <div id="content">
         <h2 class="title">{{ $documentation->libelle }}</h2>
 
-        @markdown($documentation->contenu)
+        <div class="markdown-body">
+            @markdown($documentation->contenu)
+        </div>
     </div>
 
 @endsection

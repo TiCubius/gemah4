@@ -92,7 +92,6 @@ class PermissionsSeeder extends Seeder
 		"affectations/responsables/attach"   => "Peut affecter un élève à un responsable",
 		"affectations/responsables/detach"   => "Peut désaffecter un élève d'un responsable",
 
-
 		"conventions/index"                        => "Peut afficher la liste des états signature des conventions",
 		"conventions/edit"                         => "Peut modifier l'état signature des conventions",
 		"conventions/signaturesEffectuees"         => "Peut générer la liste des signatures effecutées",
@@ -183,6 +182,22 @@ class PermissionsSeeder extends Seeder
 		"statistiques/materiels"       => "Peut afficher la liste des matériels",
 		"statistiques/materielsExport" => "Peut exporter la liste des matériels",
 		"statistiques/decisions"       => "Peut afficher la liste des décisions expirées",
+
+
+		"documentations/categories/index"   => "Peut afficher le menu des catégories de la documentation",
+		"documentations/categories/create"  => "Peut créer une catégorie",
+		"documentations/categories/edit"    => "Peut éditer une catégorie",
+		"documentations/categories/destroy" => "Peut supprimer une catégorie",
+
+		"documentations/documentations/index"   => "Peut afficher le menu des documentations",
+		"documentations/documentations/create"  => "Peut créer une documentation",
+		"documentations/documentations/show"    => "Peut afficher une documentation",
+		"documentations/documentations/edit"    => "Peut éditer une documentation",
+		"documentations/documentations/destroy" => "Peut supprimer une documentation",
+
+		"documentations/images/index"   => "Peut afficher la liste des images de la documentation",
+		"documentations/images/create"  => "Peut envoyer une image",
+		"documentations/images/destroy" => "Peut supprimer une image",
 	];
 
 	/**

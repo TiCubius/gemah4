@@ -29,7 +29,7 @@ class Permission
 		"App\Http\Controllers\Administrations\ServiceController"     => "administrations/services/",
 		"App\Http\Controllers\Administrations\UtilisateurController" => "administrations/utilisateurs/",
 
-        "App\Http\Controllers\Administrations\HistoriqueController" => "administrations/historiques/",
+		"App\Http\Controllers\Administrations\HistoriqueController" => "administrations/historiques/",
 
 
 		"App\Http\Controllers\Materiels\MaterielController"        => "materiels/",
@@ -61,6 +61,10 @@ class Permission
 
 		"App\Http\Controllers\ConnexionController" => null,
 		"App\Http\Controllers\GemahController"     => null,
+
+		"App\Http\Controllers\Documentations\CategorieController"     => "documentations/categories/",
+		"App\Http\Controllers\Documentations\DocumentationController" => "documentations/documentations/",
+		"App\Http\Controllers\Documentations\ImageController"         => "documentations/images/",
 	];
 
 	/**

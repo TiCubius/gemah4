@@ -18,8 +18,8 @@ class CreatePermissionServiceTable extends Migration
 			$table->string('permission_id');
 
 			$table->primary(['service_id', 'permission_id']);
-			$table->foreign('service_id')->references('id')->on('services');
-			$table->foreign('permission_id')->references('id')->on('permissions');
+			$table->foreign('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
+			$table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

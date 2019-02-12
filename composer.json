@@ -14,10 +14,12 @@
         "fedeisas/laravel-mail-css-inliner": "^2.2",
         "felixkiss/uniquewith-validator": "^3.1",
         "fideloper/proxy": "^4.0",
+        "graham-campbell/markdown": "^10.2",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "maatwebsite/excel": "^3.1",
+        "webuni/commonmark-table-extension": "^0.9.0",
         "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {

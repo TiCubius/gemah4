@@ -1,0 +1,181 @@
+// GEMAHDocs
+//
+// VERSION: 3.00
+
+@import "normalize"
+
+$primary: #303F9F
+
+
+html, body
+    display: flex
+    flex-direction: row
+
+    font-family: "Roboto", "Open Sans", sans-serif
+
+    overflow-x: hidden
+    
+    box-sizing: border-box
+    background: #EFEFEF
+
+a
+    color: cyan
+    text-decoration: none
+
+h1, h2, h3, h4, h5, h6
+    font-size: 18px
+    font-weight: normal
+
+    margin: 0
+    padding: 0
+
+button
+
+    border: 1px solid $primary
+
+    color: black
+    font-weight: normal
+    padding: 10px 20px
+    margin: 0 5px
+    background: transparent
+
+#sidebar
+    display: flex
+    flex-direction: column
+
+    height: 100%
+    min-height: 100vh
+    width: 300px
+
+    color: white
+    background: $primary
+
+    #search
+        color: black
+        background: white
+
+        height: 32px
+        width: calc(100% - 20px)
+
+        padding: 10px
+        border: none
+
+    .content
+        padding: 20px
+
+        .categorie
+            &.show
+                display: block
+
+            display: none
+
+            margin-left: 20px
+
+        .categorie-link
+            display: none
+
+            &.show
+                display: block
+
+            margin-left: 20px
+            margin-bottom: 18px
+            margin-top: 9px
+
+            font-size: 18px
+
+        h4
+            padding: 10px 0
+
+        .actions
+            position: absolute
+
+            bottom: 64px
+
+
+#main
+    padding: 0 20px
+
+    width: calc(100vw - 340px)
+
+    #form
+        input[type="text"]
+            width: calc(100% - 20px)
+
+            border: 2px solid white
+
+            padding: 20px 10px
+            margin: 16px 0
+
+            color: black
+            background: transparent
+
+        select
+            width: 100%
+
+            border: 2px solid white
+
+            padding: 20px 10px
+            margin-bottom: 16px
+
+            color: black
+            background: transparent
+
+
+        .categories
+            margin-bottom: 20px
+
+            .categorie
+                margin-left: 20px
+
+
+    #content
+        .title
+            display: flex
+            align-items: center
+            justify-content: space-between
+
+            height: 52px
+
+            text-transform: uppercase
+
+        img
+            max-width: 100%
+
+        table
+            width: 100%
+
+            tr
+                background: #FFF
+                
+                &:nth-child(2n)
+                    background: #FCFCFC
+
+                &:hover
+                    color: white
+                    background: $primary
+
+                    button
+                        color: white
+                        border: 1px solid white
+
+            td, th
+                padding: 10px 20px
+
+        #dragdrop
+            display: flex
+            align-items: center
+            justify-content: center
+
+            width: 100%
+            height: 128px
+
+            color: white
+            background: grey
+
+        .images-list
+
+            img
+                object-fit: cover
+
+                height: 250px
+                width: 100%

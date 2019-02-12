@@ -56,6 +56,11 @@
 				</button>
 			</a>
 			@endHas
+			<a href="{{ route('documentations.index') }}">
+				<button class="btn btn-menu btn-primary btn-lg w-100 mb-3 gemah-bg-primary">
+					<i class="fas fa-book-open"></i> Documentation
+				</button>
+			</a>
 		</div>
 
 	</div>

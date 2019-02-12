@@ -1,11 +1,13 @@
 {
     "/assets/js/app.js": "/assets/js/app.js",
-    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/css/gemah.css": "/assets/css/gemah.css",
+    "/assets/css/docs.css": "/assets/css/docs.css",
     "/assets/css/bootstrap.css": "/assets/css/bootstrap.css",
     "/assets/css/dataTables.bootstrap4.min.css": "/assets/css/dataTables.bootstrap4.min.css",
     "/assets/js/bootstrap.min.js": "/assets/js/bootstrap.min.js",
     "/assets/js/jquery-3.3.1.min.js": "/assets/js/jquery-3.3.1.min.js",
     "/assets/js/poppers.min.js": "/assets/js/poppers.min.js",
     "/assets/js/dataTables.bootstrap4.min.js": "/assets/js/dataTables.bootstrap4.min.js",
-    "/assets/js/jquery.dataTables.min.js": "/assets/js/jquery.dataTables.min.js"
+    "/assets/js/jquery.dataTables.min.js": "/assets/js/jquery.dataTables.min.js",
+    "/assets/js/fontawesome.min.js": "/assets/js/fontawesome.min.js"
 }

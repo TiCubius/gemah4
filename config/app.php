@@ -153,6 +153,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
 		Barryvdh\Snappy\ServiceProvider::class,
 		ZanySoft\Zip\ZipServiceProvider::class,
+		GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,6 +217,7 @@ return [
 		'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 		'Zip' => ZanySoft\Zip\ZipFacade::class,
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+		'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 	],
 
 ];

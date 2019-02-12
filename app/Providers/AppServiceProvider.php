@@ -90,11 +90,19 @@ class AppServiceProvider extends ServiceProvider
 		Utilisateur::observe(UtilisateurObserver::class);
 
 		Blade::directive('hasPermission', function ($permission) {
-			return "<?php if(Session::has('user') && Session::get('user')->service->permissions->contains('id', $permission)) { ?>";
+			return "<?php if(Session::has('user') && Session::get('user')->service->permissions->contains('id', $permission)): ?>";
 		});
 
 		Blade::directive('endHas', function () {
-			return "<?php } ?>";
+			return "<?php endif; ?>";
+		});
+
+		Blade::directive('isLoggedIn', function () {
+			return "<?php if(Session::has('user')): ?>";
+		});
+
+		Blade::directive('endIsLoggedIn', function () {
+			return "<?php endif; ?>";
 		});
 	}
 

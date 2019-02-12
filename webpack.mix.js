@@ -20,5 +20,8 @@ mix.copy('resources/css/bootstrap.css', 'public/assets/css')
 	.copy('resources/js/jquery.dataTables.min.js', 'public/assets/js')
 	.copyDirectory('resources/images', 'public/assets/images')
     .js('resources/js/app.js', 'public/assets/js')
-    .sass('resources/sass/app.sass', 'public/assets/css')
+	.copy('resources/js/fontawesome.min.js', 'public/assets/js')
+	.sass('resources/sass/gemah.sass', 'public/assets/css')
+	.sass('resources/sass/docs.sass', 'public/assets/css')
+
 	.browserSync({proxy: "localhost:8000"});

@@ -151,4 +151,13 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 
 		Route::get("/decisions", "Statistiques\StatistiquesController@decisions")->name("decisions");
 	});
+
+
+	/**
+	 * ROUTES: DOCUMENTATIONS
+	 */
+	Route::resource("categories", "Documentations\CategorieController")->parameters(["categories" => "categorie"]);
+	Route::resource("documentations", "Documentations\DocumentationController");
+	Route::resource("images", "Documentations\ImageController");
+
 });

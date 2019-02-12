@@ -1,5 +1,4 @@
-@extends("web._includes._master")
-@php($title = "Gestion des enseignants référents")
+@extends("web._includes._master")@php($title = "Gestion des enseignants référents")
 
 @section("content")
 
@@ -65,11 +64,9 @@
 											<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
 											<div class="btn-group">
 												@hasPermission("enseignants/show")
-												<a href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
-													<button class="btn btn-sm btn-outline-primary">
-														<i class="fas fa-info-circle"></i>
-														Détails
-													</button>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
 												</a>
 												@endHas
 												@hasPermission("enseignants/edit")

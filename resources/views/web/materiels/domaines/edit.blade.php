@@ -13,10 +13,9 @@
 				{{ csrf_field() }}
 				{{ method_field("PUT") }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Informatique" value="{{ $domaine->libelle }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: Informatique", "value" => $domaine->libelle])
+					Libellé
+				@endcomponent
 
 				@hasPermission("materiels/domaines/edit")
 				@component("web._includes.components.form_edit")

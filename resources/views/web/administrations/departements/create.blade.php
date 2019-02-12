@@ -13,15 +13,13 @@
 			<form class="mb-3" action="{{ route("web.administrations.departements.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="id">Code</label>
-					<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 42" value="{{ old("id") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "id", "placeholder" => "Ex: 42"])
+					Code
+				@endcomponent
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Loire" value="{{ old("nom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Loire"])
+					Nom
+				@endcomponent
 
 				<div class="form-group">
 					<label for="academie_id">Académie</label>

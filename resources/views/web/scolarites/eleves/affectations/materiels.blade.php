@@ -184,7 +184,7 @@
 												<th class="align-middle">Type</th>
 												<th class="align-middle">Marque</th>
 												<th class="align-middle">Modèle</th>
-												<th class="align-middle">Numéro de Série</th>
+												<th class="align-middle">Numéro de série</th>
 												<th class="align-middle">Prix TTC</th>
 												<th class="align-middle">Acheté pour</th>
 												<th class="align-middle">Date de prêt</th>

@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Édition de {$decision->document->nom}")
+@extends('web._includes._master')@php($title = "Édition de {$decision->document->nom}")
 
 @include('web._includes.sidebars.eleve')
 @section('content')
@@ -18,42 +17,28 @@
 
 				<div class="row">
 					<div class="col-6">
-						<div>
-							<div class="form-group">
-								<label class="optional" for="date_cda">Date de la CDA</label>
-								<input type="date" id="date_cda" name="date_cda" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_cda ? $decision->date_cda->format('Y-m-d') : '' }}">
-							</div>
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_cda", "type" => "date", "placeholder" => "Ex: 07/01/2019", "value" => $decision->date_cda ? $decision->date_cda->format("Y-m-d") : ""])
+							Date de la CDA
+						@endcomponent
 
-						<div>
-							<div class="form-group">
-								<label class="optional" for="date_notification">Date de réception de la notification</label>
-								<input type="date" id="date_notification" name="date_notification" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_notification ? $decision->date_notification->format('Y-m-d') : '' }}">
-							</div>
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_notif", "type" => "date", "placeholder" => "Ex: 07/01/2019", "value" => $decision->date_notif ? $decision->date_notif->format("Y-m-d") : ""])
+							Date de réception de la notification
+						@endcomponent
 
-						<div>
-							<div class="form-group">
-								<label class="optional" for="date_limite">Date limite</label>
-								<input type="date" id="date_limite" name="date_limite" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_limite ? $decision->date_limite->format('Y-m-d') : '' }}">
-							</div>
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_limite", "type" => "date", "placeholder" => "Ex: 07/01/2019", "value" => $decision->date_limite ? $decision->date_limite->format("Y-m-d") : ""])
+							Date limite
+						@endcomponent
 
-						<div>
-							<div class="form-group">
-								<label class="optional" for="date_convention">Date de la convention</label>
-								<input type="date" id="date_lidate_conventionmite" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ $decision->date_convention ? $decision->date_convention->format('Y-m-d') : '' }}">
-							</div>
-						</div>
+
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_convention", "type" => "date", "placeholder" => "Ex: 07/01/2019", "value" => $decision->date_convention ? $decision->date_convention->format("Y-m-d") : ""])
+							Date de la convention
+						@endcomponent
 					</div>
 
 					<div class="col-6">
-						<div>
-							<div class="form-group">
-								<label class="optional" for="numero_dossier">Numéro du dossier MDPH</label>
-								<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Ex: ..." class="form-control" value="{{ $decision->numero_dossier ?? '' }}">
-							</div>
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "numero_dossier", "placeholder" => "Ex: 295631", "value" => $decision->numero_dossier])
+							Numéro de dossier MDPH
+						@endcomponent
 
 						<div>
 							<div class="form-group">

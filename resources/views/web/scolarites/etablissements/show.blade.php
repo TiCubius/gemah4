@@ -14,7 +14,7 @@
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-						@hasPermission("scolarites/etablissements/edit")
+						@hasPermission("etablissements/edit")
 						<a class="dropdown-item" href="{{ route("web.scolarites.etablissements.edit", [$etablissement]) }}">Éditer l'établissement</a>
 						@endHas
 					</div>

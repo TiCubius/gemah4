@@ -14,15 +14,13 @@
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
-				<div class="form-group">
-					<label for="id">Code</label>
-					<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 42" value="{{ $departement->id }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "id", "placeholder" => "Ex: 42", "value" => $departement->id])
+					Code
+				@endcomponent
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Loire" value="{{ $departement->nom }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Loire", "value" => $departement->nom])
+					Nom
+				@endcomponent
 
 
 				<div class="form-group">

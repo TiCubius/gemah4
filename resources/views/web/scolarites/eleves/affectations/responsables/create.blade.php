@@ -25,42 +25,33 @@
 					</select>
 				</div>
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ old("nom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: SMITH"])
+					Nom
+				@endcomponent
 
-				<div class="form-group">
-					<label for="prenom">Prénom</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ old("prenom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "prenom", "placeholder" => "Ex: SMITH"])
+					Prénom
+				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "nom", "type" => "email", "placeholder" => "Ex: john@smith.fr"])
+					Adresse E-Mail
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="email">Adresse E-Mail</label>
-					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ old("email") }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 04 77 81 41 00"])
+					Téléhpone
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="telephone">Téléphone</label>
-					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex: 42100"])
+					Code postal
+				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "ville", "placeholder" => "Ex: Saint-Etienne"])
+					Ville
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="code_postal">Code postal</label>
-					<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ old("code_postal") }}">
-				</div>
-
-				<div class="form-group">
-					<label class="optional" for="ville">Ville</label>
-					<input id="ville" class="form-control" name="ville" type="text" placeholder="Ex: Saint-Etienne" value="{{ old("ville") }}">
-				</div>
-
-				<div class="form-group">
-					<label class="optional" for="adresse">Adresse</label>
-					<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot"])
+					Adresse
+				@endcomponent
 
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success js-submit">Créer</button>

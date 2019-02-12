@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Nouvelle décision")
+@extends('web._includes._master')@php($title = "Nouvelle décision")
 
 @include('web._includes.sidebars.eleve')
 @section('content')
@@ -17,34 +16,28 @@
 
 				<div class="row">
 					<div class="col-6">
-						<div class="form-group">
-							<label class="optional" for="date_cda">Date de la CDA</label>
-							<input type="date" id="date_cda" name="date_cda" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_cda'] ?? '' }}">
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_cda", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+							Date de la CDA
+						@endcomponent
 
-						<div class="form-group">
-							<label class="optional" for="date_notif">Date de réception de la notification</label>
-							<input type="date" id="date_notif" name="date_notif" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_notif'] ?? '' }}">
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_notif", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+							Date de réception de la notification
+						@endcomponent
 
-						<div class="form-group">
-							<label class="optional" for="date_limite">Date limite</label>
-							<input type="date" id="date_limite" name="date_limite" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_limite'] ?? '' }}">
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_limite", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+							Date limite
+						@endcomponent
 
-						<div class="form-group">
-							<label class="optional" for="date_convention">Date de la convention</label>
-							<input type="date" id="date_convention" name="date_convention" placeholder="Ex: 01/01/2019" class="form-control" value="{{ Session::get('_old_input')['date_convention'] ?? '' }}">
-						</div>
+
+						@component("web._includes.components.input", ["optional" => true, "name" => "date_convention", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+							Date de la convention
+						@endcomponent
 					</div>
 
 					<div class="col-6">
-						<div>
-							<div class="form-group">
-								<label class="optional" for="numero_dossier">Numéro du dossier MDPH</label>
-								<input type="text" id="numero_dossier" name="numero_dossier" placeholder="Ex: ..." class="form-control" value="{{ Session::get('_old_input')['numero_dossier'] ?? '' }}">
-							</div>
-						</div>
+						@component("web._includes.components.input", ["optional" => true, "name" => "numero_dossier", "placeholder" => "Ex: 295631"])
+							Numéro de dossier MDPH
+						@endcomponent
 
 						<div class="form-group">
 							<label class="optional" for="enseignant_id">Nom/prénom de l'enseignant référent</label>
@@ -58,6 +51,7 @@
 
 						<div class="form-group">
 							Type d'élève
+
 							<div class="border border rounded pt-0 pl-2 pt-1 mt-1">
 								@foreach($types as $type)
 									<div class="custom-control custom-checkbox mb-1">

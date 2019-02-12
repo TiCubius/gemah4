@@ -88,22 +88,22 @@
 
 							<p class="mb-0">
 								<strong>N° d'engagement juridique EJ</strong>:
-								{!! $stock->numero_EJ  ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->numero_ej  ?? '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
 								<strong>Date d'engagement juridique EJ</strong>:
-								{!! $stock->date_EJ  ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->date_ej ? $stock->date_ej->format("d/m/Y")  : '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
 								<strong>Date de facture</strong>:
-								{!! $stock->date_facture ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->date_facture ? $stock->date_facture->format("d/m/Y") : '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 
 							<p class="mb-0">
 								<strong>Date de service fait</strong>:
-								{!! $stock->date_service_fait ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->date_service_fait ? $stock->date_service_fait->format("d/m/Y") : '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 						</div>
 					</div>
@@ -121,7 +121,7 @@
 
 							<p class="mb-0">
 								<strong>Date de fin de garantie</strong>:
-								{!! $stock->date_fin_garantie ?? '<span class="text-muted"> Non renseigné</span>' !!}
+								{!! $stock->date_fin_garantie ? $stock->date_fin_garantie->format("d/m/Y") : '<span class="text-muted"> Non renseigné</span>' !!}
 							</p>
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 								</p>
 								<p class="mb-0">
 									<strong>Date de prêt</strong>:
-									{{ \Carbon\Carbon::parse($stock->date_pret)->format('d/m/Y') }}<br>
+									{!! $stock->date_pret ? $stock->date_pret->format('d/m/Y H:i:s') : '<span class="text-muted"> Non renseigné</span>'  !!}<br>
 								</p>
 							</div>
 						</div>

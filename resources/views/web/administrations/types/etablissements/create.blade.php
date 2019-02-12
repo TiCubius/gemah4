@@ -12,10 +12,10 @@
 			<form class="mb-3" action="{{ route("web.administrations.types.etablissements.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: LYCEE POLYVALENT" value="{{ old("libelle") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: LYCEE POLYVALENT"])
+					Libellé
+				@endcomponent
+
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer</button>
 				</div>

@@ -12,15 +12,13 @@
 			<form class="mb-3" action="{{ route("web.administrations.services.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Administration" value="{{ old("nom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Administration"])
+					Nom
+				@endcomponent
 
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input id="description" class="form-control" name="description" type="text" placeholder="Ex: Possède tout les droits sur l'application" value="{{ old("description") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Gestion de GEMAH"])
+					Description
+				@endcomponent
 
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("department_id")])
 				@endcomponent

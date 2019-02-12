@@ -36,20 +36,17 @@
 					</div>
 
 
-					<div class="form-group">
-						<label class="optional" for="id">Code</label>
-						<input id="id" class="form-control" name="id" type="text" placeholder="Ex: 0420044V" value="{{ old("id") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "id", "placeholder" => "Ex : 0420044V"])
+						Code
+					@endcomponent
 
-					<div class="form-group">
-						<label class="optional" for="degre">Degré</label>
-						<input id="degre" class="form-control" name="degre" type="text" placeholder="Ex: ..." value="{{ old("degre") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "degre", "placeholder" => "Ex : Secondaire"])
+						Degré
+					@endcomponent
 
-					<div class="form-group">
-						<label class="optional" for="regime">Régime</label>
-						<input id="regime" class="form-control" name="regime" type="text" placeholder="Ex: ..." value="{{ old("regime") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "regime", "placeholder" => "Ex : Privé / Public"])
+						Régime
+					@endcomponent
 				</div>
 
 				<div class="card card-body mb-3">
@@ -59,30 +56,26 @@
 					@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
 					@endcomponent
 
-					<div class="form-group">
-						<label for="ville">Ville</label>
-						<input id="ville" class="form-control" name="ville" type="text" placeholder="Ex: Paris, Saint-Etienne, ..." value="{{ old("ville") }}" required>
-					</div>
+					@component("web._includes.components.input", ["name" => "ville", "placeholder" => "Ex : Saint-Etienne"])
+						Ville
+					@endcomponent
 
-					<div class="form-group">
-						<label class="optional" for="code_postal">Code Postal</label>
-						<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ old("code_postal") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex : 42100"])
+						Code Postal
+					@endcomponent
 
-					<div class="form-group">
-						<label class="optional" for="adresse">Adresse</label>
-						<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ old("adresse") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex : 11 rue des Docteurs Charcots"])
+						Adresse
+					@endcomponent
 				</div>
 
 				<div class="card card-body mb-3">
 					<span class="text-uppercase">Informations de contact</span>
 					<hr>
 
-					<div class="form-group">
-						<label class="optional" for="telephone">Téléphone</label>
-						<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ old("telephone") }}">
-					</div>
+					@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex : 04 77 81 41 00"])
+						Téléphone
+					@endcomponent
 
 					<div class="form-group">
 						<label class="optional" for="enseignant_id">Enseignant Référent</label>

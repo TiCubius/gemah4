@@ -12,10 +12,9 @@
 			<form class="mb-3" action="{{ route("web.materiels.types.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Clavier" value="{{ old("libelle") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: Clavier"])
+					Libellé
+				@endcomponent
 
 				<div class="form-group">
 					<label for="domaine_id">Domaine</label>

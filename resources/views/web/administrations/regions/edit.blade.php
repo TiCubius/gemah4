@@ -13,10 +13,9 @@
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Auvergne-Rhône-Alpes" value="{{ $region->nom }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Auvergne-Rhône-Alpes", "value" => $region->nom])
+					Nom
+				@endcomponent
 
 				@component("web._includes.components.form_edit")
 				@endcomponent

@@ -36,42 +36,33 @@
 					</select>
 				</div>
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: SMITH" value="{{ $responsable->nom }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: SMITH", "value" => $responsable->nom])
+					Nom
+				@endcomponent
 
-				<div class="form-group">
-					<label for="prenom">Prénom</label>
-					<input id="prenom" class="form-control" name="prenom" type="text" placeholder="Ex: John" value="{{ $responsable->prenom }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "prenom", "placeholder" => "Ex: SMITH", "value" => $responsable->prenom])
+					Prénom
+				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "nom", "type" => "email", "placeholder" => "Ex: john@smith.fr", "value" => $responsable->email])
+					Adresse E-Mail
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="email">Adresse E-Mail</label>
-					<input id="email" class="form-control" name="email" type="email" placeholder="Ex: john.smith@exemple.fr" value="{{ $responsable->email }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 04 77 81 41 00", "value" => $responsable->telephone])
+					Téléhpone
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="telephone">Téléphone</label>
-					<input id="telephone" class="form-control" name="telephone" type="text" placeholder="Ex: 04 77 81 41 00" value="{{ $responsable->telephone }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex: 42100", "value" => $responsable->code_postal])
+					Code postal
+				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "ville", "placeholder" => "Ex: Saint-Etienne", "value" => $responsable->ville])
+					Ville
+				@endcomponent
 
-				<div class="form-group">
-					<label class="optional" for="code_postal">Code postal</label>
-					<input id="code_postal" class="form-control" name="code_postal" type="text" placeholder="Ex: 42100" value="{{ $responsable->code_postal }}">
-				</div>
-
-				<div class="form-group">
-					<label class="optional" for="ville">Ville</label>
-					<input id="ville" class="form-control" name="ville" type="text" placeholder="Ex: Saint-Etienne" value="{{ $responsable->ville }}">
-				</div>
-
-				<div class="form-group">
-					<label class="optional" for="adresse">Adresse</label>
-					<input id="adresse" class="form-control" name="adresse" type="text" placeholder="Ex: 11 Rue des Docteurs Charcot" value="{{ $responsable->adresse }}">
-				</div>
+				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot", "value" => $responsable->adresse])
+					Adresse
+				@endcomponent
 
 				@component("web._includes.components.form_edit")
 				@endcomponent

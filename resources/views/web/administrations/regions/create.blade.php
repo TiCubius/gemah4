@@ -13,10 +13,9 @@
 			<form class="mb-3" action="{{ route("web.administrations.regions.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Auvergne-Rhône-Alpes" value="{{ old("nom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Auvergne-Rhône-Alpes"])
+					Nom
+				@endcomponent
 
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success">Créer</button>

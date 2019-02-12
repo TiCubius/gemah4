@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Création d'un matériel")
+@extends('web._includes._master')@php($title = "Création d'un matériel")
 
 @section('content')
 	<div class="row">
@@ -13,54 +12,48 @@
 				{{ csrf_field() }}
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-12 col-md-6">
 						<div class="card card-body mb-3">
 							<h5 class="card-title text-center">Informations Administrative</h5>
 
-							<div class="form-group">
-								<label class="optional" for="numero_devis">Numéro de devis</label>
-								<input id="numero_devis" class="form-control" name="numero_devis" type="text" placeholder="Ex: ..." value="{{ old("numero_devis") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "numero_devis", "placeholder" => "Ex: DV1600561"])
+								Numéro de devis
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="numero_formulaire_chorus">Numéro de formulaire CHORUS</label>
-								<input id="numero_formulaire_chorus" class="form-control" name="numero_formulaire_chorus" type="text" placeholder="Ex: ..." value="{{ old("numero_formulaire_chorus") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "numero_formulaire_chorus", "placeholder" => "Ex: 15385789"])
+								Numéro de formulaire CHORUS
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="numero_facture_chorus">Nom de facture CHORUS</label>
-								<input id="numero_facture_chorus" class="form-control" name="numero_facture_chorus" type="text" placeholder="Ex: ..." value="{{ old("numero_facture_chorus") }}">
-							</div>
 
-							<div class="form-group">
-								<label class="optional" for="numero_ej">Numéro d'engagement juridique</label>
-								<input id="numero_ej" class="form-control" name="numero_ej" type="text" placeholder="Ex: ..." value="{{ old("numero_ej") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "numero_facture_chorus", "placeholder" => "Ex: FC1507101"])
+								Numéro de facture CHORUS
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="date_ej">Date d'engagement juridique</label>
-								<input id="date_ej" class="form-control" name="date_ej" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_ej") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "numero_ej", "placeholder" => "Ex: 1508270350"])
+								Numéro d'engagement juridique
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="date_facture">Date de la facture</label>
-								<input id="date_facture" class="form-control" name="date_facture" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_facture") }}">
-							</div>
 
-							<div class="form-group">
-								<label class="optional" for="date_service_fait">Date de service fait</label>
-								<input id="date_service_fait" class="form-control" name="date_service_fait" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_service_fait") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "date_ej", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+								Date d'engagement juridique
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="date_fin_garantie">Date de fin de garantie</label>
-								<input id="date_fin_garantie" class="form-control" name="date_fin_garantie" type="date" placeholder="Ex: 01/01/2019" value="{{ old("date_fin_garantie") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "date_facture", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+								Date de la facture
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="acheter_pour">Acheté pour</label>
-								<input id="acheter_pour" class="form-control" name="acheter_pour" type="text" placeholder="Ex: John SMITH" value="{{ old("acheter_pour") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "date_service_fait", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+								Date de service fait
+							@endcomponent
+
+							@component("web._includes.components.input", ["optional" => true, "name" => "date_fin_garantie", "type" => "date", "placeholder" => "Ex: 07/01/2019"])
+								Date de fin de garantie
+							@endcomponent
+
+
+							@component("web._includes.components.input", ["optional" => true, "name" => "achat_pour", "placeholder" => "Ex: John SMITH"])
+								Acheté pour
+							@endcomponent
 
 							@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
 							@endcomponent
@@ -90,32 +83,28 @@
 							</div>
 
 
-							<div class="form-group">
-								<label for="marque">Marque du matériel</label>
-								<input id="marque" class="form-control" name="marque" type="text" placeholder="Ex: HP" value="{{ old("marque") }}" required>
-							</div>
+							@component("web._includes.components.input", ["name" => "marque", "placeholder" => "Ex: HP"])
+								Marque du matériel
+							@endcomponent
 
-							<div class="form-group">
-								<label for="modele">Modèle du matériel</label>
-								<input id="modele" class="form-control" name="modele" type="text" placeholder="Ex: HP 14-bs006nf" value="{{ old("modele") }}" required>
-							</div>
+							@component("web._includes.components.input", ["name" => "modele", "placeholder" => "Ex: ELITE BOOK 820 G3"])
+								Modèle du matériel
+							@endcomponent
 
 
-							<div class="form-group">
-								<label class="optional" for="numero_serie">Numéro de série / Clé de produit</label>
-								<input id="numero_serie" class="form-control" name="numero_serie" type="text" placeholder="Ex: AAAA-BBBB-CCCC-DDDD" value="{{ old("numero_serie") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "numero_serie", "placeholder" => "Ex: 5CG80515KR"])
+								Numéro de série / Clé de produit
+							@endcomponent
 
-							<div class="form-group">
-								<label class="optional" for="nom_fournisseur">Nom du fournisseur</label>
-								<input id="nom_fournisseur" class="form-control" name="nom_fournisseur" type="text" placeholder="Ex: LDLC" value="{{ old("nom_fournisseur") }}">
-							</div>
+							@component("web._includes.components.input", ["optional" => true, "name" => "nom_fournisseur", "placeholder" => "Ex: LDLC"])
+								Nom du fournisseur
+							@endcomponent
 
 
-							<div class="form-group">
-								<label for="prix_ttc">Prix TTC (€)</label>
-								<input id="prix_ttc" class="form-control" name="prix_ttc" type="number" step="0.01" placeholder="Ex: 9.99" value="{{ old("prix_ttc") }}" required>
-							</div>
+							@component("web._includes.components.input", ["name" => "prix_ttc", "type" => "number", "placeholder" => "Ex: 499.99"])
+								Prix TTC (€)
+							@endcomponent
+
 
 							<div class="form-group">
 								<label for="etat_administratif_materiel_id">Etat administratif du matériel</label>

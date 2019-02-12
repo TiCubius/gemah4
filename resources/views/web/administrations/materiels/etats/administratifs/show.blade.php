@@ -29,7 +29,7 @@
 						<th class="align-middle"><strong>Type</strong></th>
 						<th class="align-middle"><strong>Marque</strong></th>
 						<th class="align-middle"><strong>Modèle</strong></th>
-						<th class="align-middle"><strong>Numéro de Série</strong></th>
+						<th class="align-middle"><strong>Numéro de série</strong></th>
 						<th class="align-middle"><strong>Prix TTC</strong></th>
 						<th class="align-middle"><strong>Assigné à</strong></th>
 						<th class="align-middle"><strong>Date de prêt</strong></th>

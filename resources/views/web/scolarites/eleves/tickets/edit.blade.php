@@ -13,11 +13,9 @@
 				{{ csrf_field() }}
 				{{ method_field("PATCH") }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex : Appel téléphonique" value="{{ $ticket->libelle }}" required>
-				</div>
-
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex : Appel téléhponique", "value" => $ticket->libelle])
+					Libellé
+				@endcomponent
 
 				<div class="form-group">
 					<label for="type_ticket_id">Type</label>

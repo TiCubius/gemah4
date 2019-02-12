@@ -12,10 +12,9 @@
 			<form class="mb-3" action="{{ route("web.materiels.domaines.store") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Informatique" value="{{ old("libelle") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: Informatique"])
+					Libellé
+				@endcomponent
 
 				@hasPermission("materiels/domaines/create")
 				<div class="d-flex justify-content-center">

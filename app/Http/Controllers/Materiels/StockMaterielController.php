@@ -8,6 +8,7 @@ use App\Models\DomaineMateriel;
 use App\Models\EtatAdministratifMateriel;
 use App\Models\EtatPhysiqueMateriel;
 use App\Models\Materiel;
+use App\Models\TypeMateriel;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -61,6 +62,11 @@ class StockMaterielController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
+		// Collection de tout les types matériels de domaine "logiciels"
+		$logiciels = TypeMateriel::whereHas('domaine', function ($query) {
+			return $query->where('libelle', 'Logiciel');
+		})->select(['id'])->get();
+
 		$dateBefore = Carbon::now()->addYear(25);
 		$dateAfter = Carbon::now()->subYear(25);
 
@@ -86,10 +92,17 @@ class StockMaterielController extends Controller
 			"achat_pour"               => "nullable",
 		]);
 
+		// S'il s'agit d'un logiciel, le numéro de série est en réalité une clé de produit
+		if ($logiciels->contains($request->input("type_materiel_id"))) {
+			$request->merge(['cle_produit' => $request->input("numero_serie")]);
+			$request->merge(['numero_serie' => ""]);
+		}
+
 		Materiel::create($request->only([
 			"type_materiel_id",
 			"marque",
 			"modele",
+			"cle_produit",
 			"numero_serie",
 			"nom_fournisseur",
 			"prix_ttc",
@@ -146,6 +159,11 @@ class StockMaterielController extends Controller
 	 */
 	public function update(Request $request, Materiel $stock): RedirectResponse
 	{
+		// Collection de tout les types matériels de domaine "logiciels"
+		$logiciels = TypeMateriel::whereHas('domaine', function ($query) {
+			return $query->where('libelle', 'Logiciel');
+		})->select(['id'])->get();
+
 		$dateAfter = Carbon::now()->subYear(25);
 		$dateBefore = Carbon::now()->addYear(25);
 
@@ -171,10 +189,17 @@ class StockMaterielController extends Controller
 			"achat_pour"               => "nullable",
 		]);
 
+		// S'il s'agit d'un logiciel, le numéro de série est en réalité une clé de produit
+		if ($logiciels->contains($request->input("type_materiel_id"))) {
+			$request->merge(['cle_produit' => $request->input("numero_serie")]);
+			$request->merge(['numero_serie' => ""]);
+		}
+
 		$stock->update($request->only([
 			"type_materiel_id",
 			"marque",
 			"modele",
+			"cle_produit",
 			"numero_serie",
 			"nom_fournisseur",
 			"prix_ttc",

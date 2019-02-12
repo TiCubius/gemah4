@@ -13,15 +13,13 @@
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Administration" value="{{ $service->nom }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Administration", "value" => $service->nom])
+					Nom
+				@endcomponent
 
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input id="description" class="form-control" name="description" type="text" placeholder="Ex: Possède tout les droits sur l'application" value="{{ $service->description }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Gestion de GEMAH", "value" => $service->description])
+					Description
+				@endcomponent
 
 				@component('web._includes.components.departement', ['academies' => $academies, 'id' => $service->departement_id])
 				@endcomponent

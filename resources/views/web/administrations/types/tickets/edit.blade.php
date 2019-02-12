@@ -14,10 +14,10 @@
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: ..." value="{{ $ticket->libelle }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: Appel téléphonique", "value" => $ticket->libelle])
+					Libellé
+				@endcomponent
+
 
 				@component("web._includes.components.form_edit")
 				@endcomponent

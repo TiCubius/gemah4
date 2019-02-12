@@ -54,7 +54,7 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertSee("Numéro de devis");
 		$request->assertSee("Numéro de formulaire CHORUS");
-		$request->assertSee("Nom de facture CHORUS");
+		$request->assertSee("Numéro de facture CHORUS");
 		$request->assertSee("Numéro d'engagement juridique");
 		$request->assertSee("Date d'engagement juridique");
 		$request->assertSee("Date de la facture");
@@ -183,7 +183,7 @@ class StocksMaterielTest extends TestCase
 
 		$request->assertSee("Numéro de devis");
 		$request->assertSee("Numéro de formulaire CHORUS");
-		$request->assertSee("Nom de facture CHORUS");
+		$request->assertSee("Numéro de facture CHORUS");
 		$request->assertSee("Numéro d'engagement juridique");
 		$request->assertSee("Date d'engagement juridique");
 		$request->assertSee("Date de la facture");

@@ -13,14 +13,13 @@
 				{{ csrf_field() }}
 				{{ method_field("put") }}
 
-				<div class="form-group">
-					<label for="libelle">Libellé</label>
-					<input id="libelle" class="form-control" name="libelle" type="text" placeholder="Ex: Volé" value="{{ $administratif->libelle }}" required>
-				</div>
-				<div class="form-group">
-					<label for="couleur">Couleur</label>
-					<input id="couleur" class="form-control" name="couleur" type="color" value="{{ $administratif->couleur }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex: Volé", "value" => $administratif->libelle])
+					Libellé
+				@endcomponent
+
+				@component("web._includes.components.input", ["name" => "color", "placeholder" => "Ex: #B63636", "value" => $administratif->couleur])
+					Couleur
+				@endcomponent
 
 				@component("web._includes.components.form_edit")
 				@endcomponent

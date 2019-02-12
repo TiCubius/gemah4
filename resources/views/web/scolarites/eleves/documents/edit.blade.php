@@ -26,18 +26,16 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 col-md-6 js-other">
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input type="text" id="nom" name="nom" placeholder="Ex: ..." class="form-control" value="{{ $document->nom ?? '' }}">
-				</div>
+			<div class="col-sm-12 col-md-6">
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex : Plainte du 01/01/2019", "value" => $document->nom])
+					Nom
+				@endcomponent
 			</div>
 
-			<div class="col-sm-12 col-md-6 js-other">
-				<div class="form-group">
-					<label for="description">Description</label>
-					<input type="text" id="description" name="description" placeholder="Ex: ..." class="form-control" value="{{ $document->description ?? '' }}">
-				</div>
+			<div class="col-sm-12 col-md-6">
+				@component("web._includes.components.input", ["optional" => true, "name" => "description", "placeholder" => "Ex : Suite au vol de matériel", "value" => $document->description])
+					Description
+				@endcomponent
 			</div>
 
 			<div class="col-sm-12 js-mdph js-other">

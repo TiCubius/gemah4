@@ -13,10 +13,9 @@
 			<form class="mb-3" action="{{ route("web.administrations.academies.index") }}" method="POST">
 				{{ csrf_field() }}
 
-				<div class="form-group">
-					<label for="nom">Nom</label>
-					<input id="nom" class="form-control" name="nom" type="text" placeholder="Ex: Académie de Lyon" value="{{ old("nom") }}" required>
-				</div>
+				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Académie de Lyon"])
+					Nom
+				@endcomponent
 
 				<div class="form-group">
 					<label for="region">Région</label>

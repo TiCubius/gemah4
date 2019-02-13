@@ -56,16 +56,16 @@
 					@component('web._includes.components.departement', ['academies' => $academies, 'id' => old("departement_id")])
 					@endcomponent
 
-					@component("web._includes.components.input", ["name" => "ville", "placeholder" => "Ex : Saint-Etienne"])
-						Ville
+					@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex : 11 rue des Docteurs Charcots"])
+						Adresse
 					@endcomponent
 
 					@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex : 42100"])
 						Code Postal
 					@endcomponent
-
-					@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex : 11 rue des Docteurs Charcots"])
-						Adresse
+					
+					@component("web._includes.components.input", ["name" => "ville", "placeholder" => "Ex : Saint-Etienne"])
+						Ville
 					@endcomponent
 				</div>
 

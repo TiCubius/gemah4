@@ -57,17 +57,18 @@
 					@component('web._includes.components.departement', ['academies' => $academies, 'id' => $etablissement->departement_id])
 					@endcomponent
 
-					@component("web._includes.components.input", ["name" => "ville", "placeholder" => "Ex : Saint-Etienne", "value" => $etablissement->ville])
-						Ville
+					@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex : 11 rue des Docteurs Charcots", "value" => $etablissement->adresse])
+						Adresse
 					@endcomponent
 
 					@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex : 42100", "value" => $etablissement->code_postal])
 						Code Postal
 					@endcomponent
 
-					@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex : 11 rue des Docteurs Charcots", "value" => $etablissement->adresse])
-						Adresse
+					@component("web._includes.components.input", ["name" => "ville", "placeholder" => "Ex : Saint-Etienne", "value" => $etablissement->ville])
+						Ville
 					@endcomponent
+
 				</div>
 
 				<div class="card card-body mb-3">

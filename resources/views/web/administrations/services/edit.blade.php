@@ -17,7 +17,7 @@
 					Nom
 				@endcomponent
 
-				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex: Gestion de GEMAH", "value" => $service->description])
+				@component("web._includes.components.input", ["name" => "description", "placeholder" => "Ex: Gestion de GEMAH", "value" => $service->description])
 					Description
 				@endcomponent
 

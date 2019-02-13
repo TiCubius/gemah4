@@ -84,11 +84,11 @@
 
 
 							@component("web._includes.components.input", ["name" => "marque", "placeholder" => "Ex: HP"])
-								Marque du matériel
+								Marque
 							@endcomponent
 
 							@component("web._includes.components.input", ["name" => "modele", "placeholder" => "Ex: ELITE BOOK 820 G3"])
-								Modèle du matériel
+								Modèle
 							@endcomponent
 
 

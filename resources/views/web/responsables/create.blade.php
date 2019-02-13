@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Création d'un responsable")
+@extends('web._includes._master')@php($title = "Création d'un responsable")
 
 @section('content')
 	<div class="row">
@@ -41,6 +40,10 @@
 					Téléhpone
 				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot"])
+					Adresse
+				@endcomponent
+
 				@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex: 42100"])
 					Code postal
 				@endcomponent
@@ -49,9 +52,6 @@
 					Ville
 				@endcomponent
 
-				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot"])
-					Adresse
-				@endcomponent
 
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-sm btn-outline-success js-submit">Créer</button>

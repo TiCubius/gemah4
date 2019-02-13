@@ -52,16 +52,16 @@
 					Téléhpone
 				@endcomponent
 
+				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot", "value" => $responsable->adresse])
+					Adresse
+				@endcomponent
+
 				@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex: 42100", "value" => $responsable->code_postal])
 					Code postal
 				@endcomponent
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "ville", "placeholder" => "Ex: Saint-Etienne", "value" => $responsable->ville])
 					Ville
-				@endcomponent
-
-				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot", "value" => $responsable->adresse])
-					Adresse
 				@endcomponent
 
 				@component("web._includes.components.form_edit")

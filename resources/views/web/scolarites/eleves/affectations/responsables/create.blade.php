@@ -33,12 +33,16 @@
 					Prénom
 				@endcomponent
 
-				@component("web._includes.components.input", ["optional" => true, "name" => "nom", "type" => "email", "placeholder" => "Ex: john@smith.fr"])
+				@component("web._includes.components.input", ["optional" => true, "name" => "email", "type" => "email", "placeholder" => "Ex: john@smith.fr"])
 					Adresse E-Mail
 				@endcomponent
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 04 77 81 41 00"])
 					Téléhpone
+				@endcomponent
+
+				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot"])
+					Adresse
 				@endcomponent
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "code_postal", "placeholder" => "Ex: 42100"])
@@ -47,10 +51,6 @@
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "ville", "placeholder" => "Ex: Saint-Etienne"])
 					Ville
-				@endcomponent
-
-				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot"])
-					Adresse
 				@endcomponent
 
 				<div class="d-flex justify-content-center">

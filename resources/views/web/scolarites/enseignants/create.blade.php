@@ -28,15 +28,15 @@
 					Nom
 				@endcomponent
 
-				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex : John"])
+				@component("web._includes.components.input", ["name" => "prenom", "placeholder" => "Ex : John"])
 					Prénom
 				@endcomponent
 
-				@component("web._includes.components.input", ["name" => "nom", "placeholder" => "Ex : john@smith.fr"])
+				@component("web._includes.components.input", ["name" => "email", "placeholder" => "Ex : john@smith.fr"])
 					Adresse E-Mail
 				@endcomponent
 
-				@component("web._includes.components.input", ["optional" => true, "name" => "nom", "placeholder" => "Ex : 04 77 81 41 00"])
+				@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex : 04 77 81 41 00"])
 					Téléphone
 				@endcomponent
 

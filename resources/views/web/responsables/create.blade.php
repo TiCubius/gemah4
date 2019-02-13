@@ -33,7 +33,7 @@
 					Prénom
 				@endcomponent
 
-				@component("web._includes.components.input", ["optional" => true, "name" => "nom", "type" => "email", "placeholder" => "Ex: john@smith.fr"])
+				@component("web._includes.components.input", ["optional" => true, "name" => "email", "type" => "email", "placeholder" => "Ex: john@smith.fr"])
 					Adresse E-Mail
 				@endcomponent
 

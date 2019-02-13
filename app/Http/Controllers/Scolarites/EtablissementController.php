@@ -126,7 +126,7 @@ class EtablissementController extends Controller
 			"ville"                 => "required|max:191",
 			"code_postal"           => "nullable",
 			"adresse"               => "nullable|max:191",
-			"telephone"             => "nulable",
+			"telephone"             => "nullable",
 			"enseignant_id"         => "nullable|exists:enseignants,id",
 			"departement_id"        => "required|exists:departements,id",
 		]);

@@ -12,7 +12,7 @@ class TypesDecisionSeeder extends Seeder
 	public function run()
     {
         foreach ($this->types as $type) {
-            \App\Models\TypeDecision::create([
+            \App\Models\TypeDecision::updateOrCreate([
                 'libelle' => $type,
             ]);
         }

@@ -19,7 +19,7 @@ class DomainesMaterielSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->domaines as $domaine) {
-			\App\Models\DomaineMateriel::create([
+			\App\Models\DomaineMateriel::updateOrCreate([
 				"libelle" => $domaine,
 			]);
 		}

@@ -24,13 +24,12 @@ class EtablissementSeeder extends Seeder
 		foreach ($etablissements as $key => $etablissement) {
 			$type = \App\Models\TypeEtablissement::where("libelle", $etablissement->fields->nature_uai_libe)->first();
 			if (!$type) {
-				$type = \App\Models\TypeEtablissement::create([
+				$type = \App\Models\TypeEtablissement::updateOrCreate([
 					"libelle" => $etablissement->fields->nature_uai_libe,
 				]);
 			}
 
-
-			\App\Models\Etablissement::create([
+			\App\Models\Etablissement::updateOrCreate([
 				"type_etablissement_id" => $type->id,
 				"departement_id"        => $etablissement->fields->code_departement,
 
@@ -46,29 +45,6 @@ class EtablissementSeeder extends Seeder
 
 			$progress->advance();
 		}
-
-
-		// Fichier 2.json si nécessaire
-		//
-		//		foreach ($etablissements as $key => $etablissement) {
-		//			$progress->advance();
-		//
-		//			\App\Models\Etablissement::create([
-		//				"id"          => $etablissement->fields->identifiant_de_l_etablissement,
-		//				"type"        => $etablissement->fields->libelle_nature,
-		//				"nom"         => $etablissement->fields->nom_etablissement,
-		//				"degre"       => ($etablissement->fields->code_nature < 200) ? "Primaire" : "Secondaire",
-		//				"regime"      => $etablissement->fields->statut_public_prive,
-		//				"adresse"     => $etablissement->fields->adresse_1 ?? null,
-		//				"code_postal" => $etablissement->fields->code_postal,
-		//				"ville"       => $etablissement->fields->nom_commune,
-		//				"email"       => $etablissements->fields->mail ?? null,
-		//				"telephone"   => $etablissement->fields->telephone ?? null,
-		//
-		//				"departement_id" => $etablissement->fields->code_departement,
-		//				"updated_at"     => $etablissement->fields->date_maj_ligne,
-		//			]);
-		//		}
 
 		$progress->finish();
 	}

@@ -32,7 +32,7 @@ class RegionsSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->regions as $region) {
-			\App\Models\Region::create([
+			\App\Models\Region::updateOrCreate([
 				'nom' => $region,
 			]);
 		}

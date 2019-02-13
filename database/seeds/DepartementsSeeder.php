@@ -193,7 +193,7 @@ class DepartementsSeeder extends Seeder
 		foreach ($this->departementsParAcademie as $academie => $departements) {
 			//Pour chaque liste de département on sépare le nom du département => "clé) et l'identifiant de ce dernier => "valeur)
 			foreach ($departements as $departement => $id) {
-				\App\Models\Departement::create([
+				\App\Models\Departement::updateOrCreate([
 					"id"          => $id,
 					"nom"         => $departement,
 					"academie_id" => \App\Models\Academie::where("nom", "=", $academie)->first()->id,

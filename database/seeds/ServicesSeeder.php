@@ -22,10 +22,12 @@ class ServicesSeeder extends Seeder
         $services = $this->services;
         $departements = Departement::all();
         $permissions = Permission::all();
-        $permissionsCrudMateriel = Permission::where("id", "LIKE", "%materiels/stocks/%")->get();
-        $permissionsAffectationMateriel = Permission::where("id", "LIKE", "%affectations/materiels/%")->get();
+
         $permissionsAdmin = Permission::where("id", "LIKE", "materiels/types/%")->orWhere("id", "LIKE", "materiels/domaines/%")->orWhere("id", "LIKE", "administrations/%")->get();
-        $permissionsGlobal = $permissions->diff($permissionsAdmin)->diff($permissionsCrudMateriel)->diff($permissionsAffectationMateriel);
+		$permissionsAffectationMateriel = Permission::where("id", "LIKE", "%affectations/materiels/%")->get();
+		$permissionsCrudMateriel = Permission::where("id", "LIKE", "%materiels/stocks/%")->get();
+		$permissionsDoc = Permission::where("id", "LIKE", "%documentations/%")->get();
+        $permissionsGlobal = $permissions->diff($permissionsAdmin)->diff($permissionsCrudMateriel)->diff($permissionsAffectationMateriel)->diff($permissionsDoc);
 
         $output = new ConsoleOutput();
         $progress = new ProgressBar($output, count($services) * count($departements));
@@ -34,7 +36,7 @@ class ServicesSeeder extends Seeder
 
         foreach ($departements as $departement) {
             foreach ($services as $service => $description) {
-                $service = \App\Models\Service::create([
+                $service = \App\Models\Service::updateOrCreate([
                     "nom" => $service,
                     "description" => $description,
                     "departement_id" => $departement->id,
@@ -43,25 +45,25 @@ class ServicesSeeder extends Seeder
                 $progress->advance();
 
                 if ($service->nom == "Administrateur") {
-                    $service->permissions()->sync($permissions->pluck('id'));
+                    $service->permissions()->sync($permissions->pluck('id'), false);
                 }
                 if ($service->nom == "DAF") {
                     $permissionsList = $permissionsGlobal->merge($permissionsCrudMateriel)->merge($permissionsAffectationMateriel);
 
-                    $service->permissions()->sync($permissionsList->pluck('id'));
+                    $service->permissions()->sync($permissionsList->pluck('id'), false);
                 }
                 if ($service->nom == "ASH") {
                     $permissionsList = $permissionsGlobal->merge($permissionsAffectationMateriel);
 
-                    $service->permissions()->sync($permissionsList->pluck('id'));
+                    $service->permissions()->sync($permissionsList->pluck('id'), false);
                 }
                 if ($service->nom == "DSI") {
                     $permissionsList = $permissionsGlobal->merge($permissionsAffectationMateriel)->merge($permissionsCrudMateriel);
 
-                    $service->permissions()->sync($permissionsList->pluck('id'));
+                    $service->permissions()->sync($permissionsList->pluck('id'), false);
                 }
                 if ($service->nom == "DIVEL") {
-                    $service->permissions()->sync($permissionsGlobal->pluck('id'));
+                    $service->permissions()->sync($permissionsGlobal->pluck('id'), false);
                 }
             }
         }

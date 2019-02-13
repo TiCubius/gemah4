@@ -17,7 +17,7 @@ class EtatsPhysiquesMaterielSeeder extends Seeder
     public function run()
     {
         foreach ($this->etats as $etat) {
-            \App\Models\EtatPhysiqueMateriel::create([
+            \App\Models\EtatPhysiqueMateriel::updateOrCreate([
                 "libelle" => $etat,
             ]);
         }

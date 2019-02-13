@@ -75,7 +75,7 @@ class TypesMaterielSeeder extends Seeder
 		foreach ($this->types as $domaine => $types) {
 			$domaine = \App\Models\DomaineMateriel::where("libelle", "=", $domaine)->first();
 			foreach ($types as $type) {
-				\App\Models\TypeMateriel::create([
+				\App\Models\TypeMateriel::updateOrCreate([
 					"libelle"    => $type,
 					"domaine_id" => $domaine->id,
 				]);

@@ -19,7 +19,7 @@ class EtatsAdministratifsMaterielSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->etats as $etat) {
-			\App\Models\EtatAdministratifMateriel::create([
+			\App\Models\EtatAdministratifMateriel::updateOrCreate([
 				"libelle" => $etat[0],
 				"couleur" => $etat[1],
 			]);

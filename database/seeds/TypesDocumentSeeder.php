@@ -12,7 +12,7 @@ class TypesDocumentSeeder extends Seeder
 	public function run()
 	{
 		foreach ($this->types as $type) {
-			\App\Models\TypeDocument::create([
+			\App\Models\TypeDocument::updateOrCreate([
 				'libelle' => $type,
 			]);
 		}

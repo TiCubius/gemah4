@@ -88,7 +88,7 @@ class AcademiesSeeder extends Seeder
 	{
 		foreach ($this->academiesParRegions as $region => $academies) {
 			foreach ($academies as $academy) {
-				\App\Models\Academie::create([
+				\App\Models\Academie::updateOrCreate([
 					"nom"       => $academy,
 					"region_id" => \App\Models\Region::where("nom", "=", $region)->first()->id,
 				]);

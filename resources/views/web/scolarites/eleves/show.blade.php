@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Profil élève de {$eleve->nom} {$eleve->prenom}")
+@extends('web._includes._master')@php($title = "Profil élève de {$eleve->nom} {$eleve->prenom}")
 
 @section('content')
 
@@ -36,7 +35,7 @@
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.consignes", [$eleve]) }}" target="_blank">Consignes du matériel</a>
 						@endHas
 						@hasPermission("eleves/impressions/conventions")
-						<a  class="dropdown-item" data-toggle="modal" data-target="#convention">Convention</a>
+						<a class="dropdown-item" data-toggle="modal" data-target="#convention">Convention</a>
 						{{--class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.conventions", [$eleve]) }}" target="_blank"--}}
 						@endHas @hasPermission("eleves/impressions/recapitulatifs")
 						<a class="dropdown-item" href="{{ route("web.scolarites.eleves.impressions.recapitulatifs", [$eleve]) }}" target="_blank">Récapitulatif</a>
@@ -54,8 +53,8 @@
 			@endslot
 		@endcomponent
 
-			@component("web._includes.components.modals.convention", ["route" => route("web.scolarites.eleves.impressions.conventions", [$eleve]) ])
-			@endcomponent
+		@component("web._includes.components.modals.convention", ["route" => route("web.scolarites.eleves.impressions.conventions", [$eleve]) ])
+		@endcomponent
 
 		<div class="col-md-6 mb-3">
 			<div class="card w-100">
@@ -269,6 +268,18 @@
 		@endcomponent
 	@endforeach
 
+@endsection
+
+@section("scripts")
+
+	<script>
+
+		$(`#submit`).on(`click`, (e) => {
+			$(`#convention`).modal(`hide`)
+		})
+
+	</script>
+	
 @endsection
 
 @include("web._includes.sidebars.eleve")

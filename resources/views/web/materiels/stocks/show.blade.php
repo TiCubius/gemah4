@@ -132,7 +132,8 @@
 							<div class="card-header gemah-bg-primary">
 								Informations Elève
 								<a class="btn btn-outline-light btn-sm float-right" href="{{ route('web.scolarites.eleves.show', [$stock->eleve]) }}">
-									Voir le profil
+									<i class="fas fa-info-circle"></i>
+									Détails
 								</a>
 							</div>
 

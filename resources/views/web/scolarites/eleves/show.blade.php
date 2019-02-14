@@ -201,7 +201,10 @@
 										<td>
 											<div class="btn-group">
 												@hasPermission("materiels/stocks/show")
-												<a href="{{ route('web.materiels.stocks.show', [$materiel]) }}" class="btn btn-sm btn-outline-primary">Détail</a>
+												<a href="{{ route('web.materiels.stocks.show', [$materiel]) }}" class="btn btn-sm btn-outline-primary">
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a>
 												@endHas @hasPermission("affectations/materiels/detach")
 												<button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#modal-materiel-{{ $materiel->id }}">
 													Désaffecter

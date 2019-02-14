@@ -256,7 +256,10 @@
 									<td class="align-middle">{{ $materiel->created_at->format("d/m/Y") }}</td>
 									<td class="align-middle">
 										@hasPermission("materiels/stocks/show")
-										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
+											<i class="fas fa-info-circle"></i>
+											Détails
+										</a>
 										@endHas
 									</td>
 								</tr>

@@ -89,11 +89,9 @@
 											<span>{{ "{$enseignant->nom} {$enseignant->prenom}" }}</span>
 											<div class="btn-group">
 												@hasPermission("enseignants/show")
-												<a href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
-													<button class="btn btn-sm btn-outline-primary">
-														<i class="fas fa-info-circle"></i>
-														Détails
-													</button>
+												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
+													<i class="fas fa-info-circle"></i>
+													Détails
 												</a>
 												@endHas
 												@hasPermission("enseignants/edit")
@@ -140,17 +138,19 @@
 													<td>{{ $enseignant->email }}</td>
 													<td>{{ $enseignant->telephone }}</td>
 													<td>
-														@hasPermission("enseignants/show")
-														<a href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
-															<button class="btn btn-sm btn-outline-primary">
+														<div class="btn-group">
+															@hasPermission("enseignants/show")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.show", [$enseignant]) }}">
 																<i class="fas fa-info-circle"></i>
 																Détails
-															</button>
-														</a>
-														@endHas
-														@hasPermission("enseignants/edit")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">Éditer</a>
-														@endHas
+															</a>
+															@endHas
+															@hasPermission("enseignants/edit")
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.enseignants.edit", [$enseignant]) }}">
+																Éditer
+															</a>
+															@endHas
+														</div>
 													</td>
 												</tr>
 											@endforeach

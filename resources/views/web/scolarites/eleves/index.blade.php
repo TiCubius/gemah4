@@ -69,7 +69,8 @@
 											<div class="btn-group">
 												@hasPermission("eleves/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-													Voir le profil
+													<i class="fas fa-info-circle"></i>
+													Détails
 												</a>
 												@endHas
 												@hasPermission("eleves/edit")
@@ -95,7 +96,8 @@
 											<div class="btn-group">
 												@hasPermission("eleves/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
-													Voir le profil
+													<i class="fas fa-info-circle"></i>
+													Détails
 												</a>
 												@endHas
 												@hasPermission("eleves/edit")
@@ -144,7 +146,10 @@
 													<td>
 														<div class="btn-group">
 															@hasPermission("eleves/show")
-															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">Voir le profil</a>
+															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+																<i class="fas fa-info-circle"></i>
+																Détails
+															</a>
 															@endHas
 															@hasPermission("eleves/edit")
 															<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.edit", [$eleve]) }}">

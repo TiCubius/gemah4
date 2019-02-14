@@ -14,11 +14,11 @@
         <body style="font-size: 14px;">
         <header>
             <section id="marianne" class="text-center">
-                <img src="{{ resource_path("images/marianne-logo.png") }}" style="height: 75px;">
+                <img src="{{ storage_path("app/departements/{$departement->id}/marianne.png") }}" style="height: 75px;">
             </section>
 
 					<section id="dsden" style="position: relative; margin-top: -75px">
-						<img src="{{ resource_path("images/".$departement->id."/dsden-logo.png") }}">
+						<img src="{{ storage_path("app/departements/{$departement->id}/dsden.png") }}">
 					</section>
 
 					<section id="responsable" style="margin-top: 50px; margin-left: 58%;">

@@ -55,10 +55,10 @@
 				</div>
 			</div>
 
-			<div class="col-12 mt-3">
+			<div class="col-12 my-3">
 				<div class="float-right">
 					<button class="btn btn-outline-success btn-sm" type="submit">
-						Ajouter un document
+						Ajouter
 					</button>
 				</div>
 			</div>

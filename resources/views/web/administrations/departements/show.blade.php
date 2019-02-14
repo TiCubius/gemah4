@@ -146,7 +146,7 @@
 								@hasPermission("materiels/stocks/show")
 								<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
 									<i class="fas fa-info-circle"></i>
-									Détail
+									Détails
 								</a>
 								@endHas
 							</td>

@@ -1,5 +1,4 @@
-@extends("web._includes._master")
-@php($title = "Gestion des états physiques matériel")
+@extends("web._includes._master")@php($title = "Gestion des états physiques matériel")
 
 @section("content")
 	<div class="row">
@@ -26,19 +25,19 @@
 							<tr>
 								<td>{{ $etat->libelle }}</td>
 								<td>
-									@hasPermission("administrations/etats/materiels/physiques/show")
-									<a href="{{ route("web.administrations.materiels.etats.physiques.show", [$etat]) }}">
-										<button class="btn btn-sm btn-outline-primary">
+									<div class="btn-group">
+										@hasPermission("administrations/etats/materiels/physiques/show")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.materiels.etats.physiques.show", [$etat]) }}">
 											<i class="fas fa-info-circle"></i>
 											Détails
-										</button>
-									</a>
-									@endHas
-									@hasPermission("administrations/etats/materiels/physiques/edit")
-									<a href="{{ route("web.administrations.materiels.etats.physiques.edit", [$etat]) }}">
-										<button class="btn btn-sm btn-outline-primary">Éditer</button>
-									</a>
-									@endHas
+										</a>
+										@endHas
+										@hasPermission("administrations/etats/materiels/physiques/edit")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.materiels.etats.physiques.edit", [$etat]) }}">
+											Éditer
+										</a>
+										@endHas
+									</div>
 								</td>
 							</tr>
 						@endforeach

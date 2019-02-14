@@ -29,6 +29,7 @@
 									<td data-order="{{ $eleve->decision->date_limite->timestamp }}">{{ $eleve->decisions->sortByDesc("date_limite")->first()->date_limite->format("d/m/Y") }}</td>
 									<td>
 										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+											<i class="fas fa-info-circle"></i>
 											Détails
 										</a>
 									</td>

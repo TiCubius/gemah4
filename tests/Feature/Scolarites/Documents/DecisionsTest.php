@@ -55,7 +55,7 @@ class DecisionsTest extends TestCase
 		$request->assertSee("Nom/prénom de l'enseignant référent");
 		$request->assertSee("Fichier");
 
-		$request->assertSee("Ajouter la décision");
+		$request->assertSee("Ajouter");
 	}
 
 	/**

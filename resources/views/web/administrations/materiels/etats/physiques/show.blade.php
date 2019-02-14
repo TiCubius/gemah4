@@ -88,7 +88,8 @@
 				},
 				"info": false,
 				"columnDefs": [
-					{"orderable": false, "targets": 1},
+					{"orderable": false, "targets": 0},
+					{"orderable": false, "targets": 8},
 				],
 				"pageLength": 10,
 				"fnInitComplete": function () {

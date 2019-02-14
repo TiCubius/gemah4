@@ -1,5 +1,4 @@
-@extends("web._includes._master")
-@php($title = "Gestion des stocks matériel")
+@extends("web._includes._master")@php($title = "Gestion des stocks matériel")
 
 @section("content")
 
@@ -98,8 +97,9 @@
 								@endcomponent
 
 								<div class="d-flex justify-content-between">
-									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">Annuler
-										la recherche</a>
+									<a class="btn btn-outline-dark" href="{{ route("web.materiels.stocks.index") }}">
+										Annuler la recherche
+									</a>
 									<button class="btn btn-outline-dark">Rechercher</button>
 								</div>
 							</div>
@@ -119,7 +119,9 @@
 											<div class="btn-group">
 												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
-													Voir le profil </a> @endHas
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a> @endHas
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
@@ -142,7 +144,9 @@
 											<div class="btn-group">
 												@hasPermission("materiels/stocks/show")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
-													Voir le profil </a> @endHas
+													<i class="fas fa-info-circle"></i>
+													Détails
+												</a> @endHas
 
 												@hasPermission("materiels/stocks/edit")
 												<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.edit", [$materiel]) }}">
@@ -219,7 +223,10 @@
 													<td>{{ $materiel->etatPhysique->libelle }}</td>
 													<td>
 														@hasPermission("materiels/stocks/show")
-														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">Détail</a>
+														<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.stocks.show", [$materiel]) }}">
+															<i class="fas fa-info-circle"></i>
+															Détails
+														</a>
 														@endHas
 													</td>
 												</tr>

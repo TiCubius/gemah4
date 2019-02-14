@@ -17,7 +17,7 @@
 
                 <div class="modal-footer d-flex justify-content-between">
                     <button class="btn btn-dark" type="button" data-dismiss="modal">Annuler</button>
-                    <button class="btn btn-primary" type="submit" formtarget="_blank">Générer</button>
+                    <button id="submit" class="btn btn-primary" type="submit" formtarget="_blank">Générer</button>
                 </div>
             </div>
         </div>

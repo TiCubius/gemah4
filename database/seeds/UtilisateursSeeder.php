@@ -58,13 +58,13 @@ class UtilisateursSeeder extends Seeder
 		foreach ($this->users as $user) {
 			$service = \App\Models\Service::where("departement_id", "42")->where("nom", $user["service"])->first();
 
-			$user = \App\Models\Utilisateur::where("email", $user["email"])->first();
-			if ($user) {
-				$user->update([
+			$fetchedUser = \App\Models\Utilisateur::where("email", $user["email"])->first();
+			if ($fetchedUser) {
+				$fetchedUser ->update([
 					"nom"             => $user["nom"],
 					"prenom"          => $user["prenom"],
 					"identifiant"     => $user["identifiant"],
-					"reception_email" => $user["reception_email"] ? 1 : 0,
+					"reception_email" => isset($user["reception_email"]) ? 1 : 0,
 					"email"           => $user["email"],
 					"password"        => \Illuminate\Support\Facades\Hash::make($user["password"]),
 					"service_id"      => $service["id"],
@@ -74,7 +74,7 @@ class UtilisateursSeeder extends Seeder
 					"nom"             => $user["nom"],
 					"prenom"          => $user["prenom"],
 					"identifiant"     => $user["identifiant"],
-					"reception_email" => $user["reception_email"] ? 1 : 0,
+					"reception_email" => isset($user["reception_email"]) ? 1 : 0,
 					"email"           => $user["email"],
 					"password"        => \Illuminate\Support\Facades\Hash::make($user["password"]),
 					"service_id"      => $service["id"],

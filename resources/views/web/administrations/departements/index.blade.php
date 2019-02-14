@@ -34,7 +34,8 @@
 									<div class="btn-group">
 										@hasPermission("administrations/departements/show")
 										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.administrations.departements.show", [$departement]) }}">
-											<i class="fas fa-info-circle"></i> Détails
+											<i class="fas fa-info-circle"></i>
+											Détails
 										</a>
 										@endHas
 										@hasPermission("administrations/departements/edit")

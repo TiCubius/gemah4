@@ -12,7 +12,7 @@
 				<div class="btn-group">
 
 					<div class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Ajouter un document
+						Ajouter
 					</div>
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">

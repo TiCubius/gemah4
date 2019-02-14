@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Édition de {$enseignant->nom} {$enseignant->prenom}")
+@extends('web._includes._master')@php($title = "Édition de {$enseignant->nom} {$enseignant->prenom}")
 
 @section('content')
 	<div class="row">
@@ -20,8 +19,13 @@
 					<label for="civilite">Civilité</label>
 					<select id="civilite" class="form-control" name="civilite" required>
 						<option hidden value="">Veuillez sélectionner la civilité</option>
-						<option value="M">M</option>
-						<option value="Mme">Mme</option>
+						@if($enseignant->civilite === "M.")
+							<option value="M." selected>M.</option>
+							<option value="Mme">Mme</option>
+						@else
+							<option value="M." selected>M.</option>
+							<option value="Mme">Mme</option>
+						@endif
 					</select>
 				</div>
 

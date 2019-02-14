@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Gestion des domaines matériel")
+@extends('web._includes._master')@php($title = "Gestion des domaines matériel")
 
 @section('content')
 	<div class="row">
@@ -26,19 +25,19 @@
 							<tr>
 								<td>{{ $domaine->libelle }}</td>
 								<td>
-									@hasPermission("materiels/domaines/show")
-									<a href="{{ route("web.materiels.domaines.show", [$domaine]) }}">
-										<button class="btn btn-sm btn-outline-primary">
+									<div class="btn-group">
+										@hasPermission("materiels/domaines/show")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.domaines.show", [$domaine]) }}">
 											<i class="fas fa-info-circle"></i>
 											Détails
-										</button>
-									</a>
-									@endHas
-									@hasPermission("materiels/domaines/edit")
-									<a href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">
-										<button class="btn btn-sm btn-outline-primary">Éditer</button>
-									</a>
-									@endHas
+										</a>
+										@endHas
+										@hasPermission("materiels/domaines/edit")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.domaines.edit", [$domaine]) }}">
+											Éditer
+										</a>
+										@endHas
+									</div>
 								</td>
 							</tr>
 						@endforeach

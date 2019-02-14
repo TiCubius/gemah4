@@ -141,6 +141,7 @@
 									<td>{{ $eleve->date_naissance->format("d/m/Y") }}</td>
 									<td>
 										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.scolarites.eleves.show", [$eleve]) }}">
+											<i class="fas fa-info-circle"></i>
 											Détails
 										</a>
 									</td>

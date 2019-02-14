@@ -200,4 +200,12 @@
 
 	</script>
 
+
+	<script>
+
+		$(`#submit`).on(`click`, (e) => {
+			$(`#convention`).modal(`hide`)
+		})
+
+	</script>
 @endsection

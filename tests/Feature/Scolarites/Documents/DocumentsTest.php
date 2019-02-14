@@ -50,7 +50,7 @@ class DocumentsTest extends TestCase
 		$request->assertSee("Fichier");
 
 
-		$request->assertSee("Ajouter un document");
+		$request->assertSee("Ajouter");
 	}
 
 	/**

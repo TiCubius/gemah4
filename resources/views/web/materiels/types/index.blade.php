@@ -1,5 +1,4 @@
-@extends('web._includes._master')
-@php($title = "Gestion des types matériel")
+@extends('web._includes._master')@php($title = "Gestion des types matériel")
 
 @section('content')
 	<div class="row">
@@ -28,19 +27,19 @@
 								<td>{{ $type->domaine->libelle }}</td>
 								<td>{{ $type->libelle }}</td>
 								<td>
-									@hasPermission("materiels/types/show")
-									<a href="{{ route("web.materiels.types.show", [$type]) }}">
-										<button class="btn btn-sm btn-outline-primary">
+									<div class="btn-group">
+										@hasPermission("materiels/types/show")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.types.show", [$type]) }}">
 											<i class="fas fa-info-circle"></i>
 											Détails
-										</button>
-									</a>
-									@endHas
-									@hasPermission("materiels/types/edit")
-									<a href="{{ route("web.materiels.types.edit", [$type]) }}">
-										<button class="btn btn-sm btn-outline-primary">Éditer</button>
-									</a>
-									@endHas
+										</a>
+										@endHas
+										@hasPermission("materiels/types/edit")
+										<a class="btn btn-sm btn-outline-primary" href="{{ route("web.materiels.types.edit", [$type]) }}">
+											Éditer
+										</a>
+										@endHas
+									</div>
 								</td>
 							</tr>
 						@endforeach

@@ -1,5 +1,6 @@
 @extends("docs._includes._master")
 @php($title = "Gestion des images")
+
 @section("content")
 
 	<div id="content">
@@ -33,7 +34,7 @@
 						@foreach($images as $image)
 							<tr>
 								<td><img src="storage/{{ $image->path }}" class="image"></td>
-								<td>{{ asset("storage/{$image->path}") }}</td>
+								<td>{{ "/storage/{$image->path}" }}</td>
 								<td>
 									@hasPermission("documentations/images/destroy")
 									<form action="{{ route("images.destroy", [$image]) }}" method="POST">

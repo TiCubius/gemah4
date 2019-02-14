@@ -51,7 +51,7 @@ class Materiel extends Model
 		"date_pret",
 		"date_service_fait",
 		"date_fin_garantie",
-		"acheter_pour",
+		"achat_pour",
 	];
 
 

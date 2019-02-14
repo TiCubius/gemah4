@@ -177,6 +177,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::get("/materiels/export", "Statistiques\StatistiquesController@materielsExport")->name("materiels.exports");
 
 		Route::get("/decisions", "Statistiques\StatistiquesController@decisions")->name("decisions");
+
+		Route::get("/totalite", "Statistiques\StatistiquesController@totalite")->name("totalite");
+        Route::get("/totalite/export", "Statistiques\StatistiquesController@totaliteExport")->name("totalite.exports");
 	});
 
 

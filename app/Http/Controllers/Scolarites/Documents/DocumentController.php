@@ -81,7 +81,7 @@ class DocumentController extends Controller
 	{
 		$request->validate([
 			'nom'              => 'required|max:191',
-			'description'      => 'required|max:191',
+			'description'      => 'nullable|max:191',
 			'type_document_id' => 'required|exists:types_documents,id',
 			'file'             => 'required',
 		]);
@@ -133,7 +133,7 @@ class DocumentController extends Controller
 
 		$request->validate([
 			'nom'         => 'required|max:191',
-			'description' => 'required|max:191',
+			'description' => 'nullable|max:191',
 			'file'        => 'nullable',
 		]);
 

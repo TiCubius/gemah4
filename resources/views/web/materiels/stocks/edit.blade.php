@@ -103,7 +103,7 @@
 							@endcomponent
 
 
-							@component("web._includes.components.input", ["name" => "prix_ttc", "type" => "number", "placeholder" => "Ex: 499.99", "value" => $stock->prix_ttc])
+							@component("web._includes.components.input", ["name" => "prix_ttc", "type" => "number", "placeholder" => "Ex: 499.99", "value" => $stock->prix_ttc, "other" => "step=0.01"])
 								Prix TTC (€)
 							@endcomponent
 

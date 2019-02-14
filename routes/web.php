@@ -15,9 +15,15 @@ Route::get('/connexion', 'ConnexionController@index')->name('web.connexion');
 Route::post('/connexion', 'ConnexionController@login');
 Route::get('/deconnexion', 'ConnexionController@logout')->name('web.logout');
 
+/**
+ * ROUTES: Nécessitent une authentification
+ */
 Route::group(["middleware" => ["authentification", "permissions"]], function () {
 	Route::get('/', 'GemahController@index')->name('web.index');
 
+	/**
+	 * ROUTES: Scolarités
+	 */
 	Route::group(["prefix" => "/scolarites", "as" => "web.scolarites."], function () {
 		Route::resource("/", "Scolarites\ScolariteController")->only("index");
 
@@ -28,6 +34,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 			'eleves' => 'eleve',
 		]);
 
+		/**
+		 * ROUTES: Élèves
+		 */
 		Route::group(["prefix" => "/eleves/{eleve}", "as" => "eleves."], function () {
 			Route::get("export", "Scolarites\EleveController@export")->name("export");
 
@@ -59,6 +68,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("enseignants", "Scolarites\EnseignantController");
 		Route::resource("etablissements", "Scolarites\EtablissementController");
 
+		/**
+		 * ROUTES: Affectations
+		 */
 		Route::group(["prefix" => "eleves/{eleve}/affectations", "as" => "eleves.affectations."], function () {
 			//Affectation d'un établissement
 			Route::group(["prefix" => "etablissements", "as" => "etablissements."], function () {
@@ -85,10 +97,16 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		});
 	});
 
+	/**
+	 * ROUTES: Responsables
+	 */
 	Route::group(["prefix" => "/", "as" => "web."], function () {
 		Route::resource("responsables", "Responsables\ResponsableController");
 	});
 
+	/**
+	 * ROUTES: Matériels
+	 */
 	Route::group(["prefix" => "/materiels", "as" => "web.materiels."], function () {
 		Route::resource("/", "Materiels\MaterielController")->only("index");
 
@@ -97,6 +115,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("stocks", "Materiels\StockMaterielController");
 	});
 
+	/**
+	 * ROUTES: Administration
+	 */
 	Route::group(["prefix" => "/administrations", "as" => "web.administrations."], function () {
 		Route::resource("/", "Administrations\AdministrationController")->only("index");
 
@@ -132,6 +153,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::resource("historiques", "Administrations\HistoriqueController")->only(["index", "show"]);
 	});
 
+	/**
+	 * ROUTES: Conventions
+	 */
 	Route::group(["prefix" => "/conventions", "as" => "web.conventions."], function () {
 		Route::get("/", "Responsables\ConventionController@index")->name("index");
 		Route::patch("/", "Responsables\ConventionController@update")->name("update");
@@ -140,6 +164,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 		Route::get("impressions_toutes_conventions", "Responsables\ConventionController@impressionsToutesConventions")->name("impressions_toutes_conventions");
 	});
 
+	/**
+	 * ROUTES: Statistiques
+	 */
 	Route::group(["prefix" => "/statistiques", "as" => "web.statistiques."], function () {
 		Route::get("/", "Statistiques\StatistiquesController@index")->name("index");
 
@@ -160,4 +187,9 @@ Route::group(["middleware" => ["authentification", "permissions"]], function () 
 	Route::resource("documentations", "Documentations\DocumentationController");
 	Route::resource("images", "Documentations\ImageController");
 
+
 });
+
+Route::get("/about", function () {
+	return view("web.about");
+})->name("about");

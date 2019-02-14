@@ -4,7 +4,7 @@
 	<div class="row">
 
 		<div class="col-12 text-center">
-			<h2>Bienvenue sur <strong>GEMAH</strong> <span class="text-muted small">3.0</span></h2>
+			<h2>Bienvenue sur <strong>GEMAH</strong> <a href="{{ route("about") }}"><span class="text-muted small">3.0</span></a></h2>
 			<h5>L'application de <strong>ge</strong>stion de prêt de <strong>ma</strong>tériel aux enfants en situation de <strong>h</strong>andicap.</h5>
 			<hr class="w-100">
 		</div>

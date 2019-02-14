@@ -1,4 +1,4 @@
-<form id="modal" class="modal fade" action="{{ route("$route", ($id ?? null)) }}" method="{{ $method ?? "POST" }}" tabindex="-1">
+<form id="{{ $modalId ?? "modal" }}" class="modal fade" action="{{ route("$route", ($id ?? null)) }}" method="{{ $method ?? "POST" }}" tabindex="-1">
 	@empty($method)
 	{{ csrf_field() }}
 	@endempty
@@ -16,7 +16,7 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-between">
 				<button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-				<button type="submit" class="btn btn-primary">{{ $action ?? "Continuer" }}</button>
+				<button type="submit" class="btn btn-primary" @isset($tab) formtarget="_blank" @endisset>{{ $action ?? "Continuer" }}</button>
 			</div>
 		</div>
 	</div>

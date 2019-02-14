@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Statistiques;
 
+use App\Exports\DatabaseExport;
 use App\Exports\EleveExport;
 use App\Exports\MaterielExport;
 use App\Filters\EleveFilters;
@@ -17,6 +18,7 @@ use App\Models\Materiel;
 use App\Models\TypeDecision;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -114,7 +116,7 @@ class StatistiquesController extends Controller
 
 
 	/**
-	 * Recherche d'informations sur les décisions
+	 * GET - Recherche d'informations sur les décisions
 	 *
 	 * @param Request $request
 	 * @return View
@@ -136,4 +138,23 @@ class StatistiquesController extends Controller
 
 		return view("web.statistiques.decisions", compact("date", "eleves"));
 	}
+
+    /**
+     * GET - Exporte la donnée selectionné
+     *
+     * @param Request $request
+     * @return BinaryFileResponse
+     */
+    public function totaliteExport(Request $request): BinaryFileResponse
+    {
+        $alltable = [];
+        $tables = DB::select('SHOW TABLES');
+        $databaseName = "Tables_in_" . env("DB_DATABASE");
+        foreach ($tables as $table)
+        {
+            $alltable[$table->$databaseName] = DB::table($table->Tables_in_gemah)->get();
+        }
+
+        return Excel::download(new DatabaseExport(collect($alltable)), "database.xlsx");
+    }
 }

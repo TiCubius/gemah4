@@ -182,6 +182,8 @@ class PermissionsSeeder extends Seeder
 		"statistiques/materiels"       => "Peut afficher la liste des matériels",
 		"statistiques/materielsExport" => "Peut exporter la liste des matériels",
 		"statistiques/decisions"       => "Peut afficher la liste des décisions expirées",
+        "statistiques/totalite"        => "Peut afficher la liste des tables de la base de donnée",
+        "statistiques/totaliteExport"  => "Peut exporter toute une table de la base de donnée",
 
 
 		"documentations/categories/index"   => "Peut afficher le menu des catégories de la documentation",

@@ -284,6 +284,7 @@
 					{"orderable": false, "targets": 3},
 				],
 				"pageLength": 50,
+				"order": []
 			})
 		})
 	</script>

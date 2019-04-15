@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Récupération - {{ "{$eleve->nom} {$eleve->prenom}" }}</title>
     <meta charset="UTF-8">
     @include("pdf._includes.style")
 </head>
@@ -29,7 +30,7 @@
             <tr>
                 <th>Type</th>
                 <th>Marque</th>
-                <th>N° de Série</th>
+                <th>N° de Série / Produit</th>
             </tr>
             </thead>
             <tbody>
@@ -37,7 +38,13 @@
                 <tr>
                     <td>{{ $materiel->type->libelle }}</td>
                     <td>{{ $materiel->marque }}</td>
-                    <td>{{ $materiel->numero_serie }}</td>
+                    <td>
+                        @if(!empty($materiel->cle_produit))
+                            {{ $materiel->cle_produit }}
+                        @else
+                            {{ $materiel->numero_serie }}
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>

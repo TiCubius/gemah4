@@ -41,8 +41,6 @@
 				<b>Un anti-virus est déjà installé sur cette machine</b>
 
 				<p>
-					Il se nomme TrendMicro Officescan.
-
 					Vous ne devez donc surtout pas en installer un autre (sinon votre machine risque de tomber en panne).
 
 					Il faut le mettre à jour régulièrement (au moins une fois par semaine). Pour cela il suffit de connecter l’ordinateur à internet et l’anti-virus se mettra à jour tout seul.

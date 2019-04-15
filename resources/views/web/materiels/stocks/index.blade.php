@@ -190,7 +190,7 @@
 												<th class="align-middle">Type</th>
 												<th class="align-middle">Marque</th>
 												<th class="align-middle">Modèle</th>
-												<th class="align-middle">Numéro de série</th>
+												<th class="align-middle">Numéro de série / produit</th>
 												<th class="align-middle">Prix TTC</th>
 												<th class="align-middle">Acheté pour</th>
 												<th class="align-middle">Affecté à</th>
@@ -202,11 +202,17 @@
 										<tbody>
 											@foreach($materiels as $materiel)
 												<tr>
-													<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etatAdministratif->libelle }}" style="width: 57px; background:{{ $materiel->etatAdministratif->couleur }}"></td>
+													<td class="couleur" data-toggle="tooltip" data-placement="bottom" title="{{ $materiel->etatAdministratif->libelle }}" style="width: 57px; background:{{ $materiel->etatAdministratif->couleur }}">{{ $materiel->etatAdministratif->libelle }}</td>
 													<td>{{ $materiel->type->libelle }}</td>
 													<td>{{ $materiel->marque }}</td>
 													<td>{{ $materiel->modele }}</td>
-													<td>{{ $materiel->numero_serie }}</td>
+													<td>
+														@if(!empty($materiel->cle_produit))
+															{{ $materiel->cle_produit }}
+														@else
+															{{ $materiel->numero_serie }}
+														@endif
+													</td>
 													<td>{{ $materiel->prix_ttc }}</td>
 													<td>{{ $materiel->achat_pour }}</td>
 													@isset($materiel->eleve)
@@ -215,7 +221,6 @@
 															<a href="{{ route("web.scolarites.eleves.show", [$materiel->eleve]) }}">{{ "{$materiel->eleve->nom} {$materiel->eleve->prenom}" }}</a>
 															@endHas
 														</td>
-
 													@else
 														<td></td>
 													@endisset

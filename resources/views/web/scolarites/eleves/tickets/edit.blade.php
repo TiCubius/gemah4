@@ -13,7 +13,7 @@
 				{{ csrf_field() }}
 				{{ method_field("PATCH") }}
 
-				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex : Appel téléhponique", "value" => $ticket->libelle])
+				@component("web._includes.components.input", ["name" => "libelle", "placeholder" => "Ex : Appel téléphonique", "value" => $ticket->libelle])
 					Libellé
 				@endcomponent
 

@@ -183,7 +183,7 @@
 									<th>Type</th>
 									<th>Marque</th>
 									<th>Modèle</th>
-									<th>Numéro de série</th>
+									<th>Numéro de série / produit</th>
 									<th>Prêt le</th>
 									<th class="text-center" style="width: 185px;">Actions</th>
 								</tr>
@@ -195,7 +195,13 @@
 										<td>{{ $materiel->type->libelle }}</td>
 										<td>{{ $materiel->marque }}</td>
 										<td>{{ $materiel->modele }}</td>
-										<td>{{ $materiel->numero_serie }}</td>
+										<td>
+											@if(!empty($materiel->cle_produit))
+												{{ $materiel->cle_produit }}
+											@else
+												{{ $materiel->numero_serie }}
+											@endif
+										</td>
 										<td>{{ Carbon\Carbon::parse($materiel->updated_at)->format('d/m/Y') }}</td>
 										<td>
 											<div class="btn-group">

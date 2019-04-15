@@ -49,7 +49,7 @@
 				@endcomponent
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "telephone", "placeholder" => "Ex: 04 77 81 41 00", "value" => $responsable->telephone])
-					Téléhpone
+					Téléphone
 				@endcomponent
 
 				@component("web._includes.components.input", ["optional" => true, "name" => "adresse", "placeholder" => "Ex: 11 rue des Docteurs Charcot", "value" => $responsable->adresse])

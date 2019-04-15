@@ -1,6 +1,6 @@
 <html lang="fr">
 <head>
-    <title>Consignes d'utilisation du materiel</title>
+    <title>Conventions @if(count($eleves) === 1) {{ "- {$eleves[0]->nom} {$eleves[0]->prenom}" }} @endif</title>
     <meta charset="UTF-8">
     @include("pdf._includes.style")
 </head>
@@ -124,7 +124,7 @@
                         <th>Type</th>
                         <th>Marque</th>
                         <th>Modèle</th>
-                        <th>N° de Série</th>
+                        <th>N° de Série / Produit</th>
                     </tr>
                     </thead>
                     <tbody>

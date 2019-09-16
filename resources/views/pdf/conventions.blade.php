@@ -188,7 +188,7 @@
 
 								Pour l’inspecteur d’académie, directeur académique {{ $parametres["conventions/direction/localisation"] }} <br>
 								Par délégation <br><br>
-								Le secrétaire général <br>
+								La sécrétaire générale <br>
 								{{ $parametres["conventions/secretaire"] }}
 							</p>
 						</div>
